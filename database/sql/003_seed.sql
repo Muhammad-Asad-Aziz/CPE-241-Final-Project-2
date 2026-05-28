@@ -135,6 +135,26 @@ INSERT INTO transfer (transfer_date, player_id, source_chest_id, destination_che
 INSERT INTO transfer (transfer_date, player_id, source_chest_id, destination_chest_id) VALUES ('2026-02-22 17:10:09', 14, 13, 14) ON CONFLICT DO NOTHING;
 INSERT INTO transfer (transfer_date, player_id, source_chest_id, destination_chest_id) VALUES ('2026-03-22 18:05:01', 15, null, 15) ON CONFLICT DO NOTHING;
 
+-- Supanut Sopha 67070503441
+-- Populating crafting table
+INSERT INTO crafting (crafting_date, session_id, player_id, target_item_id, qty_wanted) VALUES ('2026-03-22 18:05:01', 1, 1, null, 1) ON CONFLICT DO NOTHING;
+INSERT INTO crafting (crafting_date, session_id, player_id, target_item_id, qty_wanted) VALUES ('2026-03-22 18:15:01', 2, 2, null, 2) ON CONFLICT DO NOTHING;
+INSERT INTO crafting (crafting_date, session_id, player_id, target_item_id, qty_wanted) VALUES ('2026-03-22 18:25:01', 3, 3, null, 3) ON CONFLICT DO NOTHING;
+INSERT INTO crafting (crafting_date, session_id, player_id, target_item_id, qty_wanted) VALUES ('2026-03-22 18:35:01', 4, 4, null, 4) ON CONFLICT DO NOTHING;
+INSERT INTO crafting (crafting_date, session_id, player_id, target_item_id, qty_wanted) VALUES ('2026-03-22 18:45:01', 5, 5, null, 5) ON CONFLICT DO NOTHING;
+INSERT INTO crafting (crafting_date, session_id, player_id, target_item_id, qty_wanted) VALUES ('2026-03-22 18:55:01', 6, 6, null, 6) ON CONFLICT DO NOTHING;
+INSERT INTO crafting (crafting_date, session_id, player_id, target_item_id, qty_wanted) VALUES ('2026-03-22 19:05:01', 7, 7, null, 7) ON CONFLICT DO NOTHING;
+INSERT INTO crafting (crafting_date, session_id, player_id, target_item_id, qty_wanted) VALUES ('2026-03-22 19:15:01', 8, 8, null, 8) ON CONFLICT DO NOTHING;
+INSERT INTO crafting (crafting_date, session_id, player_id, target_item_id, qty_wanted) VALUES ('2026-03-22 19:25:01', 9, 9, null, 9) ON CONFLICT DO NOTHING;
+INSERT INTO crafting (crafting_date, session_id, player_id, target_item_id, qty_wanted) VALUES ('2026-03-22 19:35:01', 10, 10, null, 10) ON CONFLICT DO NOTHING;
+INSERT INTO crafting (crafting_date, session_id, player_id, target_item_id, qty_wanted) VALUES ('2026-03-22 19:45:01', 11, 11, null, 11) ON CONFLICT DO NOTHING;
+INSERT INTO crafting (crafting_date, session_id, player_id, target_item_id, qty_wanted) VALUES ('2026-03-22 19:55:01', 12, 12, null, 12) ON CONFLICT DO NOTHING;
+INSERT INTO crafting (crafting_date, session_id, player_id, target_item_id, qty_wanted) VALUES ('2026-03-22 20:05:01', 13, 13, null, 13) ON CONFLICT DO NOTHING;
+INSERT INTO crafting (crafting_date, session_id, player_id, target_item_id, qty_wanted) VALUES ('2026-03-22 20:15:01', 14, 14, null, 14) ON CONFLICT DO NOTHING;
+INSERT INTO crafting (crafting_date, session_id, player_id, target_item_id, qty_wanted) VALUES ('2026-03-22 20:25:01', 15, 15, null, 15) ON CONFLICT DO NOTHING;
+
+
+
 -- (GUIDE) #1.2.1 POPULATE SIMPLE FORMS HERE
 
 
@@ -159,6 +179,23 @@ INSERT INTO transfer_line_item (transfer_id, transfer_line_number, item_id, quan
 INSERT INTO transfer_line_item (transfer_id, transfer_line_number, item_id, quantity_transferred, destination_slot_number) VALUES (14, 1, 11, 64, 8) ON CONFLICT DO NOTHING;
 INSERT INTO transfer_line_item (transfer_id, transfer_line_number, item_id, quantity_transferred, destination_slot_number) VALUES (15, 1, 16, 10, 1) ON CONFLICT DO NOTHING;
 
+-- Populating table: crafting_line_item
+INSERT INTO crafting_line_item (crafting_id, crafting_line_number, session_id, ingredient_id, required_quantity, total_needed) VALUES (1, 1, 1, 12, 3, 2) ON CONFLICT DO NOTHING;
+INSERT INTO crafting_line_item (crafting_id, crafting_line_number, session_id, ingredient_id, required_quantity, total_needed) VALUES (2, 1, 2, 5, 1, 4) ON CONFLICT DO NOTHING;
+INSERT INTO crafting_line_item (crafting_id, crafting_line_number, session_id, ingredient_id, required_quantity, total_needed) VALUES (3, 1, 3, 8, 6, 1) ON CONFLICT DO NOTHING;
+INSERT INTO crafting_line_item (crafting_id, crafting_line_number, session_id, ingredient_id, required_quantity, total_needed) VALUES (4, 1, 4, 15, 2, 5) ON CONFLICT DO NOTHING;
+INSERT INTO crafting_line_item (crafting_id, crafting_line_number, session_id, ingredient_id, required_quantity, total_needed) VALUES (5, 1, 5, 2, 7, 3) ON CONFLICT DO NOTHING;
+INSERT INTO crafting_line_item (crafting_id, crafting_line_number, session_id, ingredient_id, required_quantity, total_needed) VALUES (6, 1, 6, 11, 4, 2) ON CONFLICT DO NOTHING;
+INSERT INTO crafting_line_item (crafting_id, crafting_line_number, session_id, ingredient_id, required_quantity, total_needed) VALUES (7, 1, 7, 3, 5, 1) ON CONFLICT DO NOTHING;
+INSERT INTO crafting_line_item (crafting_id, crafting_line_number, session_id, ingredient_id, required_quantity, total_needed) VALUES (8, 1, 8, 16, 2, 4) ON CONFLICT DO NOTHING;
+INSERT INTO crafting_line_item (crafting_id, crafting_line_number, session_id, ingredient_id, required_quantity, total_needed) VALUES (9, 1, 9, 7, 1, 3) ON CONFLICT DO NOTHING;
+INSERT INTO crafting_line_item (crafting_id, crafting_line_number, session_id, ingredient_id, required_quantity, total_needed) VALUES (10, 1, 10, 14, 6, 5) ON CONFLICT DO NOTHING;
+INSERT INTO crafting_line_item (crafting_id, crafting_line_number, session_id, ingredient_id, required_quantity, total_needed) VALUES (11, 1, 11, 9, 3, 2) ON CONFLICT DO NOTHING;
+INSERT INTO crafting_line_item (crafting_id, crafting_line_number, session_id, ingredient_id, required_quantity, total_needed) VALUES (12, 1, 12, 4, 7, 1) ON CONFLICT DO NOTHING;
+INSERT INTO crafting_line_item (crafting_id, crafting_line_number, session_id, ingredient_id, required_quantity, total_needed) VALUES (13, 1, 13, 1, 5, 4) ON CONFLICT DO NOTHING;
+INSERT INTO crafting_line_item (crafting_id, crafting_line_number, session_id, ingredient_id, required_quantity, total_needed) VALUES (14, 1, 14, 10, 2, 3) ON CONFLICT DO NOTHING;
+INSERT INTO crafting_line_item (crafting_id, crafting_line_number, session_id, ingredient_id, required_quantity, total_needed) VALUES (15, 1, 15, 13, 4, 5) ON CONFLICT DO NOTHING;
+
 -- (GUIDE) #1.2.2 POPULATE LINE ITEMS HERE
 
 -- update sequences to max id (crutial when inserting explicit IDs)
@@ -170,6 +207,9 @@ SELECT setval(pg_get_serial_sequence('chest', 'id'), coalesce(max(id),0) + 1, fa
 SELECT setval(pg_get_serial_sequence('villager', 'id'), coalesce(max(id),0) + 1, false) FROM villager;
 SELECT setval(pg_get_serial_sequence('transfer', 'id'), coalesce(max(id),0) + 1, false) FROM transfer;
 SELECT setval(pg_get_serial_sequence('transfer_line_item', 'id'), coalesce(max(id),0) + 1, false) FROM transfer_line_item;
+
+SELECT setval(pg_get_serial_sequence('crafting', 'id'), coalesce(max(id),0) + 1, false) FROM crafting;
+SELECT setval(pg_get_serial_sequence('crafting_line_item', 'id'), coalesce(max(id),0) + 1, false) FROM crafting_line_item;
 
 -- (GUIDE) #1.2.3 ADD SELECT COMMAND FOR YOUR SIMPLE FORM AND LINE ITEM HERE (just copy and rename)
 -- SELECT setval(pg_get_serial_sequence('TABLE_NAME', 'id'), coalesce(max(id),0) + 1, false) FROM TABLE_NAME;

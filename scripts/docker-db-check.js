@@ -44,7 +44,7 @@ try {
   spawnSafe("docker", ["exec", name, "psql", "-U", "root", "-d", "craftless_db", "-c", "\\dt"], { cwd: root, stdio: "inherit" });
 } catch {}
 console.log("\n📈 Counts:");
-for (const t of ["item", "player", "villager", "\"transfer\"", "transfer_line_item"]) {
+for (const t of ["item", "player", "villager", "\"transfer\"", "transfer_line_item", "crafting", "crafting_line_item"]) {
   /* (GUIDE) #1.5 append your corresponding table name to the list */
   const r = spawnSafe("docker", ["exec", name, "psql", "-U", "root", "-d", "craftless_db", "-t", "-c", "SELECT COUNT(*) FROM " + t + ";"], { cwd: root, encoding: "utf8", stdio: ["pipe", "pipe", "pipe"] });
   const n = (r.stdout && r.stdout.toString().trim()) || "0";

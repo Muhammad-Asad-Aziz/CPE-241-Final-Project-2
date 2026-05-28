@@ -20,6 +20,9 @@ import RecipePage from "./pages/recipes/RecipePage.jsx";
 import EnchantmentList from "./pages/enchantments/EnchantmentList.jsx";
 import EnchantmentPage from "./pages/enchantments/EnchantmentPage.jsx";
 import Reports from "./pages/reports/Reports.jsx";
+
+import CraftingsList from "./pages/craftings/CraftingsList.jsx"; //Supanut
+import CraftingsPage from "./pages/craftings/CraftingsPage.jsx"; //Crafting
 // (GUIDE) #3.9.1 ADD YOUR WORK HERE
 
 import { http } from "./api/http.js";
@@ -80,6 +83,21 @@ function Sidebar() {
           <svg style={{ marginRight: 10 }} width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="16 3 21 3 21 8"></polyline><line x1="4" y1="20" x2="21" y2="3"></line><polyline points="21 16 21 21 16 21"></polyline><line x1="15" y1="15" x2="21" y2="21"></line><line x1="4" y1="4" x2="9" y2="9"></line></svg>
           Transfers
         </NavLink>
+
+        {/* Crafting (Primary Function) */}
+<NavLink to="/craftings" className={getLinkClass}>
+          <svg style={{ marginRight: 10 }} width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <rect x="2" y="12" width="20" height="3" rx="0.5" />
+            <line x1="5" y1="15" x2="5" y2="22" />
+            <line x1="19" y1="15" x2="19" y2="22" />
+            <line x1="2" y1="19" x2="22" y2="19" />
+            <path d="M15 4h-4v4h4z" />
+            <line x1="13" y1="8" x2="13" y2="12" />
+            <path d="M6 12V9h3v3" />
+          </svg>
+          Crafting
+        </NavLink>
+
         {/* (GUIDE) #3.9.2 ADD YOUR WORK HERE */}
 
         {/* Players */}
@@ -133,6 +151,18 @@ function Sidebar() {
           <NavLink to="/reports/chest-utilization" className={getSubLinkClass}>
             Capacity Utilization
           </NavLink>
+
+        
+          <NavLink to="/reports/crafting-history" className={getSubLinkClass}>
+            Crafting History
+          </NavLink>
+          <NavLink to="/reports/recipe-requirements" className={getSubLinkClass}>
+          Recipe Requirements
+          </NavLink>
+          <NavLink to="/reports/top-crafted"className={getSubLinkClass}>
+          Top Crafted Items
+          </NavLink>
+
         </SubMenu>
       </nav>
     </aside>
@@ -275,6 +305,17 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         <Route path="/reports/chest-inventory" element={<Layout><Reports type="chest-inventory" /></Layout>} />
         <Route path="/reports/daily-transfers" element={<Layout><Reports type="daily-transfers" /></Layout>} />
         <Route path="/reports/chest-utilization" element={<Layout><Reports type="chest-utilization" /></Layout>} />
+
+        <Route path="/reports/crafting-history" element={<Layout><Reports type="crafting-history" /></Layout>} />
+        <Route path="/reports/recipe-requirements" element={<Layout><Reports type="recipe-requirements" /></Layout>} />
+        <Route path="/reports/top-crafted" element={<Layout><Reports type="top-crafted" /></Layout>} />
+
+        {/* Craftings */}
+        <Route path="/craftings" element={<Layout><CraftingsList /></Layout>} />
+        <Route path="/craftings/new" element={<Layout><CraftingsPage mode="create" /></Layout>} />
+        <Route path="/craftings/:id" element={<Layout><CraftingsPage mode="view" /></Layout>} />
+        <Route path="/craftings/:id/edit" element={<Layout><CraftingsPage mode="edit" /></Layout>} />
+
 
         {/* (GUIDE) #3.9.3 ADD YOUR ROUTES HERE*/}
       </Routes>

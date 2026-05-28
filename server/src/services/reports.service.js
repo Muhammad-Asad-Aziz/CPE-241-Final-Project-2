@@ -100,5 +100,56 @@ export async function getChestUtilization() {
   );
   return { data: rows };
 }
+// Report by Supanut Sopha Crafting Simple 1:  List all crafting sessions made by Player Name: ___.
+export async function getPlayerCraftingHistory({ playerName = "" }) {
+    const { rows } = await pool.query(
+        `SELECT c.crafting_date AS "Craft_Date", 
+                c.id AS "Session_ID", 
+                p.username AS "Player_Name", 
+                i.item_name AS "Target_Item", 
+                c.qty_wanted AS "Qty_Wanted"
+         FROM crafting c
+         JOIN player p ON c.player_id = p.id
+         LEFT JOIN item i ON c.target_item_id = i.id
+         WHERE p.username ILIKE $1
+         ORDER BY c.crafting_date DESC`,
+        [`%${playerName}%`]
+    );
+    return rows;
+}
+// Report by Supanut Sopha Crafting Simple 2:  Print Recipe requirements for Item Name: ___.
+export async function getRecipeRequirements({ itemName = "" }) {
+    const { rows } = await pool.query(
+        `SELECT t.item_name AS "Target_Item", 
+                i.item_name AS "Ingredient_Needed", 
+                r.amount_needed AS "Required_Qty"
+         FROM recipe r
+         JOIN item t ON r.target_item_id = t.id
+         JOIN item i ON r.ingredient_item_id = i.id
+         WHERE t.item_name ILIKE $1`,
+        [`%${itemName}%`]
+    );
+    return rows;
+}
+
+// Report by Supanut Sopha Crafting Analysis: Show Top 5 Most Crafted Items in the server from Date: ___ to ___.
+export async function getTopCraftedItems({ fromDate, toDate }) {
+    const from = fromDate || '2000-01-01';
+    const to = toDate || '2100-12-31';
+
+    const { rows } = await pool.query(
+        `SELECT i.item_name AS "Target_Item", 
+                i.item_type AS "Item_Type", 
+                SUM(c.qty_wanted) AS "Total_Quantity_Crafted"
+         FROM crafting c
+         JOIN item i ON c.target_item_id = i.id
+         WHERE c.crafting_date >= $1 AND c.crafting_date <= $2
+         GROUP BY i.item_name, i.item_type
+         ORDER BY "Total_Quantity_Crafted" DESC
+         LIMIT 5`,
+        [from, to]
+    );
+    return rows;
+}
 
 // (GUIDE) #3.3 ADD YOUR REPORTS HERE

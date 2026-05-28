@@ -50,9 +50,43 @@ const REPORT_CONFIG = {
       { key: "total_capacity", label: "Max Capacity (Slots)", align: "right" },
       { key: "utilization_percent", label: "Utilization (%)", align: "right", style: { fontWeight: 600, color: "#ef4444" }, render: (v) => `${v}%` }
     ]
+  },
+
+  "crafting-history": {
+    title: "Player Crafting History",
+    subtitle: "Simple: List all crafting sessions made by a specific Player.",
+    emptyMessage: "No crafting history found for this player.",
+    getColumns: () => [
+      { key: "Craft_Date", label: "Date", render: (v) => formatDate(v) },
+      { key: "Session_ID", label: "Session ID", render: (v) => `CRF-${v}` },
+      { key: "Player_Name", label: "Player Name", render: (v) => <span className="font-bold">{v}</span> },
+      { key: "Target_Item", label: "Target Item", render: (v) => <span style={{ color: "var(--primary)", fontWeight: 600 }}>{v}</span> },
+      { key: "Qty_Wanted", label: "Qty Wanted", align: "right" }
+    ]
+  },
+  "recipe-requirements": {
+    title: "Recipe Requirements",
+    subtitle: "Simple: Print Recipe requirements for a specific Item Name.",
+    emptyMessage: "No recipe found for this item.",
+    getColumns: () => [
+      { key: "Target_Item", label: "Target Item", render: (v) => <span className="font-bold">{v}</span> },
+      { key: "Ingredient_Needed", label: "Ingredient Needed" },
+      { key: "Required_Qty", label: "Required Quantity", align: "right", style: { color: "var(--primary)", fontWeight: "bold" } }
+    ]
+  },
+  "top-crafted": {
+    title: "Top 5 Most Crafted Items",
+    subtitle: "Analysis: Show Top 5 Most Crafted Items in the server within a date range.",
+    emptyMessage: "No crafting records found in this date range.",
+    getColumns: () => [
+      { key: "Target_Item", label: "Item Name", render: (v) => <span className="font-bold">{v}</span> },
+      { key: "Item_Type", label: "Item Type" },
+      { key: "Total_Quantity_Crafted", label: "Total Crafted", align: "right", style: { color: "#ef4444", fontWeight: "bold" } }
+    ]
   }
-  // (GUIDE) #3.7 ADD YOUR REPORT
 };
+  // (GUIDE) #3.7 ADD YOUR REPORT
+
 
 export default function Reports({ type = "chest-inventory" }) {
   const [data, setData] = React.useState([]);

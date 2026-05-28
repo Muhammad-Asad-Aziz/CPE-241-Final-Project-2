@@ -11,11 +11,33 @@ const REPORT_ENDPOINTS = {
   "daily-transfers": "/api/reports/daily-transfers",
   "chest-utilization": "/api/reports/chest-utilization",
 };
+
+export async function getPlayerCraftingHistory(params) {
+    const query = new URLSearchParams(params).toString();
+    const res = await http(`/api/reports/crafting-history?${query}`);
+    return unwrap(res);
+}
+
+export async function getRecipeRequirements(params) {
+    const query = new URLSearchParams(params).toString();
+    const res = await http(`/api/reports/recipe-requirements?${query}`);
+    return unwrap(res);
+}
+
+export async function getTopCraftedItems(params) {
+    const query = new URLSearchParams(params).toString();
+    const res = await http(`/api/reports/top-crafted?${query}`);
+    return unwrap(res);
+}
+
 // (GUIDE) #3.6 ADD YOUR REPORTS HERE
 
 export async function getReportData(type, params = {}) {
   const path = REPORT_ENDPOINTS[type] || REPORT_ENDPOINTS["chest-inventory"];
-  
+
+    if (type === "crafting-history") return getPlayerCraftingHistory(params);
+    if (type === "recipe-requirements") return getRecipeRequirements(params);
+    if (type === "top-crafted") return getTopCraftedItems(params);
   // Clean empty params
   const qs = new URLSearchParams();
   for (const [key, value] of Object.entries(params)) {

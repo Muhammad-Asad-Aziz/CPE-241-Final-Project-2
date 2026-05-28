@@ -63,6 +63,17 @@ create table if not exists "transfer"(
   destination_chest_id bigint null
 );
 
+--(Supanut Sopha 67070503441)
+
+CREATE TABLE IF NOT EXISTS crafting (
+    id SERIAL PRIMARY KEY,
+    crafting_date TIMESTAMP,
+    session_id INTEGER, 
+    player_id INTEGER REFERENCES player(id),
+    target_item_id INTEGER REFERENCES item(id),
+    qty_wanted INTEGER
+);
+
 -- (GUIDE) #1.1.3 ADD TABLES HERE
 
 -- Line Items
@@ -78,4 +89,14 @@ create table if not exists transfer_line_item(
   destination_slot_number bigint null
 );
 
+--(supanut sopha 67070503441)
+CREATE TABLE IF NOT EXISTS crafting_line_item (
+    id SERIAL PRIMARY KEY,
+    crafting_id INTEGER REFERENCES crafting(id) ON DELETE CASCADE,
+    crafting_line_number INTEGER,
+    session_id INTEGER,
+    ingredient_id INTEGER REFERENCES item(id), 
+    required_quantity INTEGER,
+    total_needed INTEGER
+);
 -- (GUIDE) #1.1.4 ADD LINE ITEMS HERE
