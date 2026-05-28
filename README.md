@@ -103,11 +103,10 @@
 
 **3.8** Go to `client/src/pages/reports/filters/ReportFilters.jsx` and add your report's dropdowns/date filters.
 
----
-
-shoo juniors, no free points here.
-
 **3.9** Go to `client/src/main.jsx` (The Router)
+
+---
+shoo juniors, no free points here.
 * **3.9.1** Import the 2 pages you created near the top of the file.
 * **3.9.2** Add your page link to the sidebar in the `Sidebar` function, somewhere inside `<nav className="sidebar-nav">`.
 * **3.9.3** Add your frontend routes near the bottom of the code inside `ReactDOM.createRoot...` under the `<Routes>` section.
