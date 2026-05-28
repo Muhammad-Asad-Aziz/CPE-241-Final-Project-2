@@ -1,0 +1,125 @@
+# (GUIDE) #2.5 DO A COMBINATION OF GET, POST, PUT, and DELETE
+# TESTED USING THE REST CLIENT EXTENSION VIA VS CODE
+@baseUrl = http://localhost:4000/api
+
+# PLAYERS API TESTS
+
+### 1. Get all players
+GET {{baseUrl}}/players
+
+### 2. Get a specific player (Assuming ID 1 is Steve)
+GET {{baseUrl}}/players/1
+
+### 3. Create a new player
+POST http://localhost:4000/api/players
+Content-Type: application/json
+
+{
+  "username": "AwesomeMiner99",
+  "current_xp_level": 12,
+  "health_points": 20
+}
+
+### 4. Update a Player (Let's give Steve more XP and change his name)
+# Assuming Steve is ID 1
+PUT {{baseUrl}}/players/1
+Content-Type: application/json
+
+{
+  "username": "SteveTheGreat",
+  "current_xp_level": 100,
+  "health_points": 20
+}
+
+### 5. Delete the Player we just created earlier
+# (AwesomeMiner99 should be ID 16 if the POST request ran once)
+DELETE {{baseUrl}}/players/16
+
+
+# ITEMS API TESTS
+
+### 6. Get all items
+GET {{baseUrl}}/items
+
+### 7. Get a specific item (1 == oak log)
+GET {{baseUrl}}/items/1
+
+### 8. Create a new item
+POST {{baseUrl}}/items
+Content-Type: application/json
+
+{
+  "item_name": "Netherite Ingot",
+  "max_stack_size": 64,
+  "item_type": "Ingredient"
+}
+
+### 9. Update an Item (Let's change Oak Log stack size)
+PUT {{baseUrl}}/items/1
+Content-Type: application/json
+
+{
+  "item_name": "Oak Log",
+  "max_stack_size": 99,
+  "item_type": "Block",
+  "max_durability": null
+}
+
+### 10. Delete the Item we just created earlier
+# (Netherite Ingot should be ID 25 if the POST request ran once)
+DELETE {{baseUrl}}/items/25
+
+# TRANSFERS API TESTS
+
+### 11. Get all transfers
+GET {{baseUrl}}/transfers
+
+### 12. Get a specific transfer
+GET {{baseUrl}}/transfers/1
+
+### 13. Create a new transfer
+# (Move 10 Diamonds and 64 Sticks from Chest 1 to Chest 2 by Steve)
+POST {{baseUrl}}/transfers
+Content-Type: application/json
+
+{
+  "transfer_date": "2026-05-28T12:00:00Z",
+  "player_username": "SteveTheGreat",
+  "source_chest_id": 1,
+  "destination_chest_id": 2,
+  "line_items": [
+    {
+      "item_id": 7, 
+      "quantity_transferred": 10,
+      "destination_slot_number": 1
+    },
+    {
+      "item_id": 3,
+      "quantity_transferred": 64,
+      "destination_slot_number": 2
+    }
+  ]
+}
+
+### 14. Update a Transfer
+# (Modify Transfer 1. We will change the player to Alex, and replace the items so she is transferring 64 Gold Ingots)
+PUT {{baseUrl}}/transfers/1
+Content-Type: application/json
+
+{
+  "transfer_date": "2024-05-14T20:10:00Z",
+  "player_username": "Alex",
+  "source_chest_id": null,
+  "destination_chest_id": 1,
+  "line_items": [
+    {
+      "item_id": 15,
+      "quantity_transferred": 64,
+      "destination_slot_number": 1
+    }
+  ]
+}
+
+### 15. Delete the Transfer we just created earlier
+# (Latest one should be ID 16 if the POST request ran once)
+DELETE {{baseUrl}}/transfers/16
