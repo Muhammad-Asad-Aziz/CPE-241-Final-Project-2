@@ -1,5 +1,6 @@
 # Last Updated 29/5/2026 9:40 PM
 (29/5/2026 9:40 PM) Fixed trailing commas causing "Docker exec failed, trying alternative method" error.
+
 (29/5/2026 5:00 PM) Added an important note to section 1.4.1
 
 # Fix to Docker issues
