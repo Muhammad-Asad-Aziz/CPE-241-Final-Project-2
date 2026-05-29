@@ -153,7 +153,23 @@ INSERT INTO crafting (crafting_date, session_id, player_id, target_item_id, qty_
 INSERT INTO crafting (crafting_date, session_id, player_id, target_item_id, qty_wanted) VALUES ('2026-03-22 20:15:01', 14, 14, null, 14) ON CONFLICT DO NOTHING;
 INSERT INTO crafting (crafting_date, session_id, player_id, target_item_id, qty_wanted) VALUES ('2026-03-22 20:25:01', 15, 15, null, 15) ON CONFLICT DO NOTHING;
 
-
+--Iris French 67070503478
+--Populating table: mining
+INSERT INTO mining (mining_date, player_id, biome_name) VALUES ('2024-05-12 14:20:00', 1, 'Extreme Hills') ON CONFLICT DO NOTHING;
+INSERT INTO mining (mining_date, player_id, biome_name) VALUES ('2024-06-20 08:15:30', 2, 'Plains') ON CONFLICT DO NOTHING;
+INSERT INTO mining (mining_date, player_id, biome_name) VALUES ('2024-08-08 11:45:12', 3, 'Desert') ON CONFLICT DO NOTHING;
+INSERT INTO mining (mining_date, player_id, biome_name) VALUES ('2024-11-01 16:20:05', 4, 'Savanna') ON CONFLICT DO NOTHING;
+INSERT INTO mining (mining_date, player_id, biome_name) VALUES ('2025-01-15 09:05:55', 5, 'Taiga') ON CONFLICT DO NOTHING;
+INSERT INTO mining (mining_date, player_id, biome_name) VALUES ('2025-03-10 13:30:40', 6, 'Snowy Tundra') ON CONFLICT DO NOTHING;
+INSERT INTO mining (mining_date, player_id, biome_name) VALUES ('2025-05-25 18:11:11', 7, 'Swamp') ON CONFLICT DO NOTHING;
+INSERT INTO mining (mining_date, player_id, biome_name) VALUES ('2025-07-10 07:40:20', 8, 'Badlands') ON CONFLICT DO NOTHING;
+INSERT INTO mining (mining_date, player_id, biome_name) VALUES ('2025-08-28 22:55:34', 9, 'Jungle') ON CONFLICT DO NOTHING;
+INSERT INTO mining (mining_date, player_id, biome_name) VALUES ('2025-10-18 10:25:50', 10, 'Forest') ON CONFLICT DO NOTHING;
+INSERT INTO mining (mining_date, player_id, biome_name) VALUES ('2025-12-20 15:00:15', 11, 'Ocean') ON CONFLICT DO NOTHING;
+INSERT INTO mining (mining_date, player_id, biome_name) VALUES ('2026-01-12 08:18:44', 12, 'Nether Wastes') ON CONFLICT DO NOTHING;
+INSERT INTO mining (mining_date, player_id, biome_name) VALUES ('2026-02-05 19:33:21', 13, 'Basalt Deltas') ON CONFLICT DO NOTHING;
+INSERT INTO mining (mining_date, player_id, biome_name) VALUES ('2026-02-20 12:10:09', 14, 'Crimson Forest') ON CONFLICT DO NOTHING;
+INSERT INTO mining (mining_date, player_id, biome_name) VALUES ('2026-03-21 16:05:01', 15, 'Warped Forest') ON CONFLICT DO NOTHING;
 
 -- (GUIDE) #1.2.1 POPULATE SIMPLE FORMS HERE
 
@@ -196,6 +212,22 @@ INSERT INTO crafting_line_item (crafting_id, crafting_line_number, session_id, i
 INSERT INTO crafting_line_item (crafting_id, crafting_line_number, session_id, ingredient_id, required_quantity, total_needed) VALUES (14, 1, 14, 10, 2, 3) ON CONFLICT DO NOTHING;
 INSERT INTO crafting_line_item (crafting_id, crafting_line_number, session_id, ingredient_id, required_quantity, total_needed) VALUES (15, 1, 15, 13, 4, 5) ON CONFLICT DO NOTHING;
 
+--Populating table: mining_line_item
+INSERT INTO mining_line_item (mining_id, block_mined_id, quantity_mined, tool_used_id, durability_lost, tool_status) VALUES (1, 1, 4, 15, 8, 15, 'Usable') ON CONFLICT DO NOTHING;
+INSERT INTO mining_line_item (mining_id, block_mined_id, quantity_mined, tool_used_id, durability_lost, tool_status) VALUES (2, 2, 1, 64, 20, 64, 'Usable')ON CONFLICT DO NOTHING;
+INSERT INTO mining_line_item (mining_id, block_mined_id, quantity_mined, tool_used_id, durability_lost, tool_status) VALUES (3, 3, 18, 128, NULL, 0, 'Usable') ON CONFLICT DO NOTHING; 
+INSERT INTO mining_line_item (mining_id, block_mined_id, quantity_mined, tool_used_id, durability_lost, tool_status) VALUES (4, 4, 6, 30, 8, 30, 'Usable') ON CONFLICT DO NOTHING;  
+INSERT INTO mining_line_item (mining_id, block_mined_id, quantity_mined, tool_used_id, durability_lost, tool_status) VALUES (5, 5, 12, 50, 8, 50, 'Usable') ON CONFLICT DO NOTHING;  
+INSERT INTO mining_line_item (mining_id, block_mined_id, quantity_mined, tool_used_id, durability_lost, tool_status) VALUES (6, 6, 14, 20, 8, 20, 'Usable') ON CONFLICT DO NOTHING;
+INSERT INTO mining_line_item (mining_id, block_mined_id, quantity_mined, tool_used_id, durability_lost, tool_status) VALUES (7, 7, 12, 100, 8, 100, 'Usable') ON CONFLICT DO NOTHING;
+INSERT INTO mining_line_item (mining_id, block_mined_id, quantity_mined, tool_used_id, durability_lost, tool_status) VALUES (8, 8, 4, 25, 8, 25, 'Usable') ON CONFLICT DO NOTHING;
+INSERT INTO mining_line_item (mining_id, block_mined_id, quantity_mined, tool_used_id, durability_lost, tool_status) VALUES (9, 9, 1, 32, 20, 32, 'Usable') ON CONFLICT DO NOTHING;
+INSERT INTO mining_line_item (mining_id, block_mined_id, quantity_mined, tool_used_id, durability_lost, tool_status) VALUES (10, 10, 6, 45, 8, 45, 'Usable') ON CONFLICT DO NOTHING;
+INSERT INTO mining_line_item (mining_id, block_mined_id, quantity_mined, tool_used_id, durability_lost, tool_status) VALUES (11, 11, 18, 50, NULL, 0, 'Usable') ON CONFLICT DO NOTHING;
+INSERT INTO mining_line_item (mining_id, block_mined_id, quantity_mined, tool_used_id, durability_lost, tool_status) VALUES (12, 12, 14, 15, 8, 15, 'Usable') ON CONFLICT DO NOTHING;
+INSERT INTO mining_line_item (mining_id, block_mined_id, quantity_mined, tool_used_id, durability_lost, tool_status) VALUES (13, 13, 12, 100, 24, 100, 'Usable') ON CONFLICT DO NOTHING;
+INSERT INTO mining_line_item (mining_id, block_mined_id, quantity_mined, tool_used_id, durability_lost, tool_status) VALUES (14, 14, 1, 12, 20, 12, 'Usable') ON CONFLICT DO NOTHING;
+INSERT INTO mining_line_item (mining_id, block_mined_id, quantity_mined, tool_used_id, durability_lost, tool_status) VALUES (15, 15, 4, 22, 8, 22, 'Usable') ON CONFLICT DO NOTHING;
 -- (GUIDE) #1.2.2 POPULATE LINE ITEMS HERE
 
 -- update sequences to max id (crutial when inserting explicit IDs)
@@ -211,5 +243,7 @@ SELECT setval(pg_get_serial_sequence('transfer_line_item', 'id'), coalesce(max(i
 SELECT setval(pg_get_serial_sequence('crafting', 'id'), coalesce(max(id),0) + 1, false) FROM crafting;
 SELECT setval(pg_get_serial_sequence('crafting_line_item', 'id'), coalesce(max(id),0) + 1, false) FROM crafting_line_item;
 
+SELECT setval(pg_get_serial_sequence('mining', 'id'), coalesce(max(id),0) + 1, false) FROM mining;
+SELECT setval(pg_get_serial_sequence('mining_line_item', 'id'), coalesce(max(id),0) + 1, false) FROM mining_line_item;
 -- (GUIDE) #1.2.3 ADD SELECT COMMAND FOR YOUR SIMPLE FORM AND LINE ITEM HERE (just copy and rename)
 -- SELECT setval(pg_get_serial_sequence('TABLE_NAME', 'id'), coalesce(max(id),0) + 1, false) FROM TABLE_NAME;
