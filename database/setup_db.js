@@ -91,8 +91,8 @@ function getTableCounts(queryFn) {
     "  (select count(*) from chest),",
     "  (select count(*) from villager),",
     "  (select count(*) from \"transfer\"),",
-    "  (select count(*) from transfer_line_item)",
-    "  (select count(*) from crafting)",
+    "  (select count(*) from transfer_line_item),",
+    "  (select count(*) from crafting),",
     "  (select count(*) from crafting_line_item);" // ONLY THE LAST ITEM IN THE LIST CAN HAVE THE SEMI COLON + SHOULDN'T HAVE A COMMA
     /* (GUIDE) #1.4.1 ADD select count(*) statement for your corresponding table */
     /* (select count(*) from TABLE_NAME);", */
