@@ -1,5 +1,11 @@
-# Last Updated 29/5/2026 5:00 PM
-Added an important note to section 1.4.1
+# Last Updated 29/5/2026 9:40 PM
+(29/5/2026 9:40 PM) Fixed trailing commas causing "Docker exec failed, trying alternative method" error.
+(29/5/2026 5:00 PM) Added an important note to section 1.4.1
+
+# Fix to Docker issues
+1. run "docker compose -f database/compose.yaml down -v" to delete the entire docker image. If it's conflicting with the old InvoiceLab assignment db. It's not permanently gone as we can just run the SQL statement to bring everything back.
+
+2. Run either npm run docker:db:start or npm run db:reset
 
 # ⛏️ CraftLess Development Guide
 
