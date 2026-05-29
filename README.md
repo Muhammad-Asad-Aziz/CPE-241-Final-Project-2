@@ -1,3 +1,6 @@
+# Last Updated 29/5/2026 5:00 PM
+Added an important note to section 1.4.1
+
 # ⛏️ CraftLess Development Guide
 
 ### 🗄️ How to access Adminer (Database UI):
@@ -32,6 +35,7 @@
 
 **1.4** Go to `database/setup_db.js`
 * **1.4.1** In the `getTableCounts` function, add a `SELECT COUNT(*)` command to the list.
+* (IMPORTANT NOTE) I forgot to mention it, but make sure to update the length of counts.length to be the same as the current number of tables (usually +2 after your changes)
 * **1.4.2** In the `getTableCounts` function, append your corresponding table name to the return list in `camelCase`.
 * **1.4.3** In the `getSeedDecision` function, add a check to see if the count is 0 (Use `camelCase`).
 * **1.4.4** In the `logCounts` function, add your corresponding table to the logging, following the syntax.
