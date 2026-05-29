@@ -91,16 +91,17 @@ function getTableCounts(queryFn) {
     "  (select count(*) from chest),",
     "  (select count(*) from villager),",
     "  (select count(*) from \"transfer\"),",
-    "  (select count(*) from transfer_line_item);",
-    "  (select count(*) from crafting);",
-    "  (select count(*) from crafting_line_item);",
-    /* (GUIDE) #1.4.1 ADD select (*) statement for your corresponding table */
+    "  (select count(*) from transfer_line_item)",
+    "  (select count(*) from crafting)",
+    "  (select count(*) from crafting_line_item);" // ONLY THE LAST ITEM IN THE LIST CAN HAVE THE SEMI COLON + SHOULDN'T HAVE A COMMA
+    /* (GUIDE) #1.4.1 ADD select count(*) statement for your corresponding table */
     /* (select count(*) from TABLE_NAME);", */
   ].join(" "));
   if (!out) return null;
 
   const counts = String(out).trim().split("|").map((value) => Number(String(value).trim()));
-  if (counts.length !== 6 || counts.some((value) => Number.isNaN(value))) return null;
+  if (counts.length !== 8 || counts.some((value) => Number.isNaN(value))) return null;
+  /* (GUIDE) (EXTRA) #1.4.1 CHANGE counts.length !== X TO BE EQUAL TO THE NUMBER OF TABLES ABOVE*/
 
   return {
     item: counts[0],
@@ -109,7 +110,6 @@ function getTableCounts(queryFn) {
     villager: counts[3],
     transfer: counts[4],
     transferLineItem: counts[5],
-
     crafting: counts[6],
     craftingLineItem: counts[7],
     /* (GUIDE) #1.4.2 ADD YOUR CORRESPONDING TABLE TO THE LIST, USE camelCase */
