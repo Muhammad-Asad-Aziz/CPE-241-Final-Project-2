@@ -5,8 +5,8 @@ const r = Router();
 
 r.get("/", c.listRecipes);
 r.post("/", c.createRecipe);
-r.get("/:id", c.getRecipe);
-r.put("/:id", c.updateRecipe);
-r.delete("/:id", c.deleteRecipe);
+r.get("/:code", c.getRecipe);
+r.put(":code", c.updateRecipe);
+r.delete("/:code", c.deleteRecipe);
 
 export default r;

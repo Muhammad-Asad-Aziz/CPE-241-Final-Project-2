@@ -35,7 +35,7 @@ export default function ReportFilters({ type, filters, onChange, onApply }) {
           >
             <option value="">-- Choose Chest --</option>
             {chests.map(c => (
-              <option key={c.id} value={c.id}>Chest #{c.id} ({c.dimension})</option>
+              <option key={c.id} value={c.id}>{c.chest_code} ({c.dimension})</option>
             ))}
           </select>
         </div>

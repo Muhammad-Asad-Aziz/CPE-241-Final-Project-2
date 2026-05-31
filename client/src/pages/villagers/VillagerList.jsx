@@ -28,8 +28,8 @@ export default function VillagerList() {
     };
 
     const columns = [
-        { key: "id", label: "ID" },
-        { key: "villager_name", label: "Name", render: v => <span className="font-bold">{v}</span> },
+        { key: "villager_code", label: "Code", render: v => <span className="font-bold">{v}</span> },
+        { key: "villager_name", label: "Name", render: v => ` ${v} ` },
         { key: "profession", label: "Profession" },
         { key: "biome_type", label: "Biome" }
     ];
@@ -52,7 +52,7 @@ export default function VillagerList() {
                 searchPlaceholder="Search name, profession, or biome..."
                 itemName="villagers"
                 basePath="/villagers"
-                itemKey="id"
+                itemKey="villager_code"
                 onDelete={handleDelete}
                 refreshTrigger={refreshTrigger}
             />

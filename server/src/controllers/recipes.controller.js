@@ -15,7 +15,7 @@ export async function listRecipes(req, res) {
 
 export async function getRecipe(req, res) {
   try {
-    const recipe = await recipesService.getRecipeById(req.params.id);
+    const recipe = await recipesService.getRecipe(req.params.code);
     if (!recipe) return res.status(404).json({ success: false, error: { message: "Recipe not found" } });
     res.json({ success: true, data: recipe });
   } catch (err) {
@@ -34,7 +34,7 @@ export async function createRecipe(req, res) {
 
 export async function updateRecipe(req, res) {
   try {
-    const result = await recipesService.updateRecipe(req.params.id, req.body);
+    const result = await recipesService.updateRecipe(req.params.code, req.body);
     if (!result) return res.status(404).json({ success: false, error: { message: "Recipe not found" } });
     res.json({ success: true, data: result });
   } catch (err) {
@@ -44,7 +44,7 @@ export async function updateRecipe(req, res) {
 
 export async function deleteRecipe(req, res) {
   try {
-    await recipesService.deleteRecipe(req.params.id);
+    await recipesService.deleteRecipe(req.params.code);
     res.json({ success: true });
   } catch (err) {
     res.status(500).json({ success: false, error: { message: err.message } });

@@ -25,8 +25,8 @@ export default function EnchantmentList() {
     };
 
     const columns = [
-        { key: "id", label: "ID" },
-        { key: "enchantment_name", label: "Enchantment Name", render: v => <span className="font-bold" style={{ color: "#a855f7" }}>{v}</span> },
+        { key: "enchantment_code", label: "Code", render: v => <span className="font-bold">{v}</span> },
+        { key: "enchantment_name", label: "Enchantment Name", render: v => ` ${v} ` },
         { key: "max_level", label: "Max Level", align: "right" }
     ];
 
@@ -47,7 +47,7 @@ export default function EnchantmentList() {
                 searchPlaceholder="Search enchantment name..."
                 itemName="enchantments"
                 basePath="/enchantments"
-                itemKey="id"
+                itemKey="enchantment_code"
                 onDelete={handleDelete}
                 refreshTrigger={refreshTrigger}
             />

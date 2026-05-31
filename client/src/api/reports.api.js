@@ -38,7 +38,6 @@ export async function getReportData(type, params = {}) {
     if (type === "crafting-history") return getPlayerCraftingHistory(params);
     if (type === "recipe-requirements") return getRecipeRequirements(params);
     if (type === "top-crafted") return getTopCraftedItems(params);
-  // Clean empty params
   const qs = new URLSearchParams();
   for (const [key, value] of Object.entries(params)) {
     if (value != null && value !== "") qs.set(key, value);

@@ -32,7 +32,7 @@ export async function listTransfers({ search = "", page = 1, limit = 10, sortBy 
 
   const { rows } = await pool.query(
     `SELECT t.id, t.transfer_code, t.transfer_date, t.source_chest_id, t.destination_chest_id,
-            p.username as player_username, sc.dimension as source_dimension, dc.dimension as destination_dimension
+            p.player_code, p.username as player_username, sc.dimension as source_dimension, dc.dimension as destination_dimension
      FROM transfer t
      LEFT JOIN player p ON p.id = t.player_id
      LEFT JOIN chest sc ON sc.id = t.source_chest_id
@@ -52,8 +52,9 @@ export async function getTransfer(code) {
 
   const header = await pool.query(
     `SELECT t.id, t.transfer_code, t.transfer_date, t.source_chest_id, t.destination_chest_id,
-            p.username as player_username, sc.x_coordinates as src_x, sc.y_coordinates as src_y, sc.z_coordinates as src_z, sc.dimension as src_dim,
-            dc.x_coordinates as dst_x, dc.y_coordinates as dst_y, dc.z_coordinates as dst_z, dc.dimension as dst_dim
+            p.player_code, p.username as player_username, 
+            sc.chest_code as src_chest_code, sc.dimension as src_dim,
+            dc.chest_code as dst_chest_code, dc.dimension as dst_dim
      FROM transfer t
      LEFT JOIN player p ON p.id = t.player_id
      LEFT JOIN chest sc ON sc.id = t.source_chest_id
@@ -64,7 +65,7 @@ export async function getTransfer(code) {
 
   const lines = await pool.query(
     `SELECT li.id, li.transfer_line_number, li.quantity_transferred, li.destination_slot_number,
-            i.id as item_id, i.item_name, i.item_type
+            i.id as item_id, i.item_code, i.item_name, i.item_type
      FROM transfer_line_item li
      LEFT JOIN item i ON i.id = li.item_id
      WHERE li.transfer_id = $1 ORDER BY li.transfer_line_number ASC`,
@@ -80,7 +81,7 @@ export async function createTransfer({ transfer_code, transfer_date, player_user
     await client.query("begin");
     let player_id = null;
     if (player_username) {
-      const p = await client.query("SELECT id FROM player WHERE username = $1", [player_username]);
+      const p = await client.query("SELECT id FROM player WHERE player_code = $1", [player_username]); 
       if (p.rowCount === 0) throw new Error(`Player not found: ${player_username}`);
       player_id = p.rows[0].id;
     }

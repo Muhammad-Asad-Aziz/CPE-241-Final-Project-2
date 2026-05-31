@@ -32,7 +32,7 @@ export default function CraftingsList() {
     const columns = [
         { key: "id", label: "Crafting ID", render: v => <span className="font-bold">CRF-{v}</span> },
         { key: "crafting_date", label: "Date", render: v => formatDate(new Date(v)) },
-        { key: "player_id", label: "Player ID", render: v => <span style={{ color: "var(--primary)", fontWeight: 600 }}>Player {v}</span> },
+        { key: "player_id", label: "Player ID", render: v => `Player ${v}` },
         { key: "session_id", label: "Session ID", render: v => `Session ${v}` },
         { key: "qty_wanted", label: "Qty Wanted", render: v => `${v} units` }
     ];

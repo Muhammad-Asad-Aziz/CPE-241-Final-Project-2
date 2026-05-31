@@ -28,7 +28,7 @@ export default function ChestList() {
     };
 
     const columns = [
-        { key: "id", label: "Chest ID", render: v => <span className="font-bold">Chest #{v}</span> },
+        { key: "chest_code", label: "Chest Code", render: v => <span className="font-bold">{v}</span> },
         { key: "dimension", label: "Dimension" },
         { key: "x_coordinates", label: "X", align: "right" },
         { key: "y_coordinates", label: "Y", align: "right" },
@@ -53,7 +53,7 @@ export default function ChestList() {
                 searchPlaceholder="Search dimension..."
                 itemName="chests"
                 basePath="/chests"
-                itemKey="id"
+                itemKey="chest_code"
                 onDelete={handleDelete}
                 refreshTrigger={refreshTrigger}
             />

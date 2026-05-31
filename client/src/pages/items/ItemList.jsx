@@ -32,7 +32,7 @@ export default function ItemList() {
     };
 
     const columns = [
-        { key: "id", label: "ID" },
+        { key: "item_code", label: "Code", render: v => <span className="font-bold">{v}</span> },
         { key: "item_name", label: "Item Name", render: v => <span className="font-bold">{v}</span> },
         { key: "item_type", label: "Type" },
         { key: "max_stack_size", label: "Max Stack", align: "right" },
@@ -60,7 +60,7 @@ export default function ItemList() {
                 searchPlaceholder="Search item name or type..."
                 itemName="items"
                 basePath="/items"
-                itemKey="id"
+                itemKey="item_code"
                 onDelete={handleDelete}
                 refreshTrigger={refreshTrigger}
             />

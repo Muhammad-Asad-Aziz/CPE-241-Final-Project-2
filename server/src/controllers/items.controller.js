@@ -15,7 +15,7 @@ export async function listItems(req, res) {
 
 export async function getItem(req, res) {
   try {
-    const item = await itemsService.getItemById(req.params.id);
+    const item = await itemsService.getItem(req.params.code);
     if (!item) return res.status(404).json({ success: false, error: { message: "Item not found" } });
     res.json({ success: true, data: item });
   } catch (err) {
@@ -34,7 +34,7 @@ export async function createItem(req, res) {
 
 export async function updateItem(req, res) {
   try {
-    const result = await itemsService.updateItem(req.params.id, req.body);
+    const result = await itemsService.updateItem(req.params.code, req.body);
     if (!result) return res.status(404).json({ success: false, error: { message: "Item not found" } });
     res.json({ success: true, data: result });
   } catch (err) {
@@ -45,7 +45,7 @@ export async function updateItem(req, res) {
 export async function deleteItem(req, res) {
   try {
     const force = req.query.force === "true";
-    const result = await itemsService.deleteItem(req.params.id, { force });
+    const result = await itemsService.deleteItem(req.params.code, { force });
     res.json({ success: true, data: result });
   } catch (err) {
     res.status(err.statusCode || 500).json({ success: false, error: { message: err.message } });

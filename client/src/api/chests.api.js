@@ -12,8 +12,8 @@ export async function listChests(params = {}) {
   return { data: res.data, ...(res.meta || {}) };
 }
 
-export async function getChest(id) {
-  const res = unwrap(await http(`/api/chests/${encodeURIComponent(id)}`));
+export async function getChest(code) {
+  const res = unwrap(await http(`/api/chests/${encodeURIComponent(code)}`));
   return res.data;
 }
 
@@ -22,12 +22,12 @@ export async function createChest(data) {
   return res.data;
 }
 
-export async function updateChest(id, data) {
-  const res = unwrap(await http(`/api/chests/${encodeURIComponent(id)}`, { method: "PUT", body: JSON.stringify(data) }));
+export async function updateChest(code, data) {
+  const res = unwrap(await http(`/api/chests/${encodeURIComponent(code)}`, { method: "PUT", body: JSON.stringify(data) }));
   return res.data;
 }
 
-export async function deleteChest(id) {
-  const res = unwrap(await http(`/api/chests/${encodeURIComponent(id)}`, { method: "DELETE" }));
+export async function deleteChest(code) {
+  const res = unwrap(await http(`/api/chests/${encodeURIComponent(code)}`, { method: "DELETE" }));
   return res.data;
 }

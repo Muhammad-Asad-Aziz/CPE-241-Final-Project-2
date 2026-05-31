@@ -31,7 +31,7 @@ export default function SmeltingsList() {
     const columns = [
         { key: "id", label: "Smelting ID", render: v => <span className="font-bold">SMLT-{v}</span> },
         { key: "smelt_date", label: "Date", render: v => formatDate(new Date(v)) },
-        { key: "player_id", label: "Player ID", render: v => <span style={{ color: "var(--primary)", fontWeight: 600 }}>Player {v}</span> },
+        { key: "player_id", label: "Player ID", render: v => `Player ${v}` },
         { key: "furnace_location_xyz", label: "Location (X,Y,Z)", render: v => `[${v}]` }
     ];
 

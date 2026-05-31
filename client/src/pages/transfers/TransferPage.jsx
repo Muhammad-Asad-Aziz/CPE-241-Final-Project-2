@@ -25,6 +25,7 @@ export default function TransferPage({ mode: propMode }) {
   const [transferDate, setTransferDate] = React.useState(new Date().toISOString().slice(0, 10));
   
   const [playerUsername, setPlayerUsername] = React.useState("");
+  const [playerLabel, setPlayerLabel] = React.useState("");
   const [sourceChestId, setSourceChestId] = React.useState("");
   const [sourceChestLabel, setSourceChestLabel] = React.useState("");
   const [destinationChestId, setDestinationChestId] = React.useState("");
@@ -56,13 +57,14 @@ export default function TransferPage({ mode: propMode }) {
         if (mode === "edit") {
           setTransferCode(t.header.transfer_code);
           setTransferDate(t.header.transfer_date ? new Date(t.header.transfer_date).toISOString().slice(0, 10) : "");
-          setPlayerUsername(t.header.player_username || "");
+          setPlayerUsername(t.header.player_code || "");
+          setPlayerLabel(t.header.player_username ? `${t.header.player_code} - ${t.header.player_username}` : "");
           
           setSourceChestId(t.header.source_chest_id || "");
-          setSourceChestLabel(t.header.source_chest_id ? `Chest #${t.header.source_chest_id} (${t.header.src_dim})` : "");
+          setSourceChestLabel(t.header.source_chest_id ? `${t.header.src_chest_code} (${t.header.src_dim})` : "");
           
           setDestinationChestId(t.header.destination_chest_id || "");
-          setDestinationChestLabel(t.header.destination_chest_id ? `Chest #${t.header.destination_chest_id} (${t.header.dst_dim})` : "");
+          setDestinationChestLabel(t.header.destination_chest_id ? `${t.header.dst_chest_code} (${t.header.dst_dim})` : "");
           
           if (t.line_items && t.line_items.length > 0) {
             setLines(t.line_items.map(li => ({
@@ -154,16 +156,16 @@ export default function TransferPage({ mode: propMode }) {
           <div className="flex justify-between mb-4">
             <div>
               <div className="brand mb-4">CraftLess Inventory</div>
-              <div className="font-bold" style={{ color: "var(--primary)", fontSize: "1.2rem" }}>
+              <div className="font-bold">
                 Player: {h.player_username}
               </div>
-              <div style={{ marginTop: "1rem" }}>
+              <div>
                 <span className="font-bold">From: </span> 
-                {h.source_chest_id ? `Chest #${h.source_chest_id} (${h.src_dim} | X:${h.src_x}, Y:${h.src_y}, Z:${h.src_z})` : "Player Inventory"}
+                {h.source_chest_id ? `${h.src_chest_code} (${h.src_dim})` : "Player Inventory"}
               </div>
               <div>
                 <span className="font-bold">To: </span> 
-                {h.destination_chest_id ? `Chest #${h.destination_chest_id} (${h.dst_dim} | X:${h.dst_x}, Y:${h.dst_y}, Z:${h.dst_z})` : "Player Inventory"}
+                {h.destination_chest_id ? `${h.dst_chest_code} (${h.dst_dim})` : "Player Inventory"}
               </div>
             </div>
             <div className="text-right">
@@ -206,8 +208,7 @@ export default function TransferPage({ mode: propMode }) {
   // ── CREATE / EDIT MODE ─────────────────────────────────────────────────────
   return (
     <div>
-      <PlayerPickerModal isOpen={playerModalOpen} onClose={() => setPlayerModalOpen(false)} onSelect={(p) => setPlayerUsername(p.username)} />
-      <ChestPickerModal isOpen={srcChestModalOpen} onClose={() => setSrcChestModalOpen(false)} onSelect={(c) => { setSourceChestId(c.id); setSourceChestLabel(`Chest #${c.id} (${c.dimension})`); }} />
+      <PlayerPickerModal isOpen={playerModalOpen} onClose={() => setPlayerModalOpen(false)} onSelect={(p) => { setPlayerUsername(p.player_code); setPlayerLabel(`${p.player_code} - ${p.username}`); }} />      <ChestPickerModal isOpen={srcChestModalOpen} onClose={() => setSrcChestModalOpen(false)} onSelect={(c) => { setSourceChestId(c.id); setSourceChestLabel(`Chest #${c.id} (${c.dimension})`); }} />
       <ChestPickerModal isOpen={dstChestModalOpen} onClose={() => setDstChestModalOpen(false)} onSelect={(c) => { setDestinationChestId(c.id); setDestinationChestLabel(`Chest #${c.id} (${c.dimension})`); }} />
       <ItemPickerModal isOpen={itemModalOpen} onClose={() => setItemModalOpen(false)} onSelect={(item) => {
           updateLine(activeLineIdx, "item_id", item.id);
@@ -254,7 +255,7 @@ export default function TransferPage({ mode: propMode }) {
             <div className="form-group">
               <label className="form-label">Player <span className="required-marker">*</span></label>
               <div style={{ display: "flex", gap: 8 }}>
-                <input className="form-control" value={playerUsername} placeholder="Select Player..." readOnly required />
+                <input className="form-control" value={playerLabel || playerUsername} placeholder="Select Player..." readOnly required />
                 <button type="button" className="btn btn-primary" onClick={() => setPlayerModalOpen(true)}>LoV</button>
               </div>
             </div>
