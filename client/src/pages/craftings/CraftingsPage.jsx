@@ -1,16 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, Link } from "react-router-dom";
 import { getCrafting, createCrafting, updateCrafting } from "../../api/craftings.api.js";
-import { listPlayers } from "../../api/players.api.js";
-import { listItems } from "../../api/items.api.js";
+
+//LoV Pickers
+import PlayerPickerModal from "../../components/pickers/PlayerPickerModal.jsx";
+import ItemPickerModal from "../../components/pickers/ItemPickerModal.jsx";
 
 export default function CraftingsPage() {
     const { id } = useParams();
     const navigate = useNavigate();
     const isEdit = Boolean(id);
-
-    const [players, setPlayers] = useState([]);
-    const [items, setItems] = useState([]);
 
     const [formData, setFormData] = useState({
         crafting_date: "",
@@ -20,17 +19,22 @@ export default function CraftingsPage() {
         qty_wanted: ""
     });
 
-    // Player  Item pull
-    useEffect(() => {
-        listPlayers({ limit: 1000 }).then(res => setPlayers(res.data || []));
-        listItems({ limit: 1000 }).then(res => setItems(res.data || []));
-    }, []);
+    const [playerLabel, setPlayerLabel] = useState("");
+    const [itemLabel, setItemLabel] = useState("");
+
+    const [playerModalOpen, setPlayerModalOpen] = useState(false);
+    const [itemModalOpen, setItemModalOpen] = useState(false);
 
     useEffect(() => {
         if (isEdit) {
             getCrafting(id).then((data) => {
                 const dateVal = data.crafting_date ? new Date(data.crafting_date).toISOString().slice(0, 16) : "";
                 setFormData({ ...data, crafting_date: dateVal });
+                
+                setPlayerLabel(data.player_username || `Player #${data.player_id}`);
+                if (data.target_item_id) {
+                    setItemLabel(data.target_item_name || `Item #${data.target_item_id}`);
+                }
             }).catch(err => alert("Error: " + err.message));
         }
     }, [id, isEdit]);
@@ -41,6 +45,12 @@ export default function CraftingsPage() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        
+        if (!formData.player_id) {
+            alert("Please select a Player!");
+            return;
+        }
+
         try {
             const payload = { ...formData };
             if (!payload.target_item_id) payload.target_item_id = null;
@@ -57,48 +67,82 @@ export default function CraftingsPage() {
     };
 
     return (
-        <div className="container max-w-md">
-            <h2>{isEdit ? "Edit Crafting" : "New Crafting"}</h2>
-            <form onSubmit={handleSubmit} className="card p-4 mt-3">
-                <div className="mb-3">
-                    <label className="form-label">Crafting Date</label>
-                    <input type="datetime-local" name="crafting_date" className="form-control" value={formData.crafting_date} onChange={handleChange} required />
-                </div>
-                
-                
-                <div className="mb-3">
-                    <label className="form-label">Session ID</label>
-                    <input type="number" name="session_id" className="form-control" value={formData.session_id} onChange={handleChange} required />
-                </div>
+        <div>
+            <PlayerPickerModal 
+                isOpen={playerModalOpen} 
+                onClose={() => setPlayerModalOpen(false)} 
+                onSelect={(p) => {
+                    setFormData({ ...formData, player_id: p.id });
+                    setPlayerLabel(p.username);
+                    setPlayerModalOpen(false);
+                }} 
+            />
+            <ItemPickerModal 
+                isOpen={itemModalOpen} 
+                onClose={() => setItemModalOpen(false)} 
+                onSelect={(item) => {
+                    setFormData({ ...formData, target_item_id: item.id });
+                    setItemLabel(item.item_name);
+                    setItemModalOpen(false);
+                }} 
+            />
 
-                <div className="mb-3">
-                    <label className="form-label">Player</label>
-                    <select name="player_id" className="form-control" value={formData.player_id} onChange={handleChange} required>
-                        <option value="">-- Select Player --</option>
-                        {players.map(p => (
-                            <option key={p.id} value={p.id}>{p.username}</option>
-                        ))}
-                    </select>
-                </div>
+            <div className="page-header">
+                <h3 className="page-title">{isEdit ? `Edit Crafting #CRF-${id}` : "Record New Crafting"}</h3>
+                <Link to="/craftings" className="btn btn-outline">← Back</Link>
+            </div>
 
-                <div className="mb-3">
-                    <label className="form-label">Target Item (Optional)</label>
-                    <select name="target_item_id" className="form-control" value={formData.target_item_id || ""} onChange={handleChange}>
-                        <option value="">-- None --</option>
-                        {items.map(i => (
-                            <option key={i.id} value={i.id}>{i.item_name}</option>
-                        ))}
-                    </select>
-                </div>
+            <form onSubmit={handleSubmit}>
+                <div className="card" style={{ marginBottom: "1rem" }}>
+                    <h4>Crafting Details</h4>
 
-                <div className="mb-3">
-                    <label className="form-label">Qty Wanted</label>
-                    <input type="number" name="qty_wanted" className="form-control" value={formData.qty_wanted} onChange={handleChange} required />
-                </div>
-                
-                <div className="d-flex gap-2">
-                    <button type="submit" className="btn btn-success">Save</button>
-                    <button type="button" className="btn btn-secondary" onClick={() => navigate("/craftings")}>Cancel</button>
+                    <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem", marginTop: "1rem" }}>
+                        
+                        <div className="form-group">
+                            <label className="form-label">Crafting Date <span style={{color: "red"}}>*</span></label>
+                            <input type="datetime-local" name="crafting_date" className="form-control" value={formData.crafting_date} onChange={handleChange} required />
+                        </div>
+                        
+                        <div className="form-group">
+                            <label className="form-label">Session ID <span style={{color: "red"}}>*</span></label>
+                            <input type="number" name="session_id" className="form-control" value={formData.session_id} onChange={handleChange} required />
+                        </div>
+
+                        <div className="form-group">
+                            <label className="form-label">Player <span style={{color: "red"}}>*</span></label>
+                            <div style={{ display: "flex", gap: 8 }}>
+                                <input className="form-control" value={playerLabel} placeholder="Select Player..." readOnly required />
+                                <button type="button" className="btn btn-primary" onClick={() => setPlayerModalOpen(true)}>LoV</button>
+                            </div>
+                        </div>
+
+                        <div className="form-group">
+                            <label className="form-label">Target Item (Optional)</label>
+                            <div style={{ display: "flex", gap: 8 }}>
+                                <input className="form-control" value={itemLabel || "-- None --"} readOnly />
+                                <button type="button" className="btn btn-primary" onClick={() => setItemModalOpen(true)}>LoV</button>
+                                {formData.target_item_id && (
+                                    <button type="button" className="btn btn-outline" onClick={() => { 
+                                        setFormData({ ...formData, target_item_id: "" }); 
+                                        setItemLabel(""); 
+                                    }}>×</button>
+                                )}
+                            </div>
+                        </div>
+
+                        <div className="form-group">
+                            <label className="form-label">Qty Wanted <span style={{color: "red"}}>*</span></label>
+                            <input type="number" name="qty_wanted" className="form-control" value={formData.qty_wanted} onChange={handleChange} required />
+                        </div>
+
+                    </div>
+
+                    <div style={{ marginTop: "2rem", display: "flex", justifyContent: "flex-end", gap: "1rem" }}>
+                        <button type="button" className="btn btn-secondary" onClick={() => navigate("/craftings")}>Cancel</button>
+                        <button type="submit" className="btn btn-primary">
+                            {isEdit ? "Update Crafting Record" : "Save Crafting Record"}
+                        </button>
+                    </div>
                 </div>
             </form>
         </div>
