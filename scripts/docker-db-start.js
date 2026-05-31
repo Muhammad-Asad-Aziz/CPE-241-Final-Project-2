@@ -69,8 +69,8 @@ async function main() {
       break;
     }
     if (i === 29) console.log("⚠️  Database slow to start");
-    else if (isWin) execShell("timeout /t 1 /nobreak > nul", { cwd: root });
-    else execShell("sleep 1", { cwd: root });
+    //else if (isWin) execShell("timeout /t 1 /nobreak > nul", { cwd: root });
+    //else execShell("sleep 1", { cwd: root });
   }
 
   console.log("\n🔧 Ensuring schema and seed are ready...");
