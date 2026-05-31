@@ -119,22 +119,21 @@ INSERT INTO villager (villager_name, profession, biome_type) VALUES ('Jane', 'Li
 
 -- Muhammad Asad Aziz 67070503472
 -- Populating table: transfer
-INSERT INTO transfer (transfer_date, player_id, source_chest_id, destination_chest_id) VALUES ('2024-05-14 20:10:00', 1, null, 1) ON CONFLICT DO NOTHING;
-INSERT INTO transfer (transfer_date, player_id, source_chest_id, destination_chest_id) VALUES ('2024-06-25 21:15:30', 2, 1, 2) ON CONFLICT DO NOTHING;
-INSERT INTO transfer (transfer_date, player_id, source_chest_id, destination_chest_id) VALUES ('2024-08-11 22:45:12', 3, null, 3) ON CONFLICT DO NOTHING;
-INSERT INTO transfer (transfer_date, player_id, source_chest_id, destination_chest_id) VALUES ('2024-11-06 23:20:05', 4, 3, 4) ON CONFLICT DO NOTHING;
-INSERT INTO transfer (transfer_date, player_id, source_chest_id, destination_chest_id) VALUES ('2025-01-20 08:05:55', 5, null, 5) ON CONFLICT DO NOTHING;
-INSERT INTO transfer (transfer_date, player_id, source_chest_id, destination_chest_id) VALUES ('2025-03-15 09:30:40', 6, 5, 6) ON CONFLICT DO NOTHING;
-INSERT INTO transfer (transfer_date, player_id, source_chest_id, destination_chest_id) VALUES ('2025-06-01 10:11:11', 7, null, 7) ON CONFLICT DO NOTHING;
-INSERT INTO transfer (transfer_date, player_id, source_chest_id, destination_chest_id) VALUES ('2025-07-15 11:40:20', 8, 7, 8) ON CONFLICT DO NOTHING;
-INSERT INTO transfer (transfer_date, player_id, source_chest_id, destination_chest_id) VALUES ('2025-09-05 12:55:34', 9, null, 9) ON CONFLICT DO NOTHING;
-INSERT INTO transfer (transfer_date, player_id, source_chest_id, destination_chest_id) VALUES ('2025-10-20 13:25:50', 10, 9, 10) ON CONFLICT DO NOTHING;
-INSERT INTO transfer (transfer_date, player_id, source_chest_id, destination_chest_id) VALUES ('2025-12-28 14:00:15', 11, null, 11) ON CONFLICT DO NOTHING;
-INSERT INTO transfer (transfer_date, player_id, source_chest_id, destination_chest_id) VALUES ('2026-01-15 15:18:44', 12, 11, 12) ON CONFLICT DO NOTHING;
-INSERT INTO transfer (transfer_date, player_id, source_chest_id, destination_chest_id) VALUES ('2026-02-08 16:33:21', 13, null, 13) ON CONFLICT DO NOTHING;
-INSERT INTO transfer (transfer_date, player_id, source_chest_id, destination_chest_id) VALUES ('2026-02-22 17:10:09', 14, 13, 14) ON CONFLICT DO NOTHING;
-INSERT INTO transfer (transfer_date, player_id, source_chest_id, destination_chest_id) VALUES ('2026-03-22 18:05:01', 15, null, 15) ON CONFLICT DO NOTHING;
-
+INSERT INTO transfer (transfer_code, transfer_date, player_id, source_chest_id, destination_chest_id) VALUES ('TRN-0001', '2024-05-14 20:10:00', 1, null, 1);
+INSERT INTO transfer (transfer_code, transfer_date, player_id, source_chest_id, destination_chest_id) VALUES ('TRN-0002', '2024-06-25 21:15:30', 2, 1, 2);
+INSERT INTO transfer (transfer_code, transfer_date, player_id, source_chest_id, destination_chest_id) VALUES ('TRN-0003', '2024-08-11 22:45:12', 3, null, 3);
+INSERT INTO transfer (transfer_code, transfer_date, player_id, source_chest_id, destination_chest_id) VALUES ('TRN-0004', '2024-11-06 23:20:05', 4, 3, 4);
+INSERT INTO transfer (transfer_code, transfer_date, player_id, source_chest_id, destination_chest_id) VALUES ('TRN-0005', '2025-01-20 08:05:55', 5, null, 5);
+INSERT INTO transfer (transfer_code, transfer_date, player_id, source_chest_id, destination_chest_id) VALUES ('TRN-0006', '2025-03-15 09:30:40', 6, 5, 6);
+INSERT INTO transfer (transfer_code, transfer_date, player_id, source_chest_id, destination_chest_id) VALUES ('TRN-0007', '2025-06-01 10:11:11', 7, null, 7);
+INSERT INTO transfer (transfer_code, transfer_date, player_id, source_chest_id, destination_chest_id) VALUES ('TRN-0008', '2025-07-15 11:40:20', 8, 7, 8);
+INSERT INTO transfer (transfer_code, transfer_date, player_id, source_chest_id, destination_chest_id) VALUES ('TRN-0009', '2025-09-05 12:55:34', 9, null, 9);
+INSERT INTO transfer (transfer_code, transfer_date, player_id, source_chest_id, destination_chest_id) VALUES ('TRN-0010', '2025-10-20 13:25:50', 10, 9, 10);
+INSERT INTO transfer (transfer_code, transfer_date, player_id, source_chest_id, destination_chest_id) VALUES ('TRN-0011', '2025-12-28 14:00:15', 11, null, 11);
+INSERT INTO transfer (transfer_code, transfer_date, player_id, source_chest_id, destination_chest_id) VALUES ('TRN-0012', '2026-01-15 15:18:44', 12, 11, 12);
+INSERT INTO transfer (transfer_code, transfer_date, player_id, source_chest_id, destination_chest_id) VALUES ('TRN-0013', '2026-02-08 16:33:21', 13, null, 13);
+INSERT INTO transfer (transfer_code, transfer_date, player_id, source_chest_id, destination_chest_id) VALUES ('TRN-0014', '2026-02-22 17:10:09', 14, 13, 14);
+INSERT INTO transfer (transfer_code, transfer_date, player_id, source_chest_id, destination_chest_id) VALUES ('TRN-0015', '2026-03-22 18:05:01', 15, null, 15);
 -- Supanut Sopha 67070503441
 -- Populating crafting table
 INSERT INTO crafting (crafting_date, session_id, player_id, target_item_id, qty_wanted) VALUES ('2026-03-22 18:05:01', 1, 1, null, 1) ON CONFLICT DO NOTHING;

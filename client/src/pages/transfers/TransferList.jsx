@@ -29,7 +29,7 @@ export default function TransferList() {
     };
 
     const columns = [
-        { key: "id", label: "Transfer ID", render: v => <span className="font-bold">TRN-{v}</span> },
+        { key: "transfer_code", label: "Transfer Code", render: v => <span className="font-bold">{v}</span> },
         { key: "transfer_date", label: "Date", render: v => formatDate(v) },
         { key: "player_username", label: "Player", render: v => <span style={{ color: "var(--primary)", fontWeight: 600 }}>{v}</span> },
         { key: "source_chest_id", label: "From Chest", render: (v, row) => v ? `Chest #${v} (${row.source_dimension})` : "Inventory" },
@@ -54,7 +54,7 @@ export default function TransferList() {
                 searchPlaceholder="Search by player username..."
                 itemName="transfers"
                 basePath="/transfers"
-                itemKey="id"
+                itemKey="transfer_code"
                 onDelete={handleDelete}
                 refreshTrigger={refreshTrigger}
             />

@@ -10,14 +10,14 @@ DROP TABLE IF EXISTS transfer_line_item;
 DROP TABLE IF EXISTS "transfer"; -- tranfer is orange (or IDE theme color same as DROP TABLE IF EXISTS) if I don't add the quotes... i think transfer is a command...
 DROP TABLE IF EXISTS crafting_line_item;
 DROP TABLE IF EXISTS crafting;
+DROP TABLE IF EXISTS smelting_line_item;
+DROP TABLE IF EXISTS smelting;
 DROP TABLE IF EXISTS recipe;
 DROP TABLE IF EXISTS villager;
 DROP TABLE IF EXISTS player;
 DROP TABLE IF EXISTS enchantment;
 DROP TABLE IF EXISTS item;
 DROP TABLE IF EXISTS chest;
-DROP TABLE IF EXISTS smelting_line_item;
-DROP TABLE IF EXISTS smelting;
 -- (GUIDE) #1.3.1 ADD YOUR TABLE HERE
 
 create table item(

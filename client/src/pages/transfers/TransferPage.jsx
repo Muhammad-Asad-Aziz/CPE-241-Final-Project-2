@@ -15,30 +15,30 @@ function emptyLine() {
 }
 
 export default function TransferPage({ mode: propMode }) {
-  const { id } = useParams();
+  const { id } = useParams(); // 'id' here is actually the transfer_code from the URL
   const mode = propMode || (id ? "view" : "create");
   const nav = useNavigate();
 
-  // Form State (includes labels for display, since inputs are read-only)
+  // Form State
+  const [autoCode, setAutoCode] = React.useState(true);
+  const [transferCode, setTransferCode] = React.useState("");
   const [transferDate, setTransferDate] = React.useState(new Date().toISOString().slice(0, 10));
   
   const [playerUsername, setPlayerUsername] = React.useState("");
-  
   const [sourceChestId, setSourceChestId] = React.useState("");
   const [sourceChestLabel, setSourceChestLabel] = React.useState("");
-  
   const [destinationChestId, setDestinationChestId] = React.useState("");
   const [destinationChestLabel, setDestinationChestLabel] = React.useState("");
   
   const [lines, setLines] = React.useState([emptyLine()]);
 
-  // View State & UI State
+  // View & UI State
   const [viewData, setViewData] = React.useState(null);
   const [loading, setLoading] = React.useState(mode !== "create");
   const [submitting, setSubmitting] = React.useState(false);
   const [err, setErr] = React.useState("");
 
-  // Modal LoV states
+  // Modal states
   const [playerModalOpen, setPlayerModalOpen] = React.useState(false);
   const [srcChestModalOpen, setSrcChestModalOpen] = React.useState(false);
   const [dstChestModalOpen, setDstChestModalOpen] = React.useState(false);
@@ -54,6 +54,7 @@ export default function TransferPage({ mode: propMode }) {
         setViewData(t);
 
         if (mode === "edit") {
+          setTransferCode(t.header.transfer_code);
           setTransferDate(t.header.transfer_date ? new Date(t.header.transfer_date).toISOString().slice(0, 10) : "");
           setPlayerUsername(t.header.player_username || "");
           
@@ -102,6 +103,7 @@ export default function TransferPage({ mode: propMode }) {
 
     try {
       const payload = {
+        transfer_code: mode === "create" && autoCode ? "" : transferCode.trim(),
         transfer_date: transferDate,
         player_username: playerUsername,
         source_chest_id: sourceChestId ? Number(sourceChestId) : null,
@@ -116,11 +118,11 @@ export default function TransferPage({ mode: propMode }) {
       if (mode === "create") {
         const res = await createTransfer(payload);
         toast.success("Transfer created successfully!");
-        nav(`/transfers/${res.id}`);
+        nav(`/transfers/${res.transfer_code}`);
       } else {
-        await updateTransfer(id, payload);
+        const res = await updateTransfer(id, payload);
         toast.success("Transfer updated successfully!");
-        nav(`/transfers/${id}`);
+        nav(`/transfers/${res.transfer_code}`);
       }
     } catch (error) {
       setErr(String(error.message || error));
@@ -140,10 +142,10 @@ export default function TransferPage({ mode: propMode }) {
     return (
       <div className="invoice-preview">
         <div className="page-header no-print">
-          <h3 className="page-title">Transfer Record #TRN-{h.id}</h3>
+          <h3 className="page-title">Transfer Record {h.transfer_code}</h3>
           <div className="flex gap-4">
             <Link to="/transfers" className="btn btn-outline">← Back</Link>
-            <Link to={`/transfers/${h.id}/edit`} className="btn btn-outline">Edit</Link>
+            <Link to={`/transfers/${h.transfer_code}/edit`} className="btn btn-outline">Edit</Link>
             <button onClick={() => window.print()} className="btn btn-primary">Print Record</button>
           </div>
         </div>
@@ -167,7 +169,7 @@ export default function TransferPage({ mode: propMode }) {
             <div className="text-right">
               <h2 className="mb-4">TRANSFER</h2>
               <div><span className="font-bold">Date:</span> {formatDate(h.transfer_date)}</div>
-              <div><span className="font-bold">Record ID:</span> TRN-{h.id}</div>
+              <div><span className="font-bold">Record Code:</span> {h.transfer_code}</div>
               <div style={{ marginTop: "1rem", display: "inline-block", padding: "4px 12px", background: "#f3f4f6", borderRadius: "12px", fontSize: "0.85rem", fontWeight: 600 }}>
                 {lineItems.length} Items Moved
               </div>
@@ -213,7 +215,7 @@ export default function TransferPage({ mode: propMode }) {
       }} />
 
       <div className="page-header">
-        <h3 className="page-title">{mode === "create" ? "Record New Transfer" : `Edit Transfer #TRN-${id}`}</h3>
+        <h3 className="page-title">{mode === "create" ? "Record New Transfer" : `Edit Transfer ${id}`}</h3>
         <Link to="/transfers" className="btn btn-outline">← Back</Link>
       </div>
 
@@ -224,6 +226,26 @@ export default function TransferPage({ mode: propMode }) {
           <h4>Transfer Details</h4>
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem", marginTop: "1rem" }}>
             
+            <div className="form-group">
+              <label className="form-label">Transfer Code <span className="required-marker">*</span></label>
+              <div className="flex gap-2">
+                <input
+                  className="form-control"
+                  disabled={mode === "create" ? autoCode : true}
+                  placeholder="e.g. TRN-0016"
+                  value={transferCode}
+                  onChange={(e) => setTransferCode(e.target.value)}
+                  required={!autoCode}
+                />
+                {mode === "create" && (
+                  <div className="form-inline-option">
+                    <input type="checkbox" checked={autoCode} onChange={(e) => setAutoCode(e.target.checked)} id="t_auto" />
+                    <label htmlFor="t_auto">Auto</label>
+                  </div>
+                )}
+              </div>
+            </div>
+
             <div className="form-group">
               <label className="form-label">Transfer Date <span className="required-marker">*</span></label>
               <input type="date" className="form-control" value={transferDate} onChange={(e) => setTransferDate(e.target.value)} required />
