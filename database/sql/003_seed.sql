@@ -155,7 +155,7 @@ INSERT INTO crafting (crafting_date, session_id, player_id, target_item_id, qty_
 
 -- Maimoona Aziz 67070503473
 -- Populating Anvil 
-INSERT INTO anvil (id, anvil_date, player_id, total_xp_cost, player_xp_before, player_xp_after) (1, '2024-05-16 11:30:15', 1, 5, 30, 25) ON CONFLICT DO NOTHING;
+INSERT INTO anvil (id, anvil_date, player_id, total_xp_cost, player_xp_before, player_xp_after) VALUES (1, '2024-05-16 11:30:15', 1, 5, 30, 25) ON CONFLICT DO NOTHING;
 INSERT INTO anvil (id, anvil_date, player_id, total_xp_cost, player_xp_before, player_xp_after) VALUES (2, '2024-06-27 15:45:01', 2, 3, 15, 12) ON CONFLICT DO NOTHING;
 INSERT INTO anvil (id, anvil_date, player_id, total_xp_cost, player_xp_before, player_xp_after) VALUES (3, '2024-08-14 20:22:33', 3, 10, 99, 89) ON CONFLICT DO NOTHING;
 INSERT INTO anvil (id, anvil_date, player_id, total_xp_cost, player_xp_before, player_xp_after) VALUES (4, '2024-11-09 03:11:45', 4, 4, 50, 46) ON CONFLICT DO NOTHING;

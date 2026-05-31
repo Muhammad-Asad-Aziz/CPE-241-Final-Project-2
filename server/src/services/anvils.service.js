@@ -1,7 +1,7 @@
 // Anvil CRUD: list, get with line items, create/update/delete. Transactions for create/update.
 import { pool } from "../db/pool.js";
 
-export async function listTransfers({
+export async function listAnvils({
   search = "",
   page = 1,
   limit = 10,

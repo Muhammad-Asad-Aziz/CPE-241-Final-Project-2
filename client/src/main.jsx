@@ -5,6 +5,8 @@ import { BrowserRouter, Routes, Route, NavLink, Navigate } from "react-router-do
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
+import AnvilList from "./pages/anvils/AnvilList.jsx";
+import AnvilPage from "./pages/anvils/AnvilPage.jsx";
 import TransferList from "./pages/transfers/TransferList.jsx";
 import TransferPage from "./pages/transfers/TransferPage.jsx";
 import PlayerList from "./pages/players/PlayerList.jsx";
@@ -20,7 +22,6 @@ import RecipePage from "./pages/recipes/RecipePage.jsx";
 import EnchantmentList from "./pages/enchantments/EnchantmentList.jsx";
 import EnchantmentPage from "./pages/enchantments/EnchantmentPage.jsx";
 import Reports from "./pages/reports/Reports.jsx";
-
 import CraftingsList from "./pages/craftings/CraftingsList.jsx"; //Supanut
 import CraftingsPage from "./pages/craftings/CraftingsPage.jsx"; //Crafting
 // (GUIDE) #3.9.1 ADD YOUR WORK HERE
@@ -96,6 +97,12 @@ function Sidebar() {
             <path d="M6 12V9h3v3" />
           </svg>
           Crafting
+        </NavLink>
+
+        {/* Anvil */}
+        <NavLink to="/anvils" className={getLinkClass}>
+          {/* IDK where to find an Anvil icon */}
+          Anvil
         </NavLink>
 
         {/* (GUIDE) #3.9.2 ADD YOUR WORK HERE */}
@@ -300,6 +307,18 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         <Route path="/enchantments/:id" element={<Layout><EnchantmentPage mode="view" /></Layout>} />
         <Route path="/enchantments/:id/edit" element={<Layout><EnchantmentPage mode="edit" /></Layout>} />
 
+        {/* Craftings */}
+        <Route path="/craftings" element={<Layout><CraftingsList /></Layout>} />
+        <Route path="/craftings/new" element={<Layout><CraftingsPage mode="create" /></Layout>} />
+        <Route path="/craftings/:id" element={<Layout><CraftingsPage mode="view" /></Layout>} />
+        <Route path="/craftings/:id/edit" element={<Layout><CraftingsPage mode="edit" /></Layout>} />
+
+        {/* Anvils */}
+        <Route path="/anvils" element={<Layout><AnvilList /></Layout>} />
+        <Route path="/anvils/new" element={<Layout><AnvilPage mode="create" /></Layout>} />
+        <Route path="/anvils/:id" element={<Layout><AnvilPage mode="view" /></Layout>} />
+        <Route path="/anvils/:id/edit" element={<Layout><AnvilPage mode="edit" /></Layout>} />
+
         {/* Reports */}
         <Route path="/reports" element={<Navigate to="/reports/chest-inventory" replace />} />
         <Route path="/reports/chest-inventory" element={<Layout><Reports type="chest-inventory" /></Layout>} />
@@ -309,13 +328,6 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         <Route path="/reports/crafting-history" element={<Layout><Reports type="crafting-history" /></Layout>} />
         <Route path="/reports/recipe-requirements" element={<Layout><Reports type="recipe-requirements" /></Layout>} />
         <Route path="/reports/top-crafted" element={<Layout><Reports type="top-crafted" /></Layout>} />
-
-        {/* Craftings */}
-        <Route path="/craftings" element={<Layout><CraftingsList /></Layout>} />
-        <Route path="/craftings/new" element={<Layout><CraftingsPage mode="create" /></Layout>} />
-        <Route path="/craftings/:id" element={<Layout><CraftingsPage mode="view" /></Layout>} />
-        <Route path="/craftings/:id/edit" element={<Layout><CraftingsPage mode="edit" /></Layout>} />
-
 
         {/* (GUIDE) #3.9.3 ADD YOUR ROUTES HERE*/}
       </Routes>
