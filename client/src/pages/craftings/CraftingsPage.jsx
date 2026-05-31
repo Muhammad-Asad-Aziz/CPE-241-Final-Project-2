@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
-import { getCrafting, createCrafting, updateCrafting } from "../../api/craftings.api.js";
+import { getCrafting, createCrafting, updateCrafting, listCraftings } from "../../api/craftings.api.js";
 import { listPlayers } from "../../api/players.api.js";
 import { listItems } from "../../api/items.api.js";
 import { listRecipes } from "../../api/recipes.api.js"; 
@@ -80,6 +80,29 @@ export default function CraftingsPage() {
                             };
                         }));
                     }
+                } else {
+
+                    const now = new Date();
+                    const localDatetime = new Date(now.getTime() - now.getTimezoneOffset() * 60000).toISOString().slice(0, 16);
+                    
+
+                    let nextSessionId = 1;
+                    try {
+                        const craftingsRes = await listCraftings({ sortBy: "session_id", sortDir: "desc", limit: 1 });
+                        const latestCrafting = craftingsRes.data && craftingsRes.data.length > 0 ? craftingsRes.data[0] : null;
+                        if (latestCrafting && latestCrafting.session_id) {
+                            nextSessionId = Number(latestCrafting.session_id) + 1;
+                        }
+                    } catch (err) {
+                        console.error("Could not fetch latest session id:", err);
+                    }
+
+
+                    setFormData(prev => ({ 
+                        ...prev, 
+                        session_id: nextSessionId,
+                        crafting_date: localDatetime
+                    }));
                 }
             } catch (err) {
                 alert("Error loading data: " + err.message);
@@ -158,7 +181,6 @@ export default function CraftingsPage() {
                             const newLines = recipeItems.map(recipe => {
                                 const foundItem = allItems.find(i => String(i.id) === String(recipe.ingredient_item_id));
                                 
-                    
                                 const actualQty = recipe.amount_needed || recipe.quantity || recipe.qty || recipe.required_qty || recipe.amount || 1;
 
                                 return {
@@ -274,6 +296,7 @@ export default function CraftingsPage() {
                     </div>
 
                     <div style={{ marginTop: "2rem", display: "flex", justifyContent: "flex-end", gap: "1rem" }}>
+                        <button type="button" className="btn btn-secondary" onClick={() => navigate("/craftings")}>Cancel</button>
                         <button type="submit" className="btn btn-primary">
                             {isEdit ? "Update Crafting Record" : "Save Crafting Record"}
                         </button>
