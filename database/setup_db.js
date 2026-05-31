@@ -102,7 +102,7 @@ function getTableCounts(queryFn) {
   if (!out) return null;
 
   const counts = String(out).trim().split("|").map((value) => Number(String(value).trim()));
-  if (counts.length !== 8 || counts.some((value) => Number.isNaN(value))) return null;
+  if (counts.length !== 10 || counts.some((value) => Number.isNaN(value))) return null;
   /* (GUIDE) (EXTRA) #1.4.1 CHANGE counts.length !== X TO BE EQUAL TO THE NUMBER OF TABLES ABOVE*/
 
   return {
