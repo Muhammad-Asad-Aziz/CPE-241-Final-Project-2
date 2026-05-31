@@ -23,6 +23,8 @@ import Reports from "./pages/reports/Reports.jsx";
 
 import CraftingsList from "./pages/craftings/CraftingsList.jsx"; //Supanut
 import CraftingsPage from "./pages/craftings/CraftingsPage.jsx"; //Crafting
+import SmeltingsList from "./pages/smeltings/SmeltingsList.jsx"; //Xander
+import SmeltingsPage from "./pages/smeltings/SmeltingsPage.jsx";//Smelting
 // (GUIDE) #3.9.1 ADD YOUR WORK HERE
 
 import { http } from "./api/http.js";
@@ -97,6 +99,14 @@ function Sidebar() {
           </svg>
           Crafting
         </NavLink>
+        
+        {/* Smelting (Primary Function) */}
+<NavLink to="/smeltings" className={getLinkClass}>
+          <svg style={{ marginRight: 10 }} width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+          </svg>
+          Smelting
+        </NavLink>
 
         {/* (GUIDE) #3.9.2 ADD YOUR WORK HERE */}
 
@@ -163,6 +173,16 @@ function Sidebar() {
           Top Crafted Items
           </NavLink>
 
+        <NavLink to="/reports/furnace-location" className={getSubLinkClass}>
+            Furnace Location
+          </NavLink>
+          <NavLink to="/reports/player-fuel" className={getSubLinkClass}>
+            Player Fuel History
+          </NavLink>
+          <NavLink to="/reports/fuel-analysis" className={getSubLinkClass}>
+            Fuel Analysis
+          </NavLink>
+          
         </SubMenu>
       </nav>
     </aside>
@@ -316,6 +336,11 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         <Route path="/craftings/:id" element={<Layout><CraftingsPage mode="view" /></Layout>} />
         <Route path="/craftings/:id/edit" element={<Layout><CraftingsPage mode="edit" /></Layout>} />
 
+        {/* Smeltings */}
+        <Route path="/smeltings" element={<Layout><SmeltingsList /></Layout>} />
+        <Route path="/smeltings/new" element={<Layout><SmeltingsPage mode="create" /></Layout>} />
+        <Route path="/smeltings/:id" element={<Layout><SmeltingsPage mode="view" /></Layout>} />
+        <Route path="/smeltings/:id/edit" element={<Layout><SmeltingsPage mode="edit" /></Layout>} />
 
         {/* (GUIDE) #3.9.3 ADD YOUR ROUTES HERE*/}
       </Routes>
