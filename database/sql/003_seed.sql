@@ -213,21 +213,21 @@ INSERT INTO crafting_line_item (crafting_id, crafting_line_number, session_id, i
 INSERT INTO crafting_line_item (crafting_id, crafting_line_number, session_id, ingredient_id, required_quantity, total_needed) VALUES (15, 1, 15, 13, 4, 5) ON CONFLICT DO NOTHING;
 
 --Populating table: mining_line_item
-INSERT INTO mining_line_item (mining_id, block_mined_id, quantity_mined, tool_used_id, durability_lost, tool_status) VALUES (1, 1, 4, 15, 8, 15, 'Usable') ON CONFLICT DO NOTHING;
-INSERT INTO mining_line_item (mining_id, block_mined_id, quantity_mined, tool_used_id, durability_lost, tool_status) VALUES (2, 2, 1, 64, 20, 64, 'Usable')ON CONFLICT DO NOTHING;
-INSERT INTO mining_line_item (mining_id, block_mined_id, quantity_mined, tool_used_id, durability_lost, tool_status) VALUES (3, 3, 18, 128, NULL, 0, 'Usable') ON CONFLICT DO NOTHING; 
-INSERT INTO mining_line_item (mining_id, block_mined_id, quantity_mined, tool_used_id, durability_lost, tool_status) VALUES (4, 4, 6, 30, 8, 30, 'Usable') ON CONFLICT DO NOTHING;  
-INSERT INTO mining_line_item (mining_id, block_mined_id, quantity_mined, tool_used_id, durability_lost, tool_status) VALUES (5, 5, 12, 50, 8, 50, 'Usable') ON CONFLICT DO NOTHING;  
-INSERT INTO mining_line_item (mining_id, block_mined_id, quantity_mined, tool_used_id, durability_lost, tool_status) VALUES (6, 6, 14, 20, 8, 20, 'Usable') ON CONFLICT DO NOTHING;
-INSERT INTO mining_line_item (mining_id, block_mined_id, quantity_mined, tool_used_id, durability_lost, tool_status) VALUES (7, 7, 12, 100, 8, 100, 'Usable') ON CONFLICT DO NOTHING;
-INSERT INTO mining_line_item (mining_id, block_mined_id, quantity_mined, tool_used_id, durability_lost, tool_status) VALUES (8, 8, 4, 25, 8, 25, 'Usable') ON CONFLICT DO NOTHING;
-INSERT INTO mining_line_item (mining_id, block_mined_id, quantity_mined, tool_used_id, durability_lost, tool_status) VALUES (9, 9, 1, 32, 20, 32, 'Usable') ON CONFLICT DO NOTHING;
-INSERT INTO mining_line_item (mining_id, block_mined_id, quantity_mined, tool_used_id, durability_lost, tool_status) VALUES (10, 10, 6, 45, 8, 45, 'Usable') ON CONFLICT DO NOTHING;
-INSERT INTO mining_line_item (mining_id, block_mined_id, quantity_mined, tool_used_id, durability_lost, tool_status) VALUES (11, 11, 18, 50, NULL, 0, 'Usable') ON CONFLICT DO NOTHING;
-INSERT INTO mining_line_item (mining_id, block_mined_id, quantity_mined, tool_used_id, durability_lost, tool_status) VALUES (12, 12, 14, 15, 8, 15, 'Usable') ON CONFLICT DO NOTHING;
-INSERT INTO mining_line_item (mining_id, block_mined_id, quantity_mined, tool_used_id, durability_lost, tool_status) VALUES (13, 13, 12, 100, 24, 100, 'Usable') ON CONFLICT DO NOTHING;
-INSERT INTO mining_line_item (mining_id, block_mined_id, quantity_mined, tool_used_id, durability_lost, tool_status) VALUES (14, 14, 1, 12, 20, 12, 'Usable') ON CONFLICT DO NOTHING;
-INSERT INTO mining_line_item (mining_id, block_mined_id, quantity_mined, tool_used_id, durability_lost, tool_status) VALUES (15, 15, 4, 22, 8, 22, 'Usable') ON CONFLICT DO NOTHING;
+INSERT INTO mining_line_item (mining_id, block_mined_id, quantity_mined, tool_used_id, durability_lost) VALUES (1, 4, 15, 8, 15, 'Usable') ON CONFLICT DO NOTHING;
+INSERT INTO mining_line_item (mining_id, block_mined_id, quantity_mined, tool_used_id, durability_lost, tool_status) VALUES ( 2, 1, 64, 20, 64, 'Usable')ON CONFLICT DO NOTHING;
+INSERT INTO mining_line_item (mining_id, block_mined_id, quantity_mined, tool_used_id, durability_lost, tool_status) VALUES ( 3, 18, 128, NULL, 0, 'Usable') ON CONFLICT DO NOTHING; 
+INSERT INTO mining_line_item (mining_id, block_mined_id, quantity_mined, tool_used_id, durability_lost, tool_status) VALUES ( 4, 6, 30, 8, 30, 'Usable') ON CONFLICT DO NOTHING;  
+INSERT INTO mining_line_item (mining_id, block_mined_id, quantity_mined, tool_used_id, durability_lost, tool_status) VALUES ( 5, 12, 50, 8, 50, 'Usable') ON CONFLICT DO NOTHING;  
+INSERT INTO mining_line_item (mining_id, block_mined_id, quantity_mined, tool_used_id, durability_lost, tool_status) VALUES ( 6, 14, 20, 8, 20, 'Usable') ON CONFLICT DO NOTHING;
+INSERT INTO mining_line_item (mining_id, block_mined_id, quantity_mined, tool_used_id, durability_lost, tool_status) VALUES ( 7, 12, 100, 8, 100, 'Usable') ON CONFLICT DO NOTHING;
+INSERT INTO mining_line_item (mining_id, block_mined_id, quantity_mined, tool_used_id, durability_lost, tool_status) VALUES ( 8, 4, 25, 8, 25, 'Usable') ON CONFLICT DO NOTHING;
+INSERT INTO mining_line_item (mining_id, block_mined_id, quantity_mined, tool_used_id, durability_lost, tool_status) VALUES ( 9, 1, 32, 20, 32, 'Usable') ON CONFLICT DO NOTHING;
+INSERT INTO mining_line_item (mining_id, block_mined_id, quantity_mined, tool_used_id, durability_lost, tool_status) VALUES ( 10, 6, 45, 8, 45, 'Usable') ON CONFLICT DO NOTHING;
+INSERT INTO mining_line_item (mining_id, block_mined_id, quantity_mined, tool_used_id, durability_lost, tool_status) VALUES ( 11, 18, 50, NULL, 0, 'Usable') ON CONFLICT DO NOTHING;
+INSERT INTO mining_line_item (mining_id, block_mined_id, quantity_mined, tool_used_id, durability_lost, tool_status) VALUES (12, 14, 15, 8, 15, 'Usable') ON CONFLICT DO NOTHING;
+INSERT INTO mining_line_item (mining_id, block_mined_id, quantity_mined, tool_used_id, durability_lost, tool_status) VALUES ( 13, 12, 100, 24, 100, 'Usable') ON CONFLICT DO NOTHING;
+INSERT INTO mining_line_item (mining_id, block_mined_id, quantity_mined, tool_used_id, durability_lost, tool_status) VALUES ( 14, 1, 12, 20, 12, 'Usable') ON CONFLICT DO NOTHING;
+INSERT INTO mining_line_item (mining_id, block_mined_id, quantity_mined, tool_used_id, durability_lost, tool_status) VALUES (15, 4, 22, 8, 22, 'Usable') ON CONFLICT DO NOTHING;
 -- (GUIDE) #1.2.2 POPULATE LINE ITEMS HERE
 
 -- update sequences to max id (crutial when inserting explicit IDs)
