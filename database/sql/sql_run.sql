@@ -6,6 +6,7 @@
 -- 1. Schema Creation
 -- ==========================================
 
+-- Drop tables (child → parent order)
 DROP TABLE IF EXISTS transfer_line_item;
 DROP TABLE IF EXISTS "transfer"; -- tranfer is orange (or IDE theme color same as DROP TABLE IF EXISTS) if I don't add the quotes... i think transfer is a command...
 DROP TABLE IF EXISTS crafting_line_item;
