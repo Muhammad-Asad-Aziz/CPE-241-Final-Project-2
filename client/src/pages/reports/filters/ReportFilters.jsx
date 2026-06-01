@@ -13,7 +13,7 @@ export default function ReportFilters({ type, filters, onChange, onApply }) {
     if (type === "chest-inventory") {
       listChests({ limit: 1000 }).then(res => setChests(res.data || []));
     }
-    if (type === "crafting-history") {
+    if (type === "crafting-history" || type === "player-fuel") {
       listPlayers({ limit: 1000 }).then(res => setPlayers(res.data || []));
     }
     if (type === "recipe-requirements") {

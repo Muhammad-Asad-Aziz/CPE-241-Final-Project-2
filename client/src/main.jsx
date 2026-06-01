@@ -334,7 +334,6 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         <Route path="/reports/furnace-location" element={<Layout><Reports type="furnace-location" /></Layout>} />
         <Route path="/reports/player-fuel" element={<Layout><Reports type="player-fuel" /></Layout>} />
         <Route path="/reports/fuel-analysis" element={<Layout><Reports type="fuel-analysis" /></Layout>} />
-
         
         {/* Craftings */}
         <Route path="/craftings" element={<Layout><CraftingsList /></Layout>} />
