@@ -54,4 +54,31 @@ export async function getTopCraftedItems(req, res) {
     }
 }
 
+export async function getEnchantedTool(req, res) {
+    try {
+        const data = await reportsService.getEnchantedTool(req.query);
+        res.json({ success: true, data });
+    } catch (err) {
+        res.status(500).json({ success: false, error: err.message });
+    }
+}
+
+export async function getPlayerAnvilHistory(req, res) {
+    try {
+        const data = await reportsService.getPlayerAnvilHistory(req.query);
+        res.json({ success: true, data });
+    } catch (err) {
+        res.status(500).json({ success: false, error: err.message });
+    }
+}
+
+export async function getXPByType(req, res) {
+    try {
+        const data = await reportsService.getXPByType(req.query);
+        res.json({ success: true, data });
+    } catch (err) {
+        res.status(500).json({ success: false, error: err.message });
+    }
+}
+
 // (GUIDE) #3.4 ADD YOUR REPORTS HERE

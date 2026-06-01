@@ -127,14 +127,11 @@ export default function AnvilPage({ mode: propMode }) {
 
 
   function addLine() {
-    setLines(prev => {
-      // 5 max limit for modifications
-      if (prev.length >= 5) {
-        toast.error("Anvil interactions are restricted to a maximum of 5 modifications per session!");
-        return prev;
-      }
-      return [...prev, emptyLine()];
-    });
+    if (lines.length >= 5) {
+      toast.warning("Anvil interactions are restricted to a maximum of 5 modifications per session!");
+      return;
+    }
+    setLines(prev => [...prev, emptyLine()]);
   }
 
   function removeLine(index) {
@@ -143,8 +140,8 @@ export default function AnvilPage({ mode: propMode }) {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    if (!playerUsername) return toast.error("Player identity tracking is required!");
-    if (lines.length === 0) return toast.error("Please append at least one item modification line transaction row.");
+    if (!playerUsername) return toast.error("Player user is required!");
+    if (lines.length === 0) return toast.error("Please add at least one item modification line transaction row.");
 
     setSubmitting(true);
     setErr("");
@@ -157,6 +154,7 @@ export default function AnvilPage({ mode: propMode }) {
         player_xp_before: Number(playerXpBefore),
         player_xp_after: Number(playerXpAfter),
         line_items: lines.map(l => ({
+          anvil_line_number: idx + 1,
           target_tool_id: l.target_tool_id ? Number(l.target_tool_id) : null,
           current_durability: l.current_durability !== "" ? Number(l.current_durability) : null,
           sacrifice_item_id: l.sacrifice_item_id ? Number(l.sacrifice_item_id) : null,
@@ -167,16 +165,16 @@ export default function AnvilPage({ mode: propMode }) {
 
       if (mode === "create") {
         const res = await createAnvil(payload);
-        toast.success("Anvil actions logged safely!");
+        toast.success("Anvil actions saved successfully!");
         nav(`/anvils/${res.id}`);
       } else {
         await updateAnvil(id, payload);
-        toast.success("Anvil transaction logs committed successfully!");
+        toast.success("Anvil transaction updated successfully!");
         nav(`/anvils/${id}`);
       }
     } catch (error) {
       setErr(String(error.message || error));
-      toast.error("Failed to accurately save anvil data logs.");
+      toast.error("Failed to save anvil transaction.");
     } finally {
       setSubmitting(false);
     }
@@ -192,7 +190,7 @@ export default function AnvilPage({ mode: propMode }) {
     return (
       <div className="invoice-preview">
         <div className="page-header no-print">
-          <h3 className="page-title">Anvil Action Workorder #ANV-{h.id}</h3>
+          <h3 className="page-title">Anvil Workorder #ANV-{h.id}</h3>
           <div className="flex gap-4">
             <Link to="/anvils" className="btn btn-outline">← Back</Link>
             <Link to={`/anvils/${h.id}/edit`} className="btn btn-outline">Edit</Link>
@@ -242,9 +240,9 @@ export default function AnvilPage({ mode: propMode }) {
                     <td>{li.anvil_line_number}</td>
                     <td style={{ fontWeight: 600 }}>{li.target_tool_name || `Tool Item #${li.target_tool_id}`}</td>
                     <td className="text-right">{li.current_durability ?? "-"}</td>
-                    <td>{li.sacrifice_item_id ? (li.sacrifice_item_name || `Sacrifice Item #${li.sacrifice_item_id}`) : "-- None --"}</td>
-                    <td className="text-right font-bold" style={{ color: "var(--primary)" }}>{li.restored_durability ?? "-"}</td>
-                    <td>{li.enchantment_id ? (li.enchantment_name || `Enchantment ID: ${li.enchantment_id}`) : "-- None --"}</td>
+                    <td>{li.sacrifice_item_id ? (li.sacrifice_item_name || `Sacrifice Item #${li.sacrifice_item_id}`) : "—"}</td>
+                    <td className="text-right font-bold" style={{ color: "var(--primary)" }}>{li.restored_durability ?? "—"}</td>
+                    <td>{li.enchantment_id ? (li.enchantment_name || `Enchantment ID: ${li.enchantment_id}`) : "—"}</td>
                   </tr>
                 ))}
               </tbody>
@@ -277,7 +275,7 @@ export default function AnvilPage({ mode: propMode }) {
       }} />
 
       <div className="page-header">
-        <h3 className="page-title">{mode === "create" ? "Record New Anvil Action" : `Edit Anvil Interaction #ANV-${id}`}</h3>
+        <h3 className="page-title">{mode === "create" ? "New Anvil Record" : `Edit Anvil Interaction #ANV-${id}`}</h3>
         <Link to="/anvils" className="btn btn-outline">← Back</Link>
       </div>
 
@@ -285,18 +283,18 @@ export default function AnvilPage({ mode: propMode }) {
 
       <form onSubmit={handleSubmit}>
         <div className="card" style={{ marginBottom: "1rem" }}>
-          <h4>Anvil Interaction Header Registry</h4>
+          <h4>Anvil Session Details</h4>
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem", marginTop: "1rem" }}>
             
             <div className="form-group">
-              <label className="form-label">Interaction Date <span className="required-marker">*</span></label>
+              <label className="form-label">Date <span className="required-marker">*</span></label>
               <input type="date" className="form-control" value={anvilDate} onChange={(e) => setAnvilDate(e.target.value)} required />
             </div>
             
             <div className="form-group">
-              <label className="form-label">Active Player Account <span className="required-marker">*</span></label>
+              <label className="form-label">Player Username <span className="required-marker">*</span></label>
               <div style={{ display: "flex", gap: 8 }}>
-                <input className="form-control" value={playerUsername} placeholder="Select Player context..." readOnly required />
+                <input className="form-control" value={playerUsername} placeholder="Select Player Username..." readOnly required />
                 <button type="button" className="btn btn-primary" onClick={() => setPlayerModalOpen(true)}>LoV</button>
               </div>
             </div>
@@ -322,25 +320,43 @@ export default function AnvilPage({ mode: propMode }) {
 
         <div className="card">
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "1rem" }}>
-            <h4 style={{ margin: 0 }}>Item Customization Action Items</h4>
-            <button type="button" className="btn btn-outline" onClick={() => setLines(prev => [...prev, emptyLine()])}>+ Add Modification Line</button>
+            <h4 style={{ margin: 0 }}>Tool Modification</h4>
+            <button 
+              type="button" 
+              className="btn btn-outline" 
+              onClick={addLine}
+              disabled={lines.length >= 5}
+              style={lines.length >= 5 ? { cursor: "not-allowed", opacity: 0.5 } : {}}>
+              {lines.length >= 5 ? "Max Items Added" : "+ Add Item"}
+            </button>
           </div>
 
           <div className="table-container">
             <table className="modern-table">
               <thead>
                 <tr>
+                  <th style={{ width: "50px", textAlign: "center" }}>Line</th> {/* Added Line Column Header */}
                   <th>Target Tool</th>
-                  <th style={{ width: "120px" }}>Cur. Durability</th>
-                  <th>Sacrifice Item Component</th>
-                  <th style={{ width: "120px" }}>Rest. Durability</th>
-                  <th>Enchantment Block</th>
+                  <th style={{ width: "100px" }}>Current Durability</th>
+                  <th>Sacrificed Item</th>
+                  <th style={{ width: "100px" }}>Restored Durability</th>
+                  <th>Enchantment</th>
                   <th style={{ width: "80px" }}></th>
                 </tr>
               </thead>
               <tbody>
                 {lines.map((line, idx) => (
                   <tr key={idx}>
+
+                    {/* Dynamically calculated Row Line Number (Non-Editable Standard Text Wrapper) */}
+                  <td style={{ 
+                      textAlign: "center", 
+                      fontWeight: "600", 
+                      color: "var(--text-muted)",
+                      verticalAlign: "middle" 
+                    }}>
+                      {idx + 1}
+                  </td>
                     <td>
                       <div style={{ display: "flex", gap: 4 }}>
                         <input className="form-control" value={line.target_tool_name || ""} placeholder="Select Tool..." readOnly />
@@ -353,13 +369,20 @@ export default function AnvilPage({ mode: propMode }) {
                     </td>
                     <td>
                       <div style={{ display: "flex", gap: 4 }}>
-                        <input className="form-control" value={line.sacrifice_item_name || ""} placeholder="Select Material..." readOnly />
+                        <input className="form-control" value={line.sacrifice_item_name || ""} placeholder="Select Item..." readOnly />
                         <button type="button" className="btn btn-primary" style={{ padding: "4px 8px" }} onClick={() => { setActiveLineIdx(idx); setSacrificeItemModalOpen(true); }}>LoV</button>
                         {line.sacrifice_item_id && <button type="button" className="btn btn-outline" style={{ padding: "4px 8px" }} onClick={() => { updateLine(idx, "sacrifice_item_id", ""); updateLine(idx, "sacrifice_item_name", ""); }}>×</button>}
                       </div>
                     </td>
                     <td>
-                      <input type="number" min="0" className="form-control" style={{ textAlign: "right" }} value={line.restored_durability} onChange={(e) => updateLine(idx, "restored_durability", e.target.value)} />
+                      <input 
+                        type="number" 
+                        className="form-control" 
+                        style={{ textAlign: "right", backgroundColor: "#f3f4f6", cursor: "not-allowed", fontWeight: "bold" }} 
+                        value={line.restored_durability} 
+                        readOnly 
+                        disabled 
+                      />
                     </td>
                     <td>
                       <div style={{ display: "flex", gap: 4 }}>

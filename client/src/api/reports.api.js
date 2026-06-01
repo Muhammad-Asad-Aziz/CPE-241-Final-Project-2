@@ -30,6 +30,24 @@ export async function getTopCraftedItems(params) {
     return unwrap(res);
 }
 
+export async function getEnchantedTool(params) {
+    const query = new URLSearchParams(params).toString();
+    const res = await http(`/api/reports/enchanted-tool?${query}`);
+    return unwrap(res);
+}
+
+export async function getPlayerAnvilHistory(params) {
+    const query = new URLSearchParams(params).toString();
+    const res = await http(`/api/reports/anvil-history?${query}`);
+    return unwrap(res);
+}
+
+export async function getXPByType(params) {
+    const query = new URLSearchParams(params).toString();
+    const res = await http(`/api/reports/XP-type?${query}`);
+    return unwrap(res);
+}
+
 // (GUIDE) #3.6 ADD YOUR REPORTS HERE
 
 export async function getReportData(type, params = {}) {
@@ -38,6 +56,10 @@ export async function getReportData(type, params = {}) {
     if (type === "crafting-history") return getPlayerCraftingHistory(params);
     if (type === "recipe-requirements") return getRecipeRequirements(params);
     if (type === "top-crafted") return getTopCraftedItems(params);
+    if (type === "enchanted-tool") return getEnchantedTool(params);
+    if (type === "anvil-history") return getPlayerAnvilHistory(params);
+    if (type === "XP-type") return getXPByType(params);
+    
   // Clean empty params
   const qs = new URLSearchParams();
   for (const [key, value] of Object.entries(params)) {

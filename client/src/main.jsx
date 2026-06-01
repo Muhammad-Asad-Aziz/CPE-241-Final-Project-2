@@ -170,6 +170,16 @@ function Sidebar() {
           Top Crafted Items
           </NavLink>
 
+          <NavLink to="/reports/enchanted-tool" className={getSubLinkClass}>
+            Enchanted Tool History
+          </NavLink>
+          <NavLink to="/reports/anvil-history" className={getSubLinkClass}>
+          Anvil History
+          </NavLink>
+          <NavLink to="/reports/XP-type"className={getSubLinkClass}>
+          XP Cost by Tool Type
+          </NavLink>
+
         </SubMenu>
       </nav>
     </aside>
@@ -328,6 +338,10 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         <Route path="/reports/crafting-history" element={<Layout><Reports type="crafting-history" /></Layout>} />
         <Route path="/reports/recipe-requirements" element={<Layout><Reports type="recipe-requirements" /></Layout>} />
         <Route path="/reports/top-crafted" element={<Layout><Reports type="top-crafted" /></Layout>} />
+
+        <Route path="/reports/enchanted-tool" element={<Layout><Reports type="enchanted-tool" /></Layout>} />
+        <Route path="/reports/anvil-history" element={<Layout><Reports type="anvil-history" /></Layout>} />
+        <Route path="/reports/XP-type" element={<Layout><Reports type="XP-type" /></Layout>} />
 
         {/* (GUIDE) #3.9.3 ADD YOUR ROUTES HERE*/}
       </Routes>

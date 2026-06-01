@@ -65,9 +65,15 @@ export async function getAnvil(id) {
 
   const lines = await pool.query(
     `
-      SELECT li.id, li.anvil_line_number, li.target_tool_id, li.current_durability, 
-             li.sacrifice_item_id, li.restored_durability, li.enchantment_id
+      SELECT li.id, li.anvil_line_number, li.target_tool_id,
+        t_item.item_name as target_tool_name,
+        li.current_durability, li.sacrifice_item_id, 
+        s_item.item_name as sacrifice_item_name, li.restored_durability, 
+        li.enchantment_id, e.enchantment_name                   
       FROM anvil_line_item li
+      LEFT JOIN item t_item ON t_item.id = li.target_tool_id
+      LEFT JOIN item s_item ON s_item.id = li.sacrifice_item_id
+      LEFT JOIN enchantment e ON e.id = li.enchantment_id
       WHERE li.anvil_id = $1
       ORDER BY li.anvil_line_number ASC
     `,

@@ -10,6 +10,10 @@ r.get("/chest-utilization", c.getChestUtilization);
 r.get("/crafting-history", c.getPlayerCraftingHistory);
 r.get("/recipe-requirements", c.getRecipeRequirements);
 r.get("/top-crafted", c.getTopCraftedItems);
+
+r.get("/enchanted-tool", c.getEnchantedTool);
+r.get("/anvil-history", c.getPlayerAnvilHistory);
+r.get("/XP-type", c.getXPByType);
 // (GUIDE) #3.5 ADD YOUR REPORTS HERE
 
 export default r;
