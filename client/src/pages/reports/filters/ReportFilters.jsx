@@ -127,6 +127,72 @@ export default function ReportFilters({ type, filters, onChange, onApply }) {
         </>
       )}
 
+      {/* ----------------------------------------- */}
+      {/* Mining REPORTS  */}
+      {/* ----------------------------------------- */}
+
+      {/* 1. MINING HISTORY FILTER (Dropdown) */}
+      {type === "mining-history" && (
+        <div className="form-group" style={{ margin: 0, width: "300px" }}>
+          <label className="form-label">Select Biome</label>
+          <select 
+            className="form-control" 
+            value={filters.biomeName || ""} 
+            onChange={(e) => onChange({ ...filters, biomeName: e.target.value })}
+          >
+            <option value="">-- Choose Biome --</option>
+          </select>
+        </div>
+      )}
+
+      {/* 2. BROKEN TOOLS FILTER (date) */}
+      {type === "broken-tools" && (
+        <>
+          <div className="form-group" style={{ margin: 0, width: "200px" }}>
+            <label className="form-label">Date From</label>
+            <input 
+              type="date" 
+              className="form-control" 
+              value={filters.fromDate || ""} 
+              onChange={(e) => onChange({ ...filters, fromDate: e.target.value })}
+            />
+          </div>
+          <div className="form-group" style={{ margin: 0, width: "200px" }}>
+            <label className="form-label">Date To</label>
+            <input 
+              type="date" 
+              className="form-control" 
+              value={filters.toDate || ""} 
+              onChange={(e) => onChange({ ...filters, toDate: e.target.value })}
+            />
+          </div>
+        </>
+      )}
+
+      {/* 3. TOTAL BLOCKS MINED FILTER (date) */}
+      {type === "blocks-mined" && (
+        <>
+          <div className="form-group" style={{ margin: 0, width: "200px" }}>
+            <label className="form-label">Date From</label>
+            <input 
+              type="date" 
+              className="form-control" 
+              value={filters.fromDate || ""} 
+              onChange={(e) => onChange({ ...filters, fromDate: e.target.value })}
+            />
+          </div>
+          <div className="form-group" style={{ margin: 0, width: "200px" }}>
+            <label className="form-label">Date To</label>
+            <input 
+              type="date" 
+              className="form-control" 
+              value={filters.toDate || ""} 
+              onChange={(e) => onChange({ ...filters, toDate: e.target.value })}
+            />
+          </div>
+        </>
+      )}
+
       {/*Run Report button */}
       <button type="button" className="btn btn-primary" onClick={onApply}>
         Run Report

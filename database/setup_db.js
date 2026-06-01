@@ -95,14 +95,16 @@ function getTableCounts(queryFn) {
     "  (select count(*) from crafting),",          
     "  (select count(*) from crafting_line_item),",
     "  (select count(*) from smelting),",           // ITEMS THAT ARE NOT LAST SHOULD HAVE 2 COMMAS AT THE END (the ,", part) (", ❌) (," ❌) (,", ✅)
-    "  (select count(*) from smelting_line_item);" // ONLY THE LAST ITEM IN THE LIST CAN HAVE THE SEMI COLON + SHOULDN'T HAVE A COMMA
+    "  (select count(*) from smelting_line_item),",
+    "  (select count(*) from mining),",
+    "  (select count(*) from mining_line_item);" // ONLY THE LAST ITEM IN THE LIST CAN HAVE THE SEMI COLON + SHOULDN'T HAVE A COMMA
     /* (GUIDE) #1.4.1 ADD select count(*) statement for your corresponding table */
     /* (select count(*) from TABLE_NAME);", */
   ].join(" "));
   if (!out) return null;
 
   const counts = String(out).trim().split("|").map((value) => Number(String(value).trim()));
-  if (counts.length !== 10 || counts.some((value) => Number.isNaN(value))) return null;
+  if (counts.length !== 12 || counts.some((value) => Number.isNaN(value))) return null;
   /* (GUIDE) (EXTRA) #1.4.1 CHANGE counts.length !== X TO BE EQUAL TO THE NUMBER OF TABLES ABOVE*/
 
   return {
@@ -115,7 +117,9 @@ function getTableCounts(queryFn) {
     crafting: counts[6],
     craftingLineItem: counts[7],
     smelting: counts[8],            
-    smeltingLineItem: counts[9]
+    smeltingLineItem: counts[9],
+    mining: counts[10],
+    miningLineItem: counts[11]
     /* (GUIDE) #1.4.2 ADD YOUR CORRESPONDING TABLE TO THE LIST, USE camelCase */
   };
 }
@@ -127,7 +131,7 @@ function getSeedDecision(counts) {
   }
 
   const hasReferenceData = counts.item > 0 || counts.player > 0 || counts.chest > 0 || counts.villager > 0;
-  const missingCraftLessData = counts.transfer === 0 && counts.transferLineItem === 0 && counts.crafting === 0 && counts.craftingLineItem === 0 && counts.smelting === 0 && counts.smeltingLineItem === 0;
+  const missingCraftLessData = counts.transfer === 0 && counts.transferLineItem === 0 && counts.crafting === 0 && counts.craftingLineItem === 0 && counts.smelting === 0 && counts.smeltingLineItem === 0 && counts.mining === 0 && counts.miningLineItem === 0;
   /* (GUIDE) #1.4.3 ADD a check */
   /* && counts.tableNameInCamelCase === 0 */
   if (hasReferenceData && missingCraftLessData) {
@@ -148,7 +152,9 @@ function logCounts(counts) {
     ", crafting=" + counts.crafting +
     ", crafting_line_item=" + counts.craftingLineItem +
     ", smelting=" + counts.smelting +
-    ", smelting_line_item=" + counts.smeltingLineItem  /* LAST ITEM IN LIST MUST NOT HAVE "+" in the end */
+    ", smelting_line_item=" + counts.smeltingLineItem +
+    ", mining=" + counts.mining +
+    ", mining_line_item=" + counts.miningLineItem /* LAST ITEM IN LIST MUST NOT HAVE "+" in the end */
 
     /* (GUIDE) #1.4.4 ADD LOGGING TO YOUR CORRESPONDING TABLE */
     /* {previous table name in snake case}=" + counts.{previous table name in camel case} +

@@ -83,6 +83,52 @@ const REPORT_CONFIG = {
       { key: "Item_Type", label: "Item Type" },
       { key: "Total_Quantity_Crafted", label: "Total Crafted", align: "right", style: { color: "#ef4444", fontWeight: "bold" } }
     ]
+  },
+
+  "mining-history": {
+    title: "Mining History of each Biome",
+    subtitle: "Simple: Shows the amount of blocks that was mined in each biome.",
+    emptyMessage: "No mining records found for this biome.",
+    getColumns: () => [
+      { key: "id", label: "Trip ID", render: (v) => `CRF-${v}` },
+      { key: "mining_date", label: "Date", align: "right", render: (v) => formatDate(v) },
+      { key: "Player_Name", label: "Player Name", render: (v) => <span className="font-bold">{v}</span> },
+      { key: "biome_name", label: "Biome", align: "right" },
+      { key: "item_name", label: "Block Name", align: "right" },
+      { key: "quantity_mined", label: "QTY Mined", align: "right" },
+      { key: "item_name", label: "Item Used", align: "right" } 
+    ]
+  },
+
+  "broken-tools": {
+    title: "Mining Tools That Are No Longer Usable",
+    subtitle: "Simple: Shows mining tools that are broken",
+    emptyMessage: "No broken tools found.",
+    getColumns: () => [
+      { key: "id", label: "Trip ID", render: (v) => `CRF-${v}` },
+      { key: "mining_date", label: "Date", align: "right", render: (v) => formatDate(v) },
+      { key: "Player_Name", label: "Player Name", render: (v) => <span className="font-bold">{v}</span> },
+      { key: "block_mined_id", label: "Block Mined", align: "right" },
+      { key: "item_name", label: "Item Used", align: "right" },
+      { key: "durability_lost", label: "Durability Lost", align: "right" },
+      { key: "quantity_mined", label: "QTY Mined", align: "right" },
+      { key: "tool_status", label: "Tool Status", align: "right" }
+    ]
+  },
+
+  "blocks-mined": {
+    title: "Blocks Mined By Different Tool Materials",
+    subtitle: "Analysis: Shows total blocks mined grouped by tool material",
+    emptyMessage: "No blocks found.",
+    getColumns: () => [
+      { key: "item_name", label: "Item Used", align: "right" },
+      { key: "id", label: "Trip ID", render: (v) => `CRF-${v}` },
+      { key: "quantity_mined", label: "Total Blocks Mined", align: "right" },
+      { key: "durability_lost", label: "Durability Lost", align: "right" },
+      { key: "quantity_mined", label: "QTY Mined", align: "right" },
+      { key: "block_mined_id", label: "No. of types of blocks mined", align: "right" },
+      { key: "tool_status", label: "Tool Status", align: "right" }
+    ]
   }
 };
   // (GUIDE) #3.7 ADD YOUR REPORT
