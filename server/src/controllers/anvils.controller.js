@@ -15,7 +15,7 @@ export async function listAnvils(req, res) {
 
 export async function getAnvil(req, res) {
   try {
-    const anvil = await anvilsService.getAnvil;(req.params.id);
+    const anvil = await anvilsService.getAnvil(req.params.id);
     if (!anvil) return res.status(404).json({ success: false, error: { message: "Anvil not found" } });
     res.json({ success: true, data: anvil });
   } catch (err) {
