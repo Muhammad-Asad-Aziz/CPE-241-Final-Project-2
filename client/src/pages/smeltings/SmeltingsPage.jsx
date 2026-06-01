@@ -12,9 +12,9 @@ export default function SmeltingsPage() {
         smelt_date: "",
         player_id: "",
         furnace_location_xyz: "",
-        line_items: []
+        line_items: [] 
     });
-
+   
     const [players, setPlayers] = useState([]);
 
     useEffect(() => {
@@ -22,10 +22,8 @@ export default function SmeltingsPage() {
             .then((res) => {
                 if (Array.isArray(res)) setPlayers(res);
                 else if (res && Array.isArray(res.data)) setPlayers(res.data);
-                else if (res && res.data && Array.isArray(res.data.data)) setPlayers(res.data.data);
-                else setPlayers([]);
-            })
-            .catch(err => console.error("Error fetching players:", err));
+                else if (res?.data?.data) setPlayers(res.data.data);
+            }).catch(err => console.error("Error fetching players:", err));
     }, []);
 
     useEffect(() => {
@@ -39,6 +37,27 @@ export default function SmeltingsPage() {
 
     const handleChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
 
+    const addLineItem = () => {
+        setFormData({
+            ...formData,
+            line_items: [
+                ...formData.line_items, 
+                { raw_input_item_id: "", quantity_inserted: "", fuel_item_id: "", fuel_consumed: "", output_item_id: "", output_quantity: "" }
+            ]
+        });
+    };
+
+    const handleLineItemChange = (index, field, value) => {
+        const newLineItems = [...formData.line_items];
+        newLineItems[index][field] = value;
+        setFormData({ ...formData, line_items: newLineItems });
+    };
+
+    const removeLineItem = (index) => {
+        const newLineItems = formData.line_items.filter((_, i) => i !== index);
+        setFormData({ ...formData, line_items: newLineItems });
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
@@ -51,41 +70,95 @@ export default function SmeltingsPage() {
     };
 
     return (
-        <div className="container max-w-md">
+        <div className="container max-w-4xl mt-4">
             <h2>{isEdit ? "Edit Smelting Job" : "New Smelting Job"}</h2>
+            
             <form onSubmit={handleSubmit} className="card p-4 mt-3">
-                <div className="mb-3">
-                    <label className="form-label">Smelt Date</label>
-                    <input type="datetime-local" name="smelt_date" className="form-control" value={formData.smelt_date} onChange={handleChange} required />
+                
+                {/* --- HEADER SECTION --- */}
+                <h4 className="mb-3 text-primary">Job Details (Header)</h4>
+                <div className="row">
+                    <div className="col-md-4 mb-3">
+                        <label className="form-label">Smelt Date</label>
+                        <input type="datetime-local" name="smelt_date" className="form-control" value={formData.smelt_date} onChange={handleChange} required />
+                    </div>
+
+                    <div className="col-md-4 mb-3">
+                        <label className="form-label">Player</label>
+                            <select name="player_id" className="form-control" value={formData.player_id || ""} onChange={handleChange} required>
+                            <option value="">-- Choose a Player --</option>
+                            {players.map(p => (
+                                <option key={p.id} value={p.id}>{p.username}</option>
+                            ))}
+                        </select>
+                    </div>
+
+                    <div className="col-md-4 mb-3">
+                        <label className="form-label">Furnace Location</label>
+                        <input type="text" name="furnace_location_xyz" placeholder="100,64,250" className="form-control" value={formData.furnace_location_xyz} onChange={handleChange} required />
+                    </div>
                 </div>
 
-                <div className="mb-3">
-                    <label className="form-label">Player</label>
-                    <select 
-                        name="player_id" 
-                        className="form-control form-control-sm"
-                        style={{ maxWidth: "300px" }}
-                        className="form-control" 
-                        value={formData.player_id || ""} 
-                        onChange={handleChange} 
-                        required
-                    >
-                        <option value="">-- Choose a Player --</option>
-                        {players.map(p => (
-                            <option key={p.id} value={p.id}>
-                                {p.username}
-                            </option>
-                        ))}
-                    </select>
+                <hr className="my-4" />
+
+                {/* --- LINE ITEMS SECTION --- */}
+                <div className="d-flex justify-content-between align-items-center mb-3">
+                    <h4 className="text-primary mb-0">Smelted Items (Details)</h4>
+                    <button type="button" className="btn btn-outline-primary btn-sm" onClick={addLineItem}>
+                        + Add Item
+                    </button>
                 </div>
 
-                <div className="mb-3">
-                    <label className="form-label">Furnace Location (X,Y,Z)</label>
-                    <input type="text" name="furnace_location_xyz" placeholder="e.g., 100,64,250" className="form-control" value={formData.furnace_location_xyz} onChange={handleChange} required />
-                </div>
-                <div className="d-flex gap-2 mt-4">
-                    <button type="submit" className="btn btn-success">Save</button>
-                    <button type="button" className="btn btn-secondary" onClick={() => navigate("/smeltings")}>Cancel</button>
+                {formData.line_items.length === 0 ? (
+                    <div className="alert alert-secondary text-center">No items added yet. Click "+ Add Item".</div>
+                ) : (
+                    <div className="table-responsive">
+                        <table className="table table-bordered align-middle">
+                            <thead className="table-light text-center">
+                                <tr>
+                                    <th>Ore ID</th>
+                                    <th>Qty In</th>
+                                    <th>Fuel ID</th>
+                                    <th>Fuel Qty</th>
+                                    <th>Output ID</th>
+                                    <th>Qty Out</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {formData.line_items.map((item, index) => (
+                                    <tr key={index}>
+                                        <td>
+                                            <input type="number" className="form-control form-control-sm" placeholder="ID" value={item.raw_input_item_id} onChange={(e) => handleLineItemChange(index, "raw_input_item_id", e.target.value)} required />
+                                        </td>
+                                        <td>
+                                            <input type="number" className="form-control form-control-sm" placeholder="0" value={item.quantity_inserted} onChange={(e) => handleLineItemChange(index, "quantity_inserted", e.target.value)} required />
+                                        </td>
+                                        <td>
+                                            <input type="number" className="form-control form-control-sm" placeholder="ID" value={item.fuel_item_id} onChange={(e) => handleLineItemChange(index, "fuel_item_id", e.target.value)} required />
+                                        </td>
+                                        <td>
+                                            <input type="number" className="form-control form-control-sm" placeholder="0" value={item.fuel_consumed} onChange={(e) => handleLineItemChange(index, "fuel_consumed", e.target.value)} required />
+                                        </td>
+                                        <td>
+                                            <input type="number" className="form-control form-control-sm" placeholder="ID" value={item.output_item_id} onChange={(e) => handleLineItemChange(index, "output_item_id", e.target.value)} required />
+                                        </td>
+                                        <td>
+                                            <input type="number" className="form-control form-control-sm" placeholder="0" value={item.output_quantity} onChange={(e) => handleLineItemChange(index, "output_quantity", e.target.value)} required />
+                                        </td>
+                                        <td className="text-center">
+                                            <button type="button" className="btn btn-danger btn-sm" onClick={() => removeLineItem(index)}>Delete</button>
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
+                )}
+
+                <div className="d-flex gap-2 mt-4 border-top pt-3">
+                    <button type="submit" className="btn btn-success px-4">Save Job</button>
+                    <button type="button" className="btn btn-secondary px-4" onClick={() => navigate("/smeltings")}>Cancel</button>
                 </div>
             </form>
         </div>
