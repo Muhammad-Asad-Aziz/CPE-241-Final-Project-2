@@ -159,9 +159,9 @@ export default function MiningPage({ mode: propMode }) {
               <h2 className="mb-4">Mining Trip</h2>
               <div><span className="font-bold">Date:</span> {formatDate(h.mining_date)}</div>
               <div><span className="font-bold">Record ID:</span> MN-{h.id}</div>
-           {/*}   <div style={{ marginTop: "1rem", display: "inline-block", padding: "4px 12px", background: "#f3f4f6", borderRadius: "12px", fontSize: "0.85rem", fontWeight: 600 }}>
-                {lineItems.length} BLocks Mined
-              </div> */}
+              <div style={{ marginTop: "1rem", display: "inline-block", padding: "4px 12px", background: "#f3f4f6", borderRadius: "12px", fontSize: "0.85rem", fontWeight: 600 }}>
+                {lineItems.reduce((totalBlocks, lineItem) => totalBlocks + parseInt(lineItem.quantity_mined, 10), 0)} BLocks Mined
+              </div> 
             </div>
           </div>
 
@@ -262,7 +262,7 @@ export default function MiningPage({ mode: propMode }) {
                 <tr>
                   <th>Block Mined <span className="required-marker">*</span></th>
                   <th className="text-right" style={{ width: "150px" }}>Quantity <span className="required-marker">*</span></th>
-                  <th>Tool Used <span className="required-marker">*</span></th>
+                  <th>Tool Used</th>
                   <th className="text-right" style={{ width: "150px" }}>Durability Lost <span className="required-marker">*</span></th>
                   <th>Tool Status <span className="required-marker">*</span></th>
                   <th style={{ width: "80px" }}></th>
