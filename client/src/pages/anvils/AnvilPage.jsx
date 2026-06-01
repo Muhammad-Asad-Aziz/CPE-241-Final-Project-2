@@ -59,7 +59,7 @@ export default function AnvilPage({ mode: propMode }) {
     getAnvil(id)
       .then((t) => {
         if (!t) { setErr("Anvil log not found."); return; }
-        setViewData(t);
+        setViewData(t); 
 
         if (mode === "edit") {
           setAnvilDate(t.header.anvil_date ? new Date(t.header.anvil_date).toISOString().slice(0, 10) : "");
@@ -190,7 +190,7 @@ export default function AnvilPage({ mode: propMode }) {
 
   // ── VIEW MODE ──────────────────────────────────────────────────────────────
   if (mode === "view" && viewData) {
-    const h = viewData.header;
+    const h = viewData.header;           
     const lineItems = viewData.line_items || [];
 
     return (

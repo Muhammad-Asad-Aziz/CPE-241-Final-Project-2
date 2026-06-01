@@ -14,6 +14,7 @@ export async function listAnvils(params = {}) {
 
 export async function getAnvil(id) {
   const res = unwrap(await http(`/api/anvils/${encodeURIComponent(id)}`));
+  if (!res.ok) throw new Error("Network response failed tracking data records.");
   return res.data;
 }
 
