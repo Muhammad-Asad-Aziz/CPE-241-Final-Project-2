@@ -179,10 +179,10 @@ export default function MiningPage({ mode: propMode }) {
               <tbody>
                 {lineItems.map((li) => (
                   <tr key={li.id}>
-                    <td>{li.block_mined_id}</td>
+                    <td>{li.block_mined_name}</td>
                     <td className="text-right font-bold" style={{ color: "var(--primary)" }}>{li.quantity_mined}x</td>
-                    <td>{li.tool_used_id}</td>
-                    <td className="text-right font-bold" style={{ color: "var(--primary)" }}>{li.durability_lost}x</td>
+                    <td>{li.tool_used_name}</td>
+                    <td className="text-right font-bold" style={{ color: "red" }}>-{li.durability_lost}</td>
                     <td>{li.tool_status}</td>
                   </tr>
                 ))}
@@ -273,7 +273,7 @@ export default function MiningPage({ mode: propMode }) {
                   <tr key={idx}>
                     <td>
                       <div style={{ display: "flex", gap: 8 }}>
-                        <input className="form-control" value={line.block_mined_id || ""} placeholder="Select a block..." readOnly required />
+                        <input className="form-control" value={line.block_mined_name || ""} placeholder="Select a block..." readOnly required />
                         <button type="button" className="btn btn-primary" onClick={() => { setActiveLineIdx(idx); setBlockMinedModalOpen(true); }}>LoV</button>
                       </div>
                     </td>
@@ -282,7 +282,7 @@ export default function MiningPage({ mode: propMode }) {
                     </td>
                     <td>
                       <div style={{ display: "flex", gap: 8 }}>
-                        <input className="form-control" value={line.tool_used_id || ""} placeholder="Select a Tool..." readOnly />
+                        <input className="form-control" value={line.tool_used_name || ""} placeholder="Select a Tool..." readOnly />
                         <button type="button" className="btn btn-primary" onClick={() => { setActiveLineIdx(idx); setToolUsedModalOpen(true); }}>LoV</button>
                       </div>
                     </td>                    

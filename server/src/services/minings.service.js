@@ -60,9 +60,11 @@ export async function getMining(id) {
 
   const lines = await pool.query(
     `
-      SELECT li.id, li.mining_id, li.block_mined_id, li.quantity_mined,
-             li.tool_used_id, li.durability_lost, li.tool_status
+      SELECT li.id, li.mining_id, li.block_mined_id, i.item_name as block_mined_name, li.quantity_mined,
+             li.tool_used_id, i2.item_name as tool_used_name, li.durability_lost, li.tool_status
       FROM mining_line_item li
+      JOIN item i ON i.id = li.block_mined_id 
+      JOIN item i2 ON i2.id = li.tool_used_id 
       WHERE li.mining_id = $1
       ORDER BY li.mining_id ASC
     `,
