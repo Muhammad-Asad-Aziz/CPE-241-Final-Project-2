@@ -330,6 +330,12 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         <Route path="/reports/recipe-requirements" element={<Layout><Reports type="recipe-requirements" /></Layout>} />
         <Route path="/reports/top-crafted" element={<Layout><Reports type="top-crafted" /></Layout>} />
 
+
+        <Route path="/reports/furnace-location" element={<Layout><Reports type="furnace-location" /></Layout>} />
+        <Route path="/reports/player-fuel" element={<Layout><Reports type="player-fuel" /></Layout>} />
+        <Route path="/reports/fuel-analysis" element={<Layout><Reports type="fuel-analysis" /></Layout>} />
+
+        
         {/* Craftings */}
         <Route path="/craftings" element={<Layout><CraftingsList /></Layout>} />
         <Route path="/craftings/new" element={<Layout><CraftingsPage mode="create" /></Layout>} />
