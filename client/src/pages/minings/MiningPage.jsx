@@ -104,7 +104,7 @@ export default function MiningPage({ mode: propMode }) {
           quantity_mined: Number(l.quantity_mined),
           tool_used_id: Number(l.tool_used_id),
           durability_lost: Number(l.durability_lost),
-          tool_status: Number(l.tool_status)
+          tool_status: l.tool_status
         }))
       };
 
@@ -290,7 +290,7 @@ export default function MiningPage({ mode: propMode }) {
                       <input type="number" min="0" className="form-control" style={{ textAlign: "right" }} value={line.durability_lost} onChange={(e) => updateLine(idx, "durability_lost", e.target.value)} required />
                     </td>
                     <td className="text-right">
-                      <input type="text" className="form-control" style={{ textAlign: "left" }} value={line.tool_status} onChange={(e) => updateLine(idx, "tool_status", e.target.value)} required />
+                      <input type="text" className="form-control" name="name" style={{ textAlign: "left" }} value={line.tool_status} onChange={(e) => updateLine(idx, "tool_status", e.target.value)} required />
                     </td>
                     <td></td>                    
                     <td className="text-center">
