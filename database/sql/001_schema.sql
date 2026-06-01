@@ -142,5 +142,4 @@ create table if not exists mining_line_item(
   durability_lost bigint null,
   tool_status text null
 );
-
 -- (GUIDE) #1.1.4 ADD LINE ITEMS HERE

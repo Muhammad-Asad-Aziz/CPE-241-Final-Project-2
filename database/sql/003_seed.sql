@@ -263,7 +263,6 @@ INSERT INTO mining_line_item (mining_id, block_mined_id, quantity_mined, tool_us
 INSERT INTO mining_line_item (mining_id, block_mined_id, quantity_mined, tool_used_id, durability_lost, tool_status) VALUES ( 13, 12, 100, 24, 100, 'Usable') ON CONFLICT DO NOTHING;
 INSERT INTO mining_line_item (mining_id, block_mined_id, quantity_mined, tool_used_id, durability_lost, tool_status) VALUES ( 14, 1, 12, 20, 12, 'Usable') ON CONFLICT DO NOTHING;
 INSERT INTO mining_line_item (mining_id, block_mined_id, quantity_mined, tool_used_id, durability_lost, tool_status) VALUES (15, 4, 22, 8, 22, 'Usable') ON CONFLICT DO NOTHING;
-
 -- (GUIDE) #1.2.2 POPULATE LINE ITEMS HERE
 
 -- update sequences to max id (crutial when inserting explicit IDs)
