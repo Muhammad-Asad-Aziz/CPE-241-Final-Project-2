@@ -36,6 +36,8 @@ export default function MiningPage({ mode: propMode }) {
 
   // Modal LoV states
   const [playerModalOpen, setPlayerModalOpen] = React.useState(false);
+  const [blockMinedModalOpen, setBlockMinedModalOpen] = React.useState(false);
+  const [toolUsedModalOpen, setToolUsedModalOpen] = React.useState(false);
   const [itemModalOpen, setItemModalOpen] = React.useState(false);
   const [activeLineIdx, setActiveLineIdx] = React.useState(null);
 
@@ -136,7 +138,7 @@ export default function MiningPage({ mode: propMode }) {
           <h3 className="page-title">Mining Record #MN-{h.id}</h3>
           <div className="flex gap-4">
             <Link to="/minings" className="btn btn-outline">← Back</Link>
-            <Link to={`/miningss/${h.id}/edit`} className="btn btn-outline">Edit</Link>
+            <Link to={`/minings/${h.id}/edit`} className="btn btn-outline">Edit</Link>
             <button onClick={() => window.print()} className="btn btn-primary">Print Record</button>
           </div>
         </div>
@@ -158,7 +160,7 @@ export default function MiningPage({ mode: propMode }) {
               <div><span className="font-bold">Date:</span> {formatDate(h.mining_date)}</div>
               <div><span className="font-bold">Record ID:</span> MN-{h.id}</div>
               <div style={{ marginTop: "1rem", display: "inline-block", padding: "4px 12px", background: "#f3f4f6", borderRadius: "12px", fontSize: "0.85rem", fontWeight: 600 }}>
-                {lineItems.reduce((totalBlocks, lineItem) => totalBlocks + parseInt(lineItem.quantity_mined, 10), 0)} BLocks Mined
+                {lineItems.reduce((totalBlocks, lineItem) => totalBlocks + parseInt(lineItem.quantity_mined, 10), 0)} Blocks Mined
               </div> 
             </div>
           </div>
@@ -196,10 +198,14 @@ export default function MiningPage({ mode: propMode }) {
   return (
     <div>
       <PlayerPickerModal isOpen={playerModalOpen} onClose={() => setPlayerModalOpen(false)} onSelect={(p) => setPlayerID(p.id)} />
-      <ItemPickerModal isOpen={itemModalOpen} onClose={() => setItemModalOpen(false)} onSelect={(item) => {
-          updateLine(activeLineIdx, "item_id", item.id);
-          updateLine(activeLineIdx, "item_name", item.item_name);
+      <ItemPickerModal isOpen={blockMinedModalOpen} onClose={() => setBlockMinedModalOpen(false)} onSelect={(item) => {
+          updateLine(activeLineIdx, "block_mined_id", item.id);
+          updateLine(activeLineIdx, "block_mined_name", item.item_name);
       }} />
+      <ItemPickerModal isOpen={toolUsedModalOpen} onClose={() => setToolUsedModalOpen(false)} onSelect={(item) => {
+          updateLine(activeLineIdx, "tool_used_id", item.id);
+          updateLine(activeLineIdx, "tool_used_name", item.item_name);
+      }} />      
 
       <div className="page-header">
         <h3 className="page-title">{mode === "create" ? "Record New Mining Trip" : `Edit Mining Trip #MN-${id}`}</h3>
@@ -260,7 +266,7 @@ export default function MiningPage({ mode: propMode }) {
                     <td>
                       <div style={{ display: "flex", gap: 8 }}>
                         <input className="form-control" value={line.block_mined_id || ""} placeholder="Select a block..." readOnly required />
-                        <button type="button" className="btn btn-primary" onClick={() => { setActiveLineIdx(idx); setItemModalOpen(true); }}>LoV</button>
+                        <button type="button" className="btn btn-primary" onClick={() => { setActiveLineIdx(idx); setBlockMinedModalOpen(true); }}>LoV</button>
                       </div>
                     </td>
                     <td className="text-right">
@@ -269,11 +275,11 @@ export default function MiningPage({ mode: propMode }) {
                     <td>
                       <div style={{ display: "flex", gap: 8 }}>
                         <input className="form-control" value={line.tool_used_id || ""} placeholder="Select a Tool..." readOnly />
-                        <button type="button" className="btn btn-primary" onClick={() => { setActiveLineIdx(idx); setItemModalOpen(true); }}>LoV</button>
+                        <button type="button" className="btn btn-primary" onClick={() => { setActiveLineIdx(idx); setToolUsedModalOpen(true); }}>LoV</button>
                       </div>
                     </td>                    
                     <td className="text-right">
-                      <input type="number" min="1" max="27" className="form-control" style={{ textAlign: "right" }} value={line.durability_lost} onChange={(e) => updateLine(idx, "durability_lost", e.target.value)} required />
+                      <input type="number" min="0" className="form-control" style={{ textAlign: "right" }} value={line.durability_lost} onChange={(e) => updateLine(idx, "durability_lost", e.target.value)} required />
                     </td>
                     <td className="text-right">
                       <input type="text" className="form-control" style={{ textAlign: "left" }} value={line.tool_status} onChange={(e) => updateLine(idx, "tool_status", e.target.value)} required />
