@@ -83,11 +83,10 @@ create table if not exists mining(
   player_id bigint null,
   biome_name text null
 );
+
 -- (GUIDE) #1.1.1 ADD TABLES HERE
 
 -- Line Items
-
-
 
 -- (Muhammad Asad Aziz 67070503472)
 create table if not exists transfer_line_item(
@@ -124,4 +123,5 @@ create table if not exists mining_line_item(
   durability_lost bigint null,
   tool_status text null
 );
+
 -- (GUIDE) #1.1.2 ADD LINE ITEMS HERE
