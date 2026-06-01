@@ -851,3 +851,25 @@ button {
   font-size: 0.9rem;
   color: var(--text-muted);
 }
+
+/* Make the sidebar navigation scrollable if it gets too long */
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  height: 100vh; /* Ensure it takes up exactly the full screen height */
+}
+
+.sidebar-nav {
+  flex: 1; /* Take up all remaining space below the header */
+  overflow-y: auto; /* Add a scrollbar only when needed */
+  padding-bottom: 2rem; /* Add some padding so the last item isn't touching the very bottom */
+}
+
+/* Make the scrollbar look pretty and slim */
+.sidebar-nav::-webkit-scrollbar {
+  width: 6px;
+}
+.sidebar-nav::-webkit-scrollbar-thumb {
+  background-color: var(--border);
+  border-radius: 4px;
+}
