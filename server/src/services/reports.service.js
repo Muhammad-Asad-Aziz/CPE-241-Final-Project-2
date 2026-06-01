@@ -8,7 +8,7 @@ export async function getChestInventory({ chest_id }) {
   const { rows } = await pool.query(
     `
       WITH items_in AS (
-        SELECT t.destination_chest_id as chest_id, li.item_id, SUM(li.quantity_transferred) as qty
+        SELECT t.destination_chest_id as chest_id, li.item_id, SUM(li.quantity_transferred) as qty  
         FROM transfer_line_item li
         JOIN "transfer" t ON t.id = li.transfer_id
         WHERE t.destination_chest_id IS NOT NULL
@@ -217,6 +217,141 @@ export async function getXPByType({fromDate, toDate}) {
     [fromDate, toDate]
   );
   return rows
+}
+// Report 1 by Xander: List all ores smelted in a specific Furnace Location: ___ (Proposal)
+
+export async function getFurnaceLocationReport({ location = "" }) {
+    const { rows } = await pool.query(
+        `SELECT s.id AS "Job_ID", 
+                s.smelt_date AS "Date", 
+                p.username AS "Player", 
+                ri.item_name AS "Raw_Ore", 
+                sli.quantity_inserted AS "Qty_In",
+                oi.item_name AS "Output_Item", 
+                sli.output_quantity AS "Qty_Out"
+         FROM smelting s
+         JOIN player p ON s.player_id = p.id
+         JOIN smelting_line_item sli ON s.id = sli.smelting_id
+         JOIN item ri ON sli.raw_input_item_id = ri.id
+         JOIN item oi ON sli.output_item_id = oi.id
+         WHERE s.furnace_location_xyz ILIKE $1
+         ORDER BY s.smelt_date DESC`,
+        [`%${location}%`]
+    );
+    return rows;
+}
+
+// Report 2 by Xander: List fuel consumption history for Player Name: ___ (Proposal)
+export async function getPlayerFuelHistory({ playerName = "" }) {
+    const { rows } = await pool.query(
+        `SELECT s.smelt_date AS "Date", 
+                s.furnace_location_xyz AS "Location",
+                fi.item_name AS "Fuel_Type", 
+                sli.fuel_consumed AS "Fuel_Consumed",
+                oi.item_name AS "Output_Generated", 
+                sli.output_quantity AS "Qty_Generated"
+         FROM smelting s
+         JOIN player p ON s.player_id = p.id
+         JOIN smelting_line_item sli ON s.id = sli.smelting_id
+         JOIN item fi ON sli.fuel_item_id = fi.id
+         JOIN item oi ON sli.output_item_id = oi.id
+         WHERE p.username ILIKE $1
+         ORDER BY s.smelt_date DESC`,
+        [`%${playerName}%`]
+    );
+    return rows;
+}
+
+// Report Analysis: Show Total Output Items produced grouped by Fuel Type Used (Coal vs Wood) from Date: ___ to ___. (Proposal)
+export async function getFuelAnalysis({ fromDate, toDate }) {
+    const from = fromDate || '2000-01-01';
+    const to = toDate || '2100-12-31';
+
+    const { rows } = await pool.query(
+        `SELECT fi.item_name AS "Fuel_Type",
+                SUM(sli.fuel_consumed) AS "Total_Fuel_Consumed",
+                SUM(sli.output_quantity) AS "Total_Output_Produced"
+         FROM smelting s
+         JOIN smelting_line_item sli ON s.id = sli.smelting_id
+         JOIN item fi ON sli.fuel_item_id = fi.id
+         WHERE s.smelt_date >= $1 AND s.smelt_date <= $2
+         GROUP BY fi.item_name
+         ORDER BY "Total_Output_Produced" DESC`,
+        [from, to]
+    );
+    return rows;
+}
+
+// Report by Iris: List all blocks mined inside Biome Name: ___.
+export async function getBiomeMiningHistory({ biomeName = "" }) {
+    const { rows } = await pool.query(
+        `SELECT 
+          m.id AS "TRIP ID", 
+          m.mining_date AS "DATE", 
+          p.username AS "PLAYER", 
+          m.biome_name AS "BIOME", 
+          ib.item_name AS "BLOCK MINED", 
+          ml.quantity_mined AS "QTY MINED", 
+          COALESCE(it.item_name, 'Hands') AS "TOOL USED"
+          FROM "mining" m
+          JOIN "player" p ON m.player_id = p.id
+          JOIN "mining_line_item" ml ON m.id = ml.mining_id
+          JOIN "item" ib ON ml.block_mined_id = ib.id
+          LEFT JOIN "item" it ON ml.tool_used_id = it.id
+          WHERE m.biome_name ILIKE $1
+          ORDER BY m.mining_date DESC`,
+        [`%${biomeName}%`]
+    );
+    return rows;
+}
+
+// Report by Iris: List tools that reached "Broken" status on Date: ___.
+export async function getBrokenTools({ Date }) {
+    const from = Date || '2000-01-01';
+
+    const { rows } = await pool.query(
+        `SELECT 
+         m.id AS "TRIP ID", 
+         m.mining_date AS "DATE", 
+         p.username AS "PLAYER", 
+         ib.item_name AS "BLOCK MINED", 
+         COALESCE(it.item_name, 'Hands') AS "TOOL USED", 
+         ml.durability_lost AS "DUR LOST", 
+         ml.quantity_mined AS "QTY MINED", 
+         ml.tool_status AS "STATUS"
+         FROM mining m
+         JOIN player p ON m.player_id = p.id
+         JOIN mining_line_item ml ON m.id = ml.mining_id
+         JOIN item ib ON ml.block_mined_id = ib.id
+         LEFT JOIN item it ON ml.tool_used_id = it.id
+         WHERE m.mining_date = $1 AND ml.tool_status = 'Broken'
+         ORDER BY m.id DESC`,
+        [from]
+    );
+    return rows;
+}
+// Report Analysis Iris: Show total blocks mined grouped by tool material(wood/iron/diamond) for Date: __ to ___.
+export async function getTotalBlocksMined({ fromDate, toDate }) {
+    const from = fromDate || '2000-01-01';
+    const to = toDate || '2100-12-31';
+
+    const { rows } = await pool.query(
+        `SELECT 
+         COALESCE(it.item_name, 'Hands') AS "TOOL (MATERIAL)", 
+         COUNT(DISTINCT m.id) AS "TRIPS", 
+         SUM(ml.quantity_mined) AS "TOTAL MINED", 
+         SUM(ml.durability_lost) AS "DUR LOST", 
+         COUNT(DISTINCT ml.block_mined_id) AS "BLOCKS MINED TYPES", 
+         MAX(ml.tool_status) AS "TOOL STATUS"
+        FROM mining m
+        JOIN mining_line_item ml ON m.id = ml.mining_id
+        LEFT JOIN item it ON ml.tool_used_id = it.id
+        WHERE m.mining_date >= $1 AND m.mining_date <= $2
+        GROUP BY it.item_name
+        ORDER BY "TOTAL MINED" DESC`,
+        [from, to]
+    );
+    return rows;
 }
 
 // (GUIDE) #3.3 ADD YOUR REPORTS HERE

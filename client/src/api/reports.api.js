@@ -48,6 +48,24 @@ export async function getXPByType(params) {
     return unwrap(res);
 }
 
+export async function getBiomeMiningHistory(params) {
+    const query = new URLSearchParams(params).toString();
+    const res = await http(`/api/reports/mining-history?${query}`);
+    return unwrap(res);
+}
+
+export async function getBrokenTools(params) {
+    const query = new URLSearchParams(params).toString();
+    const res = await http(`/api/reports/broken-tools?${query}`);
+    return unwrap(res);
+}
+
+export async function getTotalBlocksMined(params) {
+    const query = new URLSearchParams(params).toString();
+    const res = await http(`/api/reports/blocks-mined?${query}`);
+    return unwrap(res);
+} 
+  
 // (GUIDE) #3.6 ADD YOUR REPORTS HERE
 
 export async function getReportData(type, params = {}) {
@@ -60,6 +78,9 @@ export async function getReportData(type, params = {}) {
     if (type === "anvil-history") return getPlayerAnvilHistory(params);
     if (type === "XP-type") return getXPByType(params);
     
+    if (type === "mining-history") return getBiomeMiningHistory(params);
+    if (type === "broken-tools") return getBrokenTools(params);
+    if (type === "blocks-mined") return getTotalBlocksMined(params);
   // Clean empty params
   const qs = new URLSearchParams();
   for (const [key, value] of Object.entries(params)) {
