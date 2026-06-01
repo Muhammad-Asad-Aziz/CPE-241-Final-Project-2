@@ -104,31 +104,27 @@ export default function AnvilPage({ mode: propMode }) {
   }
 
   function updateLine(index, field, value) {
-    setLines(prev => {
-      const copy = [...prev];
+  setLines(prev => {
+    const copy = [...prev];
+    copy[index] = { ...copy[index], [field]: value };
 
-      // Apply extra metadata fields passed from our LoV select Modals
-      if (Object.keys(extraData).length > 0) {
-        updatedRow = { ...updatedRow, ...extraData };
-      }
+    // Automatically compute restored_durability if relevant fields change
+    if (
+      field === "current_durability" || 
+      field === "target_tool_id" || 
+      field === "sacrifice_item_id"
+    ) {
+      copy[index].restored_durability = calculateRestored(
+        field === "current_durability" ? value : copy[index].current_durability,
+        copy[index].sacrifice_max_durability,
+        copy[index].target_max_durability
+      );
+    }
 
-      // Automatically compute state if tracking dependencies shift
-      if (
-        field === "current_durability" || 
-        field === "target_tool_id" || 
-        field === "sacrifice_item_id"
-      ) {
-        updatedRow.restored_durability = calculateRestored(
-          field === "current_durability" ? value : updatedRow.current_durability,
-          updatedRow.sacrifice_max_durability,
-          updatedRow.target_max_durability
-        );
-      }
-
-      copy[index] = { ...copy[index], [field]: value };
-      return copy;
+    return copy;
     });
   }
+
 
   function addLine() {
     setLines(prev => {
