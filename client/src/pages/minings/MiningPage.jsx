@@ -36,7 +36,9 @@ export default function MiningPage({ mode: propMode }) {
 
   // Modal LoV states
   const [playerModalOpen, setPlayerModalOpen] = React.useState(false);
-  const [itemModalOpen, setItemModalOpen] = React.useState(false);
+  //const [itemModalOpen, setItemModalOpen] = React.useState(false);
+  const [blockMinedModalOpen, setBlockMinedModalOpen] = React.useState(false);
+  const [toolUsedModalOpen, setToolUsedModalOpen] = React.useState(false);
   const [activeLineIdx, setActiveLineIdx] = React.useState(null);
 
   React.useEffect(() => {
@@ -196,9 +198,21 @@ export default function MiningPage({ mode: propMode }) {
   return (
     <div>
       <PlayerPickerModal isOpen={playerModalOpen} onClose={() => setPlayerModalOpen(false)} onSelect={(p) => setPlayerID(p.id)} />
-      <ItemPickerModal isOpen={itemModalOpen} onClose={() => setItemModalOpen(false)} onSelect={(item) => {
+
+      {/* <ItemPickerModal isOpen={itemModalOpen} onClose={() => setItemModalOpen(false)} onSelect={(item) => {
           updateLine(activeLineIdx, "item_id", item.id);
           updateLine(activeLineIdx, "item_name", item.item_name);
+      }} /> */}
+
+      {/* Create two separate item picker modals so that they wont overlap */}
+      <ItemPickerModal isOpen={blockMinedModalOpen} onClose={() => setBlockMinedModalOpen(false)} onSelect={(item) => {
+          updateLine(activeLineIdx, "block_mined_id", item.id);
+          updateLine(activeLineIdx, "block_mined_name", item.item_name);
+      }} />
+
+      <ItemPickerModal isOpen={toolUsedModalOpen} onClose={() => setToolUsedModalOpen(false)} onSelect={(item) => {
+          updateLine(activeLineIdx, "tool_used_id", item.id);
+          updateLine(activeLineIdx, "tool_used_name", item.item_name);
       }} />
 
       <div className="page-header">
@@ -259,8 +273,8 @@ export default function MiningPage({ mode: propMode }) {
                   <tr key={idx}>
                     <td>
                       <div style={{ display: "flex", gap: 8 }}>
-                        <input className="form-control" value={line.block_mined_id || ""} placeholder="Select a block..." readOnly required />
-                        <button type="button" className="btn btn-primary" onClick={() => { setActiveLineIdx(idx); setItemModalOpen(true); }}>LoV</button>
+                        <input className="form-control" value={line.block_mined_name || ""} placeholder="Select a Block..." readOnly required/>
+                        <button type="button" className="btn btn-primary" onClick={() => { setActiveLineIdx(idx); setBlockMinedModalOpen(true); }}>LoV</button>
                       </div>
                     </td>
                     <td className="text-right">
@@ -268,8 +282,8 @@ export default function MiningPage({ mode: propMode }) {
                     </td>
                     <td>
                       <div style={{ display: "flex", gap: 8 }}>
-                        <input className="form-control" value={line.tool_used_id || ""} placeholder="Select a Tool..." readOnly />
-                        <button type="button" className="btn btn-primary" onClick={() => { setActiveLineIdx(idx); setItemModalOpen(true); }}>LoV</button>
+                        <input className="form-control" value={line.tool_used_name || ""} placeholder="Select a Tool..." readOnly />
+                        <button type="button" className="btn btn-primary" onClick={() => { setActiveLineIdx(idx); setToolUsedModalOpen(true); }}>LoV</button>
                       </div>
                     </td>                    
                     <td className="text-right">

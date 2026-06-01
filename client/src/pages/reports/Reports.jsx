@@ -94,9 +94,9 @@ const REPORT_CONFIG = {
       { key: "mining_date", label: "Date", align: "right", render: (v) => formatDate(v) },
       { key: "Player_Name", label: "Player Name", render: (v) => <span className="font-bold">{v}</span> },
       { key: "biome_name", label: "Biome", align: "right" },
-      { key: "item_name", label: "Block Name", align: "right" },
+      { key: "item_name", label: "Block Name", align: "right" }, // wot
       { key: "quantity_mined", label: "QTY Mined", align: "right" },
-      { key: "item_name", label: "Item Used", align: "right" } 
+      { key: "item_name", label: "Item Used", align: "right" }   // wot
     ]
   },
 
