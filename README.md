@@ -1,4 +1,11 @@
-# Last Updated 29/5/2026 9:40 PM
+# Important Note
+I keep making small updates to the main branch, to keep all your work and get the latest file, run this command: `git pull origin main`. 
+
+You will be required to fix any merge conflicts yourself.
+
+# Last Updated 01/5/2026 3:55 PM
+(01/5/2026 3:55 PM) Added a scroll bar to the navigation menu
+
 (29/5/2026 9:40 PM) Fixed trailing commas causing "Docker exec failed, trying alternative method" error.
 
 (29/5/2026 5:00 PM) Added an important note to section 1.4.1
