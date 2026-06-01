@@ -46,7 +46,8 @@ export async function getTotalBlocksMined(params) {
     const query = new URLSearchParams(params).toString();
     const res = await http(`/api/reports/blocks-mined?${query}`);
     return unwrap(res);
-}
+} 
+  
 // (GUIDE) #3.6 ADD YOUR REPORTS HERE
 
 export async function getReportData(type, params = {}) {

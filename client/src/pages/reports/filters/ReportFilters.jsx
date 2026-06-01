@@ -131,17 +131,15 @@ export default function ReportFilters({ type, filters, onChange, onApply }) {
       {/* Mining REPORTS  */}
       {/* ----------------------------------------- */}
 
-      {/* 1. MINING HISTORY FILTER (Dropdown) */}
+      {/* 1. MINING HISTORY FILTER (Text) */}
       {type === "mining-history" && (
         <div className="form-group" style={{ margin: 0, width: "300px" }}>
           <label className="form-label">Select Biome</label>
-          <select 
+          <input 
             className="form-control" 
-            value={filters.biomeName || ""} 
+            name="name" value={filters.biomeName || ""} 
             onChange={(e) => onChange({ ...filters, biomeName: e.target.value })}
-          >
-            <option value="">-- Choose Biome --</option>
-          </select>
+          />
         </div>
       )}
 
@@ -149,21 +147,12 @@ export default function ReportFilters({ type, filters, onChange, onApply }) {
       {type === "broken-tools" && (
         <>
           <div className="form-group" style={{ margin: 0, width: "200px" }}>
-            <label className="form-label">Date From</label>
+            <label className="form-label">Date</label>
             <input 
               type="date" 
               className="form-control" 
-              value={filters.fromDate || ""} 
-              onChange={(e) => onChange({ ...filters, fromDate: e.target.value })}
-            />
-          </div>
-          <div className="form-group" style={{ margin: 0, width: "200px" }}>
-            <label className="form-label">Date To</label>
-            <input 
-              type="date" 
-              className="form-control" 
-              value={filters.toDate || ""} 
-              onChange={(e) => onChange({ ...filters, toDate: e.target.value })}
+              value={filters.Date || ""} 
+              onChange={(e) => onChange({ ...filters, Date: e.target.value })}
             />
           </div>
         </>

@@ -239,9 +239,8 @@ export async function getBiomeMiningHistory({ biomeName = "" }) {
 }
 
 // Report by Iris: List tools that reached "Broken" status on Date: ___.
-export async function getBrokenTools({ fromDate, toDate }) {
-    const from = fromDate || '2000-01-01';
-    const to = toDate || '2100-12-31';
+export async function getBrokenTools({ Date }) {
+    const from = Date || '2000-01-01';
 
     const { rows } = await pool.query(
         `SELECT 
@@ -253,14 +252,14 @@ export async function getBrokenTools({ fromDate, toDate }) {
          ml.durability_lost AS "DUR LOST", 
          ml.quantity_mined AS "QTY MINED", 
          ml.tool_status AS "STATUS"
-         FROM "mining" m
-         JOIN "player" p ON m.player_id = p.id
-         JOIN "mining_line_item" ml ON m.id = ml.mining_id
-         JOIN "item" ib ON ml.block_mined_id = ib.id
-         LEFT JOIN "item" it ON ml.tool_used_id = it.id
-         WHERE m.mining_date >= $1 AND m.mining_date <= $2 AND ml.tool_status = 'Broken'
-         ORDER BY m.mining_date DESC`,
-        [from, to]
+         FROM mining m
+         JOIN player p ON m.player_id = p.id
+         JOIN mining_line_item ml ON m.id = ml.mining_id
+         JOIN item ib ON ml.block_mined_id = ib.id
+         LEFT JOIN item it ON ml.tool_used_id = it.id
+         WHERE m.mining_date = $1 AND ml.tool_status = 'Broken'
+         ORDER BY m.id DESC`,
+        [from]
     );
     return rows;
 }
@@ -277,9 +276,9 @@ export async function getTotalBlocksMined({ fromDate, toDate }) {
          SUM(ml.durability_lost) AS "DUR LOST", 
          COUNT(DISTINCT ml.block_mined_id) AS "BLOCKS MINED TYPES", 
          MAX(ml.tool_status) AS "TOOL STATUS"
-        FROM "mining" m
-        JOIN "mining_line_item" ml ON m.id = ml.mining_id
-        LEFT JOIN "item" it ON ml.tool_used_id = it.id
+        FROM mining m
+        JOIN mining_line_item ml ON m.id = ml.mining_id
+        LEFT JOIN item it ON ml.tool_used_id = it.id
         WHERE m.mining_date >= $1 AND m.mining_date <= $2
         GROUP BY it.item_name
         ORDER BY "TOTAL MINED" DESC`,

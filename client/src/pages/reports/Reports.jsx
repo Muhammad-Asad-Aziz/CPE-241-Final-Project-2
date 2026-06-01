@@ -90,13 +90,13 @@ const REPORT_CONFIG = {
     subtitle: "Simple: Shows the amount of blocks that was mined in each biome.",
     emptyMessage: "No mining records found for this biome.",
     getColumns: () => [
-      { key: "id", label: "Trip ID", render: (v) => `CRF-${v}` },
-      { key: "mining_date", label: "Date", align: "right", render: (v) => formatDate(v) },
-      { key: "Player_Name", label: "Player Name", render: (v) => <span className="font-bold">{v}</span> },
-      { key: "biome_name", label: "Biome", align: "right" },
-      { key: "item_name", label: "Block Name", align: "right" }, // wot
-      { key: "quantity_mined", label: "QTY Mined", align: "right" },
-      { key: "item_name", label: "Item Used", align: "right" }   // wot
+      { key: "TRIP ID", label: "Mining Trip ID", render: v => `MN-${v}` },
+      { key: "DATE", label: "Date", align: "right", render: v => formatDate(v) },
+      { key: "PLAYER", label: "Player Name", render: v => <span className="font-bold">{v}</span> },
+      { key: "BIOME", label: "Biome", align: "right", style: { color: "var(--primary)", fontWeight: "bold"} },
+      { key: "BLOCK MINED", label: "Block Name", align: "left" }, 
+      { key: "QTY MINED", label: "QTY Mined", align: "right", style: { color: "var(--primary)", fontWeight: "bold"} },
+      { key: "TOOL USED", label: "Item Used", align: "left" }   
     ]
   },
 
@@ -105,14 +105,14 @@ const REPORT_CONFIG = {
     subtitle: "Simple: Shows mining tools that are broken",
     emptyMessage: "No broken tools found.",
     getColumns: () => [
-      { key: "id", label: "Trip ID", render: (v) => `CRF-${v}` },
-      { key: "mining_date", label: "Date", align: "right", render: (v) => formatDate(v) },
-      { key: "Player_Name", label: "Player Name", render: (v) => <span className="font-bold">{v}</span> },
-      { key: "block_mined_id", label: "Block Mined", align: "right" },
-      { key: "item_name", label: "Item Used", align: "right" },
-      { key: "durability_lost", label: "Durability Lost", align: "right" },
-      { key: "quantity_mined", label: "QTY Mined", align: "right" },
-      { key: "tool_status", label: "Tool Status", align: "right" }
+      { key: "TRIP ID", label: "Mining Trip ID", render: (v) => `MN-${v}` },
+      { key: "DATE", label: "Date", align: "right", render: (v) => formatDate(v) },
+      { key: "PLAYER", label: "Player Name", render: (v) => <span className="font-bold">{v}</span> },
+      { key: "BLOCK MINED", label: "Block Mined", align: "left" },
+      { key: "TOOL USED", label: "Item Used", align: "left" },
+      { key: "DUR LOST", label: "Durability Lost", align: "right", style: { color: "#ef4444"} },
+      { key: "QTY MINED", label: "QTY Mined", align: "right" },
+      { key: "STATUS", label: "Tool Status", align: "left", style: { color: "#ef4444", fontWeight: "bold"} }
     ]
   },
 
@@ -121,13 +121,12 @@ const REPORT_CONFIG = {
     subtitle: "Analysis: Shows total blocks mined grouped by tool material",
     emptyMessage: "No blocks found.",
     getColumns: () => [
-      { key: "item_name", label: "Item Used", align: "right" },
-      { key: "id", label: "Trip ID", render: (v) => `CRF-${v}` },
-      { key: "quantity_mined", label: "Total Blocks Mined", align: "right" },
-      { key: "durability_lost", label: "Durability Lost", align: "right" },
-      { key: "quantity_mined", label: "QTY Mined", align: "right" },
-      { key: "block_mined_id", label: "No. of types of blocks mined", align: "right" },
-      { key: "tool_status", label: "Tool Status", align: "right" }
+      { key: "TOOL (MATERIAL)", label: "Tool (material)", align: "left", style: { color: "var(--primary)", fontWeight: "bold"} },
+      { key: "TRIPS", label: "Mining Trip ID", render: (v) => `MN-${v}` },
+      { key: "TOTAL MINED", label: "Total Blocks Mined", align: "right" },
+      { key: "DUR LOST", label: "Durability Lost", align: "right", style: { color: "#ef4444", fontWeight: "bold"} },
+      { key: "BLOCKS MINED TYPES", label: "No. of Types of Blocks Mined", align: "right", style: { color: "var(--primary)", fontWeight: "bold"} },
+      { key: "TOOL STATUS", label: "Tool Status", align: "left" }
     ]
   }
 };

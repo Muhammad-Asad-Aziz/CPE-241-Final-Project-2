@@ -292,6 +292,14 @@ export default function MiningPage({ mode: propMode }) {
                     <td className="text-right">
                       <input type="text" className="form-control" name="name" style={{ textAlign: "left" }} value={line.tool_status} onChange={(e) => updateLine(idx, "tool_status", e.target.value)} required />
                     </td>
+   {/*                <select 
+                        className="form-control" 
+                        value={line.tool_status} 
+                        onChange={(e) => updateLine(idx, "tool_status", e.target.value)} required
+                      >
+                        <option value="Usable"> Usable </option>
+                        <option value="Broken"> Broken </option>
+                      </select> */}
                     <td></td>                    
                     <td className="text-center">
                       <button type="button" className="btn btn-outline" style={{ padding: "4px 8px", color: "#ef4444", borderColor: "#ef4444", fontSize: "0.75rem" }} onClick={() => removeLine(idx)}>Remove</button>
