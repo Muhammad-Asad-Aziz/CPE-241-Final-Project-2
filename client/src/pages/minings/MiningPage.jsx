@@ -198,14 +198,22 @@ export default function MiningPage({ mode: propMode }) {
   return (
     <div>
       <PlayerPickerModal isOpen={playerModalOpen} onClose={() => setPlayerModalOpen(false)} onSelect={(p) => setPlayerID(p.id)} />
+
+      {/* <ItemPickerModal isOpen={itemModalOpen} onClose={() => setItemModalOpen(false)} onSelect={(item) => {
+          updateLine(activeLineIdx, "item_id", item.id);
+          updateLine(activeLineIdx, "item_name", item.item_name);
+      }} /> */}
+
+      {/* Create two separate item picker modals so that they wont overlap */}
       <ItemPickerModal isOpen={blockMinedModalOpen} onClose={() => setBlockMinedModalOpen(false)} onSelect={(item) => {
           updateLine(activeLineIdx, "block_mined_id", item.id);
           updateLine(activeLineIdx, "block_mined_name", item.item_name);
       }} />
+
       <ItemPickerModal isOpen={toolUsedModalOpen} onClose={() => setToolUsedModalOpen(false)} onSelect={(item) => {
           updateLine(activeLineIdx, "tool_used_id", item.id);
           updateLine(activeLineIdx, "tool_used_name", item.item_name);
-      }} />      
+      }} />     
 
       <div className="page-header">
         <h3 className="page-title">{mode === "create" ? "Record New Mining Trip" : `Edit Mining Trip #MN-${id}`}</h3>
