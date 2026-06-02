@@ -27,16 +27,21 @@ export async function listCraftings({ search = "", page = 1, limit = 10, sortBy 
     const searchParam = `%${search}%`;
 
     const countResult = await pool.query(
-        `SELECT COUNT(*) as total FROM crafting WHERE crafting_code ILIKE $1 OR CAST(player_id AS TEXT) ILIKE $1`,
+        `SELECT COUNT(*) as total 
+         FROM crafting c 
+         LEFT JOIN player p ON p.id = c.player_id 
+         LEFT JOIN item i ON i.id = c.target_item_id
+         WHERE c.crafting_code ILIKE $1 OR p.username ILIKE $1 OR i.item_name ILIKE $1`,
         [searchParam]
     );
     const total = Number(countResult.rows[0].total);
 
     const { rows } = await pool.query(
-        `SELECT c.*, p.player_code, p.username as player_username 
+        `SELECT c.*, p.player_code, p.username as player_username, i.item_name as target_item_name
          FROM crafting c
          LEFT JOIN player p ON p.id = c.player_id
-         WHERE c.crafting_code ILIKE $1 OR CAST(c.player_id AS TEXT) ILIKE $1
+         LEFT JOIN item i ON i.id = c.target_item_id
+         WHERE c.crafting_code ILIKE $1 OR p.username ILIKE $1 OR i.item_name ILIKE $1
          ORDER BY c.${sortColumn} ${sortDirection} NULLS LAST, c.id DESC
          LIMIT $2 OFFSET $3`,
         [searchParam, Number(limit), offset]

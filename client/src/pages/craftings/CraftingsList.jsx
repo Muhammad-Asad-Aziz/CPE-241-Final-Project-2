@@ -55,7 +55,7 @@ export default function CraftingsList() {
         { key: "crafting_code", label: "Crafting Code", render: v => <span className="font-bold">{v}</span> },
         { key: "crafting_date", label: "Date", render: v => formatDate(new Date(v)) },
         { key: "player_username", label: "Player", render: v => `${v}` },
-        { key: "session_id", label: "Session ID", render: v => `Session ${v}` },
+        { key: "target_item_name", label: "Item Crafted", render: v => `${v || "-- None --"}` },
         { key: "qty_wanted", label: "Qty Wanted", render: v => `${v} units` }
     ];
 
@@ -79,7 +79,7 @@ export default function CraftingsList() {
                 title="Craftings"
                 fetchData={fetchData}
                 columns={columns}
-                searchPlaceholder="Search by ID..."
+                searchPlaceholder="Search by code, player, or item..."
                 itemName="craftings"
                 basePath="/craftings"
                 itemKey="crafting_code"
