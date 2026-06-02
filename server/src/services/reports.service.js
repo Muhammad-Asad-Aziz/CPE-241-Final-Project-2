@@ -215,4 +215,76 @@ export async function getFuelAnalysis({ fromDate, toDate }) {
     return rows;
 }
 
+// Report by Iris: List all blocks mined inside Biome Name: ___.
+export async function getBiomeMiningHistory({ biomeName = "" }) {
+    const { rows } = await pool.query(
+        `SELECT 
+          m.id AS "TRIP ID", 
+          m.mining_date AS "DATE", 
+          p.username AS "PLAYER", 
+          m.biome_name AS "BIOME", 
+          ib.item_name AS "BLOCK MINED", 
+          ml.quantity_mined AS "QTY MINED", 
+          COALESCE(it.item_name, 'Hands') AS "TOOL USED"
+          FROM "mining" m
+          JOIN "player" p ON m.player_id = p.id
+          JOIN "mining_line_item" ml ON m.id = ml.mining_id
+          JOIN "item" ib ON ml.block_mined_id = ib.id
+          LEFT JOIN "item" it ON ml.tool_used_id = it.id
+          WHERE m.biome_name ILIKE $1
+          ORDER BY m.mining_date DESC`,
+        [`%${biomeName}%`]
+    );
+    return rows;
+}
+
+// Report by Iris: List tools that reached "Broken" status on Date: ___.
+export async function getBrokenTools({ Date }) {
+    const from = Date || '2000-01-01';
+
+    const { rows } = await pool.query(
+        `SELECT 
+         m.id AS "TRIP ID", 
+         m.mining_date AS "DATE", 
+         p.username AS "PLAYER", 
+         ib.item_name AS "BLOCK MINED", 
+         COALESCE(it.item_name, 'Hands') AS "TOOL USED", 
+         ml.durability_lost AS "DUR LOST", 
+         ml.quantity_mined AS "QTY MINED", 
+         ml.tool_status AS "STATUS"
+         FROM mining m
+         JOIN player p ON m.player_id = p.id
+         JOIN mining_line_item ml ON m.id = ml.mining_id
+         JOIN item ib ON ml.block_mined_id = ib.id
+         LEFT JOIN item it ON ml.tool_used_id = it.id
+         WHERE m.mining_date = $1 AND ml.tool_status = 'Broken'
+         ORDER BY m.id DESC`,
+        [from]
+    );
+    return rows;
+}
+// Report Analysis Iris: Show total blocks mined grouped by tool material(wood/iron/diamond) for Date: __ to ___.
+export async function getTotalBlocksMined({ fromDate, toDate }) {
+    const from = fromDate || '2000-01-01';
+    const to = toDate || '2100-12-31';
+
+    const { rows } = await pool.query(
+        `SELECT 
+         COALESCE(it.item_name, 'Hands') AS "TOOL (MATERIAL)", 
+         COUNT(DISTINCT m.id) AS "TRIPS", 
+         SUM(ml.quantity_mined) AS "TOTAL MINED", 
+         SUM(ml.durability_lost) AS "DUR LOST", 
+         COUNT(DISTINCT ml.block_mined_id) AS "BLOCKS MINED TYPES", 
+         MAX(ml.tool_status) AS "TOOL STATUS"
+        FROM mining m
+        JOIN mining_line_item ml ON m.id = ml.mining_id
+        LEFT JOIN item it ON ml.tool_used_id = it.id
+        WHERE m.mining_date >= $1 AND m.mining_date <= $2
+        GROUP BY it.item_name
+        ORDER BY "TOTAL MINED" DESC`,
+        [from, to]
+    );
+    return rows;
+}
+
 // (GUIDE) #3.3 ADD YOUR REPORTS HERE

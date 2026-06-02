@@ -48,6 +48,24 @@ export async function getFuelAnalysis(params) {
     return unwrap(res);
 }
 
+export async function getBiomeMiningHistory(params) {
+    const query = new URLSearchParams(params).toString();
+    const res = await http(`/api/reports/mining-history?${query}`);
+    return unwrap(res);
+}
+
+export async function getBrokenTools(params) {
+    const query = new URLSearchParams(params).toString();
+    const res = await http(`/api/reports/broken-tools?${query}`);
+    return unwrap(res);
+}
+
+export async function getTotalBlocksMined(params) {
+    const query = new URLSearchParams(params).toString();
+    const res = await http(`/api/reports/blocks-mined?${query}`);
+    return unwrap(res);
+} 
+  
 // (GUIDE) #3.6 ADD YOUR REPORTS HERE
 
 export async function getReportData(type, params = {}) {
@@ -60,6 +78,10 @@ export async function getReportData(type, params = {}) {
     if (type === "furnace-location") return getFurnaceLocation(params);
     if (type === "player-fuel") return getPlayerFuelHistory(params);
     if (type === "fuel-analysis") return getFuelAnalysis(params);
+    
+    if (type === "mining-history") return getBiomeMiningHistory(params);
+    if (type === "broken-tools") return getBrokenTools(params);
+    if (type === "blocks-mined") return getTotalBlocksMined(params);
     
   // Clean empty params
   const qs = new URLSearchParams();
