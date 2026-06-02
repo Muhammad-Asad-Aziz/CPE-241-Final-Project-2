@@ -135,9 +135,9 @@ function getSeedDecision(counts) {
   }
 
   const hasReferenceData = counts.item > 0 || counts.player > 0 || counts.chest > 0 || counts.villager > 0;
-  const missingCraftLessData = counts.transfer === 0 && counts.transferLineItem === 0 && counts.crafting === 0 && counts.craftingLineItem === 0 &&counts.anvil === 0 && counts.anvilLineItem === 0;
   
   const missingCraftLessData = counts.transfer === 0 && counts.transferLineItem === 0 && counts.crafting === 0 && counts.craftingLineItem === 0 && counts.smelting === 0 && counts.smeltingLineItem === 0 && counts.mining === 0 && counts.miningLineItem === 0 && counts.anvil === 0 && counts.anvilLineItem === 0;
+  
   /* (GUIDE) #1.4.3 ADD a check */
   /* && counts.tableNameInCamelCase === 0 */
   if (hasReferenceData && missingCraftLessData) {

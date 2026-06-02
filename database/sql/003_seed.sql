@@ -248,7 +248,6 @@ INSERT INTO crafting_line_item (crafting_id, crafting_line_number, session_id, i
 INSERT INTO crafting_line_item (crafting_id, crafting_line_number, session_id, ingredient_id, required_quantity, total_needed) VALUES (14, 1, 14, 10, 2, 3) ON CONFLICT DO NOTHING;
 INSERT INTO crafting_line_item (crafting_id, crafting_line_number, session_id, ingredient_id, required_quantity, total_needed) VALUES (15, 1, 15, 13, 4, 5) ON CONFLICT DO NOTHING;
 
-<<<<<<< HEAD
 -- Maimoona Aziz 67070503473
 -- Populating Anvil Line Item
 INSERT INTO anvil_line_item (id, anvil_id, anvil_line_number, target_tool_id, current_durability, sacrifice_item_id, restored_durability, enchantment_id) VALUES (1, 1, 1, 8, 100, 5, 250, NULL) ON CONFLICT DO NOTHING;
@@ -268,7 +267,6 @@ INSERT INTO anvil_line_item (id, anvil_id, anvil_line_number, target_tool_id, cu
 INSERT INTO anvil_line_item (id, anvil_id, anvil_line_number, target_tool_id, current_durability, sacrifice_item_id, restored_durability, enchantment_id) VALUES (15, 15, 1, 8, 10, 5, 160, 7) ON CONFLICT DO NOTHING;
 
 
-=======
 -- Populating table: smelting_line_item
 INSERT INTO smelting_line_item (id, smelting_id, raw_input_item_id, quantity_inserted, fuel_item_id, fuel_consumed, output_item_id, output_quantity) OVERRIDING SYSTEM VALUE VALUES (1, 1, 4, 16, 6, 2, 5, 16);
 INSERT INTO smelting_line_item (id, smelting_id, raw_input_item_id, quantity_inserted, fuel_item_id, fuel_consumed, output_item_id, output_quantity) OVERRIDING SYSTEM VALUE VALUES (2, 2, 12, 32, 6, 4, 13, 32);
@@ -302,7 +300,6 @@ INSERT INTO mining_line_item (mining_id, block_mined_id, quantity_mined, tool_us
 INSERT INTO mining_line_item (mining_id, block_mined_id, quantity_mined, tool_used_id, durability_lost, tool_status) VALUES ( 13, 12, 100, 24, 100, 'Usable') ON CONFLICT DO NOTHING;
 INSERT INTO mining_line_item (mining_id, block_mined_id, quantity_mined, tool_used_id, durability_lost, tool_status) VALUES ( 14, 1, 12, 20, 12, 'Usable') ON CONFLICT DO NOTHING;
 INSERT INTO mining_line_item (mining_id, block_mined_id, quantity_mined, tool_used_id, durability_lost, tool_status) VALUES (15, 4, 22, 8, 22, 'Usable') ON CONFLICT DO NOTHING;
->>>>>>> main
 -- (GUIDE) #1.2.2 POPULATE LINE ITEMS HERE
 
 -- update sequences to max id (crutial when inserting explicit IDs)
@@ -318,16 +315,13 @@ SELECT setval(pg_get_serial_sequence('transfer_line_item', 'id'), coalesce(max(i
 SELECT setval(pg_get_serial_sequence('crafting', 'id'), coalesce(max(id),0) + 1, false) FROM crafting;
 SELECT setval(pg_get_serial_sequence('crafting_line_item', 'id'), coalesce(max(id),0) + 1, false) FROM crafting_line_item;
 
-<<<<<<< HEAD
 SELECT setval(pg_get_serial_sequence('anvil', 'id'), coalesce(max(id),0) + 1, false) FROM anvil;
 SELECT setval(pg_get_serial_sequence('anvil_line_item', 'id'), coalesce(max(id),0) + 1, false) FROM anvil_line_item;
-=======
 SELECT setval(pg_get_serial_sequence('smelting', 'id'), coalesce(max(id),0) + 1, false) FROM smelting;
 SELECT setval(pg_get_serial_sequence('smelting_line_item', 'id'), coalesce(max(id),0) + 1, false) FROM smelting_line_item;
 
 SELECT setval(pg_get_serial_sequence('mining', 'id'), coalesce(max(id),0) + 1, false) FROM mining;
 SELECT setval(pg_get_serial_sequence('mining_line_item', 'id'), coalesce(max(id),0) + 1, false) FROM mining_line_item;
->>>>>>> main
 
 -- (GUIDE) #1.2.3 ADD SELECT COMMAND FOR YOUR SIMPLE FORM AND LINE ITEM HERE (just copy and rename)
 -- SELECT setval(pg_get_serial_sequence('TABLE_NAME', 'id'), coalesce(max(id),0) + 1, false) FROM TABLE_NAME;

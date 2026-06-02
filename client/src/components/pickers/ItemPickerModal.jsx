@@ -2,21 +2,31 @@ import React from "react";
 import { createPortal } from "react-dom";
 import { listItems } from "../../api/items.api.js";
 
-export default function ItemPickerModal({ isOpen, onClose, onSelect }) {
+export default function ItemPickerModal({ isOpen, onClose, onSelect, allowedTypes = [] }) {
   const [data, setData] = React.useState([]);
   const [search, setSearch] = React.useState("");
   const [loading, setLoading] = React.useState(false);
+  const allowedTypesKey = allowedTypes ? allowedTypes.join(",") : "";
 
   React.useEffect(() => {
     if (!isOpen) return;
     let cancelled = false;
     setLoading(true);
     listItems({ search, limit: 50 })
-      .then((res) => { if (!cancelled) setData(res.data || []); })
-      .catch(() => {})
-      .finally(() => { if (!cancelled) setLoading(false); });
-    return () => { cancelled = true; };
-  }, [isOpen, search]);
+    .then((res) => { 
+      if (!cancelled) {
+        let rawItems = res.data || [];
+        
+        if (allowedTypes && allowedTypes.length > 0) {
+          rawItems = rawItems.filter(item => allowedTypes.includes(item.item_type));
+        }
+        setData(rawItems); 
+      } 
+    })
+    .catch(() => {})
+    .finally(() => { if (!cancelled) setLoading(false); });
+  return () => { cancelled = true; };
+  }, [isOpen, search, allowedTypesKey]);
 
   if (!isOpen) return null;
 
