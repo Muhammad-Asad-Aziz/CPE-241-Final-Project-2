@@ -353,21 +353,21 @@ INSERT INTO smelting (id, smelting_code, smelt_date, player_id, furnace_location
 
 --Iris French 67070503478
 --Populating table: mining
-INSERT INTO mining (mining_code, mining_date, player_id, biome_name) VALUES ('MIN-001', '2024-05-12 14:20:00', 1, 'Extreme Hills');
-INSERT INTO mining (mining_code, mining_date, player_id, biome_name) VALUES ('MIN-002', '2024-06-20 08:15:30', 2, 'Plains');
-INSERT INTO mining (mining_code, mining_date, player_id, biome_name) VALUES ('MIN-003', '2024-08-08 11:45:12', 3, 'Desert');
-INSERT INTO mining (mining_code, mining_date, player_id, biome_name) VALUES ('MIN-004', '2024-11-01 16:20:05', 4, 'Savanna');
-INSERT INTO mining (mining_code, mining_date, player_id, biome_name) VALUES ('MIN-005', '2025-01-15 09:05:55', 5, 'Taiga');
-INSERT INTO mining (mining_code, mining_date, player_id, biome_name) VALUES ('MIN-006', '2025-03-10 13:30:40', 6, 'Snowy Tundra');
-INSERT INTO mining (mining_code, mining_date, player_id, biome_name) VALUES ('MIN-007', '2025-05-25 18:11:11', 7, 'Swamp');
-INSERT INTO mining (mining_code, mining_date, player_id, biome_name) VALUES ('MIN-008', '2025-07-10 07:40:20', 8, 'Badlands');
-INSERT INTO mining (mining_code, mining_date, player_id, biome_name) VALUES ('MIN-009', '2025-08-28 22:55:34', 9, 'Jungle');
-INSERT INTO mining (mining_code, mining_date, player_id, biome_name) VALUES ('MIN-010', '2025-10-18 10:25:50', 10, 'Forest');
-INSERT INTO mining (mining_code, mining_date, player_id, biome_name) VALUES ('MIN-011', '2025-12-20 15:00:15', 11, 'Ocean');
-INSERT INTO mining (mining_code, mining_date, player_id, biome_name) VALUES ('MIN-012', '2026-01-12 08:18:44', 12, 'Nether Wastes');
-INSERT INTO mining (mining_code, mining_date, player_id, biome_name) VALUES ('MIN-013', '2026-02-05 19:33:21', 13, 'Basalt Deltas');
-INSERT INTO mining (mining_code, mining_date, player_id, biome_name) VALUES ('MIN-014', '2026-02-20 12:10:09', 14, 'Crimson Forest');
-INSERT INTO mining (mining_code, mining_date, player_id, biome_name) VALUES ('MIN-015', '2026-03-21 16:05:01', 15, 'Warped Forest');
+INSERT INTO mining (id, mining_code, mining_date, player_id, biome_name) OVERRIDING SYSTEM VALUE VALUES (1, 'MIN-001', '2024-05-12 14:20:00', 1, 'Extreme Hills');
+INSERT INTO mining (id, mining_code, mining_date, player_id, biome_name) OVERRIDING SYSTEM VALUE VALUES (2, 'MIN-002', '2024-06-20 08:15:30', 2, 'Plains');
+INSERT INTO mining (id, mining_code, mining_date, player_id, biome_name) OVERRIDING SYSTEM VALUE VALUES (3, 'MIN-003', '2024-08-08 11:45:12', 3, 'Desert');
+INSERT INTO mining (id, mining_code, mining_date, player_id, biome_name) OVERRIDING SYSTEM VALUE VALUES (4, 'MIN-004', '2024-11-01 16:20:05', 4, 'Savanna');
+INSERT INTO mining (id, mining_code, mining_date, player_id, biome_name) OVERRIDING SYSTEM VALUE VALUES (5, 'MIN-005', '2025-01-15 09:05:55', 5, 'Taiga');
+INSERT INTO mining (id, mining_code, mining_date, player_id, biome_name) OVERRIDING SYSTEM VALUE VALUES (6, 'MIN-006', '2025-03-10 13:30:40', 6, 'Snowy Tundra');
+INSERT INTO mining (id, mining_code, mining_date, player_id, biome_name) OVERRIDING SYSTEM VALUE VALUES (7, 'MIN-007', '2025-05-25 18:11:11', 7, 'Swamp');
+INSERT INTO mining (id, mining_code, mining_date, player_id, biome_name) OVERRIDING SYSTEM VALUE VALUES (8, 'MIN-008', '2025-07-10 07:40:20', 8, 'Badlands');
+INSERT INTO mining (id, mining_code, mining_date, player_id, biome_name) OVERRIDING SYSTEM VALUE VALUES (9, 'MIN-009', '2025-08-28 22:55:34', 9, 'Jungle');
+INSERT INTO mining (id, mining_code, mining_date, player_id, biome_name) OVERRIDING SYSTEM VALUE VALUES (10, 'MIN-010', '2025-10-18 10:25:50', 10, 'Forest');
+INSERT INTO mining (id, mining_code, mining_date, player_id, biome_name) OVERRIDING SYSTEM VALUE VALUES (11, 'MIN-011', '2025-12-20 15:00:15', 11, 'Ocean');
+INSERT INTO mining (id, mining_code, mining_date, player_id, biome_name) OVERRIDING SYSTEM VALUE VALUES (12, 'MIN-012', '2026-01-12 08:18:44', 12, 'Nether Wastes');
+INSERT INTO mining (id, mining_code, mining_date, player_id, biome_name) OVERRIDING SYSTEM VALUE VALUES (13, 'MIN-013', '2026-02-05 19:33:21', 13, 'Basalt Deltas');
+INSERT INTO mining (id, mining_code, mining_date, player_id, biome_name) OVERRIDING SYSTEM VALUE VALUES (14, 'MIN-014', '2026-02-20 12:10:09', 14, 'Crimson Forest');
+INSERT INTO mining (id, mining_code, mining_date, player_id, biome_name) OVERRIDING SYSTEM VALUE VALUES (15, 'MIN-015', '2026-03-21 16:05:01', 15, 'Warped Forest');
 
 -- (GUIDE) #1.3.5  POPULATE SIMPLE FORMS HERE, WITHOUT THE "ON CONFLICT DO NOTHING" part
 
@@ -375,23 +375,76 @@ INSERT INTO mining (mining_code, mining_date, player_id, biome_name) VALUES ('MI
 -- Line Items
 
 -- Populating table: transfer_line_item
+-- TRN-0001
 INSERT INTO transfer_line_item (transfer_id, transfer_line_number, item_id, quantity_transferred, destination_slot_number) VALUES (1, 1, 7, 5, 1);
 INSERT INTO transfer_line_item (transfer_id, transfer_line_number, item_id, quantity_transferred, destination_slot_number) VALUES (1, 2, 5, 10, 2);
 INSERT INTO transfer_line_item (transfer_id, transfer_line_number, item_id, quantity_transferred, destination_slot_number) VALUES (1, 3, 12, 64, 3);
-INSERT INTO transfer_line_item (transfer_id, transfer_line_number, item_id, quantity_transferred, destination_slot_number) VALUES (2, 1, 5, 32, 2);
+-- TRN-0002
+INSERT INTO transfer_line_item (transfer_id, transfer_line_number, item_id, quantity_transferred, destination_slot_number) VALUES (2, 1, 5, 32, 4);
+INSERT INTO transfer_line_item (transfer_id, transfer_line_number, item_id, quantity_transferred, destination_slot_number) VALUES (2, 2, 6, 64, 5);
+INSERT INTO transfer_line_item (transfer_id, transfer_line_number, item_id, quantity_transferred, destination_slot_number) VALUES (2, 3, 3, 16, 6);
+-- TRN-0003
 INSERT INTO transfer_line_item (transfer_id, transfer_line_number, item_id, quantity_transferred, destination_slot_number) VALUES (3, 1, 1, 64, 1);
+INSERT INTO transfer_line_item (transfer_id, transfer_line_number, item_id, quantity_transferred, destination_slot_number) VALUES (3, 2, 2, 64, 2);
+INSERT INTO transfer_line_item (transfer_id, transfer_line_number, item_id, quantity_transferred, destination_slot_number) VALUES (3, 3, 22, 1, 3);
+-- TRN-0004
 INSERT INTO transfer_line_item (transfer_id, transfer_line_number, item_id, quantity_transferred, destination_slot_number) VALUES (4, 1, 2, 64, 3);
+INSERT INTO transfer_line_item (transfer_id, transfer_line_number, item_id, quantity_transferred, destination_slot_number) VALUES (4, 2, 21, 32, 4);
+INSERT INTO transfer_line_item (transfer_id, transfer_line_number, item_id, quantity_transferred, destination_slot_number) VALUES (4, 3, 6, 64, 5);
+INSERT INTO transfer_line_item (transfer_id, transfer_line_number, item_id, quantity_transferred, destination_slot_number) VALUES (4, 4, 12, 64, 6);
+-- TRN-0005
 INSERT INTO transfer_line_item (transfer_id, transfer_line_number, item_id, quantity_transferred, destination_slot_number) VALUES (5, 1, 12, 64, 1);
-INSERT INTO transfer_line_item (transfer_id, transfer_line_number, item_id, quantity_transferred, destination_slot_number) VALUES (6, 1, 13, 32, 4);
-INSERT INTO transfer_line_item (transfer_id, transfer_line_number, item_id, quantity_transferred, destination_slot_number) VALUES (7, 1, 18, 64, 1);
+INSERT INTO transfer_line_item (transfer_id, transfer_line_number, item_id, quantity_transferred, destination_slot_number) VALUES (5, 2, 13, 64, 2);
+INSERT INTO transfer_line_item (transfer_id, transfer_line_number, item_id, quantity_transferred, destination_slot_number) VALUES (5, 3, 23, 2, 3);
+INSERT INTO transfer_line_item (transfer_id, transfer_line_number, item_id, quantity_transferred, destination_slot_number) VALUES (5, 4, 5, 16, 4);
+-- TRN-0006
+INSERT INTO transfer_line_item (transfer_id, transfer_line_number, item_id, quantity_transferred, destination_slot_number) VALUES (6, 1, 13, 32, 7);
+INSERT INTO transfer_line_item (transfer_id, transfer_line_number, item_id, quantity_transferred, destination_slot_number) VALUES (6, 2, 12, 64, 8);
+INSERT INTO transfer_line_item (transfer_id, transfer_line_number, item_id, quantity_transferred, destination_slot_number) VALUES (6, 3, 4, 16, 9);
+-- TRN-0007
+INSERT INTO transfer_line_item (transfer_id, transfer_line_number, item_id, quantity_transferred, destination_slot_number) VALUES (7, 1, 18, 64, 10);
+INSERT INTO transfer_line_item (transfer_id, transfer_line_number, item_id, quantity_transferred, destination_slot_number) VALUES (7, 2, 19, 16, 11);
+INSERT INTO transfer_line_item (transfer_id, transfer_line_number, item_id, quantity_transferred, destination_slot_number) VALUES (7, 3, 12, 64, 12);
+-- TRN-0008
 INSERT INTO transfer_line_item (transfer_id, transfer_line_number, item_id, quantity_transferred, destination_slot_number) VALUES (8, 1, 19, 16, 5);
-INSERT INTO transfer_line_item (transfer_id, transfer_line_number, item_id, quantity_transferred, destination_slot_number) VALUES (9, 1, 14, 10, 1);
-INSERT INTO transfer_line_item (transfer_id, transfer_line_number, item_id, quantity_transferred, destination_slot_number) VALUES (10, 1, 15, 20, 6);
-INSERT INTO transfer_line_item (transfer_id, transfer_line_number, item_id, quantity_transferred, destination_slot_number) VALUES (11, 1, 4, 40, 1);
-INSERT INTO transfer_line_item (transfer_id, transfer_line_number, item_id, quantity_transferred, destination_slot_number) VALUES (12, 1, 6, 64, 7);
+INSERT INTO transfer_line_item (transfer_id, transfer_line_number, item_id, quantity_transferred, destination_slot_number) VALUES (8, 2, 18, 32, 6);
+INSERT INTO transfer_line_item (transfer_id, transfer_line_number, item_id, quantity_transferred, destination_slot_number) VALUES (8, 3, 21, 16, 7);
+-- TRN-0009
+INSERT INTO transfer_line_item (transfer_id, transfer_line_number, item_id, quantity_transferred, destination_slot_number) VALUES (9, 1, 14, 10, 11);
+INSERT INTO transfer_line_item (transfer_id, transfer_line_number, item_id, quantity_transferred, destination_slot_number) VALUES (9, 2, 15, 20, 12);
+INSERT INTO transfer_line_item (transfer_id, transfer_line_number, item_id, quantity_transferred, destination_slot_number) VALUES (9, 3, 6, 64, 13);
+INSERT INTO transfer_line_item (transfer_id, transfer_line_number, item_id, quantity_transferred, destination_slot_number) VALUES (9, 4, 21, 16, 14);
+-- TRN-0010
+INSERT INTO transfer_line_item (transfer_id, transfer_line_number, item_id, quantity_transferred, destination_slot_number) VALUES (10, 1, 15, 20, 10);
+INSERT INTO transfer_line_item (transfer_id, transfer_line_number, item_id, quantity_transferred, destination_slot_number) VALUES (10, 2, 14, 8, 11);
+INSERT INTO transfer_line_item (transfer_id, transfer_line_number, item_id, quantity_transferred, destination_slot_number) VALUES (10, 3, 6, 32, 12);
+INSERT INTO transfer_line_item (transfer_id, transfer_line_number, item_id, quantity_transferred, destination_slot_number) VALUES (10, 4, 5, 16, 13);
+INSERT INTO transfer_line_item (transfer_id, transfer_line_number, item_id, quantity_transferred, destination_slot_number) VALUES (10, 5, 13, 64, 14);
+-- TRN-0011
+INSERT INTO transfer_line_item (transfer_id, transfer_line_number, item_id, quantity_transferred, destination_slot_number) VALUES (11, 1, 4, 40, 15);
+INSERT INTO transfer_line_item (transfer_id, transfer_line_number, item_id, quantity_transferred, destination_slot_number) VALUES (11, 2, 5, 16, 16);
+INSERT INTO transfer_line_item (transfer_id, transfer_line_number, item_id, quantity_transferred, destination_slot_number) VALUES (11, 3, 6, 64, 17);
+-- TRN-0012
+INSERT INTO transfer_line_item (transfer_id, transfer_line_number, item_id, quantity_transferred, destination_slot_number) VALUES (12, 1, 6, 64, 12);
+INSERT INTO transfer_line_item (transfer_id, transfer_line_number, item_id, quantity_transferred, destination_slot_number) VALUES (12, 2, 21, 64, 13);
+INSERT INTO transfer_line_item (transfer_id, transfer_line_number, item_id, quantity_transferred, destination_slot_number) VALUES (12, 3, 12, 64, 14);
+-- TRN-0013
 INSERT INTO transfer_line_item (transfer_id, transfer_line_number, item_id, quantity_transferred, destination_slot_number) VALUES (13, 1, 10, 15, 1);
-INSERT INTO transfer_line_item (transfer_id, transfer_line_number, item_id, quantity_transferred, destination_slot_number) VALUES (14, 1, 11, 64, 8);
-INSERT INTO transfer_line_item (transfer_id, transfer_line_number, item_id, quantity_transferred, destination_slot_number) VALUES (15, 1, 16, 10, 1);
+INSERT INTO transfer_line_item (transfer_id, transfer_line_number, item_id, quantity_transferred, destination_slot_number) VALUES (13, 2, 16, 5, 2);
+INSERT INTO transfer_line_item (transfer_id, transfer_line_number, item_id, quantity_transferred, destination_slot_number) VALUES (13, 3, 17, 32, 3);
+-- TRN-0014
+INSERT INTO transfer_line_item (transfer_id, transfer_line_number, item_id, quantity_transferred, destination_slot_number) VALUES (14, 1, 11, 64, 20);
+INSERT INTO transfer_line_item (transfer_id, transfer_line_number, item_id, quantity_transferred, destination_slot_number) VALUES (14, 2, 25, 16, 21);
+INSERT INTO transfer_line_item (transfer_id, transfer_line_number, item_id, quantity_transferred, destination_slot_number) VALUES (14, 3, 5, 32, 22);
+INSERT INTO transfer_line_item (transfer_id, transfer_line_number, item_id, quantity_transferred, destination_slot_number) VALUES (14, 4, 6, 64, 23);
+-- TRN-0015
+INSERT INTO transfer_line_item (transfer_id, transfer_line_number, item_id, quantity_transferred, destination_slot_number) VALUES (15, 1, 16, 10, 20);
+INSERT INTO transfer_line_item (transfer_id, transfer_line_number, item_id, quantity_transferred, destination_slot_number) VALUES (15, 2, 17, 64, 21);
+INSERT INTO transfer_line_item (transfer_id, transfer_line_number, item_id, quantity_transferred, destination_slot_number) VALUES (15, 3, 11, 32, 22);
+INSERT INTO transfer_line_item (transfer_id, transfer_line_number, item_id, quantity_transferred, destination_slot_number) VALUES (15, 4, 15, 16, 23);
+INSERT INTO transfer_line_item (transfer_id, transfer_line_number, item_id, quantity_transferred, destination_slot_number) VALUES (15, 5, 6, 64, 24);
+INSERT INTO transfer_line_item (transfer_id, transfer_line_number, item_id, quantity_transferred, destination_slot_number) VALUES (15, 6, 21, 32, 25);
+-- TRN-0016
 INSERT INTO transfer_line_item (transfer_id, transfer_line_number, item_id, quantity_transferred, destination_slot_number) VALUES (16, 1, 25, 16, 1);
 INSERT INTO transfer_line_item (transfer_id, transfer_line_number, item_id, quantity_transferred, destination_slot_number) VALUES (16, 2, 25, 16, 2);
 INSERT INTO transfer_line_item (transfer_id, transfer_line_number, item_id, quantity_transferred, destination_slot_number) VALUES (16, 3, 25, 16, 3);
@@ -422,57 +475,161 @@ INSERT INTO transfer_line_item (transfer_id, transfer_line_number, item_id, quan
 
 
 -- Populating table: crafting_line_item
-INSERT INTO crafting_line_item (crafting_id, crafting_line_number, session_id, ingredient_id, required_quantity, total_needed) VALUES (1, 1, 1, 12, 3, 2);
-INSERT INTO crafting_line_item (crafting_id, crafting_line_number, session_id, ingredient_id, required_quantity, total_needed) VALUES (2, 1, 2, 5, 1, 4);
-INSERT INTO crafting_line_item (crafting_id, crafting_line_number, session_id, ingredient_id, required_quantity, total_needed) VALUES (3, 1, 3, 8, 6, 1);
-INSERT INTO crafting_line_item (crafting_id, crafting_line_number, session_id, ingredient_id, required_quantity, total_needed) VALUES (4, 1, 4, 15, 2, 5);
-INSERT INTO crafting_line_item (crafting_id, crafting_line_number, session_id, ingredient_id, required_quantity, total_needed) VALUES (5, 1, 5, 2, 7, 3);
-INSERT INTO crafting_line_item (crafting_id, crafting_line_number, session_id, ingredient_id, required_quantity, total_needed) VALUES (6, 1, 6, 11, 4, 2);
-INSERT INTO crafting_line_item (crafting_id, crafting_line_number, session_id, ingredient_id, required_quantity, total_needed) VALUES (7, 1, 7, 3, 5, 1);
-INSERT INTO crafting_line_item (crafting_id, crafting_line_number, session_id, ingredient_id, required_quantity, total_needed) VALUES (8, 1, 8, 16, 2, 4);
-INSERT INTO crafting_line_item (crafting_id, crafting_line_number, session_id, ingredient_id, required_quantity, total_needed) VALUES (9, 1, 9, 7, 1, 3);
-INSERT INTO crafting_line_item (crafting_id, crafting_line_number, session_id, ingredient_id, required_quantity, total_needed) VALUES (10, 1, 10, 14, 6, 5);
-INSERT INTO crafting_line_item (crafting_id, crafting_line_number, session_id, ingredient_id, required_quantity, total_needed) VALUES (11, 1, 11, 9, 3, 2);
-INSERT INTO crafting_line_item (crafting_id, crafting_line_number, session_id, ingredient_id, required_quantity, total_needed) VALUES (12, 1, 12, 4, 7, 1);
-INSERT INTO crafting_line_item (crafting_id, crafting_line_number, session_id, ingredient_id, required_quantity, total_needed) VALUES (13, 1, 13, 1, 5, 4);
-INSERT INTO crafting_line_item (crafting_id, crafting_line_number, session_id, ingredient_id, required_quantity, total_needed) VALUES (14, 1, 14, 10, 2, 3);
-INSERT INTO crafting_line_item (crafting_id, crafting_line_number, session_id, ingredient_id, required_quantity, total_needed) VALUES (15, 1, 15, 13, 4, 5);
+-- CRA-001 (Iron Pickaxe)
+INSERT INTO crafting_line_item (crafting_id, crafting_line_number, session_id, ingredient_id, required_quantity, total_needed) VALUES (1, 1, 1, 5, 3, 3);
+INSERT INTO crafting_line_item (crafting_id, crafting_line_number, session_id, ingredient_id, required_quantity, total_needed) VALUES (1, 2, 1, 3, 2, 2);
+-- CRA-002 (Diamond Sword)
+INSERT INTO crafting_line_item (crafting_id, crafting_line_number, session_id, ingredient_id, required_quantity, total_needed) VALUES (2, 1, 2, 7, 2, 2);
+INSERT INTO crafting_line_item (crafting_id, crafting_line_number, session_id, ingredient_id, required_quantity, total_needed) VALUES (2, 2, 2, 3, 1, 1);
+-- CRA-003 (Torch)
+INSERT INTO crafting_line_item (crafting_id, crafting_line_number, session_id, ingredient_id, required_quantity, total_needed) VALUES (3, 1, 3, 6, 1, 1);
+INSERT INTO crafting_line_item (crafting_id, crafting_line_number, session_id, ingredient_id, required_quantity, total_needed) VALUES (3, 2, 3, 3, 1, 1);
+-- CRA-004 (Diamond Pickaxe)
+INSERT INTO crafting_line_item (crafting_id, crafting_line_number, session_id, ingredient_id, required_quantity, total_needed) VALUES (4, 1, 4, 7, 3, 3);
+INSERT INTO crafting_line_item (crafting_id, crafting_line_number, session_id, ingredient_id, required_quantity, total_needed) VALUES (4, 2, 4, 3, 2, 2);
+-- CRA-005 (Iron Axe)
+INSERT INTO crafting_line_item (crafting_id, crafting_line_number, session_id, ingredient_id, required_quantity, total_needed) VALUES (5, 1, 5, 5, 3, 3);
+INSERT INTO crafting_line_item (crafting_id, crafting_line_number, session_id, ingredient_id, required_quantity, total_needed) VALUES (5, 2, 5, 3, 2, 2);
+-- CRA-006 (Oak Planks + Sticks)
+INSERT INTO crafting_line_item (crafting_id, crafting_line_number, session_id, ingredient_id, required_quantity, total_needed) VALUES (6, 1, 6, 1, 1, 1);
+INSERT INTO crafting_line_item (crafting_id, crafting_line_number, session_id, ingredient_id, required_quantity, total_needed) VALUES (6, 2, 6, 2, 2, 2);
+-- CRA-007 (Bread Loaf 1 & 2)
+INSERT INTO crafting_line_item (crafting_id, crafting_line_number, session_id, ingredient_id, required_quantity, total_needed) VALUES (7, 1, 7, 17, 3, 3);
+INSERT INTO crafting_line_item (crafting_id, crafting_line_number, session_id, ingredient_id, required_quantity, total_needed) VALUES (7, 2, 7, 17, 3, 3);
+-- CRA-008 (Sticks)
+INSERT INTO crafting_line_item (crafting_id, crafting_line_number, session_id, ingredient_id, required_quantity, total_needed) VALUES (8, 1, 8, 2, 2, 2);
+INSERT INTO crafting_line_item (crafting_id, crafting_line_number, session_id, ingredient_id, required_quantity, total_needed) VALUES (8, 2, 8, 2, 2, 2);
+-- CRA-009 (Iron Pickaxe)
+INSERT INTO crafting_line_item (crafting_id, crafting_line_number, session_id, ingredient_id, required_quantity, total_needed) VALUES (9, 1, 9, 5, 3, 3);
+INSERT INTO crafting_line_item (crafting_id, crafting_line_number, session_id, ingredient_id, required_quantity, total_needed) VALUES (9, 2, 9, 3, 2, 2);
+-- CRA-010 (Diamond Sword)
+INSERT INTO crafting_line_item (crafting_id, crafting_line_number, session_id, ingredient_id, required_quantity, total_needed) VALUES (10, 1, 10, 7, 2, 2);
+INSERT INTO crafting_line_item (crafting_id, crafting_line_number, session_id, ingredient_id, required_quantity, total_needed) VALUES (10, 2, 10, 3, 1, 1);
+-- CRA-011 (Crafting Table + Sticks)
+INSERT INTO crafting_line_item (crafting_id, crafting_line_number, session_id, ingredient_id, required_quantity, total_needed) VALUES (11, 1, 11, 2, 4, 4);
+INSERT INTO crafting_line_item (crafting_id, crafting_line_number, session_id, ingredient_id, required_quantity, total_needed) VALUES (11, 2, 11, 2, 2, 2);
+-- CRA-012 (Furnace + Torches)
+INSERT INTO crafting_line_item (crafting_id, crafting_line_number, session_id, ingredient_id, required_quantity, total_needed) VALUES (12, 1, 12, 12, 8, 8);
+INSERT INTO crafting_line_item (crafting_id, crafting_line_number, session_id, ingredient_id, required_quantity, total_needed) VALUES (12, 2, 12, 6, 4, 4);
+-- CRA-013 (Bread)
+INSERT INTO crafting_line_item (crafting_id, crafting_line_number, session_id, ingredient_id, required_quantity, total_needed) VALUES (13, 1, 13, 17, 3, 3);
+INSERT INTO crafting_line_item (crafting_id, crafting_line_number, session_id, ingredient_id, required_quantity, total_needed) VALUES (13, 2, 13, 17, 3, 3);
+-- CRA-014 (Diamond Pickaxe)
+INSERT INTO crafting_line_item (crafting_id, crafting_line_number, session_id, ingredient_id, required_quantity, total_needed) VALUES (14, 1, 14, 7, 3, 3);
+INSERT INTO crafting_line_item (crafting_id, crafting_line_number, session_id, ingredient_id, required_quantity, total_needed) VALUES (14, 2, 14, 3, 2, 2);
+-- CRA-015 (Torch)
+INSERT INTO crafting_line_item (crafting_id, crafting_line_number, session_id, ingredient_id, required_quantity, total_needed) VALUES (15, 1, 15, 6, 1, 1);
+INSERT INTO crafting_line_item (crafting_id, crafting_line_number, session_id, ingredient_id, required_quantity, total_needed) VALUES (15, 2, 15, 3, 1, 1);
 
 -- Populating table: smelting_line_item
+-- SML-001
 INSERT INTO smelting_line_item (id, smelting_id, raw_input_item_id, quantity_inserted, fuel_item_id, fuel_consumed, output_item_id, output_quantity) OVERRIDING SYSTEM VALUE VALUES (1, 1, 4, 16, 6, 2, 5, 16);
+INSERT INTO smelting_line_item (id, smelting_id, raw_input_item_id, quantity_inserted, fuel_item_id, fuel_consumed, output_item_id, output_quantity) OVERRIDING SYSTEM VALUE VALUES (16, 1, 14, 8, 6, 1, 15, 8);
+-- SML-002
 INSERT INTO smelting_line_item (id, smelting_id, raw_input_item_id, quantity_inserted, fuel_item_id, fuel_consumed, output_item_id, output_quantity) OVERRIDING SYSTEM VALUE VALUES (2, 2, 12, 32, 6, 4, 13, 32);
+INSERT INTO smelting_line_item (id, smelting_id, raw_input_item_id, quantity_inserted, fuel_item_id, fuel_consumed, output_item_id, output_quantity) OVERRIDING SYSTEM VALUE VALUES (17, 2, 4, 8, 6, 1, 5, 8);
+-- SML-003
 INSERT INTO smelting_line_item (id, smelting_id, raw_input_item_id, quantity_inserted, fuel_item_id, fuel_consumed, output_item_id, output_quantity) OVERRIDING SYSTEM VALUE VALUES (3, 3, 14, 8, 6, 1, 15, 8);
+INSERT INTO smelting_line_item (id, smelting_id, raw_input_item_id, quantity_inserted, fuel_item_id, fuel_consumed, output_item_id, output_quantity) OVERRIDING SYSTEM VALUE VALUES (18, 3, 4, 16, 6, 2, 5, 16);
+-- SML-004
 INSERT INTO smelting_line_item (id, smelting_id, raw_input_item_id, quantity_inserted, fuel_item_id, fuel_consumed, output_item_id, output_quantity) OVERRIDING SYSTEM VALUE VALUES (4, 4, 18, 64, 6, 8, 19, 64);
+INSERT INTO smelting_line_item (id, smelting_id, raw_input_item_id, quantity_inserted, fuel_item_id, fuel_consumed, output_item_id, output_quantity) OVERRIDING SYSTEM VALUE VALUES (19, 4, 18, 32, 6, 4, 19, 32);
+-- SML-005
 INSERT INTO smelting_line_item (id, smelting_id, raw_input_item_id, quantity_inserted, fuel_item_id, fuel_consumed, output_item_id, output_quantity) OVERRIDING SYSTEM VALUE VALUES (5, 5, 4, 24, 6, 3, 5, 24);
+INSERT INTO smelting_line_item (id, smelting_id, raw_input_item_id, quantity_inserted, fuel_item_id, fuel_consumed, output_item_id, output_quantity) OVERRIDING SYSTEM VALUE VALUES (20, 5, 14, 16, 6, 2, 15, 16);
+-- SML-006
 INSERT INTO smelting_line_item (id, smelting_id, raw_input_item_id, quantity_inserted, fuel_item_id, fuel_consumed, output_item_id, output_quantity) OVERRIDING SYSTEM VALUE VALUES (6, 6, 12, 16, 6, 2, 13, 16);
+INSERT INTO smelting_line_item (id, smelting_id, raw_input_item_id, quantity_inserted, fuel_item_id, fuel_consumed, output_item_id, output_quantity) OVERRIDING SYSTEM VALUE VALUES (21, 6, 4, 8, 6, 1, 5, 8);
+-- SML-007
 INSERT INTO smelting_line_item (id, smelting_id, raw_input_item_id, quantity_inserted, fuel_item_id, fuel_consumed, output_item_id, output_quantity) OVERRIDING SYSTEM VALUE VALUES (7, 7, 14, 16, 6, 2, 15, 16);
+INSERT INTO smelting_line_item (id, smelting_id, raw_input_item_id, quantity_inserted, fuel_item_id, fuel_consumed, output_item_id, output_quantity) OVERRIDING SYSTEM VALUE VALUES (22, 7, 4, 16, 6, 2, 5, 16);
+-- SML-008
 INSERT INTO smelting_line_item (id, smelting_id, raw_input_item_id, quantity_inserted, fuel_item_id, fuel_consumed, output_item_id, output_quantity) OVERRIDING SYSTEM VALUE VALUES (8, 8, 18, 32, 6, 4, 19, 32);
+INSERT INTO smelting_line_item (id, smelting_id, raw_input_item_id, quantity_inserted, fuel_item_id, fuel_consumed, output_item_id, output_quantity) OVERRIDING SYSTEM VALUE VALUES (23, 8, 4, 16, 6, 2, 5, 16);
+-- SML-009
 INSERT INTO smelting_line_item (id, smelting_id, raw_input_item_id, quantity_inserted, fuel_item_id, fuel_consumed, output_item_id, output_quantity) OVERRIDING SYSTEM VALUE VALUES (9, 9, 4, 40, 6, 5, 5, 40);
+INSERT INTO smelting_line_item (id, smelting_id, raw_input_item_id, quantity_inserted, fuel_item_id, fuel_consumed, output_item_id, output_quantity) OVERRIDING SYSTEM VALUE VALUES (24, 9, 14, 16, 6, 2, 15, 16);
+-- SML-010
 INSERT INTO smelting_line_item (id, smelting_id, raw_input_item_id, quantity_inserted, fuel_item_id, fuel_consumed, output_item_id, output_quantity) OVERRIDING SYSTEM VALUE VALUES (10, 10, 12, 8, 6, 1, 13, 8);
+INSERT INTO smelting_line_item (id, smelting_id, raw_input_item_id, quantity_inserted, fuel_item_id, fuel_consumed, output_item_id, output_quantity) OVERRIDING SYSTEM VALUE VALUES (25, 10, 4, 8, 6, 1, 5, 8);
+-- SML-011
 INSERT INTO smelting_line_item (id, smelting_id, raw_input_item_id, quantity_inserted, fuel_item_id, fuel_consumed, output_item_id, output_quantity) OVERRIDING SYSTEM VALUE VALUES (11, 11, 14, 32, 6, 4, 15, 32);
+INSERT INTO smelting_line_item (id, smelting_id, raw_input_item_id, quantity_inserted, fuel_item_id, fuel_consumed, output_item_id, output_quantity) OVERRIDING SYSTEM VALUE VALUES (26, 11, 4, 24, 6, 3, 5, 24);
+-- SML-012
 INSERT INTO smelting_line_item (id, smelting_id, raw_input_item_id, quantity_inserted, fuel_item_id, fuel_consumed, output_item_id, output_quantity) OVERRIDING SYSTEM VALUE VALUES (12, 12, 18, 16, 6, 2, 19, 16);
+INSERT INTO smelting_line_item (id, smelting_id, raw_input_item_id, quantity_inserted, fuel_item_id, fuel_consumed, output_item_id, output_quantity) OVERRIDING SYSTEM VALUE VALUES (27, 12, 12, 16, 6, 2, 13, 16);
+-- SML-013
 INSERT INTO smelting_line_item (id, smelting_id, raw_input_item_id, quantity_inserted, fuel_item_id, fuel_consumed, output_item_id, output_quantity) OVERRIDING SYSTEM VALUE VALUES (13, 13, 4, 8, 6, 1, 5, 8);
+INSERT INTO smelting_line_item (id, smelting_id, raw_input_item_id, quantity_inserted, fuel_item_id, fuel_consumed, output_item_id, output_quantity) OVERRIDING SYSTEM VALUE VALUES (28, 13, 14, 8, 6, 1, 15, 8);
+-- SML-014
 INSERT INTO smelting_line_item (id, smelting_id, raw_input_item_id, quantity_inserted, fuel_item_id, fuel_consumed, output_item_id, output_quantity) OVERRIDING SYSTEM VALUE VALUES (14, 14, 12, 64, 6, 8, 13, 64);
+INSERT INTO smelting_line_item (id, smelting_id, raw_input_item_id, quantity_inserted, fuel_item_id, fuel_consumed, output_item_id, output_quantity) OVERRIDING SYSTEM VALUE VALUES (29, 14, 4, 32, 6, 4, 5, 32);
+-- SML-015
 INSERT INTO smelting_line_item (id, smelting_id, raw_input_item_id, quantity_inserted, fuel_item_id, fuel_consumed, output_item_id, output_quantity) OVERRIDING SYSTEM VALUE VALUES (15, 15, 14, 64, 6, 8, 15, 64);
+INSERT INTO smelting_line_item (id, smelting_id, raw_input_item_id, quantity_inserted, fuel_item_id, fuel_consumed, output_item_id, output_quantity) OVERRIDING SYSTEM VALUE VALUES (30, 15, 4, 64, 6, 8, 5, 64);
 
 --Populating table: mining_line_item
-INSERT INTO mining_line_item (mining_id, block_mined_id, quantity_mined, tool_used_id, durability_lost, tool_status) VALUES ( 1, 4, 15, 8, 15, 'Usable');
-INSERT INTO mining_line_item (mining_id, block_mined_id, quantity_mined, tool_used_id, durability_lost, tool_status) VALUES (2, 1, 64, 20, 64, 'Usable');
-INSERT INTO mining_line_item (mining_id, block_mined_id, quantity_mined, tool_used_id, durability_lost, tool_status) VALUES (3, 18, 128, NULL, 0, 'Usable');
-INSERT INTO mining_line_item (mining_id, block_mined_id, quantity_mined, tool_used_id, durability_lost, tool_status) VALUES ( 4, 6, 30, 8, 30, 'Usable');
-INSERT INTO mining_line_item (mining_id, block_mined_id, quantity_mined, tool_used_id, durability_lost, tool_status) VALUES (5, 12, 50, 8, 50, 'Usable');
-INSERT INTO mining_line_item (mining_id, block_mined_id, quantity_mined, tool_used_id, durability_lost, tool_status) VALUES ( 6, 14, 20, 8, 20, 'Usable');
-INSERT INTO mining_line_item (mining_id, block_mined_id, quantity_mined, tool_used_id, durability_lost, tool_status) VALUES (7, 12, 100, 8, 100, 'Usable');
-INSERT INTO mining_line_item (mining_id, block_mined_id, quantity_mined, tool_used_id, durability_lost, tool_status) VALUES ( 8, 4, 25, 8, 25, 'Usable');
-INSERT INTO mining_line_item (mining_id, block_mined_id, quantity_mined, tool_used_id, durability_lost, tool_status) VALUES (9, 1, 32, 20, 32, 'Usable');
-INSERT INTO mining_line_item (mining_id, block_mined_id, quantity_mined, tool_used_id, durability_lost, tool_status) VALUES ( 10, 6, 45, 8, 45, 'Usable');
-INSERT INTO mining_line_item (mining_id, block_mined_id, quantity_mined, tool_used_id, durability_lost, tool_status) VALUES ( 11, 18, 50, NULL, 0, 'Usable');
-INSERT INTO mining_line_item (mining_id, block_mined_id, quantity_mined, tool_used_id, durability_lost, tool_status) VALUES ( 12, 14, 15, 8, 15, 'Usable');
-INSERT INTO mining_line_item (mining_id, block_mined_id, quantity_mined, tool_used_id, durability_lost, tool_status) VALUES ( 13, 12, 100, 24, 100, 'Usable');
-INSERT INTO mining_line_item (mining_id, block_mined_id, quantity_mined, tool_used_id, durability_lost, tool_status) VALUES ( 14, 1, 12, 20, 12, 'Usable');
-INSERT INTO mining_line_item (mining_id, block_mined_id, quantity_mined, tool_used_id, durability_lost, tool_status) VALUES (15, 4, 22, 8, 22, 'Usable');
+-- MIN-001: Extreme Hills - Steve
+INSERT INTO mining_line_item (mining_id, block_mined_id, quantity_mined, tool_used_id, durability_lost, tool_status) VALUES (1, 4, 15, 8, 15, 'Usable');
+INSERT INTO mining_line_item (mining_id, block_mined_id, quantity_mined, tool_used_id, durability_lost, tool_status) VALUES (1, 6, 45, 8, 45, 'Usable');
+INSERT INTO mining_line_item (mining_id, block_mined_id, quantity_mined, tool_used_id, durability_lost, tool_status) VALUES (1, 10, 2, 8, 2, 'Usable');
 
--- (GUIDE) #1.3.6 POPULATE LINE ITEMS HERE, WITHOUT THE "ON CONFLICT DO NOTHING" part
+-- MIN-002: Plains - Alex
+INSERT INTO mining_line_item (mining_id, block_mined_id, quantity_mined, tool_used_id, durability_lost, tool_status) VALUES (2, 1, 64, 20, 64, 'Usable');
+INSERT INTO mining_line_item (mining_id, block_mined_id, quantity_mined, tool_used_id, durability_lost, tool_status) VALUES (2, 12, 10, 8, 10, 'Usable');
+
+-- MIN-003: Desert - Herobrine
+INSERT INTO mining_line_item (mining_id, block_mined_id, quantity_mined, tool_used_id, durability_lost, tool_status) VALUES (3, 18, 64, NULL, 0, 'Usable');
+INSERT INTO mining_line_item (mining_id, block_mined_id, quantity_mined, tool_used_id, durability_lost, tool_status) VALUES (3, 18, 128, NULL, 0, 'Usable');
+
+-- MIN-004: Savanna - Notch
+INSERT INTO mining_line_item (mining_id, block_mined_id, quantity_mined, tool_used_id, durability_lost, tool_status) VALUES (4, 6, 30, 8, 30, 'Usable');
+INSERT INTO mining_line_item (mining_id, block_mined_id, quantity_mined, tool_used_id, durability_lost, tool_status) VALUES (4, 12, 50, 8, 50, 'Usable');
+
+-- MIN-005: Taiga - Jeb_ (Tool breaks!)
+INSERT INTO mining_line_item (mining_id, block_mined_id, quantity_mined, tool_used_id, durability_lost, tool_status) VALUES (5, 12, 250, 8, 250, 'Broken');
+INSERT INTO mining_line_item (mining_id, block_mined_id, quantity_mined, tool_used_id, durability_lost, tool_status) VALUES (5, 4, 15, 8, 15, 'Usable');
+
+-- MIN-006: Snowy Tundra - Dream
+INSERT INTO mining_line_item (mining_id, block_mined_id, quantity_mined, tool_used_id, durability_lost, tool_status) VALUES (6, 12, 20, 8, 20, 'Usable');
+INSERT INTO mining_line_item (mining_id, block_mined_id, quantity_mined, tool_used_id, durability_lost, tool_status) VALUES (6, 6, 25, 8, 25, 'Usable');
+
+-- MIN-007: Swamp - Technoblade
+INSERT INTO mining_line_item (mining_id, block_mined_id, quantity_mined, tool_used_id, durability_lost, tool_status) VALUES (7, 12, 100, 8, 100, 'Usable');
+INSERT INTO mining_line_item (mining_id, block_mined_id, quantity_mined, tool_used_id, durability_lost, tool_status) VALUES (7, 4, 30, 8, 30, 'Usable');
+
+-- MIN-008: Badlands - DanTDM
+INSERT INTO mining_line_item (mining_id, block_mined_id, quantity_mined, tool_used_id, durability_lost, tool_status) VALUES (8, 14, 25, 8, 25, 'Usable');
+INSERT INTO mining_line_item (mining_id, block_mined_id, quantity_mined, tool_used_id, durability_lost, tool_status) VALUES (8, 12, 40, 8, 40, 'Usable');
+
+-- MIN-009: Jungle - CaptainSparklez (Tool breaks!)
+INSERT INTO mining_line_item (mining_id, block_mined_id, quantity_mined, tool_used_id, durability_lost, tool_status) VALUES (9, 1, 250, 20, 250, 'Broken');
+INSERT INTO mining_line_item (mining_id, block_mined_id, quantity_mined, tool_used_id, durability_lost, tool_status) VALUES (9, 1, 64, 20, 64, 'Usable');
+
+-- MIN-010: Forest - Stampy
+INSERT INTO mining_line_item (mining_id, block_mined_id, quantity_mined, tool_used_id, durability_lost, tool_status) VALUES (10, 6, 45, 8, 45, 'Usable');
+INSERT INTO mining_line_item (mining_id, block_mined_id, quantity_mined, tool_used_id, durability_lost, tool_status) VALUES (10, 12, 60, 8, 60, 'Usable');
+
+-- MIN-011: Ocean - MumboJumbo
+INSERT INTO mining_line_item (mining_id, block_mined_id, quantity_mined, tool_used_id, durability_lost, tool_status) VALUES (11, 18, 50, NULL, 0, 'Usable');
+INSERT INTO mining_line_item (mining_id, block_mined_id, quantity_mined, tool_used_id, durability_lost, tool_status) VALUES (11, 18, 30, NULL, 0, 'Usable');
+
+-- MIN-012: Nether Wastes - Grian
+INSERT INTO mining_line_item (mining_id, block_mined_id, quantity_mined, tool_used_id, durability_lost, tool_status) VALUES (12, 14, 15, 24, 15, 'Usable');
+INSERT INTO mining_line_item (mining_id, block_mined_id, quantity_mined, tool_used_id, durability_lost, tool_status) VALUES (12, 12, 35, 24, 35, 'Usable');
+
+-- MIN-013: Basalt Deltas - TommyInnit
+INSERT INTO mining_line_item (mining_id, block_mined_id, quantity_mined, tool_used_id, durability_lost, tool_status) VALUES (13, 12, 100, 24, 100, 'Usable');
+INSERT INTO mining_line_item (mining_id, block_mined_id, quantity_mined, tool_used_id, durability_lost, tool_status) VALUES (13, 14, 20, 24, 20, 'Usable');
+
+-- MIN-014: Crimson Forest - WilburSoot (Tool breaks!)
+INSERT INTO mining_line_item (mining_id, block_mined_id, quantity_mined, tool_used_id, durability_lost, tool_status) VALUES (14, 12, 250, 8, 250, 'Broken');
+INSERT INTO mining_line_item (mining_id, block_mined_id, quantity_mined, tool_used_id, durability_lost, tool_status) VALUES (14, 1, 12, 20, 12, 'Usable');
+
+-- MIN-015: Warped Forest - Philza
+INSERT INTO mining_line_item (mining_id, block_mined_id, quantity_mined, tool_used_id, durability_lost, tool_status) VALUES (15, 4, 22, 24, 22, 'Usable');
+INSERT INTO mining_line_item (mining_id, block_mined_id, quantity_mined, tool_used_id, durability_lost, tool_status) VALUES (15, 12, 80, 24, 80, 'Usable');
+-- (GUIDE) #1.3.6 POPULATE LINE ITEMS HERE, WITHOUT THE "ON CONFLICT DO NOTHING" partrt
 
 
 -- update sequences to max id (crutial when inserting explicit IDs)

@@ -192,16 +192,25 @@ export default function ReportFilters({ type, filters, onChange, onApply }) {
         </div>
       )}
 
-      {/* 2. BROKEN TOOLS FILTER (date) */}
+      {/* 2. BROKEN TOOLS FILTER (date range) */}
       {type === "broken-tools" && (
         <>
           <div className="form-group" style={{ margin: 0, width: "200px" }}>
-            <label className="form-label">Date</label>
+            <label className="form-label">Date From</label>
             <input 
               type="date" 
               className="form-control" 
-              value={filters.Date || ""} 
-              onChange={(e) => onChange({ ...filters, Date: e.target.value })}
+              value={filters.fromDate || ""} 
+              onChange={(e) => onChange({ ...filters, fromDate: e.target.value })}
+            />
+          </div>
+          <div className="form-group" style={{ margin: 0, width: "200px" }}>
+            <label className="form-label">Date To</label>
+            <input 
+              type="date" 
+              className="form-control" 
+              value={filters.toDate || ""} 
+              onChange={(e) => onChange({ ...filters, toDate: e.target.value })}
             />
           </div>
         </>

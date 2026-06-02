@@ -242,9 +242,10 @@ export async function getBiomeMiningHistory({ biomeName = "" }) {
     return rows;
 }
 
-// Report by Iris: List tools that reached "Broken" status on Date: ___.
-export async function getBrokenTools({ Date }) {
-    const from = Date || '2000-01-01';
+// Report by Iris: List tools that reached "Broken" status between fromDate and toDate.
+export async function getBrokenTools({ fromDate, toDate }) {
+    const from = fromDate || '2000-01-01';
+    const to = toDate || '2100-12-31';
 
     const { rows } = await pool.query(
         `SELECT 
@@ -261,9 +262,9 @@ export async function getBrokenTools({ Date }) {
          JOIN mining_line_item ml ON m.id = ml.mining_id
          JOIN item ib ON ml.block_mined_id = ib.id
          LEFT JOIN item it ON ml.tool_used_id = it.id
-         WHERE m.mining_date = $1 AND ml.tool_status = 'Broken'
+         WHERE m.mining_date >= $1 AND m.mining_date <= $2 AND ml.tool_status = 'Broken'
          ORDER BY m.id DESC`,
-        [from]
+        [from, to]
     );
     return rows;
 }
