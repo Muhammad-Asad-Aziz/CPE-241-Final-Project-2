@@ -123,7 +123,7 @@ export async function updateTransfer(code, { transfer_code, transfer_date, playe
     await client.query("begin");
     let player_id = null;
     if (player_username) {
-      const p = await client.query("SELECT id FROM player WHERE username = $1", [player_username]);
+      const p = await client.query("SELECT id FROM player WHERE player_code = $1", [player_username]);
       if (p.rowCount === 0) throw new Error(`Player not found: ${player_username}`);
       player_id = p.rows[0].id;
     }
