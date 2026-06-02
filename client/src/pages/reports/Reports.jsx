@@ -35,14 +35,14 @@ const REPORT_CONFIG = {
   },
   "chest-utilization": {
     title: "Chest Capacity Utilization",
-    subtitle: "Analysis: Chest slot usage grouped by Dimension (Assumes 27 slots per chest).",
+    subtitle: "Analysis: Slots used and utilization percentage for individual chests.",
     emptyMessage: "No data available.",
     getColumns: () => [
-      { key: "dimension", label: "Dimension", render: (v) => <span className="font-bold">{v}</span> },
-      { key: "total_chests", label: "Total Chests", align: "right" },
-      { key: "total_used_slots", label: "Used Slots", align: "right" },
+      { key: "chest_code", label: "Chest Code", render: (v) => <span className="font-bold">{v}</span> },
+      { key: "dimension", label: "Dimension" },
+      { key: "used_slots", label: "Slots Used", align: "right" },
       { key: "total_capacity", label: "Max Capacity (Slots)", align: "right" },
-      { key: "utilization_percent", label: "Utilization (%)", align: "right", style: { fontWeight: 600, color: "#ef4444" }, render: (v) => `${v}%` }
+      { key: "utilization_percent", label: "Utilization (%)", align: "right", style: { fontWeight: 600 }, render: (v) => `${v}%` }
     ]
   },
 
@@ -171,7 +171,7 @@ export default function Reports({ type = "chest-inventory" }) {
   const [loading, setLoading] = React.useState(false);
   const [filters, setFilters] = React.useState({});
   const [appliedFilters, setAppliedFilters] = React.useState({});
-  const [hasApplied, setHasApplied] = React.useState(type === "chest-utilization"); // Utilization requires no filters, run immediately!
+  const [hasApplied, setHasApplied] = React.useState(false);
 
   const config = REPORT_CONFIG[type];
 
@@ -188,11 +188,7 @@ export default function Reports({ type = "chest-inventory" }) {
     setFilters({});
     setAppliedFilters({});
     setData([]);
-    if (type === "chest-utilization") {
-      setHasApplied(true);
-    } else {
-      setHasApplied(false);
-    }
+    setHasApplied(false);
   }, [type]);
 
   // Fetch when applied filters change or if it's the utilization report
@@ -215,11 +211,9 @@ export default function Reports({ type = "chest-inventory" }) {
         </div>
       </div>
 
-      {type !== "chest-utilization" && (
-        <div className="card" style={{ marginBottom: 24 }}>
-          <ReportFilters type={type} filters={filters} onChange={setFilters} onApply={handleApply} />
-        </div>
-      )}
+      <div className="card" style={{ marginBottom: 24 }}>
+        <ReportFilters type={type} filters={filters} onChange={setFilters} onApply={handleApply} />
+      </div>
 
       <div className="card">
         {!hasApplied ? (

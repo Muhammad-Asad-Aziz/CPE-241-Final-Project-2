@@ -37,6 +37,23 @@ export default function ReportFilters({ type, filters, onChange, onApply }) {
   return (
     <div style={{ display: "flex", gap: "1rem", alignItems: "flex-end" }}>
       
+      {/* CHEST UTILIZATION FILTER */}
+      {type === "chest-utilization" && (
+        <div className="form-group" style={{ margin: 0, width: "300px" }}>
+          <label className="form-label">Select Dimension</label>
+          <select 
+            className="form-control" 
+            value={filters.dimension || ""} 
+            onChange={(e) => onChange({ ...filters, dimension: e.target.value })}
+          >
+            <option value="">-- Choose Dimension (All) --</option>
+            <option value="Overworld">Overworld</option>
+            <option value="Nether">Nether</option>
+            <option value="The End">The End</option>
+          </select>
+        </div>
+      )}
+
       {/* CHEST INVENTORY FILTER */}
       {type === "chest-inventory" && (
         <div className="form-group" style={{ margin: 0, width: "300px" }}>

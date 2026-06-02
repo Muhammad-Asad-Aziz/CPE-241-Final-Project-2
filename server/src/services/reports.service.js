@@ -80,26 +80,26 @@ export async function getDailyTransfers({ date_from, date_to }) {
   return { data: rows };
 }
 
-// Report by Muhammad Asad Aziz Analysis: Show Chest Capacity Utilization (%) grouped by Chest Dimension
-export async function getChestUtilization() {
+// Report by Muhammad Asad Aziz Analysis: Show Chest Capacity Utilization (%) with Dimension query/filter
+export async function getChestUtilization({ dimension } = {}) {
+  const dimParam = dimension ? dimension : null;
+
   const { rows } = await pool.query(
     `
-      WITH chest_usage AS (
-          SELECT c.dimension, c.id, COUNT(DISTINCT li.destination_slot_number) as used_slots
-          FROM chest c
-          LEFT JOIN transfer t ON t.destination_chest_id = c.id
-          LEFT JOIN transfer_line_item li ON li.transfer_id = t.id
-          GROUP BY c.dimension, c.id
-      )
-      SELECT dimension,
-             COUNT(id) as total_chests,
-             SUM(used_slots) as total_used_slots,
-             (COUNT(id) * 27) as total_capacity,
-             COALESCE(ROUND((SUM(used_slots)::numeric / NULLIF(COUNT(id) * 27, 0)) * 100, 2), 0) as utilization_percent
-      FROM chest_usage
-      GROUP BY dimension
-      ORDER BY utilization_percent DESC
-    `
+      SELECT 
+          c.chest_code,
+          c.dimension,
+          COUNT(DISTINCT li.destination_slot_number) as used_slots,
+          27 as total_capacity,
+          COALESCE(ROUND((COUNT(DISTINCT li.destination_slot_number) * 100.0) / 27, 2), 0) as utilization_percent
+      FROM chest c
+      LEFT JOIN transfer t ON c.id = t.destination_chest_id
+      LEFT JOIN transfer_line_item li ON li.transfer_id = t.id
+      WHERE ($1::text IS NULL OR c.dimension ILIKE $1::text)
+      GROUP BY c.id, c.chest_code, c.dimension
+      ORDER BY c.chest_code ASC
+    `,
+    [dimParam]
   );
   return { data: rows };
 }

@@ -20,7 +20,7 @@ export async function getDailyTransfers(req, res) {
 
 export async function getChestUtilization(req, res) {
   try {
-    const result = await reportsService.getChestUtilization();
+    const result = await reportsService.getChestUtilization(req.query);
     res.json({ success: true, data: result.data });
   } catch (err) {
     res.status(500).json({ success: false, error: { message: err.message } });
