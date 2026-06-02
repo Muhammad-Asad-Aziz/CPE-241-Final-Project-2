@@ -21,10 +21,10 @@ const REPORT_CONFIG = {
   },
   "daily-transfers": {
     title: "Transfer History Log",
-    subtitle: "Detailed item-by-item log of transfers. (Upgraded for project: Now supports full date ranges instead of just a single day, and shows all history if left blank!)",
+    subtitle: "Detailed item-by-item log of transfers.",
     emptyMessage: "No transfers occurred in this date range.",
     getColumns: () => [
-      { key: "transfer_code", label: "Transfer Code", render: (v) => <span className="font-bold">{v}</span> }, // NO MORE TRN-TRICK
+      { key: "transfer_code", label: "Transfer Code", render: (v) => <span className="font-bold">{v}</span> }, 
       { key: "transfer_date", label: "Date", render: (v) => formatDate(v) },
       { key: "player_username", label: "Player", render: (v, row) => <span className="font-bold">{row.player_code} - {v}</span> },
       { key: "item_moved", label: "Item Moved", render: (v, row) => <span style={{ color: "var(--primary)", fontWeight: 600 }}>{row.item_code} - {v}</span> },
