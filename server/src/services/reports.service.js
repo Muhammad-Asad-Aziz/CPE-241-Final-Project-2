@@ -1,0 +1,291 @@
+import { pool } from "../db/pool.js";
+
+// Report by Muhammad Asad Aziz Simple 1: List all items currently stored inside a specific Chest ID
+export async function getChestInventory({ chest_id }) {
+  // If chest_id is empty/undefined, set it to null so SQL understands it
+  const chestParam = chest_id ? Number(chest_id) : null;
+
+  const { rows } = await pool.query(
+    `
+      WITH items_in AS (
+        SELECT t.destination_chest_id as chest_id, li.item_id, SUM(li.quantity_transferred) as qty  
+        FROM transfer_line_item li
+        JOIN "transfer" t ON t.id = li.transfer_id
+        WHERE t.destination_chest_id IS NOT NULL
+        GROUP BY t.destination_chest_id, li.item_id
+      ),
+      items_out AS (
+        SELECT t.source_chest_id as chest_id, li.item_id, SUM(li.quantity_transferred) as qty
+        FROM transfer_line_item li
+        JOIN "transfer" t ON t.id = li.transfer_id
+        WHERE t.source_chest_id IS NOT NULL
+        GROUP BY t.source_chest_id, li.item_id
+      ),
+      chest_inventory AS (
+        SELECT 
+          COALESCE(iin.chest_id, iout.chest_id) as chest_id,
+          COALESCE(iin.item_id, iout.item_id) as item_id,
+          (COALESCE(iin.qty, 0) - COALESCE(iout.qty, 0)) as current_quantity
+        FROM items_in iin
+        FULL OUTER JOIN items_out iout 
+          ON iin.chest_id = iout.chest_id AND iin.item_id = iout.item_id
+      )
+      SELECT 
+        ci.chest_id, 
+        c.dimension,
+        i.id as item_id, 
+        i.item_name, 
+        i.item_type,
+        ci.current_quantity
+      FROM chest_inventory ci
+      JOIN item i ON i.id = ci.item_id
+      JOIN chest c ON c.id = ci.chest_id
+      WHERE ci.current_quantity > 0
+        AND ($1::bigint IS NULL OR ci.chest_id = $1::bigint)
+      ORDER BY ci.chest_id ASC, ci.current_quantity DESC
+    `,
+    [chestParam]
+  );
+  return { data: rows };
+}
+
+// Report by Muhammad Asad Aziz Simple 2: List all item transfers made on a specific Date
+export async function getDailyTransfers({ date_from, date_to }) {
+  const dFrom = date_from ? date_from : null;
+  const dTo = date_to ? date_to : null;
+
+  const { rows } = await pool.query(
+    `
+      SELECT 
+          t.id AS transfer_id, 
+          t.transfer_date, 
+          p.username AS player_username, 
+          i.item_name AS item_moved, 
+          COALESCE(CAST(t.source_chest_id AS TEXT), 'Player Inventory') AS src_chest,
+          COALESCE(CAST(t.destination_chest_id AS TEXT), 'Player Inventory') AS dst_chest,
+          li.quantity_transferred
+      FROM "transfer" t
+      JOIN player p ON t.player_id = p.id
+      JOIN transfer_line_item li ON t.id = li.transfer_id
+      JOIN item i ON li.item_id = i.id
+      WHERE ($1::date IS NULL OR DATE(t.transfer_date) >= $1::date)
+        AND ($2::date IS NULL OR DATE(t.transfer_date) <= $2::date)
+      ORDER BY t.transfer_date DESC, t.id ASC
+    `,
+    [dFrom, dTo]
+  );
+  return { data: rows };
+}
+
+// Report by Muhammad Asad Aziz Analysis: Show Chest Capacity Utilization (%) grouped by Chest Dimension
+export async function getChestUtilization() {
+  const { rows } = await pool.query(
+    `
+      WITH chest_usage AS (
+          SELECT c.dimension, c.id, COUNT(DISTINCT li.destination_slot_number) as used_slots
+          FROM chest c
+          LEFT JOIN "transfer" t ON t.destination_chest_id = c.id
+          LEFT JOIN transfer_line_item li ON li.transfer_id = t.id
+          GROUP BY c.dimension, c.id
+      )
+      SELECT dimension,
+             COUNT(id) as total_chests,
+             SUM(used_slots) as total_used_slots,
+             (COUNT(id) * 27) as total_capacity,
+             COALESCE(ROUND((SUM(used_slots)::numeric / NULLIF(COUNT(id) * 27, 0)) * 100, 2), 0) as utilization_percent
+      FROM chest_usage
+      GROUP BY dimension
+      ORDER BY utilization_percent DESC
+    `
+  );
+  return { data: rows };
+}
+// Report by Supanut Sopha Crafting Simple 1:  List all crafting sessions made by Player Name: ___.
+export async function getPlayerCraftingHistory({ playerName = "" }) {
+    const { rows } = await pool.query(
+        `SELECT c.crafting_date AS "Craft_Date", 
+                c.id AS "Session_ID", 
+                p.username AS "Player_Name", 
+                i.item_name AS "Target_Item", 
+                c.qty_wanted AS "Qty_Wanted"
+         FROM crafting c
+         JOIN player p ON c.player_id = p.id
+         LEFT JOIN item i ON c.target_item_id = i.id
+         WHERE p.username ILIKE $1
+         ORDER BY c.crafting_date DESC`,
+        [`%${playerName}%`]
+    );
+    return rows;
+}
+// Report by Supanut Sopha Crafting Simple 2:  Print Recipe requirements for Item Name: ___.
+export async function getRecipeRequirements({ itemName = "" }) {
+    const { rows } = await pool.query(
+        `SELECT t.item_name AS "Target_Item", 
+                i.item_name AS "Ingredient_Needed", 
+                r.amount_needed AS "Required_Qty"
+         FROM recipe r
+         JOIN item t ON r.target_item_id = t.id
+         JOIN item i ON r.ingredient_item_id = i.id
+         WHERE t.item_name ILIKE $1`,
+        [`%${itemName}%`]
+    );
+    return rows;
+}
+
+// Report by Supanut Sopha Crafting Analysis: Show Top 5 Most Crafted Items in the server from Date: ___ to ___.
+export async function getTopCraftedItems({ fromDate, toDate }) {
+    const from = fromDate || '2000-01-01';
+    const to = toDate || '2100-12-31';
+
+    const { rows } = await pool.query(
+        `SELECT i.item_name AS "Target_Item", 
+                i.item_type AS "Item_Type", 
+                SUM(c.qty_wanted) AS "Total_Quantity_Crafted"
+         FROM crafting c
+         JOIN item i ON c.target_item_id = i.id
+         WHERE c.crafting_date >= $1 AND c.crafting_date <= $2
+         GROUP BY i.item_name, i.item_type
+         ORDER BY "Total_Quantity_Crafted" DESC
+         LIMIT 5`,
+        [from, to]
+    );
+    return rows;
+}
+
+// Report 1 by Xander: List all ores smelted in a specific Furnace Location: ___ (Proposal)
+export async function getFurnaceLocationReport({ location = "" }) {
+    const { rows } = await pool.query(
+        `SELECT s.id AS "Job_ID", 
+                s.smelt_date AS "Date", 
+                p.username AS "Player", 
+                ri.item_name AS "Raw_Ore", 
+                sli.quantity_inserted AS "Qty_In",
+                oi.item_name AS "Output_Item", 
+                sli.output_quantity AS "Qty_Out"
+         FROM smelting s
+         JOIN player p ON s.player_id = p.id
+         JOIN smelting_line_item sli ON s.id = sli.smelting_id
+         JOIN item ri ON sli.raw_input_item_id = ri.id
+         JOIN item oi ON sli.output_item_id = oi.id
+         WHERE s.furnace_location_xyz ILIKE $1
+         ORDER BY s.smelt_date DESC`,
+        [`%${location}%`]
+    );
+    return rows;
+}
+
+// Report 2 by Xander: List fuel consumption history for Player Name: ___ (Proposal)
+export async function getPlayerFuelHistory({ playerName = "" }) {
+    const { rows } = await pool.query(
+        `SELECT s.smelt_date AS "Date", 
+                s.furnace_location_xyz AS "Location",
+                fi.item_name AS "Fuel_Type", 
+                sli.fuel_consumed AS "Fuel_Consumed",
+                oi.item_name AS "Output_Generated", 
+                sli.output_quantity AS "Qty_Generated"
+         FROM smelting s
+         JOIN player p ON s.player_id = p.id
+         JOIN smelting_line_item sli ON s.id = sli.smelting_id
+         JOIN item fi ON sli.fuel_item_id = fi.id
+         JOIN item oi ON sli.output_item_id = oi.id
+         WHERE p.username ILIKE $1
+         ORDER BY s.smelt_date DESC`,
+        [`%${playerName}%`]
+    );
+    return rows;
+}
+
+// Report Analysis: Show Total Output Items produced grouped by Fuel Type Used (Coal vs Wood) from Date: ___ to ___. (Proposal)
+export async function getFuelAnalysis({ fromDate, toDate }) {
+    const from = fromDate || '2000-01-01';
+    const to = toDate || '2100-12-31';
+
+    const { rows } = await pool.query(
+        `SELECT fi.item_name AS "Fuel_Type",
+                SUM(sli.fuel_consumed) AS "Total_Fuel_Consumed",
+                SUM(sli.output_quantity) AS "Total_Output_Produced"
+         FROM smelting s
+         JOIN smelting_line_item sli ON s.id = sli.smelting_id
+         JOIN item fi ON sli.fuel_item_id = fi.id
+         WHERE s.smelt_date >= $1 AND s.smelt_date <= $2
+         GROUP BY fi.item_name
+         ORDER BY "Total_Output_Produced" DESC`,
+        [from, to]
+    );
+    return rows;
+}
+
+// (GUIDE) #3.3 ADD YOUR REPORTS HERE
+
+// Report by Punyawat Simple 1: List all trades with a specific Villager ID
+export async function getTradingsByVillager({ villager_id }) {
+    const vId = villager_id ? Number(villager_id) : null;
+    const { rows } = await pool.query(
+        `SELECT
+            ts.id AS session_id,
+            ts.trade_date,
+            ts.player_name,
+            v.villager_name,
+            v.profession,
+            ig.item_name AS item_given,
+            tli.quantity_given,
+            ir.item_name AS item_received,
+            tli.quantity_received,
+            tli.trade_uses_remaining,
+            CASE WHEN tli.trade_uses_remaining = 0 THEN 'Locked' ELSE 'Open' END AS trade_status
+         FROM trading_session ts
+         JOIN villager v ON v.id = ts.villager_id
+         JOIN trading_line_item tli ON tli.trading_session_id = ts.id
+         LEFT JOIN item ig ON ig.id = tli.item_given_id
+         LEFT JOIN item ir ON ir.id = tli.item_received_id
+         WHERE ($1::bigint IS NULL OR ts.villager_id = $1::bigint)
+         ORDER BY ts.trade_date DESC`,
+        [vId]
+    );
+    return { data: rows };
+}
+
+// Report by Punyawat Simple 2: List all villagers who currently have "Locked" trades
+export async function getLockedTrades({ profession = "" } = {}) {
+    const profParam = profession ? profession : null;
+    const { rows } = await pool.query(
+        `SELECT DISTINCT
+            v.id AS villager_id,
+            v.villager_name,
+            v.profession,
+            v.biome_type,
+            COUNT(tli.id) AS locked_trade_count
+         FROM villager v
+         JOIN trading_session ts ON ts.villager_id = v.id
+         JOIN trading_line_item tli ON tli.trading_session_id = ts.id
+         WHERE tli.trade_uses_remaining = 0
+           AND ($1::text IS NULL OR v.profession = $1::text)
+         GROUP BY v.id, v.villager_name, v.profession, v.biome_type
+         ORDER BY locked_trade_count DESC`,
+        [profParam]
+    );
+    return { data: rows };
+}
+
+// Report by Punyawat Analysis: Total Volume grouped by Villager Profession
+export async function getTradingVolumeByProfession({ date_from, date_to }) {
+    const dFrom = date_from || null;
+    const dTo = date_to || null;
+    const { rows } = await pool.query(
+        `SELECT
+            v.profession,
+            SUM(tli.quantity_given) AS total_given,
+            SUM(tli.quantity_received) AS total_received,
+            SUM(tli.quantity_given + tli.quantity_received) AS total_volume,
+            COUNT(DISTINCT ts.id) AS total_sessions
+         FROM trading_session ts
+         JOIN villager v ON v.id = ts.villager_id
+         JOIN trading_line_item tli ON tli.trading_session_id = ts.id
+         WHERE ($1::date IS NULL OR DATE(ts.trade_date) >= $1::date)
+           AND ($2::date IS NULL OR DATE(ts.trade_date) <= $2::date)
+         GROUP BY v.profession
+         ORDER BY total_volume DESC`,
+        [dFrom, dTo]
+    );
+    return { data: rows };
+}
