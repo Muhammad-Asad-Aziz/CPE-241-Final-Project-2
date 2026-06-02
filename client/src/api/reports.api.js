@@ -30,8 +30,6 @@ export async function getTopCraftedItems(params) {
     return unwrap(res);
 }
 
-// (GUIDE) #3.6 ADD YOUR REPORTS HERE
-
 // Punyawat reports
 export async function getTradingsByVillager(params) {
     const query = new URLSearchParams(params).toString();
@@ -51,6 +49,28 @@ export async function getTradingVolumeByProfession(params) {
     return unwrap(res);
 }
 
+// Iris reports
+export async function getBiomeMiningHistory(params) {
+    const query = new URLSearchParams(params).toString();
+    const res = await http(`/api/reports/mining-history?${query}`);
+    return unwrap(res);
+}
+
+export async function getBrokenTools(params) {
+    const query = new URLSearchParams(params).toString();
+    const res = await http(`/api/reports/broken-tools?${query}`);
+    return unwrap(res);
+}
+
+export async function getTotalBlocksMined(params) {
+    const query = new URLSearchParams(params).toString();
+    const res = await http(`/api/reports/blocks-mined?${query}`);
+    return unwrap(res);
+}
+
+// (GUIDE) #3.6 ADD YOUR REPORTS HERE
+
+
 export async function getReportData(type, params = {}) {
   const path = REPORT_ENDPOINTS[type] || REPORT_ENDPOINTS["chest-inventory"];
 
@@ -60,6 +80,9 @@ export async function getReportData(type, params = {}) {
     if (type === "trading-by-villager") return getTradingsByVillager(params);
     if (type === "locked-trades") return getLockedTrades(params);
     if (type === "trading-volume-profession") return getTradingVolumeByProfession(params);
+    if (type === "mining-history") return getBiomeMiningHistory(params);
+    if (type === "broken-tools") return getBrokenTools(params);
+    if (type === "blocks-mined") return getTotalBlocksMined(params);
   // Clean empty params
   const qs = new URLSearchParams();
   for (const [key, value] of Object.entries(params)) {

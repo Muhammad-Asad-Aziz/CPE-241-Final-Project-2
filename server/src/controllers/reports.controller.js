@@ -54,8 +54,6 @@ export async function getTopCraftedItems(req, res) {
     }
 }
 
-// (GUIDE) #3.4 ADD YOUR REPORTS HERE
-
 // Punyawat reports
 export async function getTradingsByVillager(req, res) {
     try {
@@ -83,3 +81,32 @@ export async function getTradingVolumeByProfession(req, res) {
         res.status(500).json({ success: false, error: { message: err.message } });
     }
 }
+
+// Iris reports
+export async function getBiomeMiningHistory(req, res) {
+    try {
+        const data = await reportsService.getBiomeMiningHistory(req.query);
+        res.json({ success: true, data });
+    } catch (err) {
+        res.status(500).json({ success: false, error: err.message });
+    }
+}
+
+export async function getBrokenTools(req, res) {
+    try {
+        const data = await reportsService.getBrokenTools(req.query);
+        res.json({ success: true, data });
+    } catch (err) {
+        res.status(500).json({ success: false, error: err.message });
+    }
+}
+
+export async function getTotalBlocksMined(req, res) {
+    try {
+        const data = await reportsService.getTotalBlocksMined(req.query);
+        res.json({ success: true, data });
+    } catch (err) {
+        res.status(500).json({ success: false, error: err.message });
+    }
+}
+// (GUIDE) #3.4 ADD YOUR REPORTS HERE

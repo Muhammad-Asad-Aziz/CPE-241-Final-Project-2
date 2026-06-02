@@ -1,5 +1,6 @@
 import React from "react";
 import { listChests } from "../../../api/chests.api.js";
+<<<<<<< HEAD
 import { listPlayers } from "../../../api/players.api.js";
 import { listItems } from "../../../api/items.api.js";
 import { listVillagers } from "../../../api/villagers.api.js";
@@ -9,6 +10,11 @@ const MINECRAFT_PROFESSIONS = [
   "Fisherman", "Fletcher", "Leatherworker", "Librarian", "Mason",
   "Nitwit", "Shepherd", "Toolsmith", "Weaponsmith"
 ];
+=======
+
+import { listPlayers } from "../../../api/players.api.js";
+import { listItems } from "../../../api/items.api.js"; 
+>>>>>>> origin/main
 
 export default function ReportFilters({ type, filters, onChange, onApply }) {
   const [chests, setChests] = React.useState([]);
@@ -133,6 +139,7 @@ export default function ReportFilters({ type, filters, onChange, onApply }) {
         </>
       )}
 
+<<<<<<< HEAD
       {/* TRADING BY VILLAGER FILTER */}
       {type === "trading-by-villager" && (
         <div className="form-group" style={{ margin: 0, width: "200px" }}>
@@ -143,10 +150,25 @@ export default function ReportFilters({ type, filters, onChange, onApply }) {
             placeholder="e.g. 1"
             value={filters.villager_id || ""}
             onChange={(e) => onChange({ ...filters, villager_id: e.target.value })}
+=======
+      {/* ----------------------------------------- */}
+      {/* Mining REPORTS  */}
+      {/* ----------------------------------------- */}
+
+      {/* 1. MINING HISTORY FILTER (Text) */}
+      {type === "mining-history" && (
+        <div className="form-group" style={{ margin: 0, width: "300px" }}>
+          <label className="form-label">Select Biome</label>
+          <input 
+            className="form-control" 
+            name="name" value={filters.biomeName || ""} 
+            onChange={(e) => onChange({ ...filters, biomeName: e.target.value })}
+>>>>>>> origin/main
           />
         </div>
       )}
 
+<<<<<<< HEAD
       {/* LOCKED TRADES FILTER */}
       {type === "locked-trades" && (
         <div className="form-group" style={{ margin: 0, width: "250px" }}>
@@ -174,15 +196,50 @@ export default function ReportFilters({ type, filters, onChange, onApply }) {
               className="form-control"
               value={filters.date_from || ""}
               onChange={(e) => onChange({ ...filters, date_from: e.target.value })}
+=======
+      {/* 2. BROKEN TOOLS FILTER (date) */}
+      {type === "broken-tools" && (
+        <>
+          <div className="form-group" style={{ margin: 0, width: "200px" }}>
+            <label className="form-label">Date</label>
+            <input 
+              type="date" 
+              className="form-control" 
+              value={filters.Date || ""} 
+              onChange={(e) => onChange({ ...filters, Date: e.target.value })}
+            />
+          </div>
+        </>
+      )}
+
+      {/* 3. TOTAL BLOCKS MINED FILTER (date) */}
+      {type === "blocks-mined" && (
+        <>
+          <div className="form-group" style={{ margin: 0, width: "200px" }}>
+            <label className="form-label">Date From</label>
+            <input 
+              type="date" 
+              className="form-control" 
+              value={filters.fromDate || ""} 
+              onChange={(e) => onChange({ ...filters, fromDate: e.target.value })}
+>>>>>>> origin/main
             />
           </div>
           <div className="form-group" style={{ margin: 0, width: "200px" }}>
             <label className="form-label">Date To</label>
+<<<<<<< HEAD
             <input
               type="date"
               className="form-control"
               value={filters.date_to || ""}
               onChange={(e) => onChange({ ...filters, date_to: e.target.value })}
+=======
+            <input 
+              type="date" 
+              className="form-control" 
+              value={filters.toDate || ""} 
+              onChange={(e) => onChange({ ...filters, toDate: e.target.value })}
+>>>>>>> origin/main
             />
           </div>
         </>

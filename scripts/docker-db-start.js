@@ -32,6 +32,7 @@ function portInUse(port) {
 
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
+
 async function main() {
   console.log("🚀 Starting CraftLess Database...");
   try {
