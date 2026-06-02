@@ -1,64 +1,64 @@
 import { pool } from "../db/pool.js";
 
-// 1. GET ALL
-export async function listCraftings({
-    search = "",
-    page = 1,
-    limit = 10,
-    sortBy = "id", 
-    sortDir = "desc", 
-} = {}) {
-    const offset = (Number(page) - 1) * Number(limit);
+async function generateCraftingCode(client) {
+    const result = await client.query(`SELECT crafting_code FROM crafting WHERE crafting_code LIKE 'CRA-%' ORDER BY crafting_code DESC LIMIT 1`);
+    let nextSeq = 1;
+    if (result.rowCount > 0) {
+        const lastNo = result.rows[0].crafting_code;
+        const parts = lastNo.split("-");
+        const lastSeq = parseInt(parts[1], 10);
+        if (!isNaN(lastSeq)) nextSeq = lastSeq + 1;
+    }
+    return `CRA-${String(nextSeq).padStart(3, "0")}`;
+}
 
-    const allowedSort = ["id", "crafting_date", "session_id", "player_id", "qty_wanted"];
+async function resolveCraftingId(code) {
+    const r = await pool.query("SELECT id FROM crafting WHERE crafting_code = $1", [code]);
+    return r.rowCount > 0 ? r.rows[0].id : null;
+}
+
+// 1. GET ALL
+export async function listCraftings({ search = "", page = 1, limit = 10, sortBy = "id", sortDir = "desc" } = {}) {
+    const offset = (Number(page) - 1) * Number(limit);
+    const allowedSort = ["id", "crafting_code", "crafting_date", "session_id", "player_id", "qty_wanted"];
     const sortColumn = allowedSort.includes(sortBy) ? sortBy : "id";
     const sortDirection = sortDir === "asc" ? "ASC" : "DESC";
 
     const searchParam = `%${search}%`;
 
     const countResult = await pool.query(
-        `
-        SELECT COUNT(*) as total
-        FROM crafting
-        WHERE CAST(id AS TEXT) ILIKE $1 OR CAST(player_id AS TEXT) ILIKE $1
-        `,
+        `SELECT COUNT(*) as total FROM crafting WHERE crafting_code ILIKE $1 OR CAST(player_id AS TEXT) ILIKE $1`,
         [searchParam]
     );
     const total = Number(countResult.rows[0].total);
 
     const { rows } = await pool.query(
-        `
-        SELECT *
-        FROM crafting
-        WHERE CAST(id AS TEXT) ILIKE $1 OR CAST(player_id AS TEXT) ILIKE $1
-        ORDER BY ${sortColumn} ${sortDirection} NULLS LAST, id DESC
-        LIMIT $2 OFFSET $3
-        `,
+        `SELECT c.*, p.player_code, p.username as player_username 
+         FROM crafting c
+         LEFT JOIN player p ON p.id = c.player_id
+         WHERE c.crafting_code ILIKE $1 OR CAST(c.player_id AS TEXT) ILIKE $1
+         ORDER BY c.${sortColumn} ${sortDirection} NULLS LAST, c.id DESC
+         LIMIT $2 OFFSET $3`,
         [searchParam, Number(limit), offset]
     );
 
     return {
-        data: rows,
-        total,
-        page: Number(page),
-        limit: Number(limit),
-        totalPages: Math.ceil(total / Number(limit)),
+        data: rows, total, page: Number(page), limit: Number(limit), totalPages: Math.ceil(total / Number(limit))
     };
 }
 
-// 2. GET only 1 (แก้ชื่อคอลัมน์ให้หน้าเว็บอ่านออก)
-export async function getCrafting(id) {
+// 2. GET only 1
+export async function getCrafting(code) {
+    const id = await resolveCraftingId(code);
+    if (!id) return null;
+
     const { rows: headerRows } = await pool.query("SELECT * FROM crafting WHERE id = $1", [id]);
     if (headerRows.length === 0) return null;
     const crafting = headerRows[0];
 
-    // 👇 ดึงข้อมูลและเปลี่ยนชื่อคอลัมน์กลับ (Alias) ให้หน้าเว็บเอาไปโชว์ได้
     const { rows: lineRows } = await pool.query(`
-        SELECT 
-            ingredient_id AS item_id, 
-            required_quantity AS required_qty_per_unit
-        FROM crafting_line_item 
-        WHERE crafting_id = $1
+        SELECT ingredient_id AS item_id, required_quantity AS required_qty_per_unit
+        FROM crafting_line_item WHERE crafting_id = $1
     `, [id]);
     
     crafting.line_items = lineRows;
@@ -67,26 +67,25 @@ export async function getCrafting(id) {
 
 // 3. CREATE (POST)
 export async function createCrafting(data) {
-    const { crafting_date, session_id, player_id, target_item_id, qty_wanted, line_items } = data;
-    
+    const { crafting_code, crafting_date, session_id, player_id, target_item_id, qty_wanted, line_items } = data;
     const client = await pool.connect();
     try {
         await client.query("BEGIN");
         
+        let resolvedCode = crafting_code;
+        if (!resolvedCode || String(resolvedCode).trim() === "") resolvedCode = await generateCraftingCode(client);
+        
         const { rows } = await client.query(
-            `INSERT INTO crafting (crafting_date, session_id, player_id, target_item_id, qty_wanted) 
-             VALUES ($1, $2, $3, $4, $5) RETURNING *`,
-            [crafting_date, session_id, player_id, target_item_id, qty_wanted]
+            `INSERT INTO crafting (crafting_code, crafting_date, session_id, player_id, target_item_id, qty_wanted) 
+             VALUES ($1, $2, $3, $4, $5, $6) RETURNING *`,
+            [resolvedCode, crafting_date, session_id, player_id, target_item_id, qty_wanted]
         );
         const newCrafting = rows[0];
 
         if (line_items && line_items.length > 0) {
-            let lineNumber = 1; // สร้างเลขลำดับบรรทัด
+            let lineNumber = 1;
             for (const item of line_items) {
-                // คำนวณ Total Needed ให้ฐานข้อมูล
                 const totalNeeded = Number(item.required_qty_per_unit) * Number(qty_wanted);
-                
-                // 👇 INSERT ด้วยชื่อคอลัมน์ที่ตรงกับฐานข้อมูลเป๊ะๆ
                 await client.query(
                     `INSERT INTO crafting_line_item (crafting_id, crafting_line_number, session_id, ingredient_id, required_quantity, total_needed)
                      VALUES ($1, $2, $3, $4, $5, $6)`,
@@ -95,7 +94,6 @@ export async function createCrafting(data) {
                 lineNumber++;
             }
         }
-
         await client.query("COMMIT");
         return newCrafting;
     } catch (err) {
@@ -107,35 +105,31 @@ export async function createCrafting(data) {
 }
 
 // 4. UPDATE (PUT)
-export async function updateCrafting(id, data) {
-    const { crafting_date, session_id, player_id, target_item_id, qty_wanted, line_items } = data;
-    
+export async function updateCrafting(code, data) {
+    const id = await resolveCraftingId(code);
+    if (!id) return null;
+
+    const { crafting_code, crafting_date, session_id, player_id, target_item_id, qty_wanted, line_items } = data;
     const client = await pool.connect();
     try {
         await client.query("BEGIN");
         
+        let resolvedCode = (crafting_code != null && String(crafting_code).trim() !== "") ? String(crafting_code).trim() : code;
+        
         const { rows } = await client.query(
             `UPDATE crafting 
-             SET crafting_date = $1, session_id = $2, player_id = $3, target_item_id = $4, qty_wanted = $5
-             WHERE id = $6 RETURNING *`,
-            [crafting_date, session_id, player_id, target_item_id, qty_wanted, id]
+             SET crafting_code = $1, crafting_date = $2, session_id = $3, player_id = $4, target_item_id = $5, qty_wanted = $6
+             WHERE id = $7 RETURNING *`,
+            [resolvedCode, crafting_date, session_id, player_id, target_item_id, qty_wanted, id]
         );
         const updatedCrafting = rows[0];
-
-        if (!updatedCrafting) {
-            await client.query("ROLLBACK");
-            return null;
-        }
 
         await client.query("DELETE FROM crafting_line_item WHERE crafting_id = $1", [id]);
 
         if (line_items && line_items.length > 0) {
             let lineNumber = 1;
             for (const item of line_items) {
-                // คำนวณ Total Needed ให้ฐานข้อมูล
                 const totalNeeded = Number(item.required_qty_per_unit) * Number(qty_wanted);
-
-                // 👇 INSERT ด้วยชื่อคอลัมน์ที่ตรงกับฐานข้อมูลเป๊ะๆ
                 await client.query(
                     `INSERT INTO crafting_line_item (crafting_id, crafting_line_number, session_id, ingredient_id, required_quantity, total_needed)
                      VALUES ($1, $2, $3, $4, $5, $6)`,
@@ -144,7 +138,6 @@ export async function updateCrafting(id, data) {
                 lineNumber++;
             }
         }
-
         await client.query("COMMIT");
         return updatedCrafting;
     } catch (err) {
@@ -156,7 +149,10 @@ export async function updateCrafting(id, data) {
 }
 
 // 5. DELETE
-export async function deleteCrafting(id) {
+export async function deleteCrafting(code) {
+    const id = await resolveCraftingId(code);
+    if (!id) return null;
+
     const client = await pool.connect();
     try {
         await client.query("BEGIN");

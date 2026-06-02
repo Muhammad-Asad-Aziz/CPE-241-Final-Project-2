@@ -52,17 +52,9 @@ export default function CraftingsList() {
     };
 
     const columns = [
-        { key: "id", label: "Crafting ID", render: v => <span className="font-bold">CRF-{v}</span> },
+        { key: "crafting_code", label: "Crafting Code", render: v => <span className="font-bold">{v}</span> },
         { key: "crafting_date", label: "Date", render: v => formatDate(new Date(v)) },
-        { 
-            key: "player_id", 
-            label: "Player", 
-            render: v => {
-                const foundPlayer = players.find(p => p.id === v);
-                const displayName = foundPlayer ? foundPlayer.username : `Player ${v}`;
-                return <span style={{ color: "var(--primary)", fontWeight: 600 }}>{displayName}</span>;
-            } 
-        },
+        { key: "player_username", label: "Player", render: v => `${v}` },
         { key: "session_id", label: "Session ID", render: v => `Session ${v}` },
         { key: "qty_wanted", label: "Qty Wanted", render: v => `${v} units` }
     ];
@@ -90,7 +82,7 @@ export default function CraftingsList() {
                 searchPlaceholder="Search by ID..."
                 itemName="craftings"
                 basePath="/craftings"
-                itemKey="id"
+                itemKey="crafting_code"
                 onDelete={handleDelete}
                 refreshTrigger={refreshTrigger}
             />

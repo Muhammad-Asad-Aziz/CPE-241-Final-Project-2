@@ -22,7 +22,7 @@ export async function listCraftings(req, res) {
 
 export async function getCrafting(req, res) {
     try {
-        const result = await craftingsService.getCrafting(req.params.id);
+        const result = await craftingsService.getCrafting(req.params.code);
         if (!result) return sendError(res, "Not found", 404);
         sendOne(res, result);
     } catch (err) {
@@ -41,7 +41,7 @@ export async function createCrafting(req, res) {
 
 export async function updateCrafting(req, res) {
     try {
-        const result = await craftingsService.updateCrafting(req.params.id, req.body);
+        const result = await craftingsService.updateCrafting(req.params.code, req.body);
         if (!result) return sendError(res, "Not found", 404);
         sendOk(res, result); 
     } catch (err) {
@@ -51,7 +51,7 @@ export async function updateCrafting(req, res) {
 
 export async function deleteCrafting(req, res) {
     try {
-        const result = await craftingsService.deleteCrafting(req.params.id);
+        const result = await craftingsService.deleteCrafting(req.params.code);
         if (!result) return sendError(res, "Not found", 404);
         sendOk(res, result);
     } catch (err) {

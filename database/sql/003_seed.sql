@@ -129,39 +129,39 @@ INSERT INTO transfer (transfer_code, transfer_date, player_id, source_chest_id, 
 
 -- Supanut Sopha 67070503441
 -- Populating crafting table
-INSERT INTO crafting (crafting_date, session_id, player_id, target_item_id, qty_wanted) VALUES ('2026-03-22 18:05:01', 1, 1, null, 1) ON CONFLICT DO NOTHING;
-INSERT INTO crafting (crafting_date, session_id, player_id, target_item_id, qty_wanted) VALUES ('2026-03-22 18:15:01', 2, 2, null, 2) ON CONFLICT DO NOTHING;
-INSERT INTO crafting (crafting_date, session_id, player_id, target_item_id, qty_wanted) VALUES ('2026-03-22 18:25:01', 3, 3, null, 3) ON CONFLICT DO NOTHING;
-INSERT INTO crafting (crafting_date, session_id, player_id, target_item_id, qty_wanted) VALUES ('2026-03-22 18:35:01', 4, 4, null, 4) ON CONFLICT DO NOTHING;
-INSERT INTO crafting (crafting_date, session_id, player_id, target_item_id, qty_wanted) VALUES ('2026-03-22 18:45:01', 5, 5, null, 5) ON CONFLICT DO NOTHING;
-INSERT INTO crafting (crafting_date, session_id, player_id, target_item_id, qty_wanted) VALUES ('2026-03-22 18:55:01', 6, 6, null, 6) ON CONFLICT DO NOTHING;
-INSERT INTO crafting (crafting_date, session_id, player_id, target_item_id, qty_wanted) VALUES ('2026-03-22 19:05:01', 7, 7, null, 7) ON CONFLICT DO NOTHING;
-INSERT INTO crafting (crafting_date, session_id, player_id, target_item_id, qty_wanted) VALUES ('2026-03-22 19:15:01', 8, 8, null, 8) ON CONFLICT DO NOTHING;
-INSERT INTO crafting (crafting_date, session_id, player_id, target_item_id, qty_wanted) VALUES ('2026-03-22 19:25:01', 9, 9, null, 9) ON CONFLICT DO NOTHING;
-INSERT INTO crafting (crafting_date, session_id, player_id, target_item_id, qty_wanted) VALUES ('2026-03-22 19:35:01', 10, 10, null, 10) ON CONFLICT DO NOTHING;
-INSERT INTO crafting (crafting_date, session_id, player_id, target_item_id, qty_wanted) VALUES ('2026-03-22 19:45:01', 11, 11, null, 11) ON CONFLICT DO NOTHING;
-INSERT INTO crafting (crafting_date, session_id, player_id, target_item_id, qty_wanted) VALUES ('2026-03-22 19:55:01', 12, 12, null, 12) ON CONFLICT DO NOTHING;
-INSERT INTO crafting (crafting_date, session_id, player_id, target_item_id, qty_wanted) VALUES ('2026-03-22 20:05:01', 13, 13, null, 13) ON CONFLICT DO NOTHING;
-INSERT INTO crafting (crafting_date, session_id, player_id, target_item_id, qty_wanted) VALUES ('2026-03-22 20:15:01', 14, 14, null, 14) ON CONFLICT DO NOTHING;
-INSERT INTO crafting (crafting_date, session_id, player_id, target_item_id, qty_wanted) VALUES ('2026-03-22 20:25:01', 15, 15, null, 15) ON CONFLICT DO NOTHING;
+INSERT INTO crafting (crafting_code, session_id, crafting_date, player_id, target_item_id, qty_wanted) VALUES ('CRA-001', 1, '2024-05-14 08:30:15', 1, 8, 1) ON CONFLICT DO NOTHING;
+INSERT INTO crafting (crafting_code, session_id, crafting_date, player_id, target_item_id, qty_wanted) VALUES ('CRA-002', 2, '2024-06-22 14:45:01', 2, 9, 1) ON CONFLICT DO NOTHING;
+INSERT INTO crafting (crafting_code, session_id, crafting_date, player_id, target_item_id, qty_wanted) VALUES ('CRA-003', 3, '2024-08-10 19:22:33', 3, 21, 4) ON CONFLICT DO NOTHING;
+INSERT INTO crafting (crafting_code, session_id, crafting_date, player_id, target_item_id, qty_wanted) VALUES ('CRA-004', 4, '2024-11-05 02:11:45', 4, 24, 1) ON CONFLICT DO NOTHING;
+INSERT INTO crafting (crafting_code, session_id, crafting_date, player_id, target_item_id, qty_wanted) VALUES ('CRA-005', 5, '2025-01-18 10:05:30', 5, 20, 1) ON CONFLICT DO NOTHING;
+INSERT INTO crafting (crafting_code, session_id, crafting_date, player_id, target_item_id, qty_wanted) VALUES ('CRA-006', 6, '2025-03-09 16:20:10', 6, 2, 8) ON CONFLICT DO NOTHING;
+INSERT INTO crafting (crafting_code, session_id, crafting_date, player_id, target_item_id, qty_wanted) VALUES ('CRA-007', 7, '2025-05-30 11:15:00', 7, 16, 5) ON CONFLICT DO NOTHING;
+INSERT INTO crafting (crafting_code, session_id, crafting_date, player_id, target_item_id, qty_wanted) VALUES ('CRA-008', 8, '2025-07-12 09:33:44', 8, 3, 4) ON CONFLICT DO NOTHING;
+INSERT INTO crafting (crafting_code, session_id, crafting_date, player_id, target_item_id, qty_wanted) VALUES ('CRA-009', 9, '2025-09-01 20:41:05', 9, 8, 2) ON CONFLICT DO NOTHING;
+INSERT INTO crafting (crafting_code, session_id, crafting_date, player_id, target_item_id, qty_wanted) VALUES ('CRA-010', 10, '2025-10-15 13:55:22', 10, 9, 1) ON CONFLICT DO NOTHING;
+INSERT INTO crafting (crafting_code, session_id, crafting_date, player_id, target_item_id, qty_wanted) VALUES ('CRA-011', 11, '2025-12-25 08:00:00', 11, 22, 1) ON CONFLICT DO NOTHING;
+INSERT INTO crafting (crafting_code, session_id, crafting_date, player_id, target_item_id, qty_wanted) VALUES ('CRA-012', 12, '2026-01-10 18:24:39', 12, 23, 1) ON CONFLICT DO NOTHING;
+INSERT INTO crafting (crafting_code, session_id, crafting_date, player_id, target_item_id, qty_wanted) VALUES ('CRA-013', 13, '2026-02-04 15:40:12', 13, 16, 10) ON CONFLICT DO NOTHING;
+INSERT INTO crafting (crafting_code, session_id, crafting_date, player_id, target_item_id, qty_wanted) VALUES ('CRA-014', 14, '2026-02-18 21:19:55', 14, 24, 1) ON CONFLICT DO NOTHING;
+INSERT INTO crafting (crafting_code, session_id, crafting_date, player_id, target_item_id, qty_wanted) VALUES ('CRA-015', 15, '2026-03-20 12:30:45', 15, 21, 8) ON CONFLICT DO NOTHING;
 
 --Al Xander James Ybanez 67070503450
 -- Populating smelting table
-INSERT INTO smelting (id, smelt_date, player_id, furnace_location_xyz) OVERRIDING SYSTEM VALUE VALUES (1, '2024-05-14 09:10:00', 1, '100,64,250');
-INSERT INTO smelting (id, smelt_date, player_id, furnace_location_xyz) OVERRIDING SYSTEM VALUE VALUES (2, '2024-06-25 10:15:30', 2, '100,64,251');
-INSERT INTO smelting (id, smelt_date, player_id, furnace_location_xyz) OVERRIDING SYSTEM VALUE VALUES (3, '2024-08-11 08:45:12', 3, '100,64,252');
-INSERT INTO smelting (id, smelt_date, player_id, furnace_location_xyz) OVERRIDING SYSTEM VALUE VALUES (4, '2024-11-06 14:20:05', 4, '15,40,-50');
-INSERT INTO smelting (id, smelt_date, player_id, furnace_location_xyz) OVERRIDING SYSTEM VALUE VALUES (5, '2025-01-20 18:05:55', 5, '16,40,-50');
-INSERT INTO smelting (id, smelt_date, player_id, furnace_location_xyz) OVERRIDING SYSTEM VALUE VALUES (6, '2025-03-15 22:30:40', 6, '200,70,300');
-INSERT INTO smelting (id, smelt_date, player_id, furnace_location_xyz) OVERRIDING SYSTEM VALUE VALUES (7, '2025-06-01 07:11:11', 7, '-500,64,-500');
-INSERT INTO smelting (id, smelt_date, player_id, furnace_location_xyz) OVERRIDING SYSTEM VALUE VALUES (8, '2025-07-15 13:40:20', 8, '0,120,0');
-INSERT INTO smelting (id, smelt_date, player_id, furnace_location_xyz) OVERRIDING SYSTEM VALUE VALUES (9, '2025-09-05 16:55:34', 9, '10,30,10');
-INSERT INTO smelting (id, smelt_date, player_id, furnace_location_xyz) OVERRIDING SYSTEM VALUE VALUES (10, '2025-10-20 11:25:50', 10, '11,30,10');
-INSERT INTO smelting (id, smelt_date, player_id, furnace_location_xyz) OVERRIDING SYSTEM VALUE VALUES (11, '2025-12-28 09:00:15', 11, '-100,64,800');
-INSERT INTO smelting (id, smelt_date, player_id, furnace_location_xyz) OVERRIDING SYSTEM VALUE VALUES (12, '2026-01-15 20:18:44', 12, '50,50,50');
-INSERT INTO smelting (id, smelt_date, player_id, furnace_location_xyz) OVERRIDING SYSTEM VALUE VALUES (13, '2026-02-08 17:33:21', 13, '20,64,20');
-INSERT INTO smelting (id, smelt_date, player_id, furnace_location_xyz) OVERRIDING SYSTEM VALUE VALUES (14, '2026-02-22 14:10:09', 14, '21,64,20');
-INSERT INTO smelting (id, smelt_date, player_id, furnace_location_xyz) OVERRIDING SYSTEM VALUE VALUES (15, '2026-03-22 08:05:01', 15, '22,64,20');
+INSERT INTO smelting (id, smelt_date, player_id, furnace_location_xyz) OVERRIDING SYSTEM VALUE VALUES (1, '2024-05-14 09:10:00', 1, '100,64,250') ON CONFLICT DO NOTHING;
+INSERT INTO smelting (id, smelt_date, player_id, furnace_location_xyz) OVERRIDING SYSTEM VALUE VALUES (2, '2024-06-25 10:15:30', 2, '100,64,251') ON CONFLICT DO NOTHING;
+INSERT INTO smelting (id, smelt_date, player_id, furnace_location_xyz) OVERRIDING SYSTEM VALUE VALUES (3, '2024-08-11 08:45:12', 3, '100,64,252') ON CONFLICT DO NOTHING;
+INSERT INTO smelting (id, smelt_date, player_id, furnace_location_xyz) OVERRIDING SYSTEM VALUE VALUES (4, '2024-11-06 14:20:05', 4, '15,40,-50') ON CONFLICT DO NOTHING;
+INSERT INTO smelting (id, smelt_date, player_id, furnace_location_xyz) OVERRIDING SYSTEM VALUE VALUES (5, '2025-01-20 18:05:55', 5, '16,40,-50') ON CONFLICT DO NOTHING;
+INSERT INTO smelting (id, smelt_date, player_id, furnace_location_xyz) OVERRIDING SYSTEM VALUE VALUES (6, '2025-03-15 22:30:40', 6, '200,70,300') ON CONFLICT DO NOTHING;
+INSERT INTO smelting (id, smelt_date, player_id, furnace_location_xyz) OVERRIDING SYSTEM VALUE VALUES (7, '2025-06-01 07:11:11', 7, '-500,64,-500') ON CONFLICT DO NOTHING;
+INSERT INTO smelting (id, smelt_date, player_id, furnace_location_xyz) OVERRIDING SYSTEM VALUE VALUES (8, '2025-07-15 13:40:20', 8, '0,120,0') ON CONFLICT DO NOTHING;
+INSERT INTO smelting (id, smelt_date, player_id, furnace_location_xyz) OVERRIDING SYSTEM VALUE VALUES (9, '2025-09-05 16:55:34', 9, '10,30,10') ON CONFLICT DO NOTHING;
+INSERT INTO smelting (id, smelt_date, player_id, furnace_location_xyz) OVERRIDING SYSTEM VALUE VALUES (10, '2025-10-20 11:25:50', 10, '11,30,10') ON CONFLICT DO NOTHING;
+INSERT INTO smelting (id, smelt_date, player_id, furnace_location_xyz) OVERRIDING SYSTEM VALUE VALUES (11, '2025-12-28 09:00:15', 11, '-100,64,800') ON CONFLICT DO NOTHING;
+INSERT INTO smelting (id, smelt_date, player_id, furnace_location_xyz) OVERRIDING SYSTEM VALUE VALUES (12, '2026-01-15 20:18:44', 12, '50,50,50') ON CONFLICT DO NOTHING;
+INSERT INTO smelting (id, smelt_date, player_id, furnace_location_xyz) OVERRIDING SYSTEM VALUE VALUES (13, '2026-02-08 17:33:21', 13, '20,64,20') ON CONFLICT DO NOTHING;
+INSERT INTO smelting (id, smelt_date, player_id, furnace_location_xyz) OVERRIDING SYSTEM VALUE VALUES (14, '2026-02-22 14:10:09', 14, '21,64,20') ON CONFLICT DO NOTHING;
+INSERT INTO smelting (id, smelt_date, player_id, furnace_location_xyz) OVERRIDING SYSTEM VALUE VALUES (15, '2026-03-22 08:05:01', 15, '22,64,20') ON CONFLICT DO NOTHING;
 
 --Iris French 67070503478
 --Populating table: mining

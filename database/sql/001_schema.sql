@@ -74,6 +74,7 @@ create table if not exists "transfer"(
 
 CREATE TABLE IF NOT EXISTS crafting (
     id SERIAL PRIMARY KEY,
+    crafting_code text not null unique,
     crafting_date TIMESTAMP,
     session_id INTEGER, 
     player_id INTEGER REFERENCES player(id),
