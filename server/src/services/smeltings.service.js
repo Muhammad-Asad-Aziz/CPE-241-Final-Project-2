@@ -8,21 +8,35 @@ export async function listSmeltings({
     sortDir = "desc", 
 } = {}) {
     const offset = (Number(page) - 1) * Number(limit);
-    const allowedSort = ["id", "smelt_date", "player_id", "furnace_location_xyz"];
+    const allowedSort = ["id", "smelt_date", "player_id", "furnace_location_xyz", "player_name"];
     const sortColumn = allowedSort.includes(sortBy) ? sortBy : "id";
+    
+    const orderCol = sortColumn === "id" ? "s.id" : sortColumn;
+    
     const sortDirection = sortDir === "asc" ? "ASC" : "DESC";
     const searchParam = `%${search}%`;
 
     const countResult = await pool.query(
-        `SELECT COUNT(*) as total FROM smelting WHERE CAST(id AS TEXT) ILIKE $1 OR furnace_location_xyz ILIKE $1`,
+        `SELECT COUNT(*) as total 
+         FROM smelting s
+         LEFT JOIN player p ON s.player_id = p.id
+         WHERE CAST(s.id AS TEXT) ILIKE $1 
+            OR s.furnace_location_xyz ILIKE $1
+            OR p.username ILIKE $1`, 
         [searchParam]
     );
     const total = Number(countResult.rows[0].total);
 
     const { rows } = await pool.query(
-        `SELECT * FROM smelting 
-         WHERE CAST(id AS TEXT) ILIKE $1 OR furnace_location_xyz ILIKE $1
-         ORDER BY ${sortColumn} ${sortDirection} NULLS LAST, id DESC
+        `SELECT 
+            s.*, 
+            p.username AS player_name 
+         FROM smelting s
+         LEFT JOIN player p ON s.player_id = p.id
+         WHERE CAST(s.id AS TEXT) ILIKE $1 
+            OR s.furnace_location_xyz ILIKE $1
+            OR p.username ILIKE $1
+         ORDER BY ${orderCol} ${sortDirection} NULLS LAST, s.id DESC
          LIMIT $2 OFFSET $3`,
         [searchParam, Number(limit), offset]
     );

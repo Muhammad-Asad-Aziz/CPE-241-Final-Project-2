@@ -54,6 +54,37 @@ export async function getTopCraftedItems(req, res) {
     }
 }
 
+
+export async function getFurnaceLocationReport(req, res, next) {
+  try {
+    const { location } = req.query;
+    const data = await reportsService.getFurnaceLocationReport({ location });
+    res.json({ success: true, data });
+  } catch (err) {
+    next(err);
+  }
+}
+
+export async function getPlayerFuelHistory(req, res, next) {
+  try {
+    const { playerName } = req.query;
+    const data = await reportsService.getPlayerFuelHistory({ playerName });
+    res.json({ success: true, data });
+  } catch (err) {
+    next(err);
+  }
+}
+
+export async function getFuelAnalysis(req, res, next) {
+  try {
+    const { fromDate, toDate } = req.query;
+    const data = await reportsService.getFuelAnalysis({ fromDate, toDate });
+    res.json({ success: true, data });
+  } catch (err) {
+    next(err);
+  }
+}
+
 export async function getBiomeMiningHistory(req, res) {
     try {
         const data = await reportsService.getBiomeMiningHistory(req.query);

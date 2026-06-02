@@ -79,6 +79,44 @@ const REPORT_CONFIG = {
     ]
   },
 
+  "furnace-location": {
+    title: "Furnace Location Report",
+    subtitle: "Simple: List all ores smelted in a specific Furnace Location.",
+    emptyMessage: "No smelting records found for this location.",
+    getColumns: () => [
+      { key: "Date", label: "Date", render: (v) => formatDate(v) },
+      { key: "Job_ID", label: "Job ID", render: (v) => `SML-${v}` },
+      { key: "Player", label: "Player", render: (v) => <span className="font-bold">{v}</span> },
+      { key: "Raw_Ore", label: "Raw Ore Input", render: (v) => <span style={{ color: "var(--text-muted)" }}>{v}</span> },
+      { key: "Qty_In", label: "Qty In", align: "right" },
+      { key: "Output_Item", label: "Output Item", render: (v) => <span style={{ color: "var(--primary)", fontWeight: 600 }}>{v}</span> },
+      { key: "Qty_Out", label: "Qty Out", align: "right", style: { fontWeight: "bold" } }
+    ]
+  },
+  "player-fuel": {
+    title: "Player Fuel Consumption",
+    subtitle: "Simple: List fuel consumption history for a specific Player.",
+    emptyMessage: "No fuel history found for this player.",
+    getColumns: () => [
+      { key: "Date", label: "Date", render: (v) => formatDate(v) },
+      { key: "Location", label: "Furnace Location" },
+      { key: "Fuel_Type", label: "Fuel Used", render: (v) => <span className="font-bold">{v}</span> },
+      { key: "Fuel_Consumed", label: "Fuel Consumed", align: "right", style: { color: "#ef4444" } },
+      { key: "Output_Generated", label: "Output Generated", render: (v) => <span style={{ color: "var(--primary)", fontWeight: 600 }}>{v}</span> },
+      { key: "Qty_Generated", label: "Qty Generated", align: "right", style: { fontWeight: "bold" } }
+    ]
+  },
+  "fuel-analysis": {
+    title: "Total Output by Fuel Type",
+    subtitle: "Analysis: Show Total Output Items produced grouped by Fuel Type Used within a date range.",
+    emptyMessage: "No output found in this date range.",
+    getColumns: () => [
+      { key: "Fuel_Type", label: "Fuel Type", render: (v) => <span className="font-bold">{v}</span> },
+      { key: "Total_Fuel_Consumed", label: "Total Fuel Consumed", align: "right", style: { color: "#ef4444" } },
+      { key: "Total_Output_Produced", label: "Total Output Produced", align: "right", style: { color: "var(--primary)", fontWeight: "bold" } }
+    ]
+  },
+  
   "mining-history": {
     title: "Mining History of each Biome",
     subtitle: "Simple: Shows the amount of blocks that was mined in each biome.",
@@ -123,6 +161,7 @@ const REPORT_CONFIG = {
       { key: "TOOL STATUS", label: "Tool Status", align: "left" }
     ]
   }
+
 };
   // (GUIDE) #3.7 ADD YOUR REPORT
 

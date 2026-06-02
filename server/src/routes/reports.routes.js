@@ -11,6 +11,10 @@ r.get("/crafting-history", c.getPlayerCraftingHistory);
 r.get("/recipe-requirements", c.getRecipeRequirements);
 r.get("/top-crafted", c.getTopCraftedItems);
 
+r.get("/furnace-location", c.getFurnaceLocationReport);
+r.get("/player-fuel", c.getPlayerFuelHistory);
+r.get("/fuel-analysis", c.getFuelAnalysis);
+
 r.get("/mining-history", c.getBiomeMiningHistory);
 r.get("/broken-tools", c.getBrokenTools);
 r.get("/blocks-mined", c.getTotalBlocksMined);

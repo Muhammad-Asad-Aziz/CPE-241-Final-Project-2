@@ -13,7 +13,7 @@ export default function ReportFilters({ type, filters, onChange, onApply }) {
     if (type === "chest-inventory") {
       listChests({ limit: 1000 }).then(res => setChests(res.data || []));
     }
-    if (type === "crafting-history") {
+    if (type === "crafting-history" || type === "player-fuel") {
       listPlayers({ limit: 1000 }).then(res => setPlayers(res.data || []));
     }
     if (type === "recipe-requirements") {
@@ -160,6 +160,65 @@ export default function ReportFilters({ type, filters, onChange, onApply }) {
 
       {/* 3. TOTAL BLOCKS MINED FILTER (date) */}
       {type === "blocks-mined" && (
+        <>
+          <div className="form-group" style={{ margin: 0, width: "200px" }}>
+            <label className="form-label">Date From</label>
+            <input 
+              type="date" 
+              className="form-control" 
+              value={filters.fromDate || ""} 
+              onChange={(e) => onChange({ ...filters, fromDate: e.target.value })}
+            />
+          </div>
+          <div className="form-group" style={{ margin: 0, width: "200px" }}>
+            <label className="form-label">Date To</label>
+            <input 
+              type="date" 
+              className="form-control" 
+              value={filters.toDate || ""} 
+              onChange={(e) => onChange({ ...filters, toDate: e.target.value })}
+            />
+          </div>
+        </>
+      )}
+
+      {/* ----------------------------------------- */}
+      {/* Smelting REPORTS  */}
+      {/* ----------------------------------------- */}
+
+      {/*1.Furnace Location*/}
+      {type === "furnace-location" && (
+        <div className="form-group" style={{ margin: 0, width: "300px" }}>
+          <label className="form-label">Furnace Location (X,Y,Z)</label>
+          <input 
+            type="text" 
+            className="form-control" 
+            placeholder="e.g. 100,64,250"
+            value={filters.location || ""} 
+            onChange={(e) => onChange({ ...filters, location: e.target.value })}
+          />
+        </div>
+      )}
+
+      {/*2.Player Fuel*/}
+      {type === "player-fuel" && (
+        <div className="form-group" style={{ margin: 0, width: "300px" }}>
+          <label className="form-label">Select Player</label>
+          <select 
+            className="form-control" 
+            value={filters.playerName || ""} 
+            onChange={(e) => onChange({ ...filters, playerName: e.target.value })}
+          >
+            <option value="">-- Choose Player --</option>
+            {players.map(p => (
+              <option key={p.id} value={p.username}>{p.username}</option>
+            ))}
+          </select>
+        </div>
+      )}
+
+      {/*3.Fuel Analysis*/}
+      {type === "fuel-analysis" && (
         <>
           <div className="form-group" style={{ margin: 0, width: "200px" }}>
             <label className="form-label">Date From</label>
