@@ -77,6 +77,51 @@ const REPORT_CONFIG = {
       { key: "Item_Type", label: "Item Type" },
       { key: "Total_Quantity_Crafted", label: "Total Crafted", align: "right", style: { color: "#ef4444", fontWeight: "bold" } }
     ]
+  },
+
+  "mining-history": {
+    title: "Mining History of each Biome",
+    subtitle: "Simple: Shows the amount of blocks that was mined in each biome.",
+    emptyMessage: "No mining records found for this biome.",
+    getColumns: () => [
+      { key: "TRIP ID", label: "Mining Trip ID", render: v => `MN-${v}` },
+      { key: "DATE", label: "Date", align: "right", render: v => formatDate(v) },
+      { key: "PLAYER", label: "Player Name", render: v => <span className="font-bold">{v}</span> },
+      { key: "BIOME", label: "Biome", align: "right", style: { color: "var(--primary)", fontWeight: "bold"} },
+      { key: "BLOCK MINED", label: "Block Name", align: "left" }, 
+      { key: "QTY MINED", label: "QTY Mined", align: "right", style: { color: "var(--primary)", fontWeight: "bold"} },
+      { key: "TOOL USED", label: "Item Used", align: "left" }   
+    ]
+  },
+
+  "broken-tools": {
+    title: "Mining Tools That Are No Longer Usable",
+    subtitle: "Simple: Shows mining tools that are broken",
+    emptyMessage: "No broken tools found.",
+    getColumns: () => [
+      { key: "TRIP ID", label: "Mining Trip ID", render: (v) => `MN-${v}` },
+      { key: "DATE", label: "Date", align: "right", render: (v) => formatDate(v) },
+      { key: "PLAYER", label: "Player Name", render: (v) => <span className="font-bold">{v}</span> },
+      { key: "BLOCK MINED", label: "Block Mined", align: "left" },
+      { key: "TOOL USED", label: "Item Used", align: "left" },
+      { key: "DUR LOST", label: "Durability Lost", align: "right", style: { color: "#ef4444"} },
+      { key: "QTY MINED", label: "QTY Mined", align: "right" },
+      { key: "STATUS", label: "Tool Status", align: "left", style: { color: "#ef4444", fontWeight: "bold"} }
+    ]
+  },
+
+  "blocks-mined": {
+    title: "Blocks Mined By Different Tool Materials",
+    subtitle: "Analysis: Shows total blocks mined grouped by tool material",
+    emptyMessage: "No blocks found.",
+    getColumns: () => [
+      { key: "TOOL (MATERIAL)", label: "Tool (material)", align: "left", style: { color: "var(--primary)", fontWeight: "bold"} },
+      { key: "TRIPS", label: "Mining Trip ID", render: (v) => `MN-${v}` },
+      { key: "TOTAL MINED", label: "Total Blocks Mined", align: "right" },
+      { key: "DUR LOST", label: "Durability Lost", align: "right", style: { color: "#ef4444", fontWeight: "bold"} },
+      { key: "BLOCKS MINED TYPES", label: "No. of Types of Blocks Mined", align: "right", style: { color: "var(--primary)", fontWeight: "bold"} },
+      { key: "TOOL STATUS", label: "Tool Status", align: "left" }
+    ]
   }
 };
   // (GUIDE) #3.7 ADD YOUR REPORT
