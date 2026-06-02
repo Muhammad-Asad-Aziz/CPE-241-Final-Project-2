@@ -14,8 +14,8 @@ export async function listSmeltings(params = {}) {
     return res; 
 }
 
-export async function getSmelting(id) {
-    const res = await http(`/api/smeltings/${id}`);
+export async function getSmelting(code) {
+    const res = await http(`/api/smeltings/${code}`);
     return unwrap(res);
 }
 
@@ -27,15 +27,15 @@ export async function createSmelting(payload) {
     return unwrap(res);
 }
 
-export async function updateSmelting(id, payload) {
-    const res = await http(`/api/smeltings/${id}`, {
+export async function updateSmelting(code, payload) {
+    const res = await http(`/api/smeltings/${code}`, {
         method: "PUT",
         body: JSON.stringify(payload),
     });
     return unwrap(res);
 }
 
-export async function deleteSmelting(id) {
-    const res = await http(`/api/smeltings/${id}`, { method: "DELETE" });
+export async function deleteSmelting(code) {
+    const res = await http(`/api/smeltings/${code}`, { method: "DELETE" });
     return unwrap(res);
 }

@@ -84,13 +84,13 @@ const REPORT_CONFIG = {
     subtitle: "Simple: List all ores smelted in a specific Furnace Location.",
     emptyMessage: "No smelting records found for this location.",
     getColumns: () => [
+      { key: "Job_ID", label: "Job ID", render: (v) => <span className="font-bold">SML-{v}</span> },
       { key: "Date", label: "Date", render: (v) => formatDate(v) },
-      { key: "Job_ID", label: "Job ID", render: (v) => `SML-${v}` },
-      { key: "Player", label: "Player", render: (v) => <span className="font-bold">{v}</span> },
-      { key: "Raw_Ore", label: "Raw Ore Input", render: (v) => <span style={{ color: "var(--text-muted)" }}>{v}</span> },
+      { key: "Player", label: "Player", render: (v) => <span>{v}</span> },
+      { key: "Raw_Ore", label: "Raw Ore Input", render: (v) => <span>{v}</span> },
       { key: "Qty_In", label: "Qty In", align: "right" },
-      { key: "Output_Item", label: "Output Item", render: (v) => <span style={{ color: "var(--primary)", fontWeight: 600 }}>{v}</span> },
-      { key: "Qty_Out", label: "Qty Out", align: "right", style: { fontWeight: "bold" } }
+      { key: "Output_Item", label: "Output Item", render: (v) => <span>{v}</span> },
+      { key: "Qty_Out", label: "Qty Out", align: "right" }
     ]
   },
   "player-fuel": {
@@ -100,10 +100,10 @@ const REPORT_CONFIG = {
     getColumns: () => [
       { key: "Date", label: "Date", render: (v) => formatDate(v) },
       { key: "Location", label: "Furnace Location" },
-      { key: "Fuel_Type", label: "Fuel Used", render: (v) => <span className="font-bold">{v}</span> },
-      { key: "Fuel_Consumed", label: "Fuel Consumed", align: "right", style: { color: "#ef4444" } },
-      { key: "Output_Generated", label: "Output Generated", render: (v) => <span style={{ color: "var(--primary)", fontWeight: 600 }}>{v}</span> },
-      { key: "Qty_Generated", label: "Qty Generated", align: "right", style: { fontWeight: "bold" } }
+      { key: "Fuel_Type", label: "Fuel Used", render: (v) => <span>{v}</span> },
+      { key: "Fuel_Consumed", label: "Fuel Consumed", align: "right" },
+      { key: "Output_Generated", label: "Output Generated", render: (v) => <span>{v}</span> },
+      { key: "Qty_Generated", label: "Qty Generated", align: "right" }
     ]
   },
   "fuel-analysis": {

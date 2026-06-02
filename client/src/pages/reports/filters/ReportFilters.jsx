@@ -1,13 +1,14 @@
 import React from "react";
 import { listChests } from "../../../api/chests.api.js";
-
 import { listPlayers } from "../../../api/players.api.js";
 import { listItems } from "../../../api/items.api.js"; 
+import { listSmeltings } from "../../../api/smeltings.api.js";
 
 export default function ReportFilters({ type, filters, onChange, onApply }) {
   const [chests, setChests] = React.useState([]);
   const [players, setPlayers] = React.useState([]);
   const [items, setItems] = React.useState([]);
+  const [smeltings, setSmeltings] = React.useState([]);
 
   React.useEffect(() => {
     if (type === "chest-inventory") {
@@ -19,7 +20,19 @@ export default function ReportFilters({ type, filters, onChange, onApply }) {
     if (type === "recipe-requirements") {
       listItems({ limit: 1000 }).then(res => setItems(res.data || []));
     }
+    if (type === "furnace-location") {
+      listSmeltings({ limit: 1000 }).then(res => {
+        if (Array.isArray(res)) setSmeltings(res);
+        else if (res?.data && Array.isArray(res.data)) setSmeltings(res.data);
+        else if (res?.data?.data) setSmeltings(res.data.data);
+      });
+    }
   }, [type]);
+
+  const distinctLocations = React.useMemo(() => {
+    const locs = smeltings.map(s => s.furnace_location_xyz).filter(Boolean);
+    return [...new Set(locs)].sort();
+  }, [smeltings]);
 
   return (
     <div style={{ display: "flex", gap: "1rem", alignItems: "flex-end" }}>
@@ -189,14 +202,17 @@ export default function ReportFilters({ type, filters, onChange, onApply }) {
       {/*1.Furnace Location*/}
       {type === "furnace-location" && (
         <div className="form-group" style={{ margin: 0, width: "300px" }}>
-          <label className="form-label">Furnace Location (X,Y,Z)</label>
-          <input 
-            type="text" 
+          <label className="form-label">Select Furnace Location</label>
+          <select 
             className="form-control" 
-            placeholder="e.g. 100,64,250"
             value={filters.location || ""} 
             onChange={(e) => onChange({ ...filters, location: e.target.value })}
-          />
+          >
+            <option value="">-- Choose Location --</option>
+            {distinctLocations.map(loc => (
+              <option key={loc} value={loc}>{loc}</option>
+            ))}
+          </select>
         </div>
       )}
 

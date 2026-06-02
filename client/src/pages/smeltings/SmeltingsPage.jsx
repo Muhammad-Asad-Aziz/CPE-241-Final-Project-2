@@ -2,68 +2,59 @@ import React from "react";
 import { useNavigate, Link, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { getSmelting, createSmelting, updateSmelting } from "../../api/smeltings.api.js";
-import { listPlayers } from "../../api/players.api.js";
-import { listItems } from "../../api/items.api.js"; 
+
+// Import our reusable LoV Pickers
+import PlayerPickerModal from "../../components/pickers/PlayerPickerModal.jsx";
+import ItemPickerModal from "../../components/pickers/ItemPickerModal.jsx";
 
 export default function SmeltingsPage({ mode: propMode }) {
-  const { id } = useParams();
+  const { id } = useParams(); // actually the smelting_code from URL
   const mode = propMode || (id ? "view" : "create");
   const nav = useNavigate();
 
+  const [autoCode, setAutoCode] = React.useState(true);
   const [form, setForm] = React.useState({
+    smelting_code: "",
     smelt_date: "",
     player_id: "",
     furnace_location_xyz: "",
     line_items: []
   });
 
-  const [players, setPlayers] = React.useState([]);
-  const [items, setItems] = React.useState([]); 
+  const [playerLabel, setPlayerLabel] = React.useState("");
   
   const [err, setErr] = React.useState("");
   const [submitting, setSubmitting] = React.useState(false);
-  const [loading, setLoading] = React.useState(true); 
+  const [loading, setLoading] = React.useState(mode !== "create"); 
+
+  // Modal open states
+  const [playerModalOpen, setPlayerModalOpen] = React.useState(false);
+  const [rawOreModalOpen, setRawOreModalOpen] = React.useState(false);
+  const [fuelUsedModalOpen, setFuelUsedModalOpen] = React.useState(false);
+  const [outputItemModalOpen, setOutputItemModalOpen] = React.useState(false);
+  const [activeLineIdx, setActiveLineIdx] = React.useState(null);
 
   React.useEffect(() => {
-    Promise.all([
-      listPlayers({ limit: 1000 }),
-      listItems({ limit: 1000 })
-    ])
-    .then(([playersRes, itemsRes]) => {
-      if (Array.isArray(playersRes)) setPlayers(playersRes);
-      else if (playersRes?.data && Array.isArray(playersRes.data)) setPlayers(playersRes.data);
-      else if (playersRes?.data?.data) setPlayers(playersRes.data.data);
-
-      if (Array.isArray(itemsRes)) setItems(itemsRes);
-      else if (itemsRes?.data && Array.isArray(itemsRes.data)) setItems(itemsRes.data);
-      else if (itemsRes?.data?.data) setItems(itemsRes.data.data);
-    })
-    .catch((e) => setErr("Failed to load dropdown data: " + String(e.message || e)))
-    .finally(() => {
-      if (mode === "create") {
-        setLoading(false);
-      } else {
-        getSmelting(id)
-          .then((s) => {
-            if (s) {
-              const dateVal = s.smelt_date ? new Date(s.smelt_date).toISOString().slice(0, 16) : "";
-              setForm({ 
-                smelt_date: dateVal, 
-                player_id: s.player_id, 
-                furnace_location_xyz: s.furnace_location_xyz, 
-                line_items: s.line_items || [] 
-              });
-            } else {
-              setErr("Smelting Job not found");
-            }
-            setLoading(false);
-          })
-          .catch((e) => { 
-            setErr(String(e.message || e)); 
-            setLoading(false); 
+    if (mode === "create") return;
+    
+    getSmelting(id)
+      .then((s) => {
+        if (s) {
+          const dateVal = s.smelt_date ? new Date(s.smelt_date).toISOString().slice(0, 16) : "";
+          setForm({ 
+            smelting_code: s.smelting_code || "",
+            smelt_date: dateVal, 
+            player_id: s.player_id, 
+            furnace_location_xyz: s.furnace_location_xyz, 
+            line_items: s.line_items || [] 
           });
-      }
-    });
+          setPlayerLabel(s.player_name ? `Player #${s.player_id} (${s.player_name})` : `Player #${s.player_id}`);
+        } else {
+          setErr("Smelting Job not found");
+        }
+      })
+      .catch((e) => setErr(String(e.message || e)))
+      .finally(() => setLoading(false));
   }, [id, mode]);
 
   const handleChange = (e) => setForm((f) => ({ ...f, [e.target.name]: e.target.value }));
@@ -73,7 +64,17 @@ export default function SmeltingsPage({ mode: propMode }) {
       ...f,
       line_items: [
         ...f.line_items, 
-        { raw_input_item_id: "", quantity_inserted: "", fuel_item_id: "", fuel_consumed: "", output_item_id: "", output_quantity: "" }
+        { 
+          raw_input_item_id: "", 
+          raw_input_item_name: "", 
+          quantity_inserted: "", 
+          fuel_item_id: "", 
+          fuel_item_name: "", 
+          fuel_consumed: "", 
+          output_item_id: "", 
+          output_item_name: "", 
+          output_quantity: "" 
+        }
       ]
     }));
   };
@@ -98,8 +99,21 @@ export default function SmeltingsPage({ mode: propMode }) {
     setErr(""); 
     setSubmitting(true);
     try {
-      if (mode === "create") await createSmelting(form);
-      else await updateSmelting(id, form);
+      const payload = {
+        ...form,
+        smelting_code: mode === "create" && autoCode ? "" : form.smelting_code.trim(),
+        line_items: form.line_items.map(item => ({
+          raw_input_item_id: Number(item.raw_input_item_id),
+          quantity_inserted: Number(item.quantity_inserted),
+          fuel_item_id: Number(item.fuel_item_id),
+          fuel_consumed: Number(item.fuel_consumed),
+          output_item_id: Number(item.output_item_id),
+          output_quantity: Number(item.output_quantity)
+        }))
+      };
+
+      if (mode === "create") await createSmelting(payload);
+      else await updateSmelting(id, payload);
       
       toast.success(`Smelting Job ${mode === "create" ? "created" : "updated"}.`);
       nav("/smeltings");
@@ -115,6 +129,23 @@ export default function SmeltingsPage({ mode: propMode }) {
 
   return (
     <div>
+      <PlayerPickerModal isOpen={playerModalOpen} onClose={() => setPlayerModalOpen(false)} onSelect={(p) => { setForm(f => ({ ...f, player_id: p.id })); setPlayerLabel(`Player #${p.id} (${p.username})`); }} />
+
+      <ItemPickerModal isOpen={rawOreModalOpen} onClose={() => setRawOreModalOpen(false)} onSelect={(item) => {
+          handleLineItemChange(activeLineIdx, "raw_input_item_id", item.id);
+          handleLineItemChange(activeLineIdx, "raw_input_item_name", item.item_name);
+      }} />
+
+      <ItemPickerModal isOpen={fuelUsedModalOpen} onClose={() => setFuelUsedModalOpen(false)} onSelect={(item) => {
+          handleLineItemChange(activeLineIdx, "fuel_item_id", item.id);
+          handleLineItemChange(activeLineIdx, "fuel_item_name", item.item_name);
+      }} />     
+
+      <ItemPickerModal isOpen={outputItemModalOpen} onClose={() => setOutputItemModalOpen(false)} onSelect={(item) => {
+          handleLineItemChange(activeLineIdx, "output_item_id", item.id);
+          handleLineItemChange(activeLineIdx, "output_item_name", item.item_name);
+      }} />     
+
       <div className="page-header">
         <h3 className="page-title">{ mode === "create" ? "Register Smelting Job" : "Edit Smelting Job" }</h3>
         <Link to="/smeltings" className="btn btn-outline">← Back</Link>
@@ -127,7 +158,28 @@ export default function SmeltingsPage({ mode: propMode }) {
           
           <h4 style={{ marginBottom: "1.5rem", color: "inherit" }}>Job Details</h4>
           
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: "1rem", marginBottom: "2rem" }}>
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem", marginBottom: "2rem" }}>
+            <div className="form-group">
+              <label className="form-label">Smelting Code <span className="required-marker">*</span></label>
+              <div className="flex gap-2">
+                <input
+                  className="form-control"
+                  name="smelting_code"
+                  disabled={mode === "create" ? autoCode : true}
+                  placeholder="e.g. SML-016"
+                  value={form.smelting_code}
+                  onChange={handleChange}
+                  required={!autoCode}
+                />
+                {mode === "create" && (
+                  <div className="form-inline-option" style={{ display: "flex", alignItems: "center", gap: "4px" }}>
+                    <input type="checkbox" checked={autoCode} onChange={(e) => setAutoCode(e.target.checked)} id="s_auto" />
+                    <label htmlFor="s_auto" style={{ margin: 0 }}>Auto</label>
+                  </div>
+                )}
+              </div>
+            </div>
+
             <div className="form-group">
               <label className="form-label">Smelt Date <span className="required-marker">*</span></label>
               <input type="datetime-local" className="form-control" name="smelt_date" value={form.smelt_date} onChange={handleChange} required />
@@ -135,10 +187,10 @@ export default function SmeltingsPage({ mode: propMode }) {
             
             <div className="form-group">
               <label className="form-label">Player <span className="required-marker">*</span></label>
-              <select className="form-control" name="player_id" value={form.player_id || ""} onChange={handleChange} required>
-                  <option value="">-- Choose a Player --</option>
-                  {players.map(p => <option key={p.id} value={p.id}>{p.username}</option>)}
-              </select>
+              <div style={{ display: "flex", gap: 8 }}>
+                <input className="form-control" value={playerLabel || form.player_id} placeholder="Select Player..." readOnly required />
+                <button type="button" className="btn btn-primary" onClick={() => setPlayerModalOpen(true)}>LoV</button>
+              </div>
             </div>
             
             <div className="form-group">
@@ -176,30 +228,30 @@ export default function SmeltingsPage({ mode: propMode }) {
                           {form.line_items.map((item, index) => (
                               <tr key={index} style={{ borderBottom: "1px solid rgba(0,0,0,0.05)" }}>
                                   <td style={{ padding: "0.5rem" }}>
-                                      <select className="form-control" value={item.raw_input_item_id || ""} onChange={(e) => handleLineItemChange(index, "raw_input_item_id", e.target.value)} required>
-                                          <option value="">Select Ore...</option>
-                                          {items.map(i => <option key={i.id} value={i.id}>{i.item_name}</option>)}
-                                      </select>
+                                      <div style={{ display: "flex", gap: 8 }}>
+                                          <input className="form-control" value={item.raw_input_item_name || ""} placeholder="Select Ore..." readOnly required />
+                                          <button type="button" className="btn btn-primary" onClick={() => { setActiveLineIdx(index); setRawOreModalOpen(true); }}>LoV</button>
+                                      </div>
                                   </td>
                                   <td style={{ padding: "0.5rem" }}>
                                       <input type="number" className="form-control" placeholder="0" value={item.quantity_inserted} onChange={(e) => handleLineItemChange(index, "quantity_inserted", e.target.value)} required />
                                   </td>
                                   
                                   <td style={{ padding: "0.5rem" }}>
-                                      <select className="form-control" value={item.fuel_item_id || ""} onChange={(e) => handleLineItemChange(index, "fuel_item_id", e.target.value)} required>
-                                          <option value="">Select Fuel...</option>
-                                          {items.map(i => <option key={i.id} value={i.id}>{i.item_name}</option>)}
-                                      </select>
+                                      <div style={{ display: "flex", gap: 8 }}>
+                                          <input className="form-control" value={item.fuel_item_name || ""} placeholder="Select Fuel..." readOnly required />
+                                          <button type="button" className="btn btn-primary" onClick={() => { setActiveLineIdx(index); setFuelUsedModalOpen(true); }}>LoV</button>
+                                      </div>
                                   </td>
                                   <td style={{ padding: "0.5rem" }}>
                                       <input type="number" className="form-control" placeholder="0" value={item.fuel_consumed} onChange={(e) => handleLineItemChange(index, "fuel_consumed", e.target.value)} required />
                                   </td>
 
                                   <td style={{ padding: "0.5rem" }}>
-                                      <select className="form-control" value={item.output_item_id || ""} onChange={(e) => handleLineItemChange(index, "output_item_id", e.target.value)} required>
-                                          <option value="">Select Output...</option>
-                                          {items.map(i => <option key={i.id} value={i.id}>{i.item_name}</option>)}
-                                      </select>
+                                      <div style={{ display: "flex", gap: 8 }}>
+                                          <input className="form-control" value={item.output_item_name || ""} placeholder="Select Output..." readOnly required />
+                                          <button type="button" className="btn btn-primary" onClick={() => { setActiveLineIdx(index); setOutputItemModalOpen(true); }}>LoV</button>
+                                      </div>
                                   </td>
                                   <td style={{ padding: "0.5rem" }}>
                                       <input type="number" className="form-control" placeholder="0" value={item.output_quantity} onChange={(e) => handleLineItemChange(index, "output_quantity", e.target.value)} required />
@@ -214,9 +266,11 @@ export default function SmeltingsPage({ mode: propMode }) {
               </div>
           )}
 
-          <button type="submit" className="btn btn-primary" disabled={submitting}>
-            {submitting ? "Saving..." : (mode === "create" ? "Register Smelting Job" : "Update Smelting Job")}
-          </button>
+          <div style={{ marginTop: "2rem", display: "flex", justifyContent: "flex-end" }}>
+            <button type="submit" className="btn btn-primary" disabled={submitting}>
+              {submitting ? "Saving..." : (mode === "create" ? "Register Smelting Job" : "Update Smelting Job")}
+            </button>
+          </div>
 
         </form>
       </div>

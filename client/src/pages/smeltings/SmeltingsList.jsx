@@ -29,9 +29,9 @@ export default function SmeltingsList() {
     };
 
     const columns = [
-        { key: "id", label: "Smelting ID", render: v => <span className="font-bold">SMLT-{v}</span> },
+        { key: "smelting_code", label: "Smelting Code", render: v => <span className="font-bold">{v}</span> },
         { key: "smelt_date", label: "Date", render: v => formatDate(new Date(v)) },
-        { key: "player_name", label: "Player", render: v => <span style={{ color: "var(--primary)", fontWeight: 600 }}>{v}</span> },
+        { key: "player_name", label: "Player", render: v => <span>{v}</span> },
         { key: "furnace_location_xyz", label: "Location (X,Y,Z)", render: v => `[${v}]` }
     ];
 
@@ -44,8 +44,8 @@ export default function SmeltingsList() {
             <AlertModal isOpen={alertModal.isOpen} onClose={() => setAlertModal({ isOpen: false, message: "" })} title="Error" message={alertModal.message} />
             <DataList
                 title="Smelting Jobs" fetchData={fetchData} columns={columns}
-                searchPlaceholder="Search by ID or Location..." itemName="smeltings" basePath="/smeltings"
-                itemKey="id" onDelete={handleDelete} refreshTrigger={refreshTrigger}
+                searchPlaceholder="Search by Code or Location..." itemName="smeltings" basePath="/smeltings"
+                itemKey="smelting_code" onDelete={handleDelete} refreshTrigger={refreshTrigger}
             />
         </>
     );
