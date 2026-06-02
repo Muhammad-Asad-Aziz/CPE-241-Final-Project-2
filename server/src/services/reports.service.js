@@ -215,9 +215,6 @@ export async function getFuelAnalysis({ fromDate, toDate }) {
     return rows;
 }
 
-<<<<<<< HEAD
-// (GUIDE) #3.3 ADD YOUR REPORTS HERE
-
 // Report by Punyawat Simple 1: List all trades with a specific Villager ID
 export async function getTradingsByVillager({ villager_id }) {
     const vId = villager_id ? Number(villager_id) : null;
@@ -290,7 +287,7 @@ export async function getTradingVolumeByProfession({ date_from, date_to }) {
     );
     return { data: rows };
 }
-=======
+
 // Report by Iris: List all blocks mined inside Biome Name: ___.
 export async function getBiomeMiningHistory({ biomeName = "" }) {
     const { rows } = await pool.query(
@@ -364,4 +361,3 @@ export async function getTotalBlocksMined({ fromDate, toDate }) {
 }
 
 // (GUIDE) #3.3 ADD YOUR REPORTS HERE
->>>>>>> origin/main
