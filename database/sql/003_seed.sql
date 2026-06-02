@@ -165,21 +165,21 @@ INSERT INTO smelting (id, smelt_date, player_id, furnace_location_xyz) OVERRIDIN
 
 --Iris French 67070503478
 --Populating table: mining
-INSERT INTO mining (mining_date, player_id, biome_name) VALUES ('2024-05-12 14:20:00', 1, 'Extreme Hills') ON CONFLICT DO NOTHING;
-INSERT INTO mining (mining_date, player_id, biome_name) VALUES ('2024-06-20 08:15:30', 2, 'Plains') ON CONFLICT DO NOTHING;
-INSERT INTO mining (mining_date, player_id, biome_name) VALUES ('2024-08-08 11:45:12', 3, 'Desert') ON CONFLICT DO NOTHING;
-INSERT INTO mining (mining_date, player_id, biome_name) VALUES ('2024-11-01 16:20:05', 4, 'Savanna') ON CONFLICT DO NOTHING;
-INSERT INTO mining (mining_date, player_id, biome_name) VALUES ('2025-01-15 09:05:55', 5, 'Taiga') ON CONFLICT DO NOTHING;
-INSERT INTO mining (mining_date, player_id, biome_name) VALUES ('2025-03-10 13:30:40', 6, 'Snowy Tundra') ON CONFLICT DO NOTHING;
-INSERT INTO mining (mining_date, player_id, biome_name) VALUES ('2025-05-25 18:11:11', 7, 'Swamp') ON CONFLICT DO NOTHING;
-INSERT INTO mining (mining_date, player_id, biome_name) VALUES ('2025-07-10 07:40:20', 8, 'Badlands') ON CONFLICT DO NOTHING;
-INSERT INTO mining (mining_date, player_id, biome_name) VALUES ('2025-08-28 22:55:34', 9, 'Jungle') ON CONFLICT DO NOTHING;
-INSERT INTO mining (mining_date, player_id, biome_name) VALUES ('2025-10-18 10:25:50', 10, 'Forest') ON CONFLICT DO NOTHING;
-INSERT INTO mining (mining_date, player_id, biome_name) VALUES ('2025-12-20 15:00:15', 11, 'Ocean') ON CONFLICT DO NOTHING;
-INSERT INTO mining (mining_date, player_id, biome_name) VALUES ('2026-01-12 08:18:44', 12, 'Nether Wastes') ON CONFLICT DO NOTHING;
-INSERT INTO mining (mining_date, player_id, biome_name) VALUES ('2026-02-05 19:33:21', 13, 'Basalt Deltas') ON CONFLICT DO NOTHING;
-INSERT INTO mining (mining_date, player_id, biome_name) VALUES ('2026-02-20 12:10:09', 14, 'Crimson Forest') ON CONFLICT DO NOTHING;
-INSERT INTO mining (mining_date, player_id, biome_name) VALUES ('2026-03-21 16:05:01', 15, 'Warped Forest') ON CONFLICT DO NOTHING;
+INSERT INTO mining (mining_code, mining_date, player_id, biome_name) VALUES ('MIN-001', '2024-05-12 14:20:00', 1, 'Extreme Hills') ON CONFLICT DO NOTHING;
+INSERT INTO mining (mining_code, mining_date, player_id, biome_name) VALUES ('MIN-002', '2024-06-20 08:15:30', 2, 'Plains') ON CONFLICT DO NOTHING;
+INSERT INTO mining (mining_code, mining_date, player_id, biome_name) VALUES ('MIN-003', '2024-08-08 11:45:12', 3, 'Desert') ON CONFLICT DO NOTHING;
+INSERT INTO mining (mining_code, mining_date, player_id, biome_name) VALUES ('MIN-004', '2024-11-01 16:20:05', 4, 'Savanna') ON CONFLICT DO NOTHING;
+INSERT INTO mining (mining_code, mining_date, player_id, biome_name) VALUES ('MIN-005', '2025-01-15 09:05:55', 5, 'Taiga') ON CONFLICT DO NOTHING;
+INSERT INTO mining (mining_code, mining_date, player_id, biome_name) VALUES ('MIN-006', '2025-03-10 13:30:40', 6, 'Snowy Tundra') ON CONFLICT DO NOTHING;
+INSERT INTO mining (mining_code, mining_date, player_id, biome_name) VALUES ('MIN-007', '2025-05-25 18:11:11', 7, 'Swamp') ON CONFLICT DO NOTHING;
+INSERT INTO mining (mining_code, mining_date, player_id, biome_name) VALUES ('MIN-008', '2025-07-10 07:40:20', 8, 'Badlands') ON CONFLICT DO NOTHING;
+INSERT INTO mining (mining_code, mining_date, player_id, biome_name) VALUES ('MIN-009', '2025-08-28 22:55:34', 9, 'Jungle') ON CONFLICT DO NOTHING;
+INSERT INTO mining (mining_code, mining_date, player_id, biome_name) VALUES ('MIN-010', '2025-10-18 10:25:50', 10, 'Forest') ON CONFLICT DO NOTHING;
+INSERT INTO mining (mining_code, mining_date, player_id, biome_name) VALUES ('MIN-011', '2025-12-20 15:00:15', 11, 'Ocean') ON CONFLICT DO NOTHING;
+INSERT INTO mining (mining_code, mining_date, player_id, biome_name) VALUES ('MIN-012', '2026-01-12 08:18:44', 12, 'Nether Wastes') ON CONFLICT DO NOTHING;
+INSERT INTO mining (mining_code, mining_date, player_id, biome_name) VALUES ('MIN-013', '2026-02-05 19:33:21', 13, 'Basalt Deltas') ON CONFLICT DO NOTHING;
+INSERT INTO mining (mining_code, mining_date, player_id, biome_name) VALUES ('MIN-014', '2026-02-20 12:10:09', 14, 'Crimson Forest') ON CONFLICT DO NOTHING;
+INSERT INTO mining (mining_code, mining_date, player_id, biome_name) VALUES ('MIN-015', '2026-03-21 16:05:01', 15, 'Warped Forest') ON CONFLICT DO NOTHING;
 
 -- (GUIDE) #1.2.1 POPULATE SIMPLE FORMS HERE
 
