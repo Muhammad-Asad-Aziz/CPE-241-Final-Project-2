@@ -91,7 +91,7 @@ export default function AnvilPage({ mode: propMode }) {
       .finally(() => setLoading(false));
   }, [id, mode]);
 
-// --- CALCULATION LOGIC ENGINES ---
+// CALCULATION LOGIC
 
   function calculateRestored(sacrificeMax, targetMax, hasSacrifice) {
     if (!hasSacrifice) return "";
@@ -100,7 +100,7 @@ export default function AnvilPage({ mode: propMode }) {
     const tMax = Number(targetMax) || 0;
 
     // Condition A: Sacrificed item is the same as the target tool
-    // Returns *just* the repair bonus value to be added: 10% of sacrifice max + 12% of target max
+    // Returns the repair  value to be added: 10% of sacrifice max + 12% of target max
     return Math.floor((0.10 * sacMax) + (0.12 * tMax));
   }
 
@@ -109,13 +109,12 @@ export default function AnvilPage({ mode: propMode }) {
     return Math.pow(2, lineNumber) - 1;
   }
 
-  // Derived Reactive Calculations
+  // Final Calculations
   const { totalXpCost, playerXpAfter, finalToolDurability, isDurabilityMaxed } = React.useMemo(() => {
     let totalCost = 0;
     const maxTargetDur = Number(targetMaxDurability) || 0;
     const baseDurability = Number(currentDurability) || 0;
     
-    // Start with the initial current durability
     let currentRunningDurability = currentDurability !== "" ? baseDurability : null;
     let overflowDetected = false;
 
@@ -126,7 +125,6 @@ export default function AnvilPage({ mode: propMode }) {
 
       if (!hasSacrifice && !hasEnchantment) return; 
 
-      // 1. Compute Cost Parameters
       const targetPenalty = calculatePenalty(lineNum);
       const sacrificePenalty = hasSacrifice ? calculatePenalty(lineNum) : 0;
       const countOfSacrificedSelected = hasSacrifice ? 1 : 0;
@@ -134,12 +132,10 @@ export default function AnvilPage({ mode: propMode }) {
 
       totalCost += targetPenalty + sacrificePenalty + countOfSacrificedSelected + enchantmentCost;
 
-      // 2. Simply add up the restored durabilities onto the current durability base
       if (hasSacrifice && currentRunningDurability !== null) {
         const lineOutput = Number(line.restored_durability) || 0;
         let nextDurability = currentRunningDurability + lineOutput;
 
-        // If the calculated mathematical sum goes over max, flag it to block transaction
         if (nextDurability > maxTargetDur) {
           overflowDetected = true;
         }
@@ -157,12 +153,11 @@ export default function AnvilPage({ mode: propMode }) {
       totalXpCost: totalCost,
       playerXpAfter: finalBalance,
       finalToolDurability: displayDurability,
-      // Block the transaction if total sum is greater than max target durability
-      isDurabilityMaxed: overflowDetected || (typeof displayDurability === "number" && displayDurability >= maxTargetDur)
+      // Block the action if total sum is greater than max target durability
+      isDurabilityMaxed: overflowDetected || (typeof displayDurability === "number" && displayDurability > maxTargetDur)
     };
   }, [lines, playerXpBefore, currentDurability, targetMaxDurability]);
 
-  // Global validation flags
   const isXpDeficient = totalXpCost > (Number(playerXpBefore) || 0);
 
   const refreshLineDurabilities = (updatedLines, updatedCurrentDur, updatedTargetMax, updatedTargetName) => {
@@ -177,7 +172,7 @@ export default function AnvilPage({ mode: propMode }) {
                            updatedTargetName.trim().toLowerCase() === line.sacrifice_item_name.trim().toLowerCase();
 
         if (isSameItem) {
-          // Condition A: Same item bonus formula
+          // Condition A: Same item formula
           lineRestored = calculateRestored(line.sacrifice_max_durability, tMax, true);
         } else {
           // Condition B: Unit of repair (different item) flat 25% value
@@ -495,10 +490,9 @@ export default function AnvilPage({ mode: propMode }) {
                 {lines.map((line, idx) => {
                   const hasSelectionOnRow = !!line.sacrifice_item_id || !!line.enchantment_id;
                   
-                  // Global XP lockdown applies if player has a negative level balance
+                  // Prevent the player from going into debt
                   const isRowLockedByXp = isXpDeficient && !hasSelectionOnRow;
 
-                  // ✨ FIX: Decoupled selection blocks. 
                   // If durability is maxed out, only the sacrifice field locks down. 
                   // The enchantment column remains unlocked unless an item is already selected on this row.
                   const isSacrificeDisabled = !!line.enchantment_id || isRowLockedByXp || (isDurabilityMaxed && !line.sacrifice_item_id);
@@ -510,7 +504,6 @@ export default function AnvilPage({ mode: propMode }) {
                         {idx + 1}
                       </td>
                       
-                      {/* Sacrifice Column */}
                       <td>
                         <div style={{ display: "flex", gap: 4, opacity: isSacrificeDisabled ? 0.5 : 1 }}>
                           <input 
@@ -543,7 +536,6 @@ export default function AnvilPage({ mode: propMode }) {
                         </div>
                       </td>
 
-                      {/* Restored Durability Output */}
                       <td>
                         <input 
                           type="text" 
@@ -556,7 +548,6 @@ export default function AnvilPage({ mode: propMode }) {
                         />
                       </td>
 
-                      {/* Enchantment Column */}
                       <td>
                         <div style={{ display: "flex", gap: 4, opacity: isEnchantmentDisabled ? 0.5 : 1 }}>
                           <input 
