@@ -195,14 +195,6 @@ export default function AnvilPage({ mode: propMode }) {
     });
   }
 
-  function addLine() {
-    if (isXpDeficient) {
-      toast.error("Your XP level is insufficient to add more items!");
-      return;
-    }
-    setLines(prev => [...prev, emptyLine()]);
-  }
-
   function removeLine(index) {
     setLines(prev => {
       const filtered = prev.filter((_, i) => i !== index);
@@ -266,10 +258,16 @@ export default function AnvilPage({ mode: propMode }) {
     const h = viewData.header;          
     const lineItems = viewData.line_items || [];
 
-    const lastRepairLine = [...lineItems].reverse().find(li => li.restored_durability !== null && li.restored_durability !== "");
-    const initialStartingDur = lineItems[0]?.current_durability ?? "—";
-    const viewFinalDurability = lastRepairLine ? lastRepairLine.restored_durability : initialStartingDur;
     const viewTargetMaxDurability = lineItems[0]?.target_max_durability || 0;
+    const initialStartingDur = lineItems[0]?.current_durability ?? 0;
+    const viewTargetToolName = lineItems[0]?.target_tool_name || (lineItems[0]?.target_tool_id ? `Tool Item #${lineItems[0].target_tool_id}` : "—");
+    
+    let viewRunningDurability = Number(initialStartingDur) || 0;
+    lineItems.forEach((li) => {
+      if (li.sacrifice_item_id && li.restored_durability !== null && li.restored_durability !== "") {
+        viewRunningDurability += Number(li.restored_durability) || 0;
+      }
+    });
 
     return (
       <div className="invoice-preview">
@@ -289,10 +287,25 @@ export default function AnvilPage({ mode: propMode }) {
               <div className="font-bold" style={{ color: "var(--primary)", fontSize: "1.2rem" }}>
                 Player: {h.player_username || `Account ID: ${h.player_id}`}
               </div>
-              <div style={{ marginTop: "1rem" }}>
+              <div style={{ marginTop: "0.5rem" }}>
                 <span className="font-bold">Previous XP Levels: </span> {h.player_xp_before} Levels
               </div>
+              <div>
+                <span className="font-bold">XP Levels Post: </span> {h.player_xp_after} Levels
+              </div>
+            
+              <div style={{ marginTop: "1rem", paddingTop: "0.75rem" }}>
+                <div>
+                  <span className="font-bold">Target Tool: </span> 
+                  <span style={{ fontWeight: 600, color: "var(--text)" }}>{viewTargetToolName}</span>
+                </div>
+                <div>
+                  <span className="font-bold">Starting Durability: </span> 
+                  <span style={{ fontWeight: 600 }}>{initialStartingDur}</span>
+                </div>
+              </div>
             </div>
+            
             <div className="text-right">
               <h2 className="mb-4">ANVIL LOG</h2>
               <div><span className="font-bold">Date:</span> {formatDate(h.anvil_date)}</div>
@@ -307,11 +320,9 @@ export default function AnvilPage({ mode: propMode }) {
             <table className="modern-table">
               <thead>
                 <tr>
-                  <th>Line No.</th>
-                  <th>Target Tool Item</th>
-                  <th className="text-right">Starting Durability</th>
+                  <th style={{ width: "80px" }}>Line No.</th>
                   <th>Sacrifice Item Modification</th>
-                  <th className="text-right">Restored Durability</th>
+                  <th className="text-right" style={{ width: "180px" }}>Restored Durability</th>
                   <th>Applied Enchantment</th>
                 </tr>
               </thead>
@@ -319,10 +330,13 @@ export default function AnvilPage({ mode: propMode }) {
                 {lineItems.map((li, idx) => (
                   <tr key={li.id || idx}>
                     <td>{li.anvil_line_number}</td>
-                    <td style={{ fontWeight: 600 }}>{li.target_tool_name || `Tool Item #${li.target_tool_id}`}</td>
-                    <td className="text-right">{li.current_durability ?? "-"}</td>
                     <td>{li.sacrifice_item_id ? (li.sacrifice_item_name || `Sacrifice Item #${li.sacrifice_item_id}`) : "—"}</td>
-                    <td className="text-right font-bold" style={{ color: "var(--primary)" }}>{li.restored_durability ?? "—"}</td>
+                    <td className="text-right font-bold" style={{ color: "var(--primary)" }}>
+                      {li.sacrifice_item_id && li.restored_durability !== null && li.restored_durability !== "" 
+                        ? li.restored_durability 
+                        : "—"
+                      }
+                    </td>
                     <td>{li.enchantment_id ? (li.enchantment_name || `Enchantment ID: ${li.enchantment_id}`) : "—"}</td>
                   </tr>
                 ))}
@@ -341,7 +355,7 @@ export default function AnvilPage({ mode: propMode }) {
               <div style={{ display: "grid", gridTemplateColumns: "1fr auto", gap: "0.75rem 2.5rem", width: "320px", alignItems: "center" }}>
                 <span style={{ fontSize: "0.95rem", color: "#4b5563", fontWeight: 500 }}>Final Tool Durability:</span>
                 <span style={{ textAlign: "right", fontSize: "1.05rem", fontWeight: "600", color: "var(--primary)" }}>
-                  {viewFinalDurability} {viewTargetMaxDurability > 0 && typeof viewFinalDurability === "number" ? `/ ${viewTargetMaxDurability}` : ""}
+                  {lineItems.length === 0 ? "—" : viewRunningDurability} {viewTargetMaxDurability > 0 ? `/ ${viewTargetMaxDurability}` : ""}
                 </span>
                 
                 <span style={{ fontSize: "0.95rem", color: "#4b5563", fontWeight: 500 }}>Total XP Cost:</span>
