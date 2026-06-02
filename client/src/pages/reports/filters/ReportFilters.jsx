@@ -3,12 +3,14 @@ import { listChests } from "../../../api/chests.api.js";
 import { listPlayers } from "../../../api/players.api.js";
 import { listItems } from "../../../api/items.api.js"; 
 import { listSmeltings } from "../../../api/smeltings.api.js";
+import { listMinings } from "../../../api/minings.api.js";
 
 export default function ReportFilters({ type, filters, onChange, onApply }) {
   const [chests, setChests] = React.useState([]);
   const [players, setPlayers] = React.useState([]);
   const [items, setItems] = React.useState([]);
   const [smeltings, setSmeltings] = React.useState([]);
+  const [minings, setMinings] = React.useState([]);
 
   React.useEffect(() => {
     if (type === "chest-inventory") {
@@ -27,12 +29,24 @@ export default function ReportFilters({ type, filters, onChange, onApply }) {
         else if (res?.data?.data) setSmeltings(res.data.data);
       });
     }
+    if (type === "mining-history") {
+      listMinings({ limit: 1000 }).then(res => {
+        if (res && Array.isArray(res)) setMinings(res);
+        else if (res?.data && Array.isArray(res.data)) setMinings(res.data);
+        else if (res?.data?.data) setMinings(res.data.data);
+      }).catch(err => console.error("Error loading mining history in filters:", err));
+    }
   }, [type]);
 
   const distinctLocations = React.useMemo(() => {
     const locs = smeltings.map(s => s.furnace_location_xyz).filter(Boolean);
     return [...new Set(locs)].sort();
   }, [smeltings]);
+
+  const distinctBiomes = React.useMemo(() => {
+    const bms = minings.map(m => m.biome_name).filter(Boolean);
+    return [...new Set(bms)].sort();
+  }, [minings]);
 
   return (
     <div style={{ display: "flex", gap: "1rem", alignItems: "flex-end" }}>
@@ -165,11 +179,16 @@ export default function ReportFilters({ type, filters, onChange, onApply }) {
       {type === "mining-history" && (
         <div className="form-group" style={{ margin: 0, width: "300px" }}>
           <label className="form-label">Select Biome</label>
-          <input 
+          <select 
             className="form-control" 
-            name="name" value={filters.biomeName || ""} 
+            value={filters.biomeName || ""} 
             onChange={(e) => onChange({ ...filters, biomeName: e.target.value })}
-          />
+          >
+            <option value="">-- Choose Biome --</option>
+            {distinctBiomes.map(biome => (
+              <option key={biome} value={biome}>{biome}</option>
+            ))}
+          </select>
         </div>
       )}
 
