@@ -168,9 +168,9 @@ export async function getEnchantedTool({enchantmentName = ""}) {
     JOIN anvil_line_item al ON a.id = al.anvil_id
     JOIN item i ON al.target_tool_id = i.id      
     JOIN enchantment e ON al.enchantment_id = e.id 
-    WHERE e.enchantment_name = $1
+    WHERE e.enchantment_name ILIKE $1
     ORDER BY a.anvil_date DESC`,
-    [enchantmentName]
+    [`%${enchantmentName}%`]
   );
   return rows
 }
@@ -191,9 +191,9 @@ export async function getPlayerAnvilHistory({playerName = ""}) {
     JOIN player p ON a.player_id = p.id  
     JOIN anvil_line_item al ON a.id = al.anvil_id 
     JOIN item i ON al.target_tool_id = i.id      
-    WHERE p.username = $1
+    WHERE p.username ILIKE $1
     ORDER BY a.anvil_date DESC`,
-    [playerName]
+    [`%${playerName}%`]
   );
   return rows
 }
@@ -217,7 +217,7 @@ export async function getXPByType({fromDate, toDate}) {
     WHERE a.anvil_date BETWEEN $1 AND $2
     GROUP BY i.item_name
     ORDER BY "TOTAL XP SPENT" DESC`,
-    [fromDate, toDate]
+    [from, to]
   );
   return rows
 }
