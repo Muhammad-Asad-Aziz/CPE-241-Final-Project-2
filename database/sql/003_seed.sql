@@ -494,7 +494,6 @@ INSERT INTO mining_line_item (mining_id, block_mined_id, quantity_mined, tool_us
 -- MIN-015: Warped Forest - Philza
 INSERT INTO mining_line_item (mining_id, block_mined_id, quantity_mined, tool_used_id, durability_lost, tool_status) VALUES (15, 4, 22, 24, 22, 'Usable') ON CONFLICT DO NOTHING;
 INSERT INTO mining_line_item (mining_id, block_mined_id, quantity_mined, tool_used_id, durability_lost, tool_status) VALUES (15, 12, 80, 24, 80, 'Usable') ON CONFLICT DO NOTHING;
--- (GUIDE) #1.2.2 POPULATE LINE ITEMS HERE
 
 -- Punyawat Sookarsa (trading_line_item)
 -- TRD-1
@@ -532,6 +531,8 @@ INSERT INTO trading_line_item (trading_session_id, line_number, item_given_id, q
 INSERT INTO trading_line_item (trading_session_id, line_number, item_given_id, quantity_given, item_received_id, quantity_received, trade_uses_remaining) VALUES (16, 1, 6, 32, 10, 1, 10) ON CONFLICT DO NOTHING;
 -- TRD-17
 INSERT INTO trading_line_item (trading_session_id, line_number, item_given_id, quantity_given, item_received_id, quantity_received, trade_uses_remaining) VALUES (17, 1, 17, 11, 10, 2, 10) ON CONFLICT DO NOTHING;
+
+-- (GUIDE) #1.2.2 POPULATE LINE ITEMS HERE
 
 -- update sequences to max id (crutial when inserting explicit IDs)
 SELECT setval(pg_get_serial_sequence('item', 'id'), coalesce(max(id),0) + 1, false) FROM item;
