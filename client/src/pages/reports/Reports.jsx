@@ -85,7 +85,7 @@ const REPORT_CONFIG = {
     subtitle: "Simple: List all trades made with a specific Villager ID.",
     emptyMessage: "No trades found for this villager.",
     getColumns: () => [
-      { key: "session_id", label: "Session", render: v => `TRD-${v}` },
+      { key: "trade_code", label: "Session" },
       { key: "trade_date", label: "Date", render: v => formatDate(v) },
       { key: "player_name", label: "Player", render: v => <span className="font-bold">{v}</span> },
       { key: "villager_name", label: "Villager" },

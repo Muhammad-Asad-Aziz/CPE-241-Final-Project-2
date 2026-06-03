@@ -292,6 +292,7 @@ export async function getTradingsByVillager({ villager_id }) {
     const { rows } = await pool.query(
         `SELECT
             ts.id AS session_id,
+            ts.trade_code,
             ts.trade_date,
             ts.player_name,
             v.villager_name,

@@ -35,12 +35,16 @@ export default function SmeltingsPage({ mode: propMode }) {
   const [activeLineIdx, setActiveLineIdx] = React.useState(null);
 
   React.useEffect(() => {
-    if (mode === "create") return;
+    if (mode === "create") {
+      const today = new Date().toISOString().slice(0, 10);
+      setForm((f) => ({ ...f, smelt_date: today }));
+      return;
+    }
     
     getSmelting(id)
       .then((s) => {
         if (s) {
-          const dateVal = s.smelt_date ? new Date(s.smelt_date).toISOString().slice(0, 16) : "";
+          const dateVal = s.smelt_date ? new Date(s.smelt_date).toISOString().slice(0, 10) : "";
           setForm({ 
             smelting_code: s.smelting_code || "",
             smelt_date: dateVal, 
@@ -182,7 +186,7 @@ export default function SmeltingsPage({ mode: propMode }) {
 
             <div className="form-group">
               <label className="form-label">Smelt Date <span className="required-marker">*</span></label>
-              <input type="datetime-local" className="form-control" name="smelt_date" value={form.smelt_date} onChange={handleChange} required />
+              <input type="date" className="form-control" name="smelt_date" value={form.smelt_date} onChange={handleChange} required />
             </div>
             
             <div className="form-group">
