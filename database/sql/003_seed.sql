@@ -189,8 +189,6 @@ INSERT INTO smelting (id, smelt_date, player_id, furnace_location_xyz) OVERRIDIN
 INSERT INTO smelting (id, smelt_date, player_id, furnace_location_xyz) OVERRIDING SYSTEM VALUE VALUES (14, '2026-02-22 14:10:09', 14, '21,64,20');
 INSERT INTO smelting (id, smelt_date, player_id, furnace_location_xyz) OVERRIDING SYSTEM VALUE VALUES (15, '2026-03-22 08:05:01', 15, '22,64,20');
 
-<<<<<<< HEAD
-=======
 --Iris French 67070503478
 --Populating table: mining
 INSERT INTO mining (mining_date, player_id, biome_name) VALUES ('2024-05-12 14:20:00', 1, 'Extreme Hills') ON CONFLICT DO NOTHING;
@@ -209,7 +207,6 @@ INSERT INTO mining (mining_date, player_id, biome_name) VALUES ('2026-02-05 19:3
 INSERT INTO mining (mining_date, player_id, biome_name) VALUES ('2026-02-20 12:10:09', 14, 'Crimson Forest') ON CONFLICT DO NOTHING;
 INSERT INTO mining (mining_date, player_id, biome_name) VALUES ('2026-03-21 16:05:01', 15, 'Warped Forest') ON CONFLICT DO NOTHING;
 
->>>>>>> origin/main
 -- (GUIDE) #1.2.1 POPULATE SIMPLE FORMS HERE
 
 
@@ -287,8 +284,6 @@ INSERT INTO smelting_line_item (id, smelting_id, raw_input_item_id, quantity_ins
 INSERT INTO smelting_line_item (id, smelting_id, raw_input_item_id, quantity_inserted, fuel_item_id, fuel_consumed, output_item_id, output_quantity) OVERRIDING SYSTEM VALUE VALUES (14, 14, 12, 64, 6, 8, 13, 64);
 INSERT INTO smelting_line_item (id, smelting_id, raw_input_item_id, quantity_inserted, fuel_item_id, fuel_consumed, output_item_id, output_quantity) OVERRIDING SYSTEM VALUE VALUES (15, 15, 14, 64, 6, 8, 15, 64);
 
-<<<<<<< HEAD
-=======
 --Populating table: mining_line_item
 INSERT INTO mining_line_item (mining_id, block_mined_id, quantity_mined, tool_used_id, durability_lost, tool_status) VALUES (1, 4, 15, 8, 15, 'Usable') ON CONFLICT DO NOTHING;
 INSERT INTO mining_line_item (mining_id, block_mined_id, quantity_mined, tool_used_id, durability_lost, tool_status) VALUES ( 2, 1, 64, 20, 64, 'Usable')ON CONFLICT DO NOTHING;
@@ -305,30 +300,6 @@ INSERT INTO mining_line_item (mining_id, block_mined_id, quantity_mined, tool_us
 INSERT INTO mining_line_item (mining_id, block_mined_id, quantity_mined, tool_used_id, durability_lost, tool_status) VALUES ( 13, 12, 100, 24, 100, 'Usable') ON CONFLICT DO NOTHING;
 INSERT INTO mining_line_item (mining_id, block_mined_id, quantity_mined, tool_used_id, durability_lost, tool_status) VALUES ( 14, 1, 12, 20, 12, 'Usable') ON CONFLICT DO NOTHING;
 INSERT INTO mining_line_item (mining_id, block_mined_id, quantity_mined, tool_used_id, durability_lost, tool_status) VALUES (15, 4, 22, 8, 22, 'Usable') ON CONFLICT DO NOTHING;
->>>>>>> origin/main
--- (GUIDE) #1.2.2 POPULATE LINE ITEMS HERE
-
--- update sequences to max id (crutial when inserting explicit IDs)
-SELECT setval(pg_get_serial_sequence('item', 'id'), coalesce(max(id),0) + 1, false) FROM item;
-SELECT setval(pg_get_serial_sequence('recipe', 'id'), coalesce(max(id),0) + 1, false) FROM recipe;
-SELECT setval(pg_get_serial_sequence('enchantment', 'id'), coalesce(max(id),0) + 1, false) FROM enchantment;
-SELECT setval(pg_get_serial_sequence('player', 'id'), coalesce(max(id),0) + 1, false) FROM player;
-SELECT setval(pg_get_serial_sequence('chest', 'id'), coalesce(max(id),0) + 1, false) FROM chest;
-SELECT setval(pg_get_serial_sequence('villager', 'id'), coalesce(max(id),0) + 1, false) FROM villager;
-SELECT setval(pg_get_serial_sequence('transfer', 'id'), coalesce(max(id),0) + 1, false) FROM transfer;
-SELECT setval(pg_get_serial_sequence('transfer_line_item', 'id'), coalesce(max(id),0) + 1, false) FROM transfer_line_item;
-
-SELECT setval(pg_get_serial_sequence('crafting', 'id'), coalesce(max(id),0) + 1, false) FROM crafting;
-SELECT setval(pg_get_serial_sequence('crafting_line_item', 'id'), coalesce(max(id),0) + 1, false) FROM crafting_line_item;
-
-SELECT setval(pg_get_serial_sequence('anvil', 'id'), coalesce(max(id),0) + 1, false) FROM anvil;
-SELECT setval(pg_get_serial_sequence('anvil_line_item', 'id'), coalesce(max(id),0) + 1, false) FROM anvil_line_item;
-SELECT setval(pg_get_serial_sequence('smelting', 'id'), coalesce(max(id),0) + 1, false) FROM smelting;
-SELECT setval(pg_get_serial_sequence('smelting_line_item', 'id'), coalesce(max(id),0) + 1, false) FROM smelting_line_item;
-
-<<<<<<< HEAD
--- (GUIDE) #1.2.3 ADD SELECT COMMAND FOR YOUR SIMPLE FORM AND LINE ITEM HERE (just copy and rename)
--- SELECT setval(pg_get_serial_sequence('TABLE_NAME', 'id'), coalesce(max(id),0) + 1, false) FROM TABLE_NAME;
 
 -- Populating table: trading_session (Punyawat)
 -- villager id: 1=Bob(Cleric), 2=Testificate(Weaponsmith), 3=Dan(Fletcher), 4=Gary(Farmer), 5=Larry(Librarian), 6=Gerry(Armorer)
@@ -369,10 +340,31 @@ INSERT INTO trading_line_item (trading_session_id, line_number, item_given_id, q
 INSERT INTO trading_line_item (trading_session_id, line_number, item_given_id, quantity_given, item_received_id, quantity_received, trade_uses_remaining) VALUES (14, 1, 12, 25, 10, 2, 0);
 INSERT INTO trading_line_item (trading_session_id, line_number, item_given_id, quantity_given, item_received_id, quantity_received, trade_uses_remaining) VALUES (15, 1, 17, 15, 10, 1, 8);
 INSERT INTO trading_line_item (trading_session_id, line_number, item_given_id, quantity_given, item_received_id, quantity_received, trade_uses_remaining) VALUES (16, 1, 11, 32, 10, 1, 3);
-=======
+
+-- (GUIDE) #1.2.2 POPULATE LINE ITEMS HERE
+
+-- update sequences to max id (crutial when inserting explicit IDs)
+SELECT setval(pg_get_serial_sequence('item', 'id'), coalesce(max(id),0) + 1, false) FROM item;
+SELECT setval(pg_get_serial_sequence('recipe', 'id'), coalesce(max(id),0) + 1, false) FROM recipe;
+SELECT setval(pg_get_serial_sequence('enchantment', 'id'), coalesce(max(id),0) + 1, false) FROM enchantment;
+SELECT setval(pg_get_serial_sequence('player', 'id'), coalesce(max(id),0) + 1, false) FROM player;
+SELECT setval(pg_get_serial_sequence('chest', 'id'), coalesce(max(id),0) + 1, false) FROM chest;
+SELECT setval(pg_get_serial_sequence('villager', 'id'), coalesce(max(id),0) + 1, false) FROM villager;
+
+SELECT setval(pg_get_serial_sequence('transfer', 'id'), coalesce(max(id),0) + 1, false) FROM transfer;
+SELECT setval(pg_get_serial_sequence('transfer_line_item', 'id'), coalesce(max(id),0) + 1, false) FROM transfer_line_item;
+
+SELECT setval(pg_get_serial_sequence('crafting', 'id'), coalesce(max(id),0) + 1, false) FROM crafting;
+SELECT setval(pg_get_serial_sequence('crafting_line_item', 'id'), coalesce(max(id),0) + 1, false) FROM crafting_line_item;
+
+SELECT setval(pg_get_serial_sequence('anvil', 'id'), coalesce(max(id),0) + 1, false) FROM anvil;
+SELECT setval(pg_get_serial_sequence('anvil_line_item', 'id'), coalesce(max(id),0) + 1, false) FROM anvil_line_item;
+
+SELECT setval(pg_get_serial_sequence('smelting', 'id'), coalesce(max(id),0) + 1, false) FROM smelting;
+SELECT setval(pg_get_serial_sequence('smelting_line_item', 'id'), coalesce(max(id),0) + 1, false) FROM smelting_line_item;
+
 SELECT setval(pg_get_serial_sequence('mining', 'id'), coalesce(max(id),0) + 1, false) FROM mining;
 SELECT setval(pg_get_serial_sequence('mining_line_item', 'id'), coalesce(max(id),0) + 1, false) FROM mining_line_item;
 
 -- (GUIDE) #1.2.3 ADD SELECT COMMAND FOR YOUR SIMPLE FORM AND LINE ITEM HERE (just copy and rename)
 -- SELECT setval(pg_get_serial_sequence('TABLE_NAME', 'id'), coalesce(max(id),0) + 1, false) FROM TABLE_NAME;
->>>>>>> origin/main

@@ -850,9 +850,6 @@ button {
   margin-top: 12px;
   font-size: 0.9rem;
   color: var(--text-muted);
-<<<<<<< HEAD
-}
-=======
 }
 
 /* Make the sidebar navigation scrollable if it gets too long */
@@ -876,4 +873,3 @@ button {
   background-color: var(--border);
   border-radius: 4px;
 }
->>>>>>> origin/main
