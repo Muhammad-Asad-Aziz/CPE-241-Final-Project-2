@@ -3,6 +3,7 @@ import { useParams, useNavigate, Link } from "react-router-dom";
 import { getTrading, createTrading, updateTrading } from "../../api/tradings.api.js";
 import { listVillagers } from "../../api/villagers.api.js";
 import { listItems } from "../../api/items.api.js";
+import { listPlayers } from "../../api/players.api.js";
 
 function emptyLine() {
     return {
@@ -26,22 +27,27 @@ export default function TradingsPage() {
     const [lines, setLines] = useState([emptyLine()]);
     const [allVillagers, setAllVillagers] = useState([]);
     const [allItems, setAllItems] = useState([]);
+    const [allPlayers, setAllPlayers] = useState([]);
 
     const [itemPickerOpen, setItemPickerOpen] = useState(false);
     const [villagerPickerOpen, setVillagerPickerOpen] = useState(false);
+    const [playerPickerOpen, setPlayerPickerOpen] = useState(false);
     const [activeLineIdx, setActiveLineIdx] = useState(null);
     const [activeField, setActiveField] = useState(null);
     const [searchItem, setSearchItem] = useState("");
     const [searchVillager, setSearchVillager] = useState("");
+    const [searchPlayer, setSearchPlayer] = useState("");
 
     useEffect(() => {
         const loadData = async () => {
-            const [villagersRes, itemsRes] = await Promise.all([
+            const [villagersRes, itemsRes, playersRes] = await Promise.all([
                 listVillagers({ limit: 1000 }),
                 listItems({ limit: 1000 }),
+                listPlayers({ limit: 1000 }),
             ]);
             setAllVillagers(villagersRes.data || []);
             setAllItems(itemsRes.data || []);
+            setAllPlayers(playersRes.data || []);
 
             if (isEdit) {
                 const data = await getTrading(id);
@@ -118,6 +124,9 @@ export default function TradingsPage() {
     );
     const filteredVillagers = allVillagers.filter(v =>
         v.villager_name.toLowerCase().includes(searchVillager.toLowerCase())
+    );
+    const filteredPlayers = allPlayers.filter(p =>
+        p.username.toLowerCase().includes(searchPlayer.toLowerCase())
     );
 
     const modalStyle = {
@@ -227,6 +236,50 @@ export default function TradingsPage() {
                 </div>
             )}
 
+            {/* Player Picker Modal */}
+            {playerPickerOpen && (
+                <div style={modalStyle} onClick={() => { setPlayerPickerOpen(false); setSearchPlayer(""); }}>
+                    <div style={modalBoxStyle} onClick={e => e.stopPropagation()}>
+                        <div style={{ padding: "16px 20px", borderBottom: "1px solid var(--border)", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+                            <h4 style={{ margin: 0, fontSize: "1rem" }}>Select Player</h4>
+                            <button type="button" style={{ background: "none", border: "none", cursor: "pointer", fontSize: "1.2rem", color: "var(--text-muted)", lineHeight: 1 }}
+                                onClick={() => { setPlayerPickerOpen(false); setSearchPlayer(""); }}>✕</button>
+                        </div>
+                        <div style={{ padding: "12px 16px", borderBottom: "1px solid var(--border)" }}>
+                            <input
+                                className="form-control"
+                                placeholder="Search player..."
+                                value={searchPlayer}
+                                onChange={e => setSearchPlayer(e.target.value)}
+                                autoFocus
+                                style={{ margin: 0 }}
+                            />
+                        </div>
+                        <div style={{ overflowY: "auto", flex: 1 }}>
+                            {filteredPlayers.length === 0 && (
+                                <div style={{ padding: "24px", textAlign: "center", color: "var(--text-muted)" }}>No players found.</div>
+                            )}
+                            {filteredPlayers.map(p => (
+                                <div key={p.id}
+                                    style={{ padding: "10px 20px", cursor: "pointer", borderBottom: "1px solid var(--border)", display: "flex", justifyContent: "space-between", alignItems: "center" }}
+                                    onMouseEnter={e => e.currentTarget.style.background = "var(--bg-body)"}
+                                    onMouseLeave={e => e.currentTarget.style.background = "transparent"}
+                                    onClick={() => {
+                                        setFormData(prev => ({ ...prev, player_name: p.username }));
+                                        setPlayerPickerOpen(false);
+                                        setSearchPlayer("");
+                                    }}>
+                                    <span style={{ fontWeight: 600, color: "var(--text-main)" }}>{p.username}</span>
+                                    <span style={{ color: "var(--text-muted)", fontSize: "0.78rem", background: "var(--bg-body)", padding: "2px 8px", borderRadius: 4 }}>
+                                        XP: {p.current_xp_level}
+                                    </span>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+            )}
+
             {/* Page Header */}
             <div className="page-header">
                 <h3 className="page-title">
@@ -253,9 +306,15 @@ export default function TradingsPage() {
                         </div>
                         <div className="form-group">
                             <label className="form-label">Player Name <span style={{ color: "red" }}>*</span></label>
-                            <input type="text" name="player_name" className="form-control"
-                                value={formData.player_name} onChange={handleHeaderChange}
-                                placeholder="Enter player name..." required />
+                            <div style={{ display: "flex", gap: 8 }}>
+                                <input type="text" name="player_name" className="form-control"
+                                    value={formData.player_name} onChange={handleHeaderChange}
+                                    placeholder="Enter player name..." required />
+                                <button type="button" className="btn btn-primary"
+                                    onClick={() => setPlayerPickerOpen(true)}>
+                                    LoV
+                                </button>
+                            </div>
                         </div>
                         <div className="form-group">
                             <label className="form-label">Villager <span style={{ color: "red" }}>*</span></label>

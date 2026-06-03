@@ -60,14 +60,13 @@ export default function RecipePage({ mode: propMode }) {
       };
       
       if (mode === "create") {
-        const res = await createRecipe(payload);
+        await createRecipe(payload);
         toast.success("Recipe created.");
-        nav(`/recipes/${res.recipe_code}`);
       } else {
-        const res = await updateRecipe(id, payload);
+        await updateRecipe(id, payload);
         toast.success("Recipe updated.");
-        nav(`/recipes/${res.recipe_code}`);
       }
+      nav("/recipes");
     } catch (e) { 
         setErr(String(e.message || e)); 
         toast.error(String(e.message || e));

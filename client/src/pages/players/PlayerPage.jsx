@@ -38,14 +38,13 @@ export default function PlayerPage({ mode: propMode }) {
         health_points: Number(form.health_points) 
       };
       if (mode === "create") {
-        const res = await createPlayer(payload);
+        await createPlayer(payload);
         toast.success("Player created.");
-        nav(`/players/${res.player_code}`);
       } else {
-        const res = await updatePlayer(id, payload);
+        await updatePlayer(id, payload);
         toast.success("Player updated.");
-        nav(`/players/${res.player_code}`);
       }
+      nav("/players");
     } catch (e) { setErr(String(e.message || e)); toast.error(String(e.message || e)); } 
     finally { setSubmitting(false); }
   };

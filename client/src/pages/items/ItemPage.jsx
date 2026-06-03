@@ -48,14 +48,13 @@ export default function ItemPage({ mode: propMode }) {
       };
       
       if (mode === "create") {
-        const res = await createItem(payload);
+        await createItem(payload);
         toast.success("Item created.");
-        nav(`/items/${res.item_code}`);
       } else {
-        const res = await updateItem(id, payload);
+        await updateItem(id, payload);
         toast.success("Item updated.");
-        nav(`/items/${res.item_code}`);
       }
+      nav("/items");
     } catch (e) { 
         setErr(String(e.message || e)); 
         toast.error(String(e.message || e));

@@ -38,14 +38,13 @@ export default function EnchantmentPage({ mode: propMode }) {
       };
       
       if (mode === "create") {
-        const res = await createEnchantment(payload);
+        await createEnchantment(payload);
         toast.success("Enchantment created.");
-        nav(`/enchantments/${res.enchantment_code}`);
       } else {
-        const res = await updateEnchantment(id, payload);
+        await updateEnchantment(id, payload);
         toast.success("Enchantment updated.");
-        nav(`/enchantments/${res.enchantment_code}`);
       }
+      nav("/enchantments");
     } catch (e) { 
         setErr(String(e.message || e)); 
         toast.error(String(e.message || e));

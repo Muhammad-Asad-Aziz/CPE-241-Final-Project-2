@@ -7,6 +7,6 @@ r.get("/", c.listItems);
 r.post("/", c.createItem);
 r.get("/:code", c.getItem);
 r.put("/:code", c.updateItem);
-r.delete(":code", c.deleteItem);
+r.delete("/:code", c.deleteItem);
 
 export default r;

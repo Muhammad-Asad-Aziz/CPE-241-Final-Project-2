@@ -42,14 +42,13 @@ export default function VillagerPage({ mode: propMode }) {
       };
       
       if (mode === "create") {
-        const res = await createVillager(payload);
+        await createVillager(payload);
         toast.success("Villager created.");
-        nav(`/villagers/${res.villager_code}`);
       } else {
-        const res = await updateVillager(id, payload);
+        await updateVillager(id, payload);
         toast.success("Villager updated.");
-        nav(`/villagers/${res.villager_code}`);
       }
+      nav("/villagers");
     } catch (e) { 
         setErr(String(e.message || e)); 
         toast.error(String(e.message || e));

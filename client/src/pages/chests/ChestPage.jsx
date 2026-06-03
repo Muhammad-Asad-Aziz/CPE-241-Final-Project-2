@@ -48,14 +48,13 @@ export default function ChestPage({ mode: propMode }) {
       };
       
       if (mode === "create") {
-        const res = await createChest(payload);
+        await createChest(payload);
         toast.success("Chest created.");
-        nav(`/chests/${res.chest_code}`);
       } else {
-        const res = await updateChest(id, payload);
+        await updateChest(id, payload);
         toast.success("Chest updated.");
-        nav(`/chests/${res.chest_code}`);
       }
+      nav("/chests");
     } catch (e) { 
         setErr(String(e.message || e)); 
         toast.error(String(e.message || e));
