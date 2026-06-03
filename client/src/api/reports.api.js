@@ -45,6 +45,7 @@ export async function getPlayerFuelHistory(params) {
 export async function getFuelAnalysis(params) {
     const query = new URLSearchParams(params).toString();
     const res = await http(`/api/reports/fuel-analysis?${query}`);
+    return unwrap(res);
 }
 
 export async function getEnchantedTool(params) {
