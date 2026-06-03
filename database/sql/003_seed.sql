@@ -300,6 +300,47 @@ INSERT INTO mining_line_item (mining_id, block_mined_id, quantity_mined, tool_us
 INSERT INTO mining_line_item (mining_id, block_mined_id, quantity_mined, tool_used_id, durability_lost, tool_status) VALUES ( 13, 12, 100, 24, 100, 'Usable') ON CONFLICT DO NOTHING;
 INSERT INTO mining_line_item (mining_id, block_mined_id, quantity_mined, tool_used_id, durability_lost, tool_status) VALUES ( 14, 1, 12, 20, 12, 'Usable') ON CONFLICT DO NOTHING;
 INSERT INTO mining_line_item (mining_id, block_mined_id, quantity_mined, tool_used_id, durability_lost, tool_status) VALUES (15, 4, 22, 8, 22, 'Usable') ON CONFLICT DO NOTHING;
+
+-- Populating table: trading_session (Punyawat)
+-- villager id: 1=Bob(Cleric), 2=Testificate(Weaponsmith), 3=Dan(Fletcher), 4=Gary(Farmer), 5=Larry(Librarian), 6=Gerry(Armorer)
+INSERT INTO trading_session (trade_date, player_name, villager_id) VALUES ('2024-01-05 10:00:00', 'Steve', 1) ON CONFLICT DO NOTHING;
+INSERT INTO trading_session (trade_date, player_name, villager_id) VALUES ('2024-01-06 11:00:00', 'Alex', 2) ON CONFLICT DO NOTHING;
+INSERT INTO trading_session (trade_date, player_name, villager_id) VALUES ('2024-01-07 09:30:00', 'Herobrine', 1) ON CONFLICT DO NOTHING;
+INSERT INTO trading_session (trade_date, player_name, villager_id) VALUES ('2024-01-08 14:00:00', 'Steve', 3) ON CONFLICT DO NOTHING;
+INSERT INTO trading_session (trade_date, player_name, villager_id) VALUES ('2024-01-09 15:30:00', 'Notch', 2) ON CONFLICT DO NOTHING;
+INSERT INTO trading_session (trade_date, player_name, villager_id) VALUES ('2024-01-10 08:00:00', 'Dream', 4) ON CONFLICT DO NOTHING;
+INSERT INTO trading_session (trade_date, player_name, villager_id) VALUES ('2024-01-11 13:00:00', 'Alex', 1) ON CONFLICT DO NOTHING;
+INSERT INTO trading_session (trade_date, player_name, villager_id) VALUES ('2024-01-12 10:30:00', 'Steve', 5) ON CONFLICT DO NOTHING;
+INSERT INTO trading_session (trade_date, player_name, villager_id) VALUES ('2024-01-13 11:30:00', 'Technoblade', 2) ON CONFLICT DO NOTHING;
+INSERT INTO trading_session (trade_date, player_name, villager_id) VALUES ('2024-01-14 16:00:00', 'Herobrine', 3) ON CONFLICT DO NOTHING;
+INSERT INTO trading_session (trade_date, player_name, villager_id) VALUES ('2024-01-15 09:00:00', 'Notch', 1) ON CONFLICT DO NOTHING;
+INSERT INTO trading_session (trade_date, player_name, villager_id) VALUES ('2024-01-16 12:00:00', 'Dream', 6) ON CONFLICT DO NOTHING;
+INSERT INTO trading_session (trade_date, player_name, villager_id) VALUES ('2024-01-17 14:30:00', 'MumboJumbo', 4) ON CONFLICT DO NOTHING;
+INSERT INTO trading_session (trade_date, player_name, villager_id) VALUES ('2024-01-18 10:00:00', 'Steve', 1) ON CONFLICT DO NOTHING;
+INSERT INTO trading_session (trade_date, player_name, villager_id) VALUES ('2024-01-19 11:00:00', 'Alex', 5) ON CONFLICT DO NOTHING;
+INSERT INTO trading_session (trade_date, player_name, villager_id) VALUES ('2024-01-20 15:00:00', 'Stampy', 6) ON CONFLICT DO NOTHING;
+
+-- Populating table: trading_line_item (Punyawat)
+-- item: 11=Rotten Flesh, 10=Emerald, 17=Wheat, 15=Gold Ingot, 7=Diamond, 12=Cobblestone, 3=Stick, 5=Iron Ingot
+INSERT INTO trading_line_item (trading_session_id, line_number, item_given_id, quantity_given, item_received_id, quantity_received, trade_uses_remaining) VALUES (1, 1, 11, 32, 10, 1, 8);
+INSERT INTO trading_line_item (trading_session_id, line_number, item_given_id, quantity_given, item_received_id, quantity_received, trade_uses_remaining) VALUES (1, 2, 12, 20, 10, 2, 5);
+INSERT INTO trading_line_item (trading_session_id, line_number, item_given_id, quantity_given, item_received_id, quantity_received, trade_uses_remaining) VALUES (2, 1, 5,  4,  9,  1, 10);
+INSERT INTO trading_line_item (trading_session_id, line_number, item_given_id, quantity_given, item_received_id, quantity_received, trade_uses_remaining) VALUES (2, 2, 3,  10, 10, 3, 0);
+INSERT INTO trading_line_item (trading_session_id, line_number, item_given_id, quantity_given, item_received_id, quantity_received, trade_uses_remaining) VALUES (3, 1, 11, 16, 10, 1, 3);
+INSERT INTO trading_line_item (trading_session_id, line_number, item_given_id, quantity_given, item_received_id, quantity_received, trade_uses_remaining) VALUES (4, 1, 17, 20, 10, 2, 7);
+INSERT INTO trading_line_item (trading_session_id, line_number, item_given_id, quantity_given, item_received_id, quantity_received, trade_uses_remaining) VALUES (5, 1, 15, 3,  10, 5, 0);
+INSERT INTO trading_line_item (trading_session_id, line_number, item_given_id, quantity_given, item_received_id, quantity_received, trade_uses_remaining) VALUES (6, 1, 11, 32, 10, 1, 6);
+INSERT INTO trading_line_item (trading_session_id, line_number, item_given_id, quantity_given, item_received_id, quantity_received, trade_uses_remaining) VALUES (7, 1, 12, 15, 10, 1, 9);
+INSERT INTO trading_line_item (trading_session_id, line_number, item_given_id, quantity_given, item_received_id, quantity_received, trade_uses_remaining) VALUES (8, 1, 5,  6,  9,  1, 0);
+INSERT INTO trading_line_item (trading_session_id, line_number, item_given_id, quantity_given, item_received_id, quantity_received, trade_uses_remaining) VALUES (9, 1, 11, 32, 10, 1, 4);
+INSERT INTO trading_line_item (trading_session_id, line_number, item_given_id, quantity_given, item_received_id, quantity_received, trade_uses_remaining) VALUES (10, 1, 17, 30, 10, 3, 2);
+INSERT INTO trading_line_item (trading_session_id, line_number, item_given_id, quantity_given, item_received_id, quantity_received, trade_uses_remaining) VALUES (11, 1, 15, 5,  10, 8, 0);
+INSERT INTO trading_line_item (trading_session_id, line_number, item_given_id, quantity_given, item_received_id, quantity_received, trade_uses_remaining) VALUES (12, 1, 11, 32, 10, 1, 7);
+INSERT INTO trading_line_item (trading_session_id, line_number, item_given_id, quantity_given, item_received_id, quantity_received, trade_uses_remaining) VALUES (13, 1, 3,  8,  10, 2, 5);
+INSERT INTO trading_line_item (trading_session_id, line_number, item_given_id, quantity_given, item_received_id, quantity_received, trade_uses_remaining) VALUES (14, 1, 12, 25, 10, 2, 0);
+INSERT INTO trading_line_item (trading_session_id, line_number, item_given_id, quantity_given, item_received_id, quantity_received, trade_uses_remaining) VALUES (15, 1, 17, 15, 10, 1, 8);
+INSERT INTO trading_line_item (trading_session_id, line_number, item_given_id, quantity_given, item_received_id, quantity_received, trade_uses_remaining) VALUES (16, 1, 11, 32, 10, 1, 3);
+
 -- (GUIDE) #1.2.2 POPULATE LINE ITEMS HERE
 
 -- update sequences to max id (crutial when inserting explicit IDs)
@@ -309,6 +350,7 @@ SELECT setval(pg_get_serial_sequence('enchantment', 'id'), coalesce(max(id),0) +
 SELECT setval(pg_get_serial_sequence('player', 'id'), coalesce(max(id),0) + 1, false) FROM player;
 SELECT setval(pg_get_serial_sequence('chest', 'id'), coalesce(max(id),0) + 1, false) FROM chest;
 SELECT setval(pg_get_serial_sequence('villager', 'id'), coalesce(max(id),0) + 1, false) FROM villager;
+
 SELECT setval(pg_get_serial_sequence('transfer', 'id'), coalesce(max(id),0) + 1, false) FROM transfer;
 SELECT setval(pg_get_serial_sequence('transfer_line_item', 'id'), coalesce(max(id),0) + 1, false) FROM transfer_line_item;
 
@@ -317,6 +359,7 @@ SELECT setval(pg_get_serial_sequence('crafting_line_item', 'id'), coalesce(max(i
 
 SELECT setval(pg_get_serial_sequence('anvil', 'id'), coalesce(max(id),0) + 1, false) FROM anvil;
 SELECT setval(pg_get_serial_sequence('anvil_line_item', 'id'), coalesce(max(id),0) + 1, false) FROM anvil_line_item;
+
 SELECT setval(pg_get_serial_sequence('smelting', 'id'), coalesce(max(id),0) + 1, false) FROM smelting;
 SELECT setval(pg_get_serial_sequence('smelting_line_item', 'id'), coalesce(max(id),0) + 1, false) FROM smelting_line_item;
 

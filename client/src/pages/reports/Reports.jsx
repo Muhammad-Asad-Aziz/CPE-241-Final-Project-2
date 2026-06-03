@@ -84,6 +84,49 @@ const REPORT_CONFIG = {
       { key: "Total_Quantity_Crafted", label: "Total Crafted", align: "right", style: { color: "#ef4444", fontWeight: "bold" } }
     ]
   },
+  // (GUIDE) #3.7 ADD YOUR REPORT
+
+  "trading-by-villager": {
+    title: "Trades by Villager",
+    subtitle: "Simple: List all trades made with a specific Villager ID.",
+    emptyMessage: "No trades found for this villager.",
+    getColumns: () => [
+      { key: "session_id", label: "Session", render: v => `TRD-${v}` },
+      { key: "trade_date", label: "Date", render: v => formatDate(v) },
+      { key: "player_name", label: "Player", render: v => <span className="font-bold">{v}</span> },
+      { key: "villager_name", label: "Villager" },
+      { key: "profession", label: "Profession" },
+      { key: "item_given", label: "Item Given", render: v => <span style={{ color: "#ef4444" }}>{v}</span> },
+      { key: "quantity_given", label: "Qty Given", align: "right" },
+      { key: "item_received", label: "Item Received", render: v => <span style={{ color: "#22c55e" }}>{v}</span> },
+      { key: "quantity_received", label: "Qty Received", align: "right" },
+      { key: "trade_status", label: "Status", render: v => <span style={{ fontWeight: "bold", color: v === "Locked" ? "#ef4444" : "#22c55e" }}>{v}</span> },
+    ]
+  },
+  "locked-trades": {
+    title: "Villagers with Locked Trades",
+    subtitle: "Simple: List all villagers who currently have 'Locked' trades.",
+    emptyMessage: "No locked trades found.",
+    getColumns: () => [
+      { key: "villager_id", label: "Villager ID" },
+      { key: "villager_name", label: "Villager Name", render: v => <span className="font-bold">{v}</span> },
+      { key: "profession", label: "Profession", render: v => <span style={{ color: "var(--primary)" }}>{v}</span> },
+      { key: "biome_type", label: "Biome" },
+      { key: "locked_trade_count", label: "Locked Trades", align: "right", style: { fontWeight: "bold", color: "#ef4444" } },
+    ]
+  },
+  "trading-volume-profession": {
+    title: "Trading Volume by Profession",
+    subtitle: "Analysis: Total Items Traded (Given vs Received) grouped by Villager Profession.",
+    emptyMessage: "No trading data found in this date range.",
+    getColumns: () => [
+      { key: "profession", label: "Profession", render: v => <span className="font-bold">{v}</span> },
+      { key: "total_sessions", label: "Sessions", align: "right" },
+      { key: "total_given", label: "Total Given", align: "right", style: { color: "#ef4444", fontWeight: "bold" } },
+      { key: "total_received", label: "Total Received", align: "right", style: { color: "#22c55e", fontWeight: "bold" } },
+      { key: "total_volume", label: "Total Volume", align: "right", style: { fontWeight: "bold" } },
+    ]
+  },
 
   "enchanted-tool": {
     title: "Enchanted Tool History",
@@ -136,9 +179,9 @@ const REPORT_CONFIG = {
       { key: "DATE", label: "Date", align: "right", render: v => formatDate(v) },
       { key: "PLAYER", label: "Player Name", render: v => <span className="font-bold">{v}</span> },
       { key: "BIOME", label: "Biome", align: "right", style: { color: "var(--primary)", fontWeight: "bold"} },
-      { key: "BLOCK MINED", label: "Block Name", align: "left" }, 
+      { key: "BLOCK MINED", label: "Block Name", align: "left" },
       { key: "QTY MINED", label: "QTY Mined", align: "right", style: { color: "var(--primary)", fontWeight: "bold"} },
-      { key: "TOOL USED", label: "Item Used", align: "left" }   
+      { key: "TOOL USED", label: "Item Used", align: "left" }
     ]
   },
 
@@ -172,15 +215,13 @@ const REPORT_CONFIG = {
     ]
   }
 };
-  // (GUIDE) #3.7 ADD YOUR REPORT
-
 
 export default function Reports({ type = "chest-inventory" }) {
   const [data, setData] = React.useState([]);
   const [loading, setLoading] = React.useState(false);
   const [filters, setFilters] = React.useState({});
   const [appliedFilters, setAppliedFilters] = React.useState({});
-  const [hasApplied, setHasApplied] = React.useState(type === "chest-utilization"); // Utilization requires no filters, run immediately!
+  const [hasApplied, setHasApplied] = React.useState(type === "chest-utilization");
 
   const config = REPORT_CONFIG[type];
 

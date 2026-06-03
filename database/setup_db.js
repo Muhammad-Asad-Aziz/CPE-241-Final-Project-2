@@ -94,10 +94,10 @@ function getTableCounts(queryFn) {
     "  (select count(*) from transfer_line_item),",
     "  (select count(*) from crafting),",
     "  (select count(*) from crafting_line_item),",
+    "  (select count(*) from smelting),",           
+    "  (select count(*) from smelting_line_item),", 
     "  (select count(*) from anvil),",
     "  (select count(*) from anvil_line_item),", 
-    "  (select count(*) from smelting),",          
-    "  (select count(*) from smelting_line_item),",
     "  (select count(*) from mining),",          // ITEMS THAT ARE NOT LAST SHOULD HAVE 2 COMMAS AT THE END (the ,", part) (", ❌) (," ❌) (,", ✅)
     "  (select count(*) from mining_line_item);"// ONLY THE LAST ITEM IN THE LIST CAN HAVE THE SEMI COLON + SHOULDN'T HAVE A COMMA
     /* (GUIDE) #1.4.1 ADD select count(*) statement for your corresponding table */
@@ -117,7 +117,7 @@ function getTableCounts(queryFn) {
     transfer: counts[4],
     transferLineItem: counts[5],
     crafting: counts[6],
-    craftingLineItem: counts[7],
+    craftingLineItem: counts[7],    
     anvil: counts[8],
     anvilLineItem: counts[9],
     smelting: counts[10],            
@@ -135,9 +135,8 @@ function getSeedDecision(counts) {
   }
 
   const hasReferenceData = counts.item > 0 || counts.player > 0 || counts.chest > 0 || counts.villager > 0;
-  
   const missingCraftLessData = counts.transfer === 0 && counts.transferLineItem === 0 && counts.crafting === 0 && counts.craftingLineItem === 0 && counts.smelting === 0 && counts.smeltingLineItem === 0 && counts.mining === 0 && counts.miningLineItem === 0 && counts.anvil === 0 && counts.anvilLineItem === 0;
-  
+
   /* (GUIDE) #1.4.3 ADD a check */
   /* && counts.tableNameInCamelCase === 0 */
   if (hasReferenceData && missingCraftLessData) {

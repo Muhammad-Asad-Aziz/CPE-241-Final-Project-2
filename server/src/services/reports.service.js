@@ -282,6 +282,79 @@ export async function getFuelAnalysis({ fromDate, toDate }) {
     return rows;
 }
 
+// Report by Punyawat Simple 1: List all trades with a specific Villager ID
+export async function getTradingsByVillager({ villager_id }) {
+    const vId = villager_id ? Number(villager_id) : null;
+    const { rows } = await pool.query(
+        `SELECT
+            ts.id AS session_id,
+            ts.trade_date,
+            ts.player_name,
+            v.villager_name,
+            v.profession,
+            ig.item_name AS item_given,
+            tli.quantity_given,
+            ir.item_name AS item_received,
+            tli.quantity_received,
+            tli.trade_uses_remaining,
+            CASE WHEN tli.trade_uses_remaining = 0 THEN 'Locked' ELSE 'Open' END AS trade_status
+         FROM trading_session ts
+         JOIN villager v ON v.id = ts.villager_id
+         JOIN trading_line_item tli ON tli.trading_session_id = ts.id
+         LEFT JOIN item ig ON ig.id = tli.item_given_id
+         LEFT JOIN item ir ON ir.id = tli.item_received_id
+         WHERE ($1::bigint IS NULL OR ts.villager_id = $1::bigint)
+         ORDER BY ts.trade_date DESC`,
+        [vId]
+    );
+    return { data: rows };
+}
+
+// Report by Punyawat Simple 2: List all villagers who currently have "Locked" trades
+export async function getLockedTrades({ profession = "" } = {}) {
+    const profParam = profession ? profession : null;
+    const { rows } = await pool.query(
+        `SELECT DISTINCT
+            v.id AS villager_id,
+            v.villager_name,
+            v.profession,
+            v.biome_type,
+            COUNT(tli.id) AS locked_trade_count
+         FROM villager v
+         JOIN trading_session ts ON ts.villager_id = v.id
+         JOIN trading_line_item tli ON tli.trading_session_id = ts.id
+         WHERE tli.trade_uses_remaining = 0
+           AND ($1::text IS NULL OR v.profession = $1::text)
+         GROUP BY v.id, v.villager_name, v.profession, v.biome_type
+         ORDER BY locked_trade_count DESC`,
+        [profParam]
+    );
+    return { data: rows };
+}
+
+// Report by Punyawat Analysis: Total Volume grouped by Villager Profession
+export async function getTradingVolumeByProfession({ date_from, date_to }) {
+    const dFrom = date_from || null;
+    const dTo = date_to || null;
+    const { rows } = await pool.query(
+        `SELECT
+            v.profession,
+            SUM(tli.quantity_given) AS total_given,
+            SUM(tli.quantity_received) AS total_received,
+            SUM(tli.quantity_given + tli.quantity_received) AS total_volume,
+            COUNT(DISTINCT ts.id) AS total_sessions
+         FROM trading_session ts
+         JOIN villager v ON v.id = ts.villager_id
+         JOIN trading_line_item tli ON tli.trading_session_id = ts.id
+         WHERE ($1::date IS NULL OR DATE(ts.trade_date) >= $1::date)
+           AND ($2::date IS NULL OR DATE(ts.trade_date) <= $2::date)
+         GROUP BY v.profession
+         ORDER BY total_volume DESC`,
+        [dFrom, dTo]
+    );
+    return { data: rows };
+}
+
 // Report by Iris: List all blocks mined inside Biome Name: ___.
 export async function getBiomeMiningHistory({ biomeName = "" }) {
     const { rows } = await pool.query(

@@ -54,6 +54,7 @@ export async function getTopCraftedItems(req, res) {
     }
 }
 
+// Maimoona reports
 export async function getEnchantedTool(req, res) {
     try {
         const data = await reportsService.getEnchantedTool(req.query);
@@ -81,6 +82,36 @@ export async function getXPByType(req, res) {
     }
 }
 
+// Punyawat reports
+export async function getTradingsByVillager(req, res) {
+    try {
+        const result = await reportsService.getTradingsByVillager(req.query);
+        res.json({ success: true, data: result.data });
+    } catch (err) {
+        res.status(500).json({ success: false, error: { message: err.message } });
+    }
+}
+
+export async function getLockedTrades(req, res) {
+    try {
+        const result = await reportsService.getLockedTrades(req.query);
+        res.json({ success: true, data: result.data });
+    } catch (err) {
+        res.status(500).json({ success: false, error: { message: err.message } });
+    }
+}
+
+export async function getTradingVolumeByProfession(req, res) {
+    try {
+        const result = await reportsService.getTradingVolumeByProfession(req.query);
+        res.json({ success: true, data: result.data });
+    } catch (err) {
+        res.status(500).json({ success: false, error: { message: err.message } });
+    }
+}
+
+
+// Iris' Report
 export async function getBiomeMiningHistory(req, res) {
     try {
         const data = await reportsService.getBiomeMiningHistory(req.query);

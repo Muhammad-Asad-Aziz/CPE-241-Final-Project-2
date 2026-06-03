@@ -10,6 +10,9 @@ r.get("/chest-utilization", c.getChestUtilization);
 r.get("/crafting-history", c.getPlayerCraftingHistory);
 r.get("/recipe-requirements", c.getRecipeRequirements);
 r.get("/top-crafted", c.getTopCraftedItems);
+r.get("/trading-by-villager", c.getTradingsByVillager);
+r.get("/locked-trades", c.getLockedTrades);
+r.get("/trading-volume-profession", c.getTradingVolumeByProfession);
 
 r.get("/enchanted-tool", c.getEnchantedTool);
 r.get("/anvil-history", c.getPlayerAnvilHistory);

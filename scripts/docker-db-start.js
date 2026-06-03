@@ -30,6 +30,9 @@ function portInUse(port) {
   });
 }
 
+const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+
 async function main() {
   console.log("🚀 Starting CraftLess Database...");
   try {
@@ -49,8 +52,7 @@ async function main() {
     if (name) {
       console.log("⚠️  Port 15432 in use by " + name + ". Stopping it...");
       execShell("docker stop " + name, { cwd: root });
-      if (isWin) execShell("timeout /t 2 /nobreak > nul", { cwd: root });
-      else execShell("sleep 2", { cwd: root });
+      await sleep(2000);
     } else {
       console.error("❌ Port 15432 is in use. Free it or change the port in database/compose.yaml");
       process.exit(1);
@@ -60,8 +62,6 @@ async function main() {
   console.log("📦 Starting database and Adminer...");
   runCompose(["up", "-d", svc, adminerSvc]);
   console.log("⏳ Waiting for database...");
-  //if (isWin) execShell("timeout /t 5 /nobreak > nul", { cwd: root }); // This line always breaks the npm run docker:db:start command
-  // else execShell("sleep 5", { cwd: root });                          // This line always breaks the npm run docker:db:start command
 
   for (let i = 0; i < 30; i++) {
     if (runComposeQuiet(["exec", "-T", svc, "pg_isready", "-U", "root"])) {

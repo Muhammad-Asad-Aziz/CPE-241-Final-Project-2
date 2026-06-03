@@ -9,14 +9,19 @@
 -- Drop tables (child → parent order)
 DROP TABLE IF EXISTS transfer_line_item;
 DROP TABLE IF EXISTS "transfer"; -- tranfer is orange (or IDE theme color same as DROP TABLE IF EXISTS) if I don't add the quotes... i think transfer is a command...
+
 DROP TABLE IF EXISTS anvil_line_item;
 DROP TABLE IF EXISTS anvil;
+
 DROP TABLE IF EXISTS crafting_line_item;
 DROP TABLE IF EXISTS crafting;
+
 DROP TABLE IF EXISTS smelting_line_item;
 DROP TABLE IF EXISTS smelting;
+
 DROP TABLE IF EXISTS mining_line_item;
 DROP TABLE IF EXISTS mining;
+
 DROP TABLE IF EXISTS recipe;
 DROP TABLE IF EXISTS villager;
 DROP TABLE IF EXISTS player;
