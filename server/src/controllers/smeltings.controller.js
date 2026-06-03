@@ -20,7 +20,7 @@ export async function listSmeltings(req, res) {
 
 export async function getSmelting(req, res) {
     try {
-        const result = await smeltingsService.getSmelting(req.params.id);
+        const result = await smeltingsService.getSmelting(req.params.code);
         if (!result) return sendError(res, "Not found", 404);
         sendOne(res, result);
     } catch (err) {
@@ -39,7 +39,7 @@ export async function createSmelting(req, res) {
 
 export async function updateSmelting(req, res) {
     try {
-        const result = await smeltingsService.updateSmelting(req.params.id, req.body);
+        const result = await smeltingsService.updateSmelting(req.params.code, req.body);
         if (!result) return sendError(res, "Not found", 404);
         sendOk(res, result); 
     } catch (err) {
@@ -49,7 +49,7 @@ export async function updateSmelting(req, res) {
 
 export async function deleteSmelting(req, res) {
     try {
-        const result = await smeltingsService.deleteSmelting(req.params.id);
+        const result = await smeltingsService.deleteSmelting(req.params.code);
         if (!result) return sendError(res, "Not found", 404);
         sendOk(res, result);
     } catch (err) {

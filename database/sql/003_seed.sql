@@ -7,205 +7,197 @@
 
 -- Remove id and created_at column
 -- Populating table: item
-INSERT INTO item (item_name, max_stack_size, item_type, max_durability) VALUES ('Oak Log', 64, 'Block', null) ON CONFLICT DO NOTHING;
-INSERT INTO item (item_name, max_stack_size, item_type, max_durability) VALUES ('Oak Planks', 64, 'Block', null) ON CONFLICT DO NOTHING;
-INSERT INTO item (item_name, max_stack_size, item_type, max_durability) VALUES ('Stick', 64, 'Ingredient', null) ON CONFLICT DO NOTHING;
-INSERT INTO item (item_name, max_stack_size, item_type, max_durability) VALUES ('Iron Ore', 64, 'Block', null) ON CONFLICT DO NOTHING;
-INSERT INTO item (item_name, max_stack_size, item_type, max_durability) VALUES ('Iron Ingot', 64, 'Ingredient', null) ON CONFLICT DO NOTHING;
-INSERT INTO item (item_name, max_stack_size, item_type, max_durability) VALUES ('Coal', 64, 'Ingredient', null) ON CONFLICT DO NOTHING;
-INSERT INTO item (item_name, max_stack_size, item_type, max_durability) VALUES ('Diamond', 64, 'Ingredient', null) ON CONFLICT DO NOTHING;
-INSERT INTO item (item_name, max_stack_size, item_type, max_durability) VALUES ('Iron Pickaxe', 1, 'Tool', 250) ON CONFLICT DO NOTHING;
-INSERT INTO item (item_name, max_stack_size, item_type, max_durability) VALUES ('Diamond Sword', 1, 'Tool', 1561) ON CONFLICT DO NOTHING;
-INSERT INTO item (item_name, max_stack_size, item_type, max_durability) VALUES ('Emerald', 64, 'Ingredient', null) ON CONFLICT DO NOTHING;
-INSERT INTO item (item_name, max_stack_size, item_type, max_durability) VALUES ('Rotten Flesh', 64, 'Food', null) ON CONFLICT DO NOTHING;
-INSERT INTO item (item_name, max_stack_size, item_type, max_durability) VALUES ('Cobblestone', 64, 'Block', null) ON CONFLICT DO NOTHING;
-INSERT INTO item (item_name, max_stack_size, item_type, max_durability) VALUES ('Stone', 64, 'Block', null) ON CONFLICT DO NOTHING;
-INSERT INTO item (item_name, max_stack_size, item_type, max_durability) VALUES ('Gold Ore', 64, 'Block', null) ON CONFLICT DO NOTHING;
-INSERT INTO item (item_name, max_stack_size, item_type, max_durability) VALUES ('Gold Ingot', 64, 'Ingredient', null) ON CONFLICT DO NOTHING;
-INSERT INTO item (item_name, max_stack_size, item_type, max_durability) VALUES ('Bread', 64, 'Food', null) ON CONFLICT DO NOTHING;
-INSERT INTO item (item_name, max_stack_size, item_type, max_durability) VALUES ('Wheat', 64, 'Ingredient', null) ON CONFLICT DO NOTHING;
-INSERT INTO item (item_name, max_stack_size, item_type, max_durability) VALUES ('Sand', 64, 'Block', null) ON CONFLICT DO NOTHING;
-INSERT INTO item (item_name, max_stack_size, item_type, max_durability) VALUES ('Glass', 64, 'Block', null) ON CONFLICT DO NOTHING;
-INSERT INTO item (item_name, max_stack_size, item_type, max_durability) VALUES ('Iron Axe', 1, 'Tool', 250) ON CONFLICT DO NOTHING;
-INSERT INTO item (item_name, max_stack_size, item_type, max_durability) VALUES ('Torch', 64, 'Block', null) ON CONFLICT DO NOTHING;
-INSERT INTO item (item_name, max_stack_size, item_type, max_durability) VALUES ('Crafting Table', 64, 'Block', null) ON CONFLICT DO NOTHING;
-INSERT INTO item (item_name, max_stack_size, item_type, max_durability) VALUES ('Furnace Block', 64, 'Block', null) ON CONFLICT DO NOTHING;
-INSERT INTO item (item_name, max_stack_size, item_type, max_durability) VALUES ('Diamond Pickaxe', 1, 'Tool', 1561) ON CONFLICT DO NOTHING;
+INSERT INTO item (item_code, item_name, max_stack_size, item_type, max_durability) VALUES ('ITM-001', 'Oak Log', 64, 'Block', null) ON CONFLICT DO NOTHING;
+INSERT INTO item (item_code, item_name, max_stack_size, item_type, max_durability) VALUES ('ITM-002', 'Oak Planks', 64, 'Block', null) ON CONFLICT DO NOTHING;
+INSERT INTO item (item_code, item_name, max_stack_size, item_type, max_durability) VALUES ('ITM-003', 'Stick', 64, 'Ingredient', null) ON CONFLICT DO NOTHING;
+INSERT INTO item (item_code, item_name, max_stack_size, item_type, max_durability) VALUES ('ITM-004', 'Iron Ore', 64, 'Block', null) ON CONFLICT DO NOTHING;
+INSERT INTO item (item_code, item_name, max_stack_size, item_type, max_durability) VALUES ('ITM-005', 'Iron Ingot', 64, 'Ingredient', null) ON CONFLICT DO NOTHING;
+INSERT INTO item (item_code, item_name, max_stack_size, item_type, max_durability) VALUES ('ITM-006', 'Coal', 64, 'Ingredient', null) ON CONFLICT DO NOTHING;
+INSERT INTO item (item_code, item_name, max_stack_size, item_type, max_durability) VALUES ('ITM-007', 'Diamond', 64, 'Ingredient', null) ON CONFLICT DO NOTHING;
+INSERT INTO item (item_code, item_name, max_stack_size, item_type, max_durability) VALUES ('ITM-008', 'Iron Pickaxe', 1, 'Tool', 250) ON CONFLICT DO NOTHING;
+INSERT INTO item (item_code, item_name, max_stack_size, item_type, max_durability) VALUES ('ITM-009', 'Diamond Sword', 1, 'Tool', 1561) ON CONFLICT DO NOTHING;
+INSERT INTO item (item_code, item_name, max_stack_size, item_type, max_durability) VALUES ('ITM-010', 'Emerald', 64, 'Ingredient', null) ON CONFLICT DO NOTHING;
+INSERT INTO item (item_code, item_name, max_stack_size, item_type, max_durability) VALUES ('ITM-011', 'Rotten Flesh', 64, 'Food', null) ON CONFLICT DO NOTHING;
+INSERT INTO item (item_code, item_name, max_stack_size, item_type, max_durability) VALUES ('ITM-012', 'Cobblestone', 64, 'Block', null) ON CONFLICT DO NOTHING;
+INSERT INTO item (item_code, item_name, max_stack_size, item_type, max_durability) VALUES ('ITM-013', 'Stone', 64, 'Block', null) ON CONFLICT DO NOTHING;
+INSERT INTO item (item_code, item_name, max_stack_size, item_type, max_durability) VALUES ('ITM-014', 'Gold Ore', 64, 'Block', null) ON CONFLICT DO NOTHING;
+INSERT INTO item (item_code, item_name, max_stack_size, item_type, max_durability) VALUES ('ITM-015', 'Gold Ingot', 64, 'Ingredient', null) ON CONFLICT DO NOTHING;
+INSERT INTO item (item_code, item_name, max_stack_size, item_type, max_durability) VALUES ('ITM-016', 'Bread', 64, 'Food', null) ON CONFLICT DO NOTHING;
+INSERT INTO item (item_code, item_name, max_stack_size, item_type, max_durability) VALUES ('ITM-017', 'Wheat', 64, 'Ingredient', null) ON CONFLICT DO NOTHING;
+INSERT INTO item (item_code, item_name, max_stack_size, item_type, max_durability) VALUES ('ITM-018', 'Sand', 64, 'Block', null) ON CONFLICT DO NOTHING;
+INSERT INTO item (item_code, item_name, max_stack_size, item_type, max_durability) VALUES ('ITM-019', 'Glass', 64, 'Block', null) ON CONFLICT DO NOTHING;
+INSERT INTO item (item_code, item_name, max_stack_size, item_type, max_durability) VALUES ('ITM-020', 'Iron Axe', 1, 'Tool', 250) ON CONFLICT DO NOTHING;
+INSERT INTO item (item_code, item_name, max_stack_size, item_type, max_durability) VALUES ('ITM-021', 'Torch', 64, 'Block', null) ON CONFLICT DO NOTHING;
+INSERT INTO item (item_code, item_name, max_stack_size, item_type, max_durability) VALUES ('ITM-022', 'Crafting Table', 64, 'Block', null) ON CONFLICT DO NOTHING;
+INSERT INTO item (item_code, item_name, max_stack_size, item_type, max_durability) VALUES ('ITM-023', 'Furnace Block', 64, 'Block', null) ON CONFLICT DO NOTHING;
+INSERT INTO item (item_code, item_name, max_stack_size, item_type, max_durability) VALUES ('ITM-024', 'Diamond Pickaxe', 1, 'Tool', 1561) ON CONFLICT DO NOTHING;
+INSERT INTO item (item_code, item_name, max_stack_size, item_type, max_durability) VALUES ('ITM-025', 'Ender Pearl', 16, 'Ingredient', null) ON CONFLICT DO NOTHING;
 
 -- Populating table: recipe
-INSERT INTO recipe (target_item_id, ingredient_item_id, amount_needed) VALUES (2, 1, 1) ON CONFLICT DO NOTHING;
-INSERT INTO recipe (target_item_id, ingredient_item_id, amount_needed) VALUES (3, 2, 2) ON CONFLICT DO NOTHING;
-INSERT INTO recipe (target_item_id, ingredient_item_id, amount_needed) VALUES (16, 17, 3) ON CONFLICT DO NOTHING;
-INSERT INTO recipe (target_item_id, ingredient_item_id, amount_needed) VALUES (8, 5, 3) ON CONFLICT DO NOTHING;
-INSERT INTO recipe (target_item_id, ingredient_item_id, amount_needed) VALUES (8, 3, 2) ON CONFLICT DO NOTHING;
-INSERT INTO recipe (target_item_id, ingredient_item_id, amount_needed) VALUES (9, 7, 2) ON CONFLICT DO NOTHING;
-INSERT INTO recipe (target_item_id, ingredient_item_id, amount_needed) VALUES (9, 3, 1) ON CONFLICT DO NOTHING;
-INSERT INTO recipe (target_item_id, ingredient_item_id, amount_needed) VALUES (20, 5, 3) ON CONFLICT DO NOTHING;
-INSERT INTO recipe (target_item_id, ingredient_item_id, amount_needed) VALUES (20, 3, 2) ON CONFLICT DO NOTHING;
-INSERT INTO recipe (target_item_id, ingredient_item_id, amount_needed) VALUES (21, 6, 1) ON CONFLICT DO NOTHING;
-INSERT INTO recipe (target_item_id, ingredient_item_id, amount_needed) VALUES (21, 3, 1) ON CONFLICT DO NOTHING;
-INSERT INTO recipe (target_item_id, ingredient_item_id, amount_needed) VALUES (24, 7, 3) ON CONFLICT DO NOTHING;
-INSERT INTO recipe (target_item_id, ingredient_item_id, amount_needed) VALUES (24, 3, 2) ON CONFLICT DO NOTHING;
-INSERT INTO recipe (target_item_id, ingredient_item_id, amount_needed) VALUES (22, 2, 4) ON CONFLICT DO NOTHING;
-INSERT INTO recipe (target_item_id, ingredient_item_id, amount_needed) VALUES (23, 12, 8) ON CONFLICT DO NOTHING;
+INSERT INTO recipe (recipe_code, target_item_id, ingredient_item_id, amount_needed) VALUES ('RCP-001', 2, 1, 1) ON CONFLICT DO NOTHING;
+INSERT INTO recipe (recipe_code, target_item_id, ingredient_item_id, amount_needed) VALUES ('RCP-002', 3, 2, 2) ON CONFLICT DO NOTHING;
+INSERT INTO recipe (recipe_code, target_item_id, ingredient_item_id, amount_needed) VALUES ('RCP-003', 16, 17, 3) ON CONFLICT DO NOTHING;
+INSERT INTO recipe (recipe_code, target_item_id, ingredient_item_id, amount_needed) VALUES ('RCP-004', 8, 5, 3) ON CONFLICT DO NOTHING;
+INSERT INTO recipe (recipe_code, target_item_id, ingredient_item_id, amount_needed) VALUES ('RCP-005', 8, 3, 2) ON CONFLICT DO NOTHING;
+INSERT INTO recipe (recipe_code, target_item_id, ingredient_item_id, amount_needed) VALUES ('RCP-006', 9, 7, 2) ON CONFLICT DO NOTHING;
+INSERT INTO recipe (recipe_code, target_item_id, ingredient_item_id, amount_needed) VALUES ('RCP-007', 9, 3, 1) ON CONFLICT DO NOTHING;
+INSERT INTO recipe (recipe_code, target_item_id, ingredient_item_id, amount_needed) VALUES ('RCP-008', 20, 5, 3) ON CONFLICT DO NOTHING;
+INSERT INTO recipe (recipe_code, target_item_id, ingredient_item_id, amount_needed) VALUES ('RCP-009', 20, 3, 2) ON CONFLICT DO NOTHING;
+INSERT INTO recipe (recipe_code, target_item_id, ingredient_item_id, amount_needed) VALUES ('RCP-010', 21, 6, 1) ON CONFLICT DO NOTHING;
+INSERT INTO recipe (recipe_code, target_item_id, ingredient_item_id, amount_needed) VALUES ('RCP-011', 21, 3, 1) ON CONFLICT DO NOTHING;
+INSERT INTO recipe (recipe_code, target_item_id, ingredient_item_id, amount_needed) VALUES ('RCP-012', 24, 7, 3) ON CONFLICT DO NOTHING;
+INSERT INTO recipe (recipe_code, target_item_id, ingredient_item_id, amount_needed) VALUES ('RCP-013', 24, 3, 2) ON CONFLICT DO NOTHING;
+INSERT INTO recipe (recipe_code, target_item_id, ingredient_item_id, amount_needed) VALUES ('RCP-014', 22, 2, 4) ON CONFLICT DO NOTHING;
+INSERT INTO recipe (recipe_code, target_item_id, ingredient_item_id, amount_needed) VALUES ('RCP-015', 23, 12, 8) ON CONFLICT DO NOTHING;
 
 -- Populating table: enchantment
-INSERT INTO enchantment (enchantment_name, max_level) VALUES ('Unbreaking', 3) ON CONFLICT DO NOTHING;
-INSERT INTO enchantment (enchantment_name, max_level) VALUES ('Sharpness', 5) ON CONFLICT DO NOTHING;
-INSERT INTO enchantment (enchantment_name, max_level) VALUES ('Fortune', 3) ON CONFLICT DO NOTHING;
-INSERT INTO enchantment (enchantment_name, max_level) VALUES ('Efficiency', 5) ON CONFLICT DO NOTHING;
-INSERT INTO enchantment (enchantment_name, max_level) VALUES ('Protection', 4) ON CONFLICT DO NOTHING;
-INSERT INTO enchantment (enchantment_name, max_level) VALUES ('Silk Touch', 1) ON CONFLICT DO NOTHING;
-INSERT INTO enchantment (enchantment_name, max_level) VALUES ('Mending', 1) ON CONFLICT DO NOTHING;
-INSERT INTO enchantment (enchantment_name, max_level) VALUES ('Fire Aspect', 2) ON CONFLICT DO NOTHING;
-INSERT INTO enchantment (enchantment_name, max_level) VALUES ('Looting', 3) ON CONFLICT DO NOTHING;
-INSERT INTO enchantment (enchantment_name, max_level) VALUES ('Knockback', 2) ON CONFLICT DO NOTHING;
-INSERT INTO enchantment (enchantment_name, max_level) VALUES ('Power', 5) ON CONFLICT DO NOTHING;
-INSERT INTO enchantment (enchantment_name, max_level) VALUES ('Punch', 2) ON CONFLICT DO NOTHING;
-INSERT INTO enchantment (enchantment_name, max_level) VALUES ('Flame', 1) ON CONFLICT DO NOTHING;
-INSERT INTO enchantment (enchantment_name, max_level) VALUES ('Infinity', 1) ON CONFLICT DO NOTHING;
-INSERT INTO enchantment (enchantment_name, max_level) VALUES ('Thorns', 3) ON CONFLICT DO NOTHING;
+INSERT INTO enchantment (enchantment_code, enchantment_name, max_level) VALUES ('ENC-001', 'Unbreaking', 3) ON CONFLICT DO NOTHING;
+INSERT INTO enchantment (enchantment_code, enchantment_name, max_level) VALUES ('ENC-002', 'Sharpness', 5) ON CONFLICT DO NOTHING;
+INSERT INTO enchantment (enchantment_code, enchantment_name, max_level) VALUES ('ENC-003', 'Fortune', 3) ON CONFLICT DO NOTHING;
+INSERT INTO enchantment (enchantment_code, enchantment_name, max_level) VALUES ('ENC-004', 'Efficiency', 5) ON CONFLICT DO NOTHING;
+INSERT INTO enchantment (enchantment_code, enchantment_name, max_level) VALUES ('ENC-005', 'Protection', 4) ON CONFLICT DO NOTHING;
+INSERT INTO enchantment (enchantment_code, enchantment_name, max_level) VALUES ('ENC-006', 'Silk Touch', 1) ON CONFLICT DO NOTHING;
+INSERT INTO enchantment (enchantment_code, enchantment_name, max_level) VALUES ('ENC-007', 'Mending', 1) ON CONFLICT DO NOTHING;
+INSERT INTO enchantment (enchantment_code, enchantment_name, max_level) VALUES ('ENC-008', 'Fire Aspect', 2) ON CONFLICT DO NOTHING;
+INSERT INTO enchantment (enchantment_code, enchantment_name, max_level) VALUES ('ENC-009', 'Looting', 3) ON CONFLICT DO NOTHING;
+INSERT INTO enchantment (enchantment_code, enchantment_name, max_level) VALUES ('ENC-010', 'Knockback', 2) ON CONFLICT DO NOTHING;
+INSERT INTO enchantment (enchantment_code, enchantment_name, max_level) VALUES ('ENC-011', 'Power', 5) ON CONFLICT DO NOTHING;
+INSERT INTO enchantment (enchantment_code, enchantment_name, max_level) VALUES ('ENC-012', 'Punch', 2) ON CONFLICT DO NOTHING;
+INSERT INTO enchantment (enchantment_code, enchantment_name, max_level) VALUES ('ENC-013', 'Flame', 1) ON CONFLICT DO NOTHING;
+INSERT INTO enchantment (enchantment_code, enchantment_name, max_level) VALUES ('ENC-014', 'Infinity', 1) ON CONFLICT DO NOTHING;
+INSERT INTO enchantment (enchantment_code, enchantment_name, max_level) VALUES ('ENC-015', 'Thorns', 3) ON CONFLICT DO NOTHING;
 
 -- Populating table: player
-INSERT INTO player (username, current_xp_level, health_points) VALUES ('Steve', 30, 20) ON CONFLICT DO NOTHING;
-INSERT INTO player (username, current_xp_level, health_points) VALUES ('Alex', 15, 20) ON CONFLICT DO NOTHING;
-INSERT INTO player (username, current_xp_level, health_points) VALUES ('Herobrine', 99, 20) ON CONFLICT DO NOTHING;
-INSERT INTO player (username, current_xp_level, health_points) VALUES ('Notch', 50, 20) ON CONFLICT DO NOTHING;
-INSERT INTO player (username, current_xp_level, health_points) VALUES ('Jeb_', 40, 20) ON CONFLICT DO NOTHING;
-INSERT INTO player (username, current_xp_level, health_points) VALUES ('Dream', 25, 20) ON CONFLICT DO NOTHING;
-INSERT INTO player (username, current_xp_level, health_points) VALUES ('Technoblade', 80, 20) ON CONFLICT DO NOTHING;
-INSERT INTO player (username, current_xp_level, health_points) VALUES ('DanTDM', 12, 20) ON CONFLICT DO NOTHING;
-INSERT INTO player (username, current_xp_level, health_points) VALUES ('CaptainSparklez', 45, 20) ON CONFLICT DO NOTHING;
-INSERT INTO player (username, current_xp_level, health_points) VALUES ('Stampy', 22, 20) ON CONFLICT DO NOTHING;
-INSERT INTO player (username, current_xp_level, health_points) VALUES ('MumboJumbo', 60, 20) ON CONFLICT DO NOTHING;
-INSERT INTO player (username, current_xp_level, health_points) VALUES ('Grian', 18, 20) ON CONFLICT DO NOTHING;
-INSERT INTO player (username, current_xp_level, health_points) VALUES ('TommyInnit', 5, 20) ON CONFLICT DO NOTHING;
-INSERT INTO player (username, current_xp_level, health_points) VALUES ('WilburSoot', 14, 20) ON CONFLICT DO NOTHING;
-INSERT INTO player (username, current_xp_level, health_points) VALUES ('Philza', 65, 20) ON CONFLICT DO NOTHING;
+INSERT INTO player (player_code, username, current_xp_level, health_points) VALUES ('PLR-001', 'Steve', 30, 20) ON CONFLICT DO NOTHING;
+INSERT INTO player (player_code, username, current_xp_level, health_points) VALUES ('PLR-002', 'Alex', 15, 20) ON CONFLICT DO NOTHING;
+INSERT INTO player (player_code, username, current_xp_level, health_points) VALUES ('PLR-003', 'Herobrine', 99, 20) ON CONFLICT DO NOTHING;
+INSERT INTO player (player_code, username, current_xp_level, health_points) VALUES ('PLR-004', 'Notch', 50, 20) ON CONFLICT DO NOTHING;
+INSERT INTO player (player_code, username, current_xp_level, health_points) VALUES ('PLR-005', 'Jeb_', 40, 20) ON CONFLICT DO NOTHING;
+INSERT INTO player (player_code, username, current_xp_level, health_points) VALUES ('PLR-006', 'Dream', 25, 20) ON CONFLICT DO NOTHING;
+INSERT INTO player (player_code, username, current_xp_level, health_points) VALUES ('PLR-007', 'Technoblade', 80, 20) ON CONFLICT DO NOTHING;
+INSERT INTO player (player_code, username, current_xp_level, health_points) VALUES ('PLR-008', 'DanTDM', 12, 20) ON CONFLICT DO NOTHING;
+INSERT INTO player (player_code, username, current_xp_level, health_points) VALUES ('PLR-009', 'CaptainSparklez', 45, 20) ON CONFLICT DO NOTHING;
+INSERT INTO player (player_code, username, current_xp_level, health_points) VALUES ('PLR-010', 'Stampy', 22, 20) ON CONFLICT DO NOTHING;
+INSERT INTO player (player_code, username, current_xp_level, health_points) VALUES ('PLR-011', 'MumboJumbo', 60, 20) ON CONFLICT DO NOTHING;
+INSERT INTO player (player_code, username, current_xp_level, health_points) VALUES ('PLR-012', 'Grian', 18, 20) ON CONFLICT DO NOTHING;
+INSERT INTO player (player_code, username, current_xp_level, health_points) VALUES ('PLR-013', 'TommyInnit', 5, 20) ON CONFLICT DO NOTHING;
+INSERT INTO player (player_code, username, current_xp_level, health_points) VALUES ('PLR-014', 'WilburSoot', 14, 20) ON CONFLICT DO NOTHING;
+INSERT INTO player (player_code, username, current_xp_level, health_points) VALUES ('PLR-015', 'Philza', 65, 20) ON CONFLICT DO NOTHING;
 
 -- Populating table: chest
-INSERT INTO chest (x_coordinates, y_coordinates, z_coordinates, dimension) VALUES (100, 64, 250, 'Overworld') ON CONFLICT DO NOTHING;
-INSERT INTO chest (x_coordinates, y_coordinates, z_coordinates, dimension) VALUES (101, 64, 250, 'Overworld') ON CONFLICT DO NOTHING;
-INSERT INTO chest (x_coordinates, y_coordinates, z_coordinates, dimension) VALUES (102, 64, 250, 'Overworld') ON CONFLICT DO NOTHING;
-INSERT INTO chest (x_coordinates, y_coordinates, z_coordinates, dimension) VALUES (15, 40, -50, 'Nether') ON CONFLICT DO NOTHING;
-INSERT INTO chest (x_coordinates, y_coordinates, z_coordinates, dimension) VALUES (16, 40, -50, 'Nether') ON CONFLICT DO NOTHING;
-INSERT INTO chest (x_coordinates, y_coordinates, z_coordinates, dimension) VALUES (200, 70, 300, 'Overworld') ON CONFLICT DO NOTHING;
-INSERT INTO chest (x_coordinates, y_coordinates, z_coordinates, dimension) VALUES (-500, 64, -500, 'Overworld') ON CONFLICT DO NOTHING;
-INSERT INTO chest (x_coordinates, y_coordinates, z_coordinates, dimension) VALUES (0, 120, 0, 'The End') ON CONFLICT DO NOTHING;
-INSERT INTO chest (x_coordinates, y_coordinates, z_coordinates, dimension) VALUES (10, 30, 10, 'Overworld') ON CONFLICT DO NOTHING;
-INSERT INTO chest (x_coordinates, y_coordinates, z_coordinates, dimension) VALUES (11, 30, 10, 'Overworld') ON CONFLICT DO NOTHING;
-INSERT INTO chest (x_coordinates, y_coordinates, z_coordinates, dimension) VALUES (-100, 64, 800, 'Overworld') ON CONFLICT DO NOTHING;
-INSERT INTO chest (x_coordinates, y_coordinates, z_coordinates, dimension) VALUES (50, 50, 50, 'Nether') ON CONFLICT DO NOTHING;
-INSERT INTO chest (x_coordinates, y_coordinates, z_coordinates, dimension) VALUES (20, 64, 20, 'Overworld') ON CONFLICT DO NOTHING;
-INSERT INTO chest (x_coordinates, y_coordinates, z_coordinates, dimension) VALUES (21, 64, 20, 'Overworld') ON CONFLICT DO NOTHING;
-INSERT INTO chest (x_coordinates, y_coordinates, z_coordinates, dimension) VALUES (22, 64, 20, 'Overworld') ON CONFLICT DO NOTHING;
+INSERT INTO chest (chest_code, x_coordinates, y_coordinates, z_coordinates, dimension) VALUES ('CST-001', 100, 64, 250, 'Overworld') ON CONFLICT DO NOTHING;
+INSERT INTO chest (chest_code, x_coordinates, y_coordinates, z_coordinates, dimension) VALUES ('CST-002', -500, 64, -500, 'Overworld') ON CONFLICT DO NOTHING;
+INSERT INTO chest (chest_code, x_coordinates, y_coordinates, z_coordinates, dimension) VALUES ('CST-003', 15, 40, -50, 'Nether') ON CONFLICT DO NOTHING;
+INSERT INTO chest (chest_code, x_coordinates, y_coordinates, z_coordinates, dimension) VALUES ('CST-004', 50, 50, 50, 'Nether') ON CONFLICT DO NOTHING;
+INSERT INTO chest (chest_code, x_coordinates, y_coordinates, z_coordinates, dimension) VALUES ('CST-005', 0, 120, 0, 'The End') ON CONFLICT DO NOTHING;
 
 -- Populating table: villager
-INSERT INTO villager (villager_name, profession, biome_type) VALUES ('Bob', 'Cleric', 'Plains') ON CONFLICT DO NOTHING;
-INSERT INTO villager (villager_name, profession, biome_type) VALUES ('Testificate', 'Weaponsmith', 'Taiga') ON CONFLICT DO NOTHING;
-INSERT INTO villager (villager_name, profession, biome_type) VALUES ('Dan', 'Fletcher', 'Desert') ON CONFLICT DO NOTHING;
-INSERT INTO villager (villager_name, profession, biome_type) VALUES ('Gary', 'Farmer', 'Savanna') ON CONFLICT DO NOTHING;
-INSERT INTO villager (villager_name, profession, biome_type) VALUES ('Larry', 'Librarian', 'Plains') ON CONFLICT DO NOTHING;
-INSERT INTO villager (villager_name, profession, biome_type) VALUES ('Gerry', 'Armorer', 'Snowy Tundra') ON CONFLICT DO NOTHING;
-INSERT INTO villager (villager_name, profession, biome_type) VALUES ('Terry', 'Toolsmith', 'Desert') ON CONFLICT DO NOTHING;
-INSERT INTO villager (villager_name, profession, biome_type) VALUES ('Barry', 'Butcher', 'Taiga') ON CONFLICT DO NOTHING;
-INSERT INTO villager (villager_name, profession, biome_type) VALUES ('Mary', 'Leatherworker', 'Swamp') ON CONFLICT DO NOTHING;
-INSERT INTO villager (villager_name, profession, biome_type) VALUES ('Harry', 'Mason', 'Plains') ON CONFLICT DO NOTHING;
-INSERT INTO villager (villager_name, profession, biome_type) VALUES ('Jerry', 'Shepherd', 'Savanna') ON CONFLICT DO NOTHING;
-INSERT INTO villager (villager_name, profession, biome_type) VALUES ('Perry', 'Cartographer', 'Desert') ON CONFLICT DO NOTHING;
-INSERT INTO villager (villager_name, profession, biome_type) VALUES ('Tom', 'Cleric', 'Snowy Tundra') ON CONFLICT DO NOTHING;
-INSERT INTO villager (villager_name, profession, biome_type) VALUES ('Dick', 'Farmer', 'Plains') ON CONFLICT DO NOTHING;
-INSERT INTO villager (villager_name, profession, biome_type) VALUES ('Jane', 'Librarian', 'Taiga') ON CONFLICT DO NOTHING;
+INSERT INTO villager (villager_code, villager_name, profession, biome_type) VALUES ('VIL-001', 'Bob', 'Cleric', 'Plains') ON CONFLICT DO NOTHING;
+INSERT INTO villager (villager_code, villager_name, profession, biome_type) VALUES ('VIL-002', 'Testificate', 'Weaponsmith', 'Taiga') ON CONFLICT DO NOTHING;
+INSERT INTO villager (villager_code, villager_name, profession, biome_type) VALUES ('VIL-003', 'Dan', 'Fletcher', 'Desert') ON CONFLICT DO NOTHING;
+INSERT INTO villager (villager_code, villager_name, profession, biome_type) VALUES ('VIL-004', 'Gary', 'Farmer', 'Savanna') ON CONFLICT DO NOTHING;
+INSERT INTO villager (villager_code, villager_name, profession, biome_type) VALUES ('VIL-005', 'Larry', 'Librarian', 'Plains') ON CONFLICT DO NOTHING;
+INSERT INTO villager (villager_code, villager_name, profession, biome_type) VALUES ('VIL-006', 'Gerry', 'Armorer', 'Snowy Tundra') ON CONFLICT DO NOTHING;
+INSERT INTO villager (villager_code, villager_name, profession, biome_type) VALUES ('VIL-007', 'Terry', 'Toolsmith', 'Desert') ON CONFLICT DO NOTHING;
+INSERT INTO villager (villager_code, villager_name, profession, biome_type) VALUES ('VIL-008', 'Barry', 'Butcher', 'Taiga') ON CONFLICT DO NOTHING;
+INSERT INTO villager (villager_code, villager_name, profession, biome_type) VALUES ('VIL-009', 'Mary', 'Leatherworker', 'Swamp') ON CONFLICT DO NOTHING;
+INSERT INTO villager (villager_code, villager_name, profession, biome_type) VALUES ('VIL-010', 'Harry', 'Mason', 'Plains') ON CONFLICT DO NOTHING;
+INSERT INTO villager (villager_code, villager_name, profession, biome_type) VALUES ('VIL-011', 'Jerry', 'Shepherd', 'Savanna') ON CONFLICT DO NOTHING;
+INSERT INTO villager (villager_code, villager_name, profession, biome_type) VALUES ('VIL-012', 'Perry', 'Cartographer', 'Desert') ON CONFLICT DO NOTHING;
+INSERT INTO villager (villager_code, villager_name, profession, biome_type) VALUES ('VIL-013', 'Tom', 'Cleric', 'Snowy Tundra') ON CONFLICT DO NOTHING;
+INSERT INTO villager (villager_code, villager_name, profession, biome_type) VALUES ('VIL-014', 'Dick', 'Farmer', 'Plains') ON CONFLICT DO NOTHING;
+INSERT INTO villager (villager_code, villager_name, profession, biome_type) VALUES ('VIL-015', 'Jane', 'Librarian', 'Taiga') ON CONFLICT DO NOTHING;
 
 -- Muhammad Asad Aziz 67070503472
 -- Populating table: transfer
-INSERT INTO transfer (transfer_date, player_id, source_chest_id, destination_chest_id) VALUES ('2024-05-14 20:10:00', 1, null, 1) ON CONFLICT DO NOTHING;
-INSERT INTO transfer (transfer_date, player_id, source_chest_id, destination_chest_id) VALUES ('2024-06-25 21:15:30', 2, 1, 2) ON CONFLICT DO NOTHING;
-INSERT INTO transfer (transfer_date, player_id, source_chest_id, destination_chest_id) VALUES ('2024-08-11 22:45:12', 3, null, 3) ON CONFLICT DO NOTHING;
-INSERT INTO transfer (transfer_date, player_id, source_chest_id, destination_chest_id) VALUES ('2024-11-06 23:20:05', 4, 3, 4) ON CONFLICT DO NOTHING;
-INSERT INTO transfer (transfer_date, player_id, source_chest_id, destination_chest_id) VALUES ('2025-01-20 08:05:55', 5, null, 5) ON CONFLICT DO NOTHING;
-INSERT INTO transfer (transfer_date, player_id, source_chest_id, destination_chest_id) VALUES ('2025-03-15 09:30:40', 6, 5, 6) ON CONFLICT DO NOTHING;
-INSERT INTO transfer (transfer_date, player_id, source_chest_id, destination_chest_id) VALUES ('2025-06-01 10:11:11', 7, null, 7) ON CONFLICT DO NOTHING;
-INSERT INTO transfer (transfer_date, player_id, source_chest_id, destination_chest_id) VALUES ('2025-07-15 11:40:20', 8, 7, 8) ON CONFLICT DO NOTHING;
-INSERT INTO transfer (transfer_date, player_id, source_chest_id, destination_chest_id) VALUES ('2025-09-05 12:55:34', 9, null, 9) ON CONFLICT DO NOTHING;
-INSERT INTO transfer (transfer_date, player_id, source_chest_id, destination_chest_id) VALUES ('2025-10-20 13:25:50', 10, 9, 10) ON CONFLICT DO NOTHING;
-INSERT INTO transfer (transfer_date, player_id, source_chest_id, destination_chest_id) VALUES ('2025-12-28 14:00:15', 11, null, 11) ON CONFLICT DO NOTHING;
-INSERT INTO transfer (transfer_date, player_id, source_chest_id, destination_chest_id) VALUES ('2026-01-15 15:18:44', 12, 11, 12) ON CONFLICT DO NOTHING;
-INSERT INTO transfer (transfer_date, player_id, source_chest_id, destination_chest_id) VALUES ('2026-02-08 16:33:21', 13, null, 13) ON CONFLICT DO NOTHING;
-INSERT INTO transfer (transfer_date, player_id, source_chest_id, destination_chest_id) VALUES ('2026-02-22 17:10:09', 14, 13, 14) ON CONFLICT DO NOTHING;
-INSERT INTO transfer (transfer_date, player_id, source_chest_id, destination_chest_id) VALUES ('2026-03-22 18:05:01', 15, null, 15) ON CONFLICT DO NOTHING;
+INSERT INTO transfer (transfer_code, transfer_date, player_id, source_chest_id, destination_chest_id) VALUES ('TRN-0001', '2024-05-14 20:10:00', 1, null, 1) ON CONFLICT DO NOTHING;
+INSERT INTO transfer (transfer_code, transfer_date, player_id, source_chest_id, destination_chest_id) VALUES ('TRN-0002', '2024-06-25 21:15:30', 2, 1, 2) ON CONFLICT DO NOTHING;
+INSERT INTO transfer (transfer_code, transfer_date, player_id, source_chest_id, destination_chest_id) VALUES ('TRN-0003', '2024-08-11 22:45:12', 3, null, 3) ON CONFLICT DO NOTHING;
+INSERT INTO transfer (transfer_code, transfer_date, player_id, source_chest_id, destination_chest_id) VALUES ('TRN-0004', '2024-11-06 23:20:05', 4, 3, 4) ON CONFLICT DO NOTHING;
+INSERT INTO transfer (transfer_code, transfer_date, player_id, source_chest_id, destination_chest_id) VALUES ('TRN-0005', '2025-01-20 08:05:55', 5, null, 5) ON CONFLICT DO NOTHING;
+INSERT INTO transfer (transfer_code, transfer_date, player_id, source_chest_id, destination_chest_id) VALUES ('TRN-0006', '2025-03-15 09:30:40', 6, 5, 1) ON CONFLICT DO NOTHING;
+INSERT INTO transfer (transfer_code, transfer_date, player_id, source_chest_id, destination_chest_id) VALUES ('TRN-0007', '2025-06-01 10:11:11', 7, null, 2) ON CONFLICT DO NOTHING;
+INSERT INTO transfer (transfer_code, transfer_date, player_id, source_chest_id, destination_chest_id) VALUES ('TRN-0008', '2025-07-15 11:40:20', 8, 2, 3) ON CONFLICT DO NOTHING;
+INSERT INTO transfer (transfer_code, transfer_date, player_id, source_chest_id, destination_chest_id) VALUES ('TRN-0009', '2025-09-05 12:55:34', 9, null, 4) ON CONFLICT DO NOTHING;
+INSERT INTO transfer (transfer_code, transfer_date, player_id, source_chest_id, destination_chest_id) VALUES ('TRN-0010', '2025-10-20 13:25:50', 10, 4, 5) ON CONFLICT DO NOTHING;
+INSERT INTO transfer (transfer_code, transfer_date, player_id, source_chest_id, destination_chest_id) VALUES ('TRN-0011', '2025-12-28 14:00:15', 11, null, 1) ON CONFLICT DO NOTHING;
+INSERT INTO transfer (transfer_code, transfer_date, player_id, source_chest_id, destination_chest_id) VALUES ('TRN-0012', '2026-01-15 15:18:44', 12, 1, 2) ON CONFLICT DO NOTHING;
+INSERT INTO transfer (transfer_code, transfer_date, player_id, source_chest_id, destination_chest_id) VALUES ('TRN-0013', '2026-02-08 16:33:21', 13, null, 3) ON CONFLICT DO NOTHING;
+INSERT INTO transfer (transfer_code, transfer_date, player_id, source_chest_id, destination_chest_id) VALUES ('TRN-0014', '2026-02-22 17:10:09', 14, 3, 4) ON CONFLICT DO NOTHING;
+INSERT INTO transfer (transfer_code, transfer_date, player_id, source_chest_id, destination_chest_id) VALUES ('TRN-0015', '2026-03-22 18:05:01', 15, null, 5) ON CONFLICT DO NOTHING;
+INSERT INTO transfer (transfer_code, transfer_date, player_id, source_chest_id, destination_chest_id) VALUES ('TRN-0016', '2026-05-20 12:00:00', 6, null, 3) ON CONFLICT DO NOTHING;
 
 -- Supanut Sopha 67070503441
 -- Populating crafting table
-INSERT INTO crafting (crafting_date, session_id, player_id, target_item_id, qty_wanted) VALUES ('2026-03-22 18:05:01', 1, 1, null, 1) ON CONFLICT DO NOTHING;
-INSERT INTO crafting (crafting_date, session_id, player_id, target_item_id, qty_wanted) VALUES ('2026-03-22 18:15:01', 2, 2, null, 2) ON CONFLICT DO NOTHING;
-INSERT INTO crafting (crafting_date, session_id, player_id, target_item_id, qty_wanted) VALUES ('2026-03-22 18:25:01', 3, 3, null, 3) ON CONFLICT DO NOTHING;
-INSERT INTO crafting (crafting_date, session_id, player_id, target_item_id, qty_wanted) VALUES ('2026-03-22 18:35:01', 4, 4, null, 4) ON CONFLICT DO NOTHING;
-INSERT INTO crafting (crafting_date, session_id, player_id, target_item_id, qty_wanted) VALUES ('2026-03-22 18:45:01', 5, 5, null, 5) ON CONFLICT DO NOTHING;
-INSERT INTO crafting (crafting_date, session_id, player_id, target_item_id, qty_wanted) VALUES ('2026-03-22 18:55:01', 6, 6, null, 6) ON CONFLICT DO NOTHING;
-INSERT INTO crafting (crafting_date, session_id, player_id, target_item_id, qty_wanted) VALUES ('2026-03-22 19:05:01', 7, 7, null, 7) ON CONFLICT DO NOTHING;
-INSERT INTO crafting (crafting_date, session_id, player_id, target_item_id, qty_wanted) VALUES ('2026-03-22 19:15:01', 8, 8, null, 8) ON CONFLICT DO NOTHING;
-INSERT INTO crafting (crafting_date, session_id, player_id, target_item_id, qty_wanted) VALUES ('2026-03-22 19:25:01', 9, 9, null, 9) ON CONFLICT DO NOTHING;
-INSERT INTO crafting (crafting_date, session_id, player_id, target_item_id, qty_wanted) VALUES ('2026-03-22 19:35:01', 10, 10, null, 10) ON CONFLICT DO NOTHING;
-INSERT INTO crafting (crafting_date, session_id, player_id, target_item_id, qty_wanted) VALUES ('2026-03-22 19:45:01', 11, 11, null, 11) ON CONFLICT DO NOTHING;
-INSERT INTO crafting (crafting_date, session_id, player_id, target_item_id, qty_wanted) VALUES ('2026-03-22 19:55:01', 12, 12, null, 12) ON CONFLICT DO NOTHING;
-INSERT INTO crafting (crafting_date, session_id, player_id, target_item_id, qty_wanted) VALUES ('2026-03-22 20:05:01', 13, 13, null, 13) ON CONFLICT DO NOTHING;
-INSERT INTO crafting (crafting_date, session_id, player_id, target_item_id, qty_wanted) VALUES ('2026-03-22 20:15:01', 14, 14, null, 14) ON CONFLICT DO NOTHING;
-INSERT INTO crafting (crafting_date, session_id, player_id, target_item_id, qty_wanted) VALUES ('2026-03-22 20:25:01', 15, 15, null, 15) ON CONFLICT DO NOTHING;
+INSERT INTO crafting (crafting_code, session_id, crafting_date, player_id, target_item_id, qty_wanted) VALUES ('CRA-001', 1, '2024-05-14 08:30:15', 1, 8, 1) ON CONFLICT DO NOTHING;
+INSERT INTO crafting (crafting_code, session_id, crafting_date, player_id, target_item_id, qty_wanted) VALUES ('CRA-002', 2, '2024-06-22 14:45:01', 2, 9, 1) ON CONFLICT DO NOTHING;
+INSERT INTO crafting (crafting_code, session_id, crafting_date, player_id, target_item_id, qty_wanted) VALUES ('CRA-003', 3, '2024-08-10 19:22:33', 3, 21, 4) ON CONFLICT DO NOTHING;
+INSERT INTO crafting (crafting_code, session_id, crafting_date, player_id, target_item_id, qty_wanted) VALUES ('CRA-004', 4, '2024-11-05 02:11:45', 4, 24, 1) ON CONFLICT DO NOTHING;
+INSERT INTO crafting (crafting_code, session_id, crafting_date, player_id, target_item_id, qty_wanted) VALUES ('CRA-005', 5, '2025-01-18 10:05:30', 5, 20, 1) ON CONFLICT DO NOTHING;
+INSERT INTO crafting (crafting_code, session_id, crafting_date, player_id, target_item_id, qty_wanted) VALUES ('CRA-006', 6, '2025-03-09 16:20:10', 6, 2, 8) ON CONFLICT DO NOTHING;
+INSERT INTO crafting (crafting_code, session_id, crafting_date, player_id, target_item_id, qty_wanted) VALUES ('CRA-007', 7, '2025-05-30 11:15:00', 7, 16, 5) ON CONFLICT DO NOTHING;
+INSERT INTO crafting (crafting_code, session_id, crafting_date, player_id, target_item_id, qty_wanted) VALUES ('CRA-008', 8, '2025-07-12 09:33:44', 8, 3, 4) ON CONFLICT DO NOTHING;
+INSERT INTO crafting (crafting_code, session_id, crafting_date, player_id, target_item_id, qty_wanted) VALUES ('CRA-009', 9, '2025-09-01 20:41:05', 9, 8, 2) ON CONFLICT DO NOTHING;
+INSERT INTO crafting (crafting_code, session_id, crafting_date, player_id, target_item_id, qty_wanted) VALUES ('CRA-010', 10, '2025-10-15 13:55:22', 10, 9, 1) ON CONFLICT DO NOTHING;
+INSERT INTO crafting (crafting_code, session_id, crafting_date, player_id, target_item_id, qty_wanted) VALUES ('CRA-011', 11, '2025-12-25 08:00:00', 11, 22, 1) ON CONFLICT DO NOTHING;
+INSERT INTO crafting (crafting_code, session_id, crafting_date, player_id, target_item_id, qty_wanted) VALUES ('CRA-012', 12, '2026-01-10 18:24:39', 12, 23, 1) ON CONFLICT DO NOTHING;
+INSERT INTO crafting (crafting_code, session_id, crafting_date, player_id, target_item_id, qty_wanted) VALUES ('CRA-013', 13, '2026-02-04 15:40:12', 13, 16, 10) ON CONFLICT DO NOTHING;
+INSERT INTO crafting (crafting_code, session_id, crafting_date, player_id, target_item_id, qty_wanted) VALUES ('CRA-014', 14, '2026-02-18 21:19:55', 14, 24, 1) ON CONFLICT DO NOTHING;
+INSERT INTO crafting (crafting_code, session_id, crafting_date, player_id, target_item_id, qty_wanted) VALUES ('CRA-015', 15, '2026-03-20 12:30:45', 15, 21, 8) ON CONFLICT DO NOTHING;
 
 -- Maimoona Aziz 67070503473
 -- Populating Anvil 
-INSERT INTO anvil (id, anvil_date, player_id, total_xp_cost, player_xp_before, player_xp_after) VALUES (1, '2024-05-16 11:30:15', 1, 5, 30, 25) ON CONFLICT DO NOTHING;
-INSERT INTO anvil (id, anvil_date, player_id, total_xp_cost, player_xp_before, player_xp_after) VALUES (2, '2024-06-27 15:45:01', 2, 3, 15, 12) ON CONFLICT DO NOTHING;
-INSERT INTO anvil (id, anvil_date, player_id, total_xp_cost, player_xp_before, player_xp_after) VALUES (3, '2024-08-14 20:22:33', 3, 10, 99, 89) ON CONFLICT DO NOTHING;
-INSERT INTO anvil (id, anvil_date, player_id, total_xp_cost, player_xp_before, player_xp_after) VALUES (4, '2024-11-09 03:11:45', 4, 4, 50, 46) ON CONFLICT DO NOTHING;
-INSERT INTO anvil (id, anvil_date, player_id, total_xp_cost, player_xp_before, player_xp_after) VALUES (5, '2025-01-22 11:05:30', 5, 2, 40, 38) ON CONFLICT DO NOTHING;
-INSERT INTO anvil (id, anvil_date, player_id, total_xp_cost, player_xp_before, player_xp_after) VALUES (6, '2025-03-12 17:20:10', 6, 7, 25, 18) ON CONFLICT DO NOTHING;
-INSERT INTO anvil (id, anvil_date, player_id, total_xp_cost, player_xp_before, player_xp_after) VALUES (7, '2025-06-03 12:15:00', 7, 6, 80, 74) ON CONFLICT DO NOTHING;
-INSERT INTO anvil (id, anvil_date, player_id, total_xp_cost, player_xp_before, player_xp_after) VALUES (8, '2025-07-18 10:33:44', 8, 1, 12, 11) ON CONFLICT DO NOTHING;
-INSERT INTO anvil (id, anvil_date, player_id, total_xp_cost, player_xp_before, player_xp_after) VALUES (9, '2025-09-08 21:41:05', 9, 8, 45, 37) ON CONFLICT DO NOTHING;
-INSERT INTO anvil (id, anvil_date, player_id, total_xp_cost, player_xp_before, player_xp_after) VALUES (10, '2025-10-23 14:55:22', 10, 5, 22, 17) ON CONFLICT DO NOTHING;
-INSERT INTO anvil (id, anvil_date, player_id, total_xp_cost, player_xp_before, player_xp_after) VALUES (11, '2025-12-31 09:00:00', 11, 9, 60, 51) ON CONFLICT DO NOTHING;
-INSERT INTO anvil (id, anvil_date, player_id, total_xp_cost, player_xp_before, player_xp_after) VALUES (12, '2026-01-16 19:24:39', 12, 3, 18, 15) ON CONFLICT DO NOTHING;
-INSERT INTO anvil (id, anvil_date, player_id, total_xp_cost, player_xp_before, player_xp_after) VALUES (13, '2026-02-10 16:40:12', 13, 2, 5, 3) ON CONFLICT DO NOTHING;
-INSERT INTO anvil (id, anvil_date, player_id, total_xp_cost, player_xp_before, player_xp_after) VALUES (14, '2026-02-24 22:19:55', 14, 4, 14, 10) ON CONFLICT DO NOTHING;
-INSERT INTO anvil (id, anvil_date, player_id, total_xp_cost, player_xp_before, player_xp_after) VALUES (15, '2026-03-24 13:30:45', 15, 12, 65, 53) ON CONFLICT DO NOTHING;
+INSERT INTO anvil (id, anvil_code, anvil_date, player_id, total_xp_cost, player_xp_before, player_xp_after) VALUES (1, 'ANV-0001', '2024-05-16 11:30:15', 1, 5, 30, 25) ON CONFLICT DO NOTHING;
+INSERT INTO anvil (id, anvil_code, anvil_date, player_id, total_xp_cost, player_xp_before, player_xp_after) VALUES (2, 'ANV-0002', '2024-06-27 15:45:01', 2, 3, 15, 12) ON CONFLICT DO NOTHING;
+INSERT INTO anvil (id, anvil_code, anvil_date, player_id, total_xp_cost, player_xp_before, player_xp_after) VALUES (3, 'ANV-0003', '2024-08-14 20:22:33', 3, 10, 99, 89) ON CONFLICT DO NOTHING;
+INSERT INTO anvil (id, anvil_code, anvil_date, player_id, total_xp_cost, player_xp_before, player_xp_after) VALUES (4, 'ANV-0004', '2024-11-09 03:11:45', 4, 4, 50, 46) ON CONFLICT DO NOTHING;
+INSERT INTO anvil (id, anvil_code, anvil_date, player_id, total_xp_cost, player_xp_before, player_xp_after) VALUES (5, 'ANV-0005', '2025-01-22 11:05:30', 5, 2, 40, 38) ON CONFLICT DO NOTHING;
+INSERT INTO anvil (id, anvil_code, anvil_date, player_id, total_xp_cost, player_xp_before, player_xp_after) VALUES (6, 'ANV-0006', '2025-03-12 17:20:10', 6, 7, 25, 18) ON CONFLICT DO NOTHING;
+INSERT INTO anvil (id, anvil_code, anvil_date, player_id, total_xp_cost, player_xp_before, player_xp_after) VALUES (7, 'ANV-0007', '2025-06-03 12:15:00', 7, 6, 80, 74) ON CONFLICT DO NOTHING;
+INSERT INTO anvil (id, anvil_code, anvil_date, player_id, total_xp_cost, player_xp_before, player_xp_after) VALUES (8, 'ANV-0008', '2025-07-18 10:33:44', 8, 1, 12, 11) ON CONFLICT DO NOTHING;
+INSERT INTO anvil (id, anvil_code, anvil_date, player_id, total_xp_cost, player_xp_before, player_xp_after) VALUES (9, 'ANV-0009', '2025-09-08 21:41:05', 9, 8, 45, 37) ON CONFLICT DO NOTHING;
+INSERT INTO anvil (id, anvil_code, anvil_date, player_id, total_xp_cost, player_xp_before, player_xp_after) VALUES (10, 'ANV-0010', '2025-10-23 14:55:22', 10, 5, 22, 17) ON CONFLICT DO NOTHING;
+INSERT INTO anvil (id, anvil_code, anvil_date, player_id, total_xp_cost, player_xp_before, player_xp_after) VALUES (11, 'ANV-0011', '2025-12-31 09:00:00', 11, 9, 60, 51) ON CONFLICT DO NOTHING;
+INSERT INTO anvil (id, anvil_code, anvil_date, player_id, total_xp_cost, player_xp_before, player_xp_after) VALUES (12, 'ANV-0012', '2026-01-16 19:24:39', 12, 3, 18, 15) ON CONFLICT DO NOTHING;
+INSERT INTO anvil (id, anvil_code, anvil_date, player_id, total_xp_cost, player_xp_before, player_xp_after) VALUES (13, 'ANV-0013', '2026-02-10 16:40:12', 13, 2, 5, 3) ON CONFLICT DO NOTHING;
+INSERT INTO anvil (id, anvil_code, anvil_date, player_id, total_xp_cost, player_xp_before, player_xp_after) VALUES (14, 'ANV-0014', '2026-02-24 22:19:55', 14, 4, 14, 10) ON CONFLICT DO NOTHING;
+INSERT INTO anvil (id, anvil_code, anvil_date, player_id, total_xp_cost, player_xp_before, player_xp_after) VALUES (15, 'ANV-0015', '2026-03-24 13:30:45', 15, 12, 65, 53) ON CONFLICT DO NOTHING;
 
 --Al Xander James Ybanez 67070503450
 -- Populating smelting table
-INSERT INTO smelting (id, smelt_date, player_id, furnace_location_xyz) OVERRIDING SYSTEM VALUE VALUES (1, '2024-05-14 09:10:00', 1, '100,64,250');
-INSERT INTO smelting (id, smelt_date, player_id, furnace_location_xyz) OVERRIDING SYSTEM VALUE VALUES (2, '2024-06-25 10:15:30', 2, '100,64,251');
-INSERT INTO smelting (id, smelt_date, player_id, furnace_location_xyz) OVERRIDING SYSTEM VALUE VALUES (3, '2024-08-11 08:45:12', 3, '100,64,252');
-INSERT INTO smelting (id, smelt_date, player_id, furnace_location_xyz) OVERRIDING SYSTEM VALUE VALUES (4, '2024-11-06 14:20:05', 4, '15,40,-50');
-INSERT INTO smelting (id, smelt_date, player_id, furnace_location_xyz) OVERRIDING SYSTEM VALUE VALUES (5, '2025-01-20 18:05:55', 5, '16,40,-50');
-INSERT INTO smelting (id, smelt_date, player_id, furnace_location_xyz) OVERRIDING SYSTEM VALUE VALUES (6, '2025-03-15 22:30:40', 6, '200,70,300');
-INSERT INTO smelting (id, smelt_date, player_id, furnace_location_xyz) OVERRIDING SYSTEM VALUE VALUES (7, '2025-06-01 07:11:11', 7, '-500,64,-500');
-INSERT INTO smelting (id, smelt_date, player_id, furnace_location_xyz) OVERRIDING SYSTEM VALUE VALUES (8, '2025-07-15 13:40:20', 8, '0,120,0');
-INSERT INTO smelting (id, smelt_date, player_id, furnace_location_xyz) OVERRIDING SYSTEM VALUE VALUES (9, '2025-09-05 16:55:34', 9, '10,30,10');
-INSERT INTO smelting (id, smelt_date, player_id, furnace_location_xyz) OVERRIDING SYSTEM VALUE VALUES (10, '2025-10-20 11:25:50', 10, '11,30,10');
-INSERT INTO smelting (id, smelt_date, player_id, furnace_location_xyz) OVERRIDING SYSTEM VALUE VALUES (11, '2025-12-28 09:00:15', 11, '-100,64,800');
-INSERT INTO smelting (id, smelt_date, player_id, furnace_location_xyz) OVERRIDING SYSTEM VALUE VALUES (12, '2026-01-15 20:18:44', 12, '50,50,50');
-INSERT INTO smelting (id, smelt_date, player_id, furnace_location_xyz) OVERRIDING SYSTEM VALUE VALUES (13, '2026-02-08 17:33:21', 13, '20,64,20');
-INSERT INTO smelting (id, smelt_date, player_id, furnace_location_xyz) OVERRIDING SYSTEM VALUE VALUES (14, '2026-02-22 14:10:09', 14, '21,64,20');
-INSERT INTO smelting (id, smelt_date, player_id, furnace_location_xyz) OVERRIDING SYSTEM VALUE VALUES (15, '2026-03-22 08:05:01', 15, '22,64,20');
+INSERT INTO smelting (id, smelting_code, smelt_date, player_id, furnace_location_xyz) OVERRIDING SYSTEM VALUE VALUES (1, 'SML-001', '2024-05-14 09:10:00', 1, '100,64,250') ON CONFLICT DO NOTHING;
+INSERT INTO smelting (id, smelting_code, smelt_date, player_id, furnace_location_xyz) OVERRIDING SYSTEM VALUE VALUES (2, 'SML-002', '2024-06-25 10:15:30', 2, '100,64,251') ON CONFLICT DO NOTHING;
+INSERT INTO smelting (id, smelting_code, smelt_date, player_id, furnace_location_xyz) OVERRIDING SYSTEM VALUE VALUES (3, 'SML-003', '2024-08-11 08:45:12', 3, '100,64,252') ON CONFLICT DO NOTHING;
+INSERT INTO smelting (id, smelting_code, smelt_date, player_id, furnace_location_xyz) OVERRIDING SYSTEM VALUE VALUES (4, 'SML-004', '2024-11-06 14:20:05', 4, '15,40,-50') ON CONFLICT DO NOTHING;
+INSERT INTO smelting (id, smelting_code, smelt_date, player_id, furnace_location_xyz) OVERRIDING SYSTEM VALUE VALUES (5, 'SML-005', '2025-01-20 18:05:55', 5, '16,40,-50') ON CONFLICT DO NOTHING;
+INSERT INTO smelting (id, smelting_code, smelt_date, player_id, furnace_location_xyz) OVERRIDING SYSTEM VALUE VALUES (6, 'SML-006', '2025-03-15 22:30:40', 6, '200,70,300') ON CONFLICT DO NOTHING;
+INSERT INTO smelting (id, smelting_code, smelt_date, player_id, furnace_location_xyz) OVERRIDING SYSTEM VALUE VALUES (7, 'SML-007', '2025-06-01 07:11:11', 7, '-500,64,-500') ON CONFLICT DO NOTHING;
+INSERT INTO smelting (id, smelting_code, smelt_date, player_id, furnace_location_xyz) OVERRIDING SYSTEM VALUE VALUES (8, 'SML-008', '2025-07-15 13:40:20', 8, '0,120,0') ON CONFLICT DO NOTHING;
+INSERT INTO smelting (id, smelting_code, smelt_date, player_id, furnace_location_xyz) OVERRIDING SYSTEM VALUE VALUES (9, 'SML-009', '2025-09-05 16:55:34', 9, '10,30,10') ON CONFLICT DO NOTHING;
+INSERT INTO smelting (id, smelting_code, smelt_date, player_id, furnace_location_xyz) OVERRIDING SYSTEM VALUE VALUES (10, 'SML-010', '2025-10-20 11:25:50', 10, '11,30,10') ON CONFLICT DO NOTHING;
+INSERT INTO smelting (id, smelting_code, smelt_date, player_id, furnace_location_xyz) OVERRIDING SYSTEM VALUE VALUES (11, 'SML-011', '2025-12-28 09:00:15', 11, '-100,64,800') ON CONFLICT DO NOTHING;
+INSERT INTO smelting (id, smelting_code, smelt_date, player_id, furnace_location_xyz) OVERRIDING SYSTEM VALUE VALUES (12, 'SML-012', '2026-01-15 20:18:44', 12, '50,50,50') ON CONFLICT DO NOTHING;
+INSERT INTO smelting (id, smelting_code, smelt_date, player_id, furnace_location_xyz) OVERRIDING SYSTEM VALUE VALUES (13, 'SML-013', '2026-02-08 17:33:21', 13, '20,64,20') ON CONFLICT DO NOTHING;
+INSERT INTO smelting (id, smelting_code, smelt_date, player_id, furnace_location_xyz) OVERRIDING SYSTEM VALUE VALUES (14, 'SML-014', '2026-02-22 14:10:09', 14, '21,64,20') ON CONFLICT DO NOTHING;
+INSERT INTO smelting (id, smelting_code, smelt_date, player_id, furnace_location_xyz) OVERRIDING SYSTEM VALUE VALUES (15, 'SML-015', '2026-03-22 08:05:01', 15, '22,64,20') ON CONFLICT DO NOTHING;
 
 --Iris French 67070503478
 --Populating table: mining
-INSERT INTO mining (mining_date, player_id, biome_name) VALUES ('2024-05-12 14:20:00', 1, 'Extreme Hills') ON CONFLICT DO NOTHING;
-INSERT INTO mining (mining_date, player_id, biome_name) VALUES ('2024-06-20 08:15:30', 2, 'Plains') ON CONFLICT DO NOTHING;
-INSERT INTO mining (mining_date, player_id, biome_name) VALUES ('2024-08-08 11:45:12', 3, 'Desert') ON CONFLICT DO NOTHING;
-INSERT INTO mining (mining_date, player_id, biome_name) VALUES ('2024-11-01 16:20:05', 4, 'Savanna') ON CONFLICT DO NOTHING;
-INSERT INTO mining (mining_date, player_id, biome_name) VALUES ('2025-01-15 09:05:55', 5, 'Taiga') ON CONFLICT DO NOTHING;
-INSERT INTO mining (mining_date, player_id, biome_name) VALUES ('2025-03-10 13:30:40', 6, 'Snowy Tundra') ON CONFLICT DO NOTHING;
-INSERT INTO mining (mining_date, player_id, biome_name) VALUES ('2025-05-25 18:11:11', 7, 'Swamp') ON CONFLICT DO NOTHING;
-INSERT INTO mining (mining_date, player_id, biome_name) VALUES ('2025-07-10 07:40:20', 8, 'Badlands') ON CONFLICT DO NOTHING;
-INSERT INTO mining (mining_date, player_id, biome_name) VALUES ('2025-08-28 22:55:34', 9, 'Jungle') ON CONFLICT DO NOTHING;
-INSERT INTO mining (mining_date, player_id, biome_name) VALUES ('2025-10-18 10:25:50', 10, 'Forest') ON CONFLICT DO NOTHING;
-INSERT INTO mining (mining_date, player_id, biome_name) VALUES ('2025-12-20 15:00:15', 11, 'Ocean') ON CONFLICT DO NOTHING;
-INSERT INTO mining (mining_date, player_id, biome_name) VALUES ('2026-01-12 08:18:44', 12, 'Nether Wastes') ON CONFLICT DO NOTHING;
-INSERT INTO mining (mining_date, player_id, biome_name) VALUES ('2026-02-05 19:33:21', 13, 'Basalt Deltas') ON CONFLICT DO NOTHING;
-INSERT INTO mining (mining_date, player_id, biome_name) VALUES ('2026-02-20 12:10:09', 14, 'Crimson Forest') ON CONFLICT DO NOTHING;
-INSERT INTO mining (mining_date, player_id, biome_name) VALUES ('2026-03-21 16:05:01', 15, 'Warped Forest') ON CONFLICT DO NOTHING;
+INSERT INTO mining (id, mining_code, mining_date, player_id, biome_name) OVERRIDING SYSTEM VALUE VALUES (1, 'MIN-001', '2024-05-12 14:20:00', 1, 'Extreme Hills') ON CONFLICT DO NOTHING;
+INSERT INTO mining (id, mining_code, mining_date, player_id, biome_name) OVERRIDING SYSTEM VALUE VALUES (2, 'MIN-002', '2024-06-20 08:15:30', 2, 'Plains') ON CONFLICT DO NOTHING;
+INSERT INTO mining (id, mining_code, mining_date, player_id, biome_name) OVERRIDING SYSTEM VALUE VALUES (3, 'MIN-003', '2024-08-08 11:45:12', 3, 'Desert') ON CONFLICT DO NOTHING;
+INSERT INTO mining (id, mining_code, mining_date, player_id, biome_name) OVERRIDING SYSTEM VALUE VALUES (4, 'MIN-004', '2024-11-01 16:20:05', 4, 'Savanna') ON CONFLICT DO NOTHING;
+INSERT INTO mining (id, mining_code, mining_date, player_id, biome_name) OVERRIDING SYSTEM VALUE VALUES (5, 'MIN-005', '2025-01-15 09:05:55', 5, 'Taiga') ON CONFLICT DO NOTHING;
+INSERT INTO mining (id, mining_code, mining_date, player_id, biome_name) OVERRIDING SYSTEM VALUE VALUES (6, 'MIN-006', '2025-03-10 13:30:40', 6, 'Snowy Tundra') ON CONFLICT DO NOTHING;
+INSERT INTO mining (id, mining_code, mining_date, player_id, biome_name) OVERRIDING SYSTEM VALUE VALUES (7, 'MIN-007', '2025-05-25 18:11:11', 7, 'Swamp') ON CONFLICT DO NOTHING;
+INSERT INTO mining (id, mining_code, mining_date, player_id, biome_name) OVERRIDING SYSTEM VALUE VALUES (8, 'MIN-008', '2025-07-10 07:40:20', 8, 'Badlands') ON CONFLICT DO NOTHING;
+INSERT INTO mining (id, mining_code, mining_date, player_id, biome_name) OVERRIDING SYSTEM VALUE VALUES (9, 'MIN-009', '2025-08-28 22:55:34', 9, 'Jungle') ON CONFLICT DO NOTHING;
+INSERT INTO mining (id, mining_code, mining_date, player_id, biome_name) OVERRIDING SYSTEM VALUE VALUES (10, 'MIN-010', '2025-10-18 10:25:50', 10, 'Forest') ON CONFLICT DO NOTHING;
+INSERT INTO mining (id, mining_code, mining_date, player_id, biome_name) OVERRIDING SYSTEM VALUE VALUES (11, 'MIN-011', '2025-12-20 15:00:15', 11, 'Ocean') ON CONFLICT DO NOTHING;
+INSERT INTO mining (id, mining_code, mining_date, player_id, biome_name) OVERRIDING SYSTEM VALUE VALUES (12, 'MIN-012', '2026-01-12 08:18:44', 12, 'Nether Wastes') ON CONFLICT DO NOTHING;
+INSERT INTO mining (id, mining_code, mining_date, player_id, biome_name) OVERRIDING SYSTEM VALUE VALUES (13, 'MIN-013', '2026-02-05 19:33:21', 13, 'Basalt Deltas') ON CONFLICT DO NOTHING;
+INSERT INTO mining (id, mining_code, mining_date, player_id, biome_name) OVERRIDING SYSTEM VALUE VALUES (14, 'MIN-014', '2026-02-20 12:10:09', 14, 'Crimson Forest') ON CONFLICT DO NOTHING;
+INSERT INTO mining (id, mining_code, mining_date, player_id, biome_name) OVERRIDING SYSTEM VALUE VALUES (15, 'MIN-015', '2026-03-21 16:05:01', 15, 'Warped Forest') ON CONFLICT DO NOTHING;
 
 -- (GUIDE) #1.2.1 POPULATE SIMPLE FORMS HERE
 
@@ -213,40 +205,150 @@ INSERT INTO mining (mining_date, player_id, biome_name) VALUES ('2026-03-21 16:0
 -- Line Items
 
 -- Populating table: transfer_line_item
+-- TRN-0001
 INSERT INTO transfer_line_item (transfer_id, transfer_line_number, item_id, quantity_transferred, destination_slot_number) VALUES (1, 1, 7, 5, 1) ON CONFLICT DO NOTHING;
 INSERT INTO transfer_line_item (transfer_id, transfer_line_number, item_id, quantity_transferred, destination_slot_number) VALUES (1, 2, 5, 10, 2) ON CONFLICT DO NOTHING;
 INSERT INTO transfer_line_item (transfer_id, transfer_line_number, item_id, quantity_transferred, destination_slot_number) VALUES (1, 3, 12, 64, 3) ON CONFLICT DO NOTHING;
-INSERT INTO transfer_line_item (transfer_id, transfer_line_number, item_id, quantity_transferred, destination_slot_number) VALUES (2, 1, 5, 32, 2) ON CONFLICT DO NOTHING;
+-- TRN-0002
+INSERT INTO transfer_line_item (transfer_id, transfer_line_number, item_id, quantity_transferred, destination_slot_number) VALUES (2, 1, 5, 32, 4) ON CONFLICT DO NOTHING;
+INSERT INTO transfer_line_item (transfer_id, transfer_line_number, item_id, quantity_transferred, destination_slot_number) VALUES (2, 2, 6, 64, 5) ON CONFLICT DO NOTHING;
+INSERT INTO transfer_line_item (transfer_id, transfer_line_number, item_id, quantity_transferred, destination_slot_number) VALUES (2, 3, 3, 16, 6) ON CONFLICT DO NOTHING;
+-- TRN-0003
 INSERT INTO transfer_line_item (transfer_id, transfer_line_number, item_id, quantity_transferred, destination_slot_number) VALUES (3, 1, 1, 64, 1) ON CONFLICT DO NOTHING;
+INSERT INTO transfer_line_item (transfer_id, transfer_line_number, item_id, quantity_transferred, destination_slot_number) VALUES (3, 2, 2, 64, 2) ON CONFLICT DO NOTHING;
+INSERT INTO transfer_line_item (transfer_id, transfer_line_number, item_id, quantity_transferred, destination_slot_number) VALUES (3, 3, 22, 1, 3) ON CONFLICT DO NOTHING;
+-- TRN-0004
 INSERT INTO transfer_line_item (transfer_id, transfer_line_number, item_id, quantity_transferred, destination_slot_number) VALUES (4, 1, 2, 64, 3) ON CONFLICT DO NOTHING;
+INSERT INTO transfer_line_item (transfer_id, transfer_line_number, item_id, quantity_transferred, destination_slot_number) VALUES (4, 2, 21, 32, 4) ON CONFLICT DO NOTHING;
+INSERT INTO transfer_line_item (transfer_id, transfer_line_number, item_id, quantity_transferred, destination_slot_number) VALUES (4, 3, 6, 64, 5) ON CONFLICT DO NOTHING;
+INSERT INTO transfer_line_item (transfer_id, transfer_line_number, item_id, quantity_transferred, destination_slot_number) VALUES (4, 4, 12, 64, 6) ON CONFLICT DO NOTHING;
+-- TRN-0005
 INSERT INTO transfer_line_item (transfer_id, transfer_line_number, item_id, quantity_transferred, destination_slot_number) VALUES (5, 1, 12, 64, 1) ON CONFLICT DO NOTHING;
-INSERT INTO transfer_line_item (transfer_id, transfer_line_number, item_id, quantity_transferred, destination_slot_number) VALUES (6, 1, 13, 32, 4) ON CONFLICT DO NOTHING;
-INSERT INTO transfer_line_item (transfer_id, transfer_line_number, item_id, quantity_transferred, destination_slot_number) VALUES (7, 1, 18, 64, 1) ON CONFLICT DO NOTHING;
+INSERT INTO transfer_line_item (transfer_id, transfer_line_number, item_id, quantity_transferred, destination_slot_number) VALUES (5, 2, 13, 64, 2) ON CONFLICT DO NOTHING;
+INSERT INTO transfer_line_item (transfer_id, transfer_line_number, item_id, quantity_transferred, destination_slot_number) VALUES (5, 3, 23, 2, 3) ON CONFLICT DO NOTHING;
+INSERT INTO transfer_line_item (transfer_id, transfer_line_number, item_id, quantity_transferred, destination_slot_number) VALUES (5, 4, 5, 16, 4) ON CONFLICT DO NOTHING;
+-- TRN-0006
+INSERT INTO transfer_line_item (transfer_id, transfer_line_number, item_id, quantity_transferred, destination_slot_number) VALUES (6, 1, 13, 32, 7) ON CONFLICT DO NOTHING;
+INSERT INTO transfer_line_item (transfer_id, transfer_line_number, item_id, quantity_transferred, destination_slot_number) VALUES (6, 2, 12, 64, 8) ON CONFLICT DO NOTHING;
+INSERT INTO transfer_line_item (transfer_id, transfer_line_number, item_id, quantity_transferred, destination_slot_number) VALUES (6, 3, 4, 16, 9) ON CONFLICT DO NOTHING;
+-- TRN-0007
+INSERT INTO transfer_line_item (transfer_id, transfer_line_number, item_id, quantity_transferred, destination_slot_number) VALUES (7, 1, 18, 64, 10) ON CONFLICT DO NOTHING;
+INSERT INTO transfer_line_item (transfer_id, transfer_line_number, item_id, quantity_transferred, destination_slot_number) VALUES (7, 2, 19, 16, 11) ON CONFLICT DO NOTHING;
+INSERT INTO transfer_line_item (transfer_id, transfer_line_number, item_id, quantity_transferred, destination_slot_number) VALUES (7, 3, 12, 64, 12) ON CONFLICT DO NOTHING;
+-- TRN-0008
 INSERT INTO transfer_line_item (transfer_id, transfer_line_number, item_id, quantity_transferred, destination_slot_number) VALUES (8, 1, 19, 16, 5) ON CONFLICT DO NOTHING;
-INSERT INTO transfer_line_item (transfer_id, transfer_line_number, item_id, quantity_transferred, destination_slot_number) VALUES (9, 1, 14, 10, 1) ON CONFLICT DO NOTHING;
-INSERT INTO transfer_line_item (transfer_id, transfer_line_number, item_id, quantity_transferred, destination_slot_number) VALUES (10, 1, 15, 20, 6) ON CONFLICT DO NOTHING;
-INSERT INTO transfer_line_item (transfer_id, transfer_line_number, item_id, quantity_transferred, destination_slot_number) VALUES (11, 1, 4, 40, 1) ON CONFLICT DO NOTHING;
-INSERT INTO transfer_line_item (transfer_id, transfer_line_number, item_id, quantity_transferred, destination_slot_number) VALUES (12, 1, 6, 64, 7) ON CONFLICT DO NOTHING;
+INSERT INTO transfer_line_item (transfer_id, transfer_line_number, item_id, quantity_transferred, destination_slot_number) VALUES (8, 2, 18, 32, 6) ON CONFLICT DO NOTHING;
+INSERT INTO transfer_line_item (transfer_id, transfer_line_number, item_id, quantity_transferred, destination_slot_number) VALUES (8, 3, 21, 16, 7) ON CONFLICT DO NOTHING;
+-- TRN-0009
+INSERT INTO transfer_line_item (transfer_id, transfer_line_number, item_id, quantity_transferred, destination_slot_number) VALUES (9, 1, 14, 10, 11) ON CONFLICT DO NOTHING;
+INSERT INTO transfer_line_item (transfer_id, transfer_line_number, item_id, quantity_transferred, destination_slot_number) VALUES (9, 2, 15, 20, 12) ON CONFLICT DO NOTHING;
+INSERT INTO transfer_line_item (transfer_id, transfer_line_number, item_id, quantity_transferred, destination_slot_number) VALUES (9, 3, 6, 64, 13) ON CONFLICT DO NOTHING;
+INSERT INTO transfer_line_item (transfer_id, transfer_line_number, item_id, quantity_transferred, destination_slot_number) VALUES (9, 4, 21, 16, 14) ON CONFLICT DO NOTHING;
+-- TRN-0010
+INSERT INTO transfer_line_item (transfer_id, transfer_line_number, item_id, quantity_transferred, destination_slot_number) VALUES (10, 1, 15, 20, 10) ON CONFLICT DO NOTHING;
+INSERT INTO transfer_line_item (transfer_id, transfer_line_number, item_id, quantity_transferred, destination_slot_number) VALUES (10, 2, 14, 8, 11) ON CONFLICT DO NOTHING;
+INSERT INTO transfer_line_item (transfer_id, transfer_line_number, item_id, quantity_transferred, destination_slot_number) VALUES (10, 3, 6, 32, 12) ON CONFLICT DO NOTHING;
+INSERT INTO transfer_line_item (transfer_id, transfer_line_number, item_id, quantity_transferred, destination_slot_number) VALUES (10, 4, 5, 16, 13) ON CONFLICT DO NOTHING;
+INSERT INTO transfer_line_item (transfer_id, transfer_line_number, item_id, quantity_transferred, destination_slot_number) VALUES (10, 5, 13, 64, 14) ON CONFLICT DO NOTHING;
+-- TRN-0011
+INSERT INTO transfer_line_item (transfer_id, transfer_line_number, item_id, quantity_transferred, destination_slot_number) VALUES (11, 1, 4, 40, 15) ON CONFLICT DO NOTHING;
+INSERT INTO transfer_line_item (transfer_id, transfer_line_number, item_id, quantity_transferred, destination_slot_number) VALUES (11, 2, 5, 16, 16) ON CONFLICT DO NOTHING;
+INSERT INTO transfer_line_item (transfer_id, transfer_line_number, item_id, quantity_transferred, destination_slot_number) VALUES (11, 3, 6, 64, 17) ON CONFLICT DO NOTHING;
+-- TRN-0012
+INSERT INTO transfer_line_item (transfer_id, transfer_line_number, item_id, quantity_transferred, destination_slot_number) VALUES (12, 1, 6, 64, 12) ON CONFLICT DO NOTHING;
+INSERT INTO transfer_line_item (transfer_id, transfer_line_number, item_id, quantity_transferred, destination_slot_number) VALUES (12, 2, 21, 64, 13) ON CONFLICT DO NOTHING;
+INSERT INTO transfer_line_item (transfer_id, transfer_line_number, item_id, quantity_transferred, destination_slot_number) VALUES (12, 3, 12, 64, 14) ON CONFLICT DO NOTHING;
+-- TRN-0013
 INSERT INTO transfer_line_item (transfer_id, transfer_line_number, item_id, quantity_transferred, destination_slot_number) VALUES (13, 1, 10, 15, 1) ON CONFLICT DO NOTHING;
-INSERT INTO transfer_line_item (transfer_id, transfer_line_number, item_id, quantity_transferred, destination_slot_number) VALUES (14, 1, 11, 64, 8) ON CONFLICT DO NOTHING;
-INSERT INTO transfer_line_item (transfer_id, transfer_line_number, item_id, quantity_transferred, destination_slot_number) VALUES (15, 1, 16, 10, 1) ON CONFLICT DO NOTHING;
+INSERT INTO transfer_line_item (transfer_id, transfer_line_number, item_id, quantity_transferred, destination_slot_number) VALUES (13, 2, 16, 5, 2) ON CONFLICT DO NOTHING;
+INSERT INTO transfer_line_item (transfer_id, transfer_line_number, item_id, quantity_transferred, destination_slot_number) VALUES (13, 3, 17, 32, 3) ON CONFLICT DO NOTHING;
+-- TRN-0014
+INSERT INTO transfer_line_item (transfer_id, transfer_line_number, item_id, quantity_transferred, destination_slot_number) VALUES (14, 1, 11, 64, 20) ON CONFLICT DO NOTHING;
+INSERT INTO transfer_line_item (transfer_id, transfer_line_number, item_id, quantity_transferred, destination_slot_number) VALUES (14, 2, 25, 16, 21) ON CONFLICT DO NOTHING;
+INSERT INTO transfer_line_item (transfer_id, transfer_line_number, item_id, quantity_transferred, destination_slot_number) VALUES (14, 3, 5, 32, 22) ON CONFLICT DO NOTHING;
+INSERT INTO transfer_line_item (transfer_id, transfer_line_number, item_id, quantity_transferred, destination_slot_number) VALUES (14, 4, 6, 64, 23) ON CONFLICT DO NOTHING;
+-- TRN-0015
+INSERT INTO transfer_line_item (transfer_id, transfer_line_number, item_id, quantity_transferred, destination_slot_number) VALUES (15, 1, 16, 10, 20) ON CONFLICT DO NOTHING;
+INSERT INTO transfer_line_item (transfer_id, transfer_line_number, item_id, quantity_transferred, destination_slot_number) VALUES (15, 2, 17, 64, 21) ON CONFLICT DO NOTHING;
+INSERT INTO transfer_line_item (transfer_id, transfer_line_number, item_id, quantity_transferred, destination_slot_number) VALUES (15, 3, 11, 32, 22) ON CONFLICT DO NOTHING;
+INSERT INTO transfer_line_item (transfer_id, transfer_line_number, item_id, quantity_transferred, destination_slot_number) VALUES (15, 4, 15, 16, 23) ON CONFLICT DO NOTHING;
+INSERT INTO transfer_line_item (transfer_id, transfer_line_number, item_id, quantity_transferred, destination_slot_number) VALUES (15, 5, 6, 64, 24) ON CONFLICT DO NOTHING;
+INSERT INTO transfer_line_item (transfer_id, transfer_line_number, item_id, quantity_transferred, destination_slot_number) VALUES (15, 6, 21, 32, 25) ON CONFLICT DO NOTHING;
+-- TRN-0016
+INSERT INTO transfer_line_item (transfer_id, transfer_line_number, item_id, quantity_transferred, destination_slot_number) VALUES (16, 1, 25, 16, 1) ON CONFLICT DO NOTHING;
+INSERT INTO transfer_line_item (transfer_id, transfer_line_number, item_id, quantity_transferred, destination_slot_number) VALUES (16, 2, 25, 16, 2) ON CONFLICT DO NOTHING;
+INSERT INTO transfer_line_item (transfer_id, transfer_line_number, item_id, quantity_transferred, destination_slot_number) VALUES (16, 3, 25, 16, 3) ON CONFLICT DO NOTHING;
+INSERT INTO transfer_line_item (transfer_id, transfer_line_number, item_id, quantity_transferred, destination_slot_number) VALUES (16, 4, 25, 16, 4) ON CONFLICT DO NOTHING;
+INSERT INTO transfer_line_item (transfer_id, transfer_line_number, item_id, quantity_transferred, destination_slot_number) VALUES (16, 5, 25, 16, 5) ON CONFLICT DO NOTHING;
+INSERT INTO transfer_line_item (transfer_id, transfer_line_number, item_id, quantity_transferred, destination_slot_number) VALUES (16, 6, 25, 16, 6) ON CONFLICT DO NOTHING;
+INSERT INTO transfer_line_item (transfer_id, transfer_line_number, item_id, quantity_transferred, destination_slot_number) VALUES (16, 7, 25, 16, 7) ON CONFLICT DO NOTHING;
+INSERT INTO transfer_line_item (transfer_id, transfer_line_number, item_id, quantity_transferred, destination_slot_number) VALUES (16, 8, 25, 16, 8) ON CONFLICT DO NOTHING;
+INSERT INTO transfer_line_item (transfer_id, transfer_line_number, item_id, quantity_transferred, destination_slot_number) VALUES (16, 9, 25, 16, 9) ON CONFLICT DO NOTHING;
+INSERT INTO transfer_line_item (transfer_id, transfer_line_number, item_id, quantity_transferred, destination_slot_number) VALUES (16, 10, 25, 16, 10) ON CONFLICT DO NOTHING;
+INSERT INTO transfer_line_item (transfer_id, transfer_line_number, item_id, quantity_transferred, destination_slot_number) VALUES (16, 11, 25, 16, 11) ON CONFLICT DO NOTHING;
+INSERT INTO transfer_line_item (transfer_id, transfer_line_number, item_id, quantity_transferred, destination_slot_number) VALUES (16, 12, 25, 16, 12) ON CONFLICT DO NOTHING;
+INSERT INTO transfer_line_item (transfer_id, transfer_line_number, item_id, quantity_transferred, destination_slot_number) VALUES (16, 13, 25, 16, 13) ON CONFLICT DO NOTHING;
+INSERT INTO transfer_line_item (transfer_id, transfer_line_number, item_id, quantity_transferred, destination_slot_number) VALUES (16, 14, 25, 16, 14) ON CONFLICT DO NOTHING;
+INSERT INTO transfer_line_item (transfer_id, transfer_line_number, item_id, quantity_transferred, destination_slot_number) VALUES (16, 15, 25, 16, 15) ON CONFLICT DO NOTHING;
+INSERT INTO transfer_line_item (transfer_id, transfer_line_number, item_id, quantity_transferred, destination_slot_number) VALUES (16, 16, 25, 16, 16) ON CONFLICT DO NOTHING;
+INSERT INTO transfer_line_item (transfer_id, transfer_line_number, item_id, quantity_transferred, destination_slot_number) VALUES (16, 17, 25, 16, 17) ON CONFLICT DO NOTHING;
+INSERT INTO transfer_line_item (transfer_id, transfer_line_number, item_id, quantity_transferred, destination_slot_number) VALUES (16, 18, 25, 16, 18) ON CONFLICT DO NOTHING;
+INSERT INTO transfer_line_item (transfer_id, transfer_line_number, item_id, quantity_transferred, destination_slot_number) VALUES (16, 19, 25, 16, 19) ON CONFLICT DO NOTHING;
+INSERT INTO transfer_line_item (transfer_id, transfer_line_number, item_id, quantity_transferred, destination_slot_number) VALUES (16, 20, 25, 16, 20) ON CONFLICT DO NOTHING;
+INSERT INTO transfer_line_item (transfer_id, transfer_line_number, item_id, quantity_transferred, destination_slot_number) VALUES (16, 21, 25, 16, 21) ON CONFLICT DO NOTHING;
+INSERT INTO transfer_line_item (transfer_id, transfer_line_number, item_id, quantity_transferred, destination_slot_number) VALUES (16, 22, 25, 16, 22) ON CONFLICT DO NOTHING;
+INSERT INTO transfer_line_item (transfer_id, transfer_line_number, item_id, quantity_transferred, destination_slot_number) VALUES (16, 23, 25, 16, 23) ON CONFLICT DO NOTHING;
+INSERT INTO transfer_line_item (transfer_id, transfer_line_number, item_id, quantity_transferred, destination_slot_number) VALUES (16, 24, 25, 16, 24) ON CONFLICT DO NOTHING;
+INSERT INTO transfer_line_item (transfer_id, transfer_line_number, item_id, quantity_transferred, destination_slot_number) VALUES (16, 25, 25, 16, 25) ON CONFLICT DO NOTHING;
+INSERT INTO transfer_line_item (transfer_id, transfer_line_number, item_id, quantity_transferred, destination_slot_number) VALUES (16, 26, 25, 16, 26) ON CONFLICT DO NOTHING;
+INSERT INTO transfer_line_item (transfer_id, transfer_line_number, item_id, quantity_transferred, destination_slot_number) VALUES (16, 27, 25, 16, 27) ON CONFLICT DO NOTHING;
 
 -- Populating table: crafting_line_item
-INSERT INTO crafting_line_item (crafting_id, crafting_line_number, session_id, ingredient_id, required_quantity, total_needed) VALUES (1, 1, 1, 12, 3, 2) ON CONFLICT DO NOTHING;
-INSERT INTO crafting_line_item (crafting_id, crafting_line_number, session_id, ingredient_id, required_quantity, total_needed) VALUES (2, 1, 2, 5, 1, 4) ON CONFLICT DO NOTHING;
-INSERT INTO crafting_line_item (crafting_id, crafting_line_number, session_id, ingredient_id, required_quantity, total_needed) VALUES (3, 1, 3, 8, 6, 1) ON CONFLICT DO NOTHING;
-INSERT INTO crafting_line_item (crafting_id, crafting_line_number, session_id, ingredient_id, required_quantity, total_needed) VALUES (4, 1, 4, 15, 2, 5) ON CONFLICT DO NOTHING;
-INSERT INTO crafting_line_item (crafting_id, crafting_line_number, session_id, ingredient_id, required_quantity, total_needed) VALUES (5, 1, 5, 2, 7, 3) ON CONFLICT DO NOTHING;
-INSERT INTO crafting_line_item (crafting_id, crafting_line_number, session_id, ingredient_id, required_quantity, total_needed) VALUES (6, 1, 6, 11, 4, 2) ON CONFLICT DO NOTHING;
-INSERT INTO crafting_line_item (crafting_id, crafting_line_number, session_id, ingredient_id, required_quantity, total_needed) VALUES (7, 1, 7, 3, 5, 1) ON CONFLICT DO NOTHING;
-INSERT INTO crafting_line_item (crafting_id, crafting_line_number, session_id, ingredient_id, required_quantity, total_needed) VALUES (8, 1, 8, 16, 2, 4) ON CONFLICT DO NOTHING;
-INSERT INTO crafting_line_item (crafting_id, crafting_line_number, session_id, ingredient_id, required_quantity, total_needed) VALUES (9, 1, 9, 7, 1, 3) ON CONFLICT DO NOTHING;
-INSERT INTO crafting_line_item (crafting_id, crafting_line_number, session_id, ingredient_id, required_quantity, total_needed) VALUES (10, 1, 10, 14, 6, 5) ON CONFLICT DO NOTHING;
-INSERT INTO crafting_line_item (crafting_id, crafting_line_number, session_id, ingredient_id, required_quantity, total_needed) VALUES (11, 1, 11, 9, 3, 2) ON CONFLICT DO NOTHING;
-INSERT INTO crafting_line_item (crafting_id, crafting_line_number, session_id, ingredient_id, required_quantity, total_needed) VALUES (12, 1, 12, 4, 7, 1) ON CONFLICT DO NOTHING;
-INSERT INTO crafting_line_item (crafting_id, crafting_line_number, session_id, ingredient_id, required_quantity, total_needed) VALUES (13, 1, 13, 1, 5, 4) ON CONFLICT DO NOTHING;
-INSERT INTO crafting_line_item (crafting_id, crafting_line_number, session_id, ingredient_id, required_quantity, total_needed) VALUES (14, 1, 14, 10, 2, 3) ON CONFLICT DO NOTHING;
-INSERT INTO crafting_line_item (crafting_id, crafting_line_number, session_id, ingredient_id, required_quantity, total_needed) VALUES (15, 1, 15, 13, 4, 5) ON CONFLICT DO NOTHING;
+-- CRA-001 (Iron Pickaxe)
+INSERT INTO crafting_line_item (crafting_id, crafting_line_number, session_id, ingredient_id, required_quantity, total_needed) VALUES (1, 1, 1, 5, 3, 3) ON CONFLICT DO NOTHING;
+INSERT INTO crafting_line_item (crafting_id, crafting_line_number, session_id, ingredient_id, required_quantity, total_needed) VALUES (1, 2, 1, 3, 2, 2) ON CONFLICT DO NOTHING;
+-- CRA-002 (Diamond Sword)
+INSERT INTO crafting_line_item (crafting_id, crafting_line_number, session_id, ingredient_id, required_quantity, total_needed) VALUES (2, 1, 2, 7, 2, 2) ON CONFLICT DO NOTHING;
+INSERT INTO crafting_line_item (crafting_id, crafting_line_number, session_id, ingredient_id, required_quantity, total_needed) VALUES (2, 2, 2, 3, 1, 1) ON CONFLICT DO NOTHING;
+-- CRA-003 (Torch)
+INSERT INTO crafting_line_item (crafting_id, crafting_line_number, session_id, ingredient_id, required_quantity, total_needed) VALUES (3, 1, 3, 6, 1, 1) ON CONFLICT DO NOTHING;
+INSERT INTO crafting_line_item (crafting_id, crafting_line_number, session_id, ingredient_id, required_quantity, total_needed) VALUES (3, 2, 3, 3, 1, 1) ON CONFLICT DO NOTHING;
+-- CRA-004 (Diamond Pickaxe)
+INSERT INTO crafting_line_item (crafting_id, crafting_line_number, session_id, ingredient_id, required_quantity, total_needed) VALUES (4, 1, 4, 7, 3, 3) ON CONFLICT DO NOTHING;
+INSERT INTO crafting_line_item (crafting_id, crafting_line_number, session_id, ingredient_id, required_quantity, total_needed) VALUES (4, 2, 4, 3, 2, 2) ON CONFLICT DO NOTHING;
+-- CRA-005 (Iron Axe)
+INSERT INTO crafting_line_item (crafting_id, crafting_line_number, session_id, ingredient_id, required_quantity, total_needed) VALUES (5, 1, 5, 5, 3, 3) ON CONFLICT DO NOTHING;
+INSERT INTO crafting_line_item (crafting_id, crafting_line_number, session_id, ingredient_id, required_quantity, total_needed) VALUES (5, 2, 5, 3, 2, 2) ON CONFLICT DO NOTHING;
+-- CRA-006 (Oak Planks + Sticks)
+INSERT INTO crafting_line_item (crafting_id, crafting_line_number, session_id, ingredient_id, required_quantity, total_needed) VALUES (6, 1, 6, 1, 1, 1) ON CONFLICT DO NOTHING;
+INSERT INTO crafting_line_item (crafting_id, crafting_line_number, session_id, ingredient_id, required_quantity, total_needed) VALUES (6, 2, 6, 2, 2, 2) ON CONFLICT DO NOTHING;
+-- CRA-007 (Bread Loaf 1 & 2)
+INSERT INTO crafting_line_item (crafting_id, crafting_line_number, session_id, ingredient_id, required_quantity, total_needed) VALUES (7, 1, 7, 17, 3, 3) ON CONFLICT DO NOTHING;
+INSERT INTO crafting_line_item (crafting_id, crafting_line_number, session_id, ingredient_id, required_quantity, total_needed) VALUES (7, 2, 7, 17, 3, 3) ON CONFLICT DO NOTHING;
+-- CRA-008 (Sticks)
+INSERT INTO crafting_line_item (crafting_id, crafting_line_number, session_id, ingredient_id, required_quantity, total_needed) VALUES (8, 1, 8, 2, 2, 2) ON CONFLICT DO NOTHING;
+INSERT INTO crafting_line_item (crafting_id, crafting_line_number, session_id, ingredient_id, required_quantity, total_needed) VALUES (8, 2, 8, 2, 2, 2) ON CONFLICT DO NOTHING;
+-- CRA-009 (Iron Pickaxe)
+INSERT INTO crafting_line_item (crafting_id, crafting_line_number, session_id, ingredient_id, required_quantity, total_needed) VALUES (9, 1, 9, 5, 3, 3) ON CONFLICT DO NOTHING;
+INSERT INTO crafting_line_item (crafting_id, crafting_line_number, session_id, ingredient_id, required_quantity, total_needed) VALUES (9, 2, 9, 3, 2, 2) ON CONFLICT DO NOTHING;
+-- CRA-010 (Diamond Sword)
+INSERT INTO crafting_line_item (crafting_id, crafting_line_number, session_id, ingredient_id, required_quantity, total_needed) VALUES (10, 1, 10, 7, 2, 2) ON CONFLICT DO NOTHING;
+INSERT INTO crafting_line_item (crafting_id, crafting_line_number, session_id, ingredient_id, required_quantity, total_needed) VALUES (10, 2, 10, 3, 1, 1) ON CONFLICT DO NOTHING;
+-- CRA-011 (Crafting Table + Sticks)
+INSERT INTO crafting_line_item (crafting_id, crafting_line_number, session_id, ingredient_id, required_quantity, total_needed) VALUES (11, 1, 11, 2, 4, 4) ON CONFLICT DO NOTHING;
+INSERT INTO crafting_line_item (crafting_id, crafting_line_number, session_id, ingredient_id, required_quantity, total_needed) VALUES (11, 2, 11, 2, 2, 2) ON CONFLICT DO NOTHING;
+-- CRA-012 (Furnace + Torches)
+INSERT INTO crafting_line_item (crafting_id, crafting_line_number, session_id, ingredient_id, required_quantity, total_needed) VALUES (12, 1, 12, 12, 8, 8) ON CONFLICT DO NOTHING;
+INSERT INTO crafting_line_item (crafting_id, crafting_line_number, session_id, ingredient_id, required_quantity, total_needed) VALUES (12, 2, 12, 6, 4, 4) ON CONFLICT DO NOTHING;
+-- CRA-013 (Bread)
+INSERT INTO crafting_line_item (crafting_id, crafting_line_number, session_id, ingredient_id, required_quantity, total_needed) VALUES (13, 1, 13, 17, 3, 3) ON CONFLICT DO NOTHING;
+INSERT INTO crafting_line_item (crafting_id, crafting_line_number, session_id, ingredient_id, required_quantity, total_needed) VALUES (13, 2, 13, 17, 3, 3) ON CONFLICT DO NOTHING;
+-- CRA-014 (Diamond Pickaxe)
+INSERT INTO crafting_line_item (crafting_id, crafting_line_number, session_id, ingredient_id, required_quantity, total_needed) VALUES (14, 1, 14, 7, 3, 3) ON CONFLICT DO NOTHING;
+INSERT INTO crafting_line_item (crafting_id, crafting_line_number, session_id, ingredient_id, required_quantity, total_needed) VALUES (14, 2, 14, 3, 2, 2) ON CONFLICT DO NOTHING;
+-- CRA-015 (Torch)
+INSERT INTO crafting_line_item (crafting_id, crafting_line_number, session_id, ingredient_id, required_quantity, total_needed) VALUES (15, 1, 15, 6, 1, 1) ON CONFLICT DO NOTHING;
+INSERT INTO crafting_line_item (crafting_id, crafting_line_number, session_id, ingredient_id, required_quantity, total_needed) VALUES (15, 2, 15, 3, 1, 1) ON CONFLICT DO NOTHING;
 
 -- Maimoona Aziz 67070503473
 -- Populating Anvil Line Item
@@ -268,38 +370,113 @@ INSERT INTO anvil_line_item (id, anvil_id, anvil_line_number, target_tool_id, cu
 
 
 -- Populating table: smelting_line_item
+-- SML-001
 INSERT INTO smelting_line_item (id, smelting_id, raw_input_item_id, quantity_inserted, fuel_item_id, fuel_consumed, output_item_id, output_quantity) OVERRIDING SYSTEM VALUE VALUES (1, 1, 4, 16, 6, 2, 5, 16);
+INSERT INTO smelting_line_item (id, smelting_id, raw_input_item_id, quantity_inserted, fuel_item_id, fuel_consumed, output_item_id, output_quantity) OVERRIDING SYSTEM VALUE VALUES (16, 1, 14, 8, 6, 1, 15, 8);
+-- SML-002
 INSERT INTO smelting_line_item (id, smelting_id, raw_input_item_id, quantity_inserted, fuel_item_id, fuel_consumed, output_item_id, output_quantity) OVERRIDING SYSTEM VALUE VALUES (2, 2, 12, 32, 6, 4, 13, 32);
+INSERT INTO smelting_line_item (id, smelting_id, raw_input_item_id, quantity_inserted, fuel_item_id, fuel_consumed, output_item_id, output_quantity) OVERRIDING SYSTEM VALUE VALUES (17, 2, 4, 8, 6, 1, 5, 8);
+-- SML-003
 INSERT INTO smelting_line_item (id, smelting_id, raw_input_item_id, quantity_inserted, fuel_item_id, fuel_consumed, output_item_id, output_quantity) OVERRIDING SYSTEM VALUE VALUES (3, 3, 14, 8, 6, 1, 15, 8);
+INSERT INTO smelting_line_item (id, smelting_id, raw_input_item_id, quantity_inserted, fuel_item_id, fuel_consumed, output_item_id, output_quantity) OVERRIDING SYSTEM VALUE VALUES (18, 3, 4, 16, 6, 2, 5, 16);
+-- SML-004
 INSERT INTO smelting_line_item (id, smelting_id, raw_input_item_id, quantity_inserted, fuel_item_id, fuel_consumed, output_item_id, output_quantity) OVERRIDING SYSTEM VALUE VALUES (4, 4, 18, 64, 6, 8, 19, 64);
+INSERT INTO smelting_line_item (id, smelting_id, raw_input_item_id, quantity_inserted, fuel_item_id, fuel_consumed, output_item_id, output_quantity) OVERRIDING SYSTEM VALUE VALUES (19, 4, 18, 32, 6, 4, 19, 32);
+-- SML-005
 INSERT INTO smelting_line_item (id, smelting_id, raw_input_item_id, quantity_inserted, fuel_item_id, fuel_consumed, output_item_id, output_quantity) OVERRIDING SYSTEM VALUE VALUES (5, 5, 4, 24, 6, 3, 5, 24);
+INSERT INTO smelting_line_item (id, smelting_id, raw_input_item_id, quantity_inserted, fuel_item_id, fuel_consumed, output_item_id, output_quantity) OVERRIDING SYSTEM VALUE VALUES (20, 5, 14, 16, 6, 2, 15, 16);
+-- SML-006
 INSERT INTO smelting_line_item (id, smelting_id, raw_input_item_id, quantity_inserted, fuel_item_id, fuel_consumed, output_item_id, output_quantity) OVERRIDING SYSTEM VALUE VALUES (6, 6, 12, 16, 6, 2, 13, 16);
+INSERT INTO smelting_line_item (id, smelting_id, raw_input_item_id, quantity_inserted, fuel_item_id, fuel_consumed, output_item_id, output_quantity) OVERRIDING SYSTEM VALUE VALUES (21, 6, 4, 8, 6, 1, 5, 8);
+-- SML-007
 INSERT INTO smelting_line_item (id, smelting_id, raw_input_item_id, quantity_inserted, fuel_item_id, fuel_consumed, output_item_id, output_quantity) OVERRIDING SYSTEM VALUE VALUES (7, 7, 14, 16, 6, 2, 15, 16);
+INSERT INTO smelting_line_item (id, smelting_id, raw_input_item_id, quantity_inserted, fuel_item_id, fuel_consumed, output_item_id, output_quantity) OVERRIDING SYSTEM VALUE VALUES (22, 7, 4, 16, 6, 2, 5, 16);
+-- SML-008
 INSERT INTO smelting_line_item (id, smelting_id, raw_input_item_id, quantity_inserted, fuel_item_id, fuel_consumed, output_item_id, output_quantity) OVERRIDING SYSTEM VALUE VALUES (8, 8, 18, 32, 6, 4, 19, 32);
+INSERT INTO smelting_line_item (id, smelting_id, raw_input_item_id, quantity_inserted, fuel_item_id, fuel_consumed, output_item_id, output_quantity) OVERRIDING SYSTEM VALUE VALUES (23, 8, 4, 16, 6, 2, 5, 16);
+-- SML-009
 INSERT INTO smelting_line_item (id, smelting_id, raw_input_item_id, quantity_inserted, fuel_item_id, fuel_consumed, output_item_id, output_quantity) OVERRIDING SYSTEM VALUE VALUES (9, 9, 4, 40, 6, 5, 5, 40);
+INSERT INTO smelting_line_item (id, smelting_id, raw_input_item_id, quantity_inserted, fuel_item_id, fuel_consumed, output_item_id, output_quantity) OVERRIDING SYSTEM VALUE VALUES (24, 9, 14, 16, 6, 2, 15, 16);
+-- SML-010
 INSERT INTO smelting_line_item (id, smelting_id, raw_input_item_id, quantity_inserted, fuel_item_id, fuel_consumed, output_item_id, output_quantity) OVERRIDING SYSTEM VALUE VALUES (10, 10, 12, 8, 6, 1, 13, 8);
+INSERT INTO smelting_line_item (id, smelting_id, raw_input_item_id, quantity_inserted, fuel_item_id, fuel_consumed, output_item_id, output_quantity) OVERRIDING SYSTEM VALUE VALUES (25, 10, 4, 8, 6, 1, 5, 8);
+-- SML-011
 INSERT INTO smelting_line_item (id, smelting_id, raw_input_item_id, quantity_inserted, fuel_item_id, fuel_consumed, output_item_id, output_quantity) OVERRIDING SYSTEM VALUE VALUES (11, 11, 14, 32, 6, 4, 15, 32);
+INSERT INTO smelting_line_item (id, smelting_id, raw_input_item_id, quantity_inserted, fuel_item_id, fuel_consumed, output_item_id, output_quantity) OVERRIDING SYSTEM VALUE VALUES (26, 11, 4, 24, 6, 3, 5, 24);
+-- SML-012
 INSERT INTO smelting_line_item (id, smelting_id, raw_input_item_id, quantity_inserted, fuel_item_id, fuel_consumed, output_item_id, output_quantity) OVERRIDING SYSTEM VALUE VALUES (12, 12, 18, 16, 6, 2, 19, 16);
+INSERT INTO smelting_line_item (id, smelting_id, raw_input_item_id, quantity_inserted, fuel_item_id, fuel_consumed, output_item_id, output_quantity) OVERRIDING SYSTEM VALUE VALUES (27, 12, 12, 16, 6, 2, 13, 16);
+-- SML-013
 INSERT INTO smelting_line_item (id, smelting_id, raw_input_item_id, quantity_inserted, fuel_item_id, fuel_consumed, output_item_id, output_quantity) OVERRIDING SYSTEM VALUE VALUES (13, 13, 4, 8, 6, 1, 5, 8);
+INSERT INTO smelting_line_item (id, smelting_id, raw_input_item_id, quantity_inserted, fuel_item_id, fuel_consumed, output_item_id, output_quantity) OVERRIDING SYSTEM VALUE VALUES (28, 13, 14, 8, 6, 1, 15, 8);
+-- SML-014
 INSERT INTO smelting_line_item (id, smelting_id, raw_input_item_id, quantity_inserted, fuel_item_id, fuel_consumed, output_item_id, output_quantity) OVERRIDING SYSTEM VALUE VALUES (14, 14, 12, 64, 6, 8, 13, 64);
+INSERT INTO smelting_line_item (id, smelting_id, raw_input_item_id, quantity_inserted, fuel_item_id, fuel_consumed, output_item_id, output_quantity) OVERRIDING SYSTEM VALUE VALUES (29, 14, 4, 32, 6, 4, 5, 32);
+-- SML-015
 INSERT INTO smelting_line_item (id, smelting_id, raw_input_item_id, quantity_inserted, fuel_item_id, fuel_consumed, output_item_id, output_quantity) OVERRIDING SYSTEM VALUE VALUES (15, 15, 14, 64, 6, 8, 15, 64);
+INSERT INTO smelting_line_item (id, smelting_id, raw_input_item_id, quantity_inserted, fuel_item_id, fuel_consumed, output_item_id, output_quantity) OVERRIDING SYSTEM VALUE VALUES (30, 15, 4, 64, 6, 8, 5, 64);
 
 --Populating table: mining_line_item
+-- MIN-001: Extreme Hills - Steve
 INSERT INTO mining_line_item (mining_id, block_mined_id, quantity_mined, tool_used_id, durability_lost, tool_status) VALUES (1, 4, 15, 8, 15, 'Usable') ON CONFLICT DO NOTHING;
-INSERT INTO mining_line_item (mining_id, block_mined_id, quantity_mined, tool_used_id, durability_lost, tool_status) VALUES ( 2, 1, 64, 20, 64, 'Usable')ON CONFLICT DO NOTHING;
-INSERT INTO mining_line_item (mining_id, block_mined_id, quantity_mined, tool_used_id, durability_lost, tool_status) VALUES ( 3, 18, 128, NULL, 0, 'Usable') ON CONFLICT DO NOTHING; 
-INSERT INTO mining_line_item (mining_id, block_mined_id, quantity_mined, tool_used_id, durability_lost, tool_status) VALUES ( 4, 6, 30, 8, 30, 'Usable') ON CONFLICT DO NOTHING;  
-INSERT INTO mining_line_item (mining_id, block_mined_id, quantity_mined, tool_used_id, durability_lost, tool_status) VALUES ( 5, 12, 50, 8, 50, 'Usable') ON CONFLICT DO NOTHING;  
-INSERT INTO mining_line_item (mining_id, block_mined_id, quantity_mined, tool_used_id, durability_lost, tool_status) VALUES ( 6, 14, 20, 8, 20, 'Usable') ON CONFLICT DO NOTHING;
-INSERT INTO mining_line_item (mining_id, block_mined_id, quantity_mined, tool_used_id, durability_lost, tool_status) VALUES ( 7, 12, 100, 8, 100, 'Usable') ON CONFLICT DO NOTHING;
-INSERT INTO mining_line_item (mining_id, block_mined_id, quantity_mined, tool_used_id, durability_lost, tool_status) VALUES ( 8, 4, 25, 8, 25, 'Usable') ON CONFLICT DO NOTHING;
-INSERT INTO mining_line_item (mining_id, block_mined_id, quantity_mined, tool_used_id, durability_lost, tool_status) VALUES ( 9, 1, 32, 20, 32, 'Usable') ON CONFLICT DO NOTHING;
-INSERT INTO mining_line_item (mining_id, block_mined_id, quantity_mined, tool_used_id, durability_lost, tool_status) VALUES ( 10, 6, 45, 8, 45, 'Usable') ON CONFLICT DO NOTHING;
-INSERT INTO mining_line_item (mining_id, block_mined_id, quantity_mined, tool_used_id, durability_lost, tool_status) VALUES ( 11, 18, 50, NULL, 0, 'Usable') ON CONFLICT DO NOTHING;
-INSERT INTO mining_line_item (mining_id, block_mined_id, quantity_mined, tool_used_id, durability_lost, tool_status) VALUES (12, 14, 15, 8, 15, 'Usable') ON CONFLICT DO NOTHING;
-INSERT INTO mining_line_item (mining_id, block_mined_id, quantity_mined, tool_used_id, durability_lost, tool_status) VALUES ( 13, 12, 100, 24, 100, 'Usable') ON CONFLICT DO NOTHING;
-INSERT INTO mining_line_item (mining_id, block_mined_id, quantity_mined, tool_used_id, durability_lost, tool_status) VALUES ( 14, 1, 12, 20, 12, 'Usable') ON CONFLICT DO NOTHING;
-INSERT INTO mining_line_item (mining_id, block_mined_id, quantity_mined, tool_used_id, durability_lost, tool_status) VALUES (15, 4, 22, 8, 22, 'Usable') ON CONFLICT DO NOTHING;
+INSERT INTO mining_line_item (mining_id, block_mined_id, quantity_mined, tool_used_id, durability_lost, tool_status) VALUES (1, 6, 45, 8, 45, 'Usable') ON CONFLICT DO NOTHING;
+INSERT INTO mining_line_item (mining_id, block_mined_id, quantity_mined, tool_used_id, durability_lost, tool_status) VALUES (1, 10, 2, 8, 2, 'Usable') ON CONFLICT DO NOTHING;
+
+-- MIN-002: Plains - Alex
+INSERT INTO mining_line_item (mining_id, block_mined_id, quantity_mined, tool_used_id, durability_lost, tool_status) VALUES (2, 1, 64, 20, 64, 'Usable') ON CONFLICT DO NOTHING;
+INSERT INTO mining_line_item (mining_id, block_mined_id, quantity_mined, tool_used_id, durability_lost, tool_status) VALUES (2, 12, 10, 8, 10, 'Usable') ON CONFLICT DO NOTHING;
+
+-- MIN-003: Desert - Herobrine
+INSERT INTO mining_line_item (mining_id, block_mined_id, quantity_mined, tool_used_id, durability_lost, tool_status) VALUES (3, 18, 64, NULL, 0, 'Usable') ON CONFLICT DO NOTHING;
+INSERT INTO mining_line_item (mining_id, block_mined_id, quantity_mined, tool_used_id, durability_lost, tool_status) VALUES (3, 18, 128, NULL, 0, 'Usable') ON CONFLICT DO NOTHING;
+
+-- MIN-004: Savanna - Notch
+INSERT INTO mining_line_item (mining_id, block_mined_id, quantity_mined, tool_used_id, durability_lost, tool_status) VALUES (4, 6, 30, 8, 30, 'Usable') ON CONFLICT DO NOTHING;
+INSERT INTO mining_line_item (mining_id, block_mined_id, quantity_mined, tool_used_id, durability_lost, tool_status) VALUES (4, 12, 50, 8, 50, 'Usable') ON CONFLICT DO NOTHING;
+
+-- MIN-005: Taiga - Jeb_ (Tool breaks!)
+INSERT INTO mining_line_item (mining_id, block_mined_id, quantity_mined, tool_used_id, durability_lost, tool_status) VALUES (5, 12, 250, 8, 250, 'Broken') ON CONFLICT DO NOTHING;
+INSERT INTO mining_line_item (mining_id, block_mined_id, quantity_mined, tool_used_id, durability_lost, tool_status) VALUES (5, 4, 15, 8, 15, 'Usable') ON CONFLICT DO NOTHING;
+
+-- MIN-006: Snowy Tundra - Dream
+INSERT INTO mining_line_item (mining_id, block_mined_id, quantity_mined, tool_used_id, durability_lost, tool_status) VALUES (6, 12, 20, 8, 20, 'Usable') ON CONFLICT DO NOTHING;
+INSERT INTO mining_line_item (mining_id, block_mined_id, quantity_mined, tool_used_id, durability_lost, tool_status) VALUES (6, 6, 25, 8, 25, 'Usable') ON CONFLICT DO NOTHING;
+
+-- MIN-007: Swamp - Technoblade
+INSERT INTO mining_line_item (mining_id, block_mined_id, quantity_mined, tool_used_id, durability_lost, tool_status) VALUES (7, 12, 100, 8, 100, 'Usable') ON CONFLICT DO NOTHING;
+INSERT INTO mining_line_item (mining_id, block_mined_id, quantity_mined, tool_used_id, durability_lost, tool_status) VALUES (7, 4, 30, 8, 30, 'Usable') ON CONFLICT DO NOTHING;
+
+-- MIN-008: Badlands - DanTDM
+INSERT INTO mining_line_item (mining_id, block_mined_id, quantity_mined, tool_used_id, durability_lost, tool_status) VALUES (8, 14, 25, 8, 25, 'Usable') ON CONFLICT DO NOTHING;
+INSERT INTO mining_line_item (mining_id, block_mined_id, quantity_mined, tool_used_id, durability_lost, tool_status) VALUES (8, 12, 40, 8, 40, 'Usable') ON CONFLICT DO NOTHING;
+
+-- MIN-009: Jungle - CaptainSparklez (Tool breaks!)
+INSERT INTO mining_line_item (mining_id, block_mined_id, quantity_mined, tool_used_id, durability_lost, tool_status) VALUES (9, 1, 250, 20, 250, 'Broken') ON CONFLICT DO NOTHING;
+INSERT INTO mining_line_item (mining_id, block_mined_id, quantity_mined, tool_used_id, durability_lost, tool_status) VALUES (9, 1, 64, 20, 64, 'Usable') ON CONFLICT DO NOTHING;
+
+-- MIN-010: Forest - Stampy
+INSERT INTO mining_line_item (mining_id, block_mined_id, quantity_mined, tool_used_id, durability_lost, tool_status) VALUES (10, 6, 45, 8, 45, 'Usable') ON CONFLICT DO NOTHING;
+INSERT INTO mining_line_item (mining_id, block_mined_id, quantity_mined, tool_used_id, durability_lost, tool_status) VALUES (10, 12, 60, 8, 60, 'Usable') ON CONFLICT DO NOTHING;
+
+-- MIN-011: Ocean - MumboJumbo
+INSERT INTO mining_line_item (mining_id, block_mined_id, quantity_mined, tool_used_id, durability_lost, tool_status) VALUES (11, 18, 50, NULL, 0, 'Usable') ON CONFLICT DO NOTHING;
+INSERT INTO mining_line_item (mining_id, block_mined_id, quantity_mined, tool_used_id, durability_lost, tool_status) VALUES (11, 18, 30, NULL, 0, 'Usable') ON CONFLICT DO NOTHING;
+
+-- MIN-012: Nether Wastes - Grian
+INSERT INTO mining_line_item (mining_id, block_mined_id, quantity_mined, tool_used_id, durability_lost, tool_status) VALUES (12, 14, 15, 24, 15, 'Usable') ON CONFLICT DO NOTHING;
+INSERT INTO mining_line_item (mining_id, block_mined_id, quantity_mined, tool_used_id, durability_lost, tool_status) VALUES (12, 12, 35, 24, 35, 'Usable') ON CONFLICT DO NOTHING;
+
+-- MIN-013: Basalt Deltas - TommyInnit
+INSERT INTO mining_line_item (mining_id, block_mined_id, quantity_mined, tool_used_id, durability_lost, tool_status) VALUES (13, 12, 100, 24, 100, 'Usable') ON CONFLICT DO NOTHING;
+INSERT INTO mining_line_item (mining_id, block_mined_id, quantity_mined, tool_used_id, durability_lost, tool_status) VALUES (13, 14, 20, 24, 20, 'Usable') ON CONFLICT DO NOTHING;
+
+-- MIN-014: Crimson Forest - WilburSoot (Tool breaks!)
+INSERT INTO mining_line_item (mining_id, block_mined_id, quantity_mined, tool_used_id, durability_lost, tool_status) VALUES (14, 12, 250, 8, 250, 'Broken') ON CONFLICT DO NOTHING;
+INSERT INTO mining_line_item (mining_id, block_mined_id, quantity_mined, tool_used_id, durability_lost, tool_status) VALUES (14, 1, 12, 20, 12, 'Usable') ON CONFLICT DO NOTHING;
+
+-- MIN-015: Warped Forest - Philza
+INSERT INTO mining_line_item (mining_id, block_mined_id, quantity_mined, tool_used_id, durability_lost, tool_status) VALUES (15, 4, 22, 24, 22, 'Usable') ON CONFLICT DO NOTHING;
+INSERT INTO mining_line_item (mining_id, block_mined_id, quantity_mined, tool_used_id, durability_lost, tool_status) VALUES (15, 12, 80, 24, 80, 'Usable') ON CONFLICT DO NOTHING;
 -- (GUIDE) #1.2.2 POPULATE LINE ITEMS HERE
 
 -- update sequences to max id (crutial when inserting explicit IDs)

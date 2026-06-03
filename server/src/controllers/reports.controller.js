@@ -20,7 +20,7 @@ export async function getDailyTransfers(req, res) {
 
 export async function getChestUtilization(req, res) {
   try {
-    const result = await reportsService.getChestUtilization();
+    const result = await reportsService.getChestUtilization(req.query);
     res.json({ success: true, data: result.data });
   } catch (err) {
     res.status(500).json({ success: false, error: { message: err.message } });
@@ -52,6 +52,36 @@ export async function getTopCraftedItems(req, res) {
     } catch (err) {
         res.status(500).json({ success: false, error: err.message });
     }
+}
+
+export async function getFurnaceLocationReport(req, res, next) {
+  try {
+    const { location } = req.query;
+    const data = await reportsService.getFurnaceLocationReport({ location });
+    res.json({ success: true, data });
+  } catch (err) {
+    next(err);
+  }
+}
+
+export async function getPlayerFuelHistory(req, res, next) {
+  try {
+    const { playerName } = req.query;
+    const data = await reportsService.getPlayerFuelHistory({ playerName });
+    res.json({ success: true, data });
+  } catch (err) {
+    next(err);
+  }
+}
+
+export async function getFuelAnalysis(req, res, next) {
+  try {
+    const { fromDate, toDate } = req.query;
+    const data = await reportsService.getFuelAnalysis({ fromDate, toDate });
+    res.json({ success: true, data });
+  } catch (err) {
+    next(err);
+  }
 }
 
 export async function getEnchantedTool(req, res) {

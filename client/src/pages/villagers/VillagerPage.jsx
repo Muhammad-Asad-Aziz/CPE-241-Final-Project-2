@@ -7,11 +7,12 @@ const PROFESSIONS = ["Nitwit", "Armorer", "Butcher", "Cartographer", "Cleric", "
 const BIOMES = ["Plains", "Desert", "Savanna", "Taiga", "Snowy Tundra", "Swamp", "Jungle"];
 
 export default function VillagerPage({ mode: propMode }) {
-  const { id } = useParams();
+  const { id } = useParams(); // 'id' here is actually the villager_code
   const mode = propMode || (id ? "view" : "create");
   const nav = useNavigate();
 
-  const [form, setForm] = React.useState({ villager_name: "", profession: "Nitwit", biome_type: "Plains" });
+  const [autoCode, setAutoCode] = React.useState(true);
+  const [form, setForm] = React.useState({ villager_code: "", villager_name: "", profession: "Nitwit", biome_type: "Plains" });
   const [err, setErr] = React.useState("");
   const [submitting, setSubmitting] = React.useState(false);
   const [loading, setLoading] = React.useState(mode !== "create");
@@ -20,7 +21,7 @@ export default function VillagerPage({ mode: propMode }) {
     if (mode === "create") return;
     getVillager(id)
       .then((v) => {
-        if (v) setForm({ villager_name: v.villager_name, profession: v.profession, biome_type: v.biome_type });
+        if (v) setForm({ villager_code: v.villager_code, villager_name: v.villager_name, profession: v.profession, biome_type: v.biome_type });
         else setErr("Villager not found");
         setLoading(false);
       })
@@ -33,13 +34,22 @@ export default function VillagerPage({ mode: propMode }) {
     e.preventDefault();
     setErr(""); setSubmitting(true);
     try {
-      const payload = { ...form, villager_name: form.villager_name.trim() };
+      const payload = { 
+        villager_code: mode === "create" && autoCode ? "" : form.villager_code.trim(),
+        villager_name: form.villager_name.trim(),
+        profession: form.profession,
+        biome_type: form.biome_type
+      };
       
-      if (mode === "create") await createVillager(payload);
-      else await updateVillager(id, payload);
-      
-      toast.success(`Villager ${mode === "create" ? "created" : "updated"}.`);
-      nav("/villagers");
+      if (mode === "create") {
+        const res = await createVillager(payload);
+        toast.success("Villager created.");
+        nav(`/villagers/${res.villager_code}`);
+      } else {
+        const res = await updateVillager(id, payload);
+        toast.success("Villager updated.");
+        nav(`/villagers/${res.villager_code}`);
+      }
     } catch (e) { 
         setErr(String(e.message || e)); 
         toast.error(String(e.message || e));
@@ -53,16 +63,38 @@ export default function VillagerPage({ mode: propMode }) {
   return (
     <div>
       <div className="page-header">
-        <h3 className="page-title">{ mode === "create" ? "Create Villager" : "Edit Villager" }</h3>
+        <h3 className="page-title">{ mode === "create" ? "Create Villager" : `Edit Villager ${id}` }</h3>
         <Link to="/villagers" className="btn btn-outline">← Back</Link>
       </div>
       {err && <div className="alert alert-error">{err}</div>}
       
       <div className="card">
         <form onSubmit={handleSubmit}>
+
+          <div className="form-group">
+            <label className="form-label">Villager Code <span className="required-marker">*</span></label>
+            <div className="flex gap-2" style={{ maxWidth: "300px" }}>
+              <input
+                className="form-control"
+                name="villager_code"
+                disabled={mode === "create" ? autoCode : true}
+                placeholder="e.g. VIL-016"
+                value={form.villager_code}
+                onChange={handleChange}
+                required={!autoCode}
+              />
+              {mode === "create" && (
+                <div className="form-inline-option">
+                  <input type="checkbox" checked={autoCode} onChange={(e) => setAutoCode(e.target.checked)} id="v_auto" />
+                  <label htmlFor="v_auto">Auto</label>
+                </div>
+              )}
+            </div>
+          </div>
+
           <div className="form-group">
             <label className="form-label">Villager Name <span className="required-marker">*</span></label>
-            <input className="form-control" name="villager_name" value={form.villager_name} onChange={handleChange} required />
+            <input className="form-control" name="villager_name" value={form.villager_name} onChange={handleChange} required style={{ maxWidth: "400px" }} />
           </div>
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem" }}>
             <div className="form-group">

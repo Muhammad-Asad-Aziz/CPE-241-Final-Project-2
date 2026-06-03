@@ -26,8 +26,8 @@ export default function RecipeList() {
     };
 
     const columns = [
-        { key: "id", label: "Recipe ID" },
-        { key: "target_item_name", label: "Crafts Into", render: v => <span className="font-bold">{v}</span> },
+        { key: "recipe_code", label: "Recipe Code", render: v => <span className="font-bold">{v}</span> },
+        { key: "target_item_name", label: "Crafts Into", render: v => `${v}` },
         { key: "ingredient_item_name", label: "Requires Item" },
         { key: "amount_needed", label: "Amount Needed", align: "right" }
     ];
@@ -49,7 +49,7 @@ export default function RecipeList() {
                 searchPlaceholder="Search target or ingredient name..."
                 itemName="recipes"
                 basePath="/recipes"
-                itemKey="id"
+                itemKey="recipe_code"
                 onDelete={handleDelete}
                 refreshTrigger={refreshTrigger}
             />

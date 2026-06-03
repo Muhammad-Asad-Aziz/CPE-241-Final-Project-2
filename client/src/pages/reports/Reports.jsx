@@ -8,10 +8,12 @@ import ReportTable from "../../components/ReportTable.jsx";
 const REPORT_CONFIG = {
   "chest-inventory": {
     title: "Chest Inventory",
-    subtitle: "List items stored in a specific chest or view all chests at once.",
+    subtitle: "Simple 1: List items stored in a specific chest or view all chests at once",
     emptyMessage: "No items found.",
     getColumns: () => [
-      { key: "chest_id", label: "Chest", render: (v, row) => `Chest #${v} (${row.dimension})` },
+      { key: "chest_code", label: "Chest Code", render: (v) => <span className="font-bold">{v}</span> },
+      { key: "dimension", label: "Dimension" },  // <-- NEW COLUMN ADDED HERE!
+      { key: "item_code", label: "Item Code" },
       { key: "item_name", label: "Item Name", render: (v) => <span className="font-bold">{v}</span> },
       { key: "item_type", label: "Item Type" },
       { key: "current_quantity", label: "Quantity Stored", align: "right", style: { color: "var(--primary)", fontWeight: "bold" } }
@@ -19,42 +21,34 @@ const REPORT_CONFIG = {
   },
   "daily-transfers": {
     title: "Transfer History Log",
-    subtitle: "Detailed item-by-item log of transfers. (Upgraded for project: Now supports full date ranges instead of just a single day, and shows all history if left blank!)",
+    subtitle: "Simple 2: detailed item-by-item log of transfers.",
     emptyMessage: "No transfers occurred in this date range.",
     getColumns: () => [
-      { key: "transfer_id", label: "Transfer ID", render: (v) => `TRN-${v}` },
+      { key: "transfer_code", label: "Transfer Code", render: (v) => <span className="font-bold">{v}</span> }, 
       { key: "transfer_date", label: "Date", render: (v) => formatDate(v) },
-      { key: "player_username", label: "Player", render: (v) => <span className="font-bold">{v}</span> },
-      { key: "item_moved", label: "Item Moved", render: (v) => <span style={{ color: "var(--primary)", fontWeight: 600 }}>{v}</span> },
+      { key: "player_username", label: "Player", render: (v, row) => <span className="font-bold">{row.player_code} - {v}</span> },
+      { key: "item_moved", label: "Item Moved", render: (v, row) => <span style={{ color: "var(--primary)", fontWeight: 600 }}>{row.item_code} - {v}</span> },
       { key: "quantity_transferred", label: "Quantity", align: "right" },
-      { 
-        key: "src_chest", 
-        label: "From", 
-        render: (v) => v === "Player Inventory" ? <span className="text-muted">{v}</span> : `Chest #${v}` 
-      },
-      { 
-        key: "dst_chest", 
-        label: "To", 
-        render: (v) => v === "Player Inventory" ? <span className="text-muted">{v}</span> : `Chest #${v}` 
-      }
+      { key: "src_chest", label: "From", render: (v) => v === "Player Inventory" ? <span className="text-muted">{v}</span> : v },
+      { key: "dst_chest", label: "To", render: (v) => v === "Player Inventory" ? <span className="text-muted">{v}</span> : v }
     ]
   },
   "chest-utilization": {
     title: "Chest Capacity Utilization",
-    subtitle: "Analysis: Chest slot usage grouped by Dimension (Assumes 27 slots per chest).",
+    subtitle: "Analysis: Slots used and utilization percentage for individual chests.",
     emptyMessage: "No data available.",
     getColumns: () => [
-      { key: "dimension", label: "Dimension", render: (v) => <span className="font-bold">{v}</span> },
-      { key: "total_chests", label: "Total Chests", align: "right" },
-      { key: "total_used_slots", label: "Used Slots", align: "right" },
+      { key: "chest_code", label: "Chest Code", render: (v) => <span className="font-bold">{v}</span> },
+      { key: "dimension", label: "Dimension" },
+      { key: "used_slots", label: "Slots Used", align: "right" },
       { key: "total_capacity", label: "Max Capacity (Slots)", align: "right" },
-      { key: "utilization_percent", label: "Utilization (%)", align: "right", style: { fontWeight: 600, color: "#ef4444" }, render: (v) => `${v}%` }
+      { key: "utilization_percent", label: "Utilization (%)", align: "right", style: { fontWeight: 600 }, render: (v) => `${v}%` }
     ]
   },
 
   "crafting-history": {
     title: "Player Crafting History",
-    subtitle: "Simple: List all crafting sessions made by a specific Player.",
+    subtitle: "Simple 1: List all crafting sessions made by a specific Player.",
     emptyMessage: "No crafting history found for this player.",
     getColumns: () => [
       { key: "Craft_Date", label: "Date", render: (v) => formatDate(v) },
@@ -66,7 +60,7 @@ const REPORT_CONFIG = {
   },
   "recipe-requirements": {
     title: "Recipe Requirements",
-    subtitle: "Simple: Print Recipe requirements for a specific Item Name.",
+    subtitle: "Simple 2: Print Recipe requirements for a specific Item Name.",
     emptyMessage: "No recipe found for this item.",
     getColumns: () => [
       { key: "Target_Item", label: "Target Item", render: (v) => <span className="font-bold">{v}</span> },
@@ -85,9 +79,47 @@ const REPORT_CONFIG = {
     ]
   },
 
+  "furnace-location": {
+    title: "Furnace Location Report",
+    subtitle: "Simple 1: List all ores smelted in a specific Furnace Location.",
+    emptyMessage: "No smelting records found for this location.",
+    getColumns: () => [
+      { key: "Job_ID", label: "Job ID", render: (v) => <span className="font-bold">SML-{v}</span> },
+      { key: "Date", label: "Date", render: (v) => formatDate(v) },
+      { key: "Player", label: "Player", render: (v) => <span>{v}</span> },
+      { key: "Raw_Ore", label: "Raw Ore Input", render: (v) => <span>{v}</span> },
+      { key: "Qty_In", label: "Qty In", align: "right" },
+      { key: "Output_Item", label: "Output Item", render: (v) => <span>{v}</span> },
+      { key: "Qty_Out", label: "Qty Out", align: "right" }
+    ]
+  },
+  "player-fuel": {
+    title: "Player Fuel Consumption",
+    subtitle: "Simple 2: List fuel consumption history for a specific Player.",
+    emptyMessage: "No fuel history found for this player.",
+    getColumns: () => [
+      { key: "Date", label: "Date", render: (v) => formatDate(v) },
+      { key: "Location", label: "Furnace Location" },
+      { key: "Fuel_Type", label: "Fuel Used", render: (v) => <span>{v}</span> },
+      { key: "Fuel_Consumed", label: "Fuel Consumed", align: "right" },
+      { key: "Output_Generated", label: "Output Generated", render: (v) => <span>{v}</span> },
+      { key: "Qty_Generated", label: "Qty Generated", align: "right" }
+    ]
+  },
+  "fuel-analysis": {
+    title: "Total Output by Fuel Type",
+    subtitle: "Analysis: Show Total Output Items produced grouped by Fuel Type Used within a date range.",
+    emptyMessage: "No output found in this date range.",
+    getColumns: () => [
+      { key: "Fuel_Type", label: "Fuel Type", render: (v) => <span className="font-bold">{v}</span> },
+      { key: "Total_Fuel_Consumed", label: "Total Fuel Consumed", align: "right", style: { color: "#ef4444" } },
+      { key: "Total_Output_Produced", label: "Total Output Produced", align: "right", style: { color: "var(--primary)", fontWeight: "bold" } }
+    ]
+  },
+
   "enchanted-tool": {
     title: "Enchanted Tool History",
-    subtitle: "Simple: List all tools modified with a specific enchantment.",
+    subtitle: "Simple 1: List all tools modified with a specific enchantment.",
     emptyMessage: "No tools found with this enchantment.",
     getColumns: () => [
       { key: "date", label: "Interaction Date", render: (v) => formatDate(v) },
@@ -101,7 +133,7 @@ const REPORT_CONFIG = {
   },
   "anvil-history": {
     title: "Player Anvil History",
-    subtitle: "Simple: List all anvil sessions made by a specific player.",
+    subtitle: "Simple 2: List all anvil sessions made by a specific player.",
     emptyMessage: "No anvil history found for this player.",
     getColumns: () => [
       { key: "date", label: "Date", render: (v) => formatDate(v) },
@@ -129,7 +161,7 @@ const REPORT_CONFIG = {
   
   "mining-history": {
     title: "Mining History of each Biome",
-    subtitle: "Simple: Shows the amount of blocks that was mined in each biome.",
+    subtitle: "Simple 1: Shows the amount of blocks that was mined in each biome.",
     emptyMessage: "No mining records found for this biome.",
     getColumns: () => [
       { key: "TRIP ID", label: "Mining Trip ID", render: v => `MN-${v}` },
@@ -144,7 +176,7 @@ const REPORT_CONFIG = {
 
   "broken-tools": {
     title: "Mining Tools That Are No Longer Usable",
-    subtitle: "Simple: Shows mining tools that are broken",
+    subtitle: "Simple 2: Shows mining tools that are broken",
     emptyMessage: "No broken tools found.",
     getColumns: () => [
       { key: "TRIP ID", label: "Mining Trip ID", render: (v) => `MN-${v}` },
@@ -171,6 +203,7 @@ const REPORT_CONFIG = {
       { key: "TOOL STATUS", label: "Tool Status", align: "left" }
     ]
   }
+
 };
   // (GUIDE) #3.7 ADD YOUR REPORT
 
@@ -180,7 +213,7 @@ export default function Reports({ type = "chest-inventory" }) {
   const [loading, setLoading] = React.useState(false);
   const [filters, setFilters] = React.useState({});
   const [appliedFilters, setAppliedFilters] = React.useState({});
-  const [hasApplied, setHasApplied] = React.useState(type === "chest-utilization"); // Utilization requires no filters, run immediately!
+  const [hasApplied, setHasApplied] = React.useState(false);
 
   const config = REPORT_CONFIG[type];
 
@@ -197,11 +230,7 @@ export default function Reports({ type = "chest-inventory" }) {
     setFilters({});
     setAppliedFilters({});
     setData([]);
-    if (type === "chest-utilization") {
-      setHasApplied(true);
-    } else {
-      setHasApplied(false);
-    }
+    setHasApplied(false);
   }, [type]);
 
   // Fetch when applied filters change or if it's the utilization report
@@ -224,11 +253,9 @@ export default function Reports({ type = "chest-inventory" }) {
         </div>
       </div>
 
-      {type !== "chest-utilization" && (
-        <div className="card" style={{ marginBottom: 24 }}>
-          <ReportFilters type={type} filters={filters} onChange={setFilters} onApply={handleApply} />
-        </div>
-      )}
+      <div className="card" style={{ marginBottom: 24 }}>
+        <ReportFilters type={type} filters={filters} onChange={setFilters} onApply={handleApply} />
+      </div>
 
       <div className="card">
         {!hasApplied ? (
