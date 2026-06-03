@@ -12,8 +12,8 @@ export async function listVillagers(params = {}) {
   return { data: res.data, ...(res.meta || {}) };
 }
 
-export async function getVillager(id) {
-  const res = unwrap(await http(`/api/villagers/${encodeURIComponent(id)}`));
+export async function getVillager(code) {
+  const res = unwrap(await http(`/api/villagers/${encodeURIComponent(code)}`));
   return res.data;
 }
 
@@ -22,12 +22,12 @@ export async function createVillager(data) {
   return res.data;
 }
 
-export async function updateVillager(id, data) {
-  const res = unwrap(await http(`/api/villagers/${encodeURIComponent(id)}`, { method: "PUT", body: JSON.stringify(data) }));
+export async function updateVillager(code, data) {
+  const res = unwrap(await http(`/api/villagers/${encodeURIComponent(code)}`, { method: "PUT", body: JSON.stringify(data) }));
   return res.data;
 }
 
-export async function deleteVillager(id) {
-  const res = unwrap(await http(`/api/villagers/${encodeURIComponent(id)}`, { method: "DELETE" }));
+export async function deleteVillager(code) {
+  const res = unwrap(await http(`/api/villagers/${encodeURIComponent(code)}`, { method: "DELETE" }));
   return res.data;
 }

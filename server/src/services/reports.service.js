@@ -2,22 +2,21 @@ import { pool } from "../db/pool.js";
 
 // Report by Muhammad Asad Aziz Simple 1: List all items currently stored inside a specific Chest ID
 export async function getChestInventory({ chest_id }) {
-  // If chest_id is empty/undefined, set it to null so SQL understands it
   const chestParam = chest_id ? Number(chest_id) : null;
 
   const { rows } = await pool.query(
     `
       WITH items_in AS (
-        SELECT t.destination_chest_id as chest_id, li.item_id, SUM(li.quantity_transferred) as qty  
+        SELECT t.destination_chest_id as chest_id, li.item_id, SUM(li.quantity_transferred) as qty
         FROM transfer_line_item li
-        JOIN "transfer" t ON t.id = li.transfer_id
+        JOIN transfer t ON t.id = li.transfer_id
         WHERE t.destination_chest_id IS NOT NULL
         GROUP BY t.destination_chest_id, li.item_id
       ),
       items_out AS (
         SELECT t.source_chest_id as chest_id, li.item_id, SUM(li.quantity_transferred) as qty
         FROM transfer_line_item li
-        JOIN "transfer" t ON t.id = li.transfer_id
+        JOIN transfer t ON t.id = li.transfer_id
         WHERE t.source_chest_id IS NOT NULL
         GROUP BY t.source_chest_id, li.item_id
       ),
@@ -31,9 +30,9 @@ export async function getChestInventory({ chest_id }) {
           ON iin.chest_id = iout.chest_id AND iin.item_id = iout.item_id
       )
       SELECT 
-        ci.chest_id, 
+        c.chest_code, 
         c.dimension,
-        i.id as item_id, 
+        i.item_code, 
         i.item_name, 
         i.item_type,
         ci.current_quantity
@@ -42,7 +41,7 @@ export async function getChestInventory({ chest_id }) {
       JOIN chest c ON c.id = ci.chest_id
       WHERE ci.current_quantity > 0
         AND ($1::bigint IS NULL OR ci.chest_id = $1::bigint)
-      ORDER BY ci.chest_id ASC, ci.current_quantity DESC
+      ORDER BY c.chest_code ASC, ci.current_quantity DESC
     `,
     [chestParam]
   );
@@ -57,49 +56,54 @@ export async function getDailyTransfers({ date_from, date_to }) {
   const { rows } = await pool.query(
     `
       SELECT 
-          t.id AS transfer_id, 
+          t.transfer_code, 
           t.transfer_date, 
-          p.username AS player_username, 
+          p.player_code,
+          p.username AS player_username,
           i.item_name AS item_moved, 
-          COALESCE(CAST(t.source_chest_id AS TEXT), 'Player Inventory') AS src_chest,
-          COALESCE(CAST(t.destination_chest_id AS TEXT), 'Player Inventory') AS dst_chest,
+          i.item_code,
+          COALESCE(sc.chest_code, 'Player Inventory') AS src_chest,
+          COALESCE(dc.chest_code, 'Player Inventory') AS dst_chest,
           li.quantity_transferred
-      FROM "transfer" t
+      FROM transfer t
       JOIN player p ON t.player_id = p.id
       JOIN transfer_line_item li ON t.id = li.transfer_id
       JOIN item i ON li.item_id = i.id
+      LEFT JOIN chest sc ON t.source_chest_id = sc.id
+      LEFT JOIN chest dc ON t.destination_chest_id = dc.id
       WHERE ($1::date IS NULL OR DATE(t.transfer_date) >= $1::date)
         AND ($2::date IS NULL OR DATE(t.transfer_date) <= $2::date)
-      ORDER BY t.transfer_date DESC, t.id ASC
+      ORDER BY t.transfer_date DESC, t.transfer_code ASC
     `,
     [dFrom, dTo]
   );
   return { data: rows };
 }
 
-// Report by Muhammad Asad Aziz Analysis: Show Chest Capacity Utilization (%) grouped by Chest Dimension
-export async function getChestUtilization() {
+// Report by Muhammad Asad Aziz Analysis: Show Chest Capacity Utilization (%) with Dimension query/filter
+export async function getChestUtilization({ dimension } = {}) {
+  const dimParam = dimension ? dimension : null;
+
   const { rows } = await pool.query(
     `
-      WITH chest_usage AS (
-          SELECT c.dimension, c.id, COUNT(DISTINCT li.destination_slot_number) as used_slots
-          FROM chest c
-          LEFT JOIN "transfer" t ON t.destination_chest_id = c.id
-          LEFT JOIN transfer_line_item li ON li.transfer_id = t.id
-          GROUP BY c.dimension, c.id
-      )
-      SELECT dimension,
-             COUNT(id) as total_chests,
-             SUM(used_slots) as total_used_slots,
-             (COUNT(id) * 27) as total_capacity,
-             COALESCE(ROUND((SUM(used_slots)::numeric / NULLIF(COUNT(id) * 27, 0)) * 100, 2), 0) as utilization_percent
-      FROM chest_usage
-      GROUP BY dimension
-      ORDER BY utilization_percent DESC
-    `
+      SELECT 
+          c.chest_code,
+          c.dimension,
+          COUNT(DISTINCT li.destination_slot_number) as used_slots,
+          27 as total_capacity,
+          COALESCE(ROUND((COUNT(DISTINCT li.destination_slot_number) * 100.0) / 27, 2), 0) as utilization_percent
+      FROM chest c
+      LEFT JOIN transfer t ON c.id = t.destination_chest_id
+      LEFT JOIN transfer_line_item li ON li.transfer_id = t.id
+      WHERE ($1::text IS NULL OR c.dimension ILIKE $1::text)
+      GROUP BY c.id, c.chest_code, c.dimension
+      ORDER BY c.chest_code ASC
+    `,
+    [dimParam]
   );
   return { data: rows };
 }
+
 // Report by Supanut Sopha Crafting Simple 1:  List all crafting sessions made by Player Name: ___.
 export async function getPlayerCraftingHistory({ playerName = "" }) {
     const { rows } = await pool.query(
@@ -308,9 +312,10 @@ export async function getBiomeMiningHistory({ biomeName = "" }) {
     return rows;
 }
 
-// Report by Iris: List tools that reached "Broken" status on Date: ___.
-export async function getBrokenTools({ Date }) {
-    const from = Date || '2000-01-01';
+// Report by Iris: List tools that reached "Broken" status between fromDate and toDate.
+export async function getBrokenTools({ fromDate, toDate }) {
+    const from = fromDate || '2000-01-01';
+    const to = toDate || '2100-12-31';
 
     const { rows } = await pool.query(
         `SELECT 
@@ -327,9 +332,9 @@ export async function getBrokenTools({ Date }) {
          JOIN mining_line_item ml ON m.id = ml.mining_id
          JOIN item ib ON ml.block_mined_id = ib.id
          LEFT JOIN item it ON ml.tool_used_id = it.id
-         WHERE m.mining_date = $1 AND ml.tool_status = 'Broken'
+         WHERE m.mining_date >= $1 AND m.mining_date <= $2 AND ml.tool_status = 'Broken'
          ORDER BY m.id DESC`,
-        [from]
+        [from, to]
     );
     return rows;
 }

@@ -35,8 +35,8 @@ export default function PlayerList() {
     };
 
     const columns = [
-        { key: "id", label: "ID" },
-        { key: "username", label: "Username", render: v => <span className="font-bold">{v}</span> },
+        { key: "player_code", label: "Player Code", render: v => <span className="font-bold">{v}</span> },
+        { key: "username", label: "Username", render: v => `${v}` },
         { key: "current_xp_level", label: "XP Level", align: "right" },
         { key: "health_points", label: "Health Points", align: "right", render: v => <span style={{ color: '#ef4444' }}>{v} ♥</span> }
     ];
@@ -67,7 +67,7 @@ export default function PlayerList() {
                 searchPlaceholder="Search username..."
                 itemName="players"
                 basePath="/players"
-                itemKey="id"
+                itemKey="player_code"
                 onDelete={handleDelete}
                 refreshTrigger={refreshTrigger}
             />

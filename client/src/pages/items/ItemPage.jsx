@@ -10,7 +10,8 @@ export default function ItemPage({ mode: propMode }) {
   const mode = propMode || (id ? "view" : "create");
   const nav = useNavigate();
 
-  const [form, setForm] = React.useState({ item_name: "", max_stack_size: 64, item_type: "Ingredient", max_durability: "" });
+  const [autoCode, setAutoCode] = React.useState(true);
+  const [form, setForm] = React.useState({ item_code: "", item_name: "", max_stack_size: 64, item_type: "Ingredient", max_durability: "" });
   const [err, setErr] = React.useState("");
   const [submitting, setSubmitting] = React.useState(false);
   const [loading, setLoading] = React.useState(mode !== "create");
@@ -20,6 +21,7 @@ export default function ItemPage({ mode: propMode }) {
     getItem(id)
       .then((p) => {
         if (p) setForm({ 
+            item_code: p.item_code,
             item_name: p.item_name, 
             max_stack_size: p.max_stack_size, 
             item_type: p.item_type, 
@@ -38,17 +40,22 @@ export default function ItemPage({ mode: propMode }) {
     setErr(""); setSubmitting(true);
     try {
       const payload = { 
+        item_code: mode === "create" && autoCode ? "" : form.item_code.trim(),
         item_name: form.item_name.trim(), 
         max_stack_size: Number(form.max_stack_size), 
         item_type: form.item_type,
         max_durability: form.max_durability ? Number(form.max_durability) : null
       };
       
-      if (mode === "create") await createItem(payload);
-      else await updateItem(id, payload);
-      
-      toast.success(`Item ${mode === "create" ? "created" : "updated"}.`);
-      nav("/items");
+      if (mode === "create") {
+        const res = await createItem(payload);
+        toast.success("Item created.");
+        nav(`/items/${res.item_code}`);
+      } else {
+        const res = await updateItem(id, payload);
+        toast.success("Item updated.");
+        nav(`/items/${res.item_code}`);
+      }
     } catch (e) { 
         setErr(String(e.message || e)); 
         toast.error(String(e.message || e));
@@ -62,13 +69,35 @@ export default function ItemPage({ mode: propMode }) {
   return (
     <div>
       <div className="page-header">
-        <h3 className="page-title">{ mode === "create" ? "Create Item" : "Edit Item" }</h3>
+        <h3 className="page-title">{ mode === "create" ? "Create Item" : `Edit Item ${id}` }</h3>
         <Link to="/items" className="btn btn-outline">← Back</Link>
       </div>
       {err && <div className="alert alert-error">{err}</div>}
       
       <div className="card">
         <form onSubmit={handleSubmit}>
+          
+          <div className="form-group">
+            <label className="form-label">Item Code <span className="required-marker">*</span></label>
+            <div className="flex gap-2" style={{ maxWidth: "300px" }}>
+              <input
+                className="form-control"
+                name="item_code"
+                disabled={mode === "create" ? autoCode : true}
+                placeholder="e.g. ITM-025"
+                value={form.item_code}
+                onChange={handleChange}
+                required={!autoCode}
+              />
+              {mode === "create" && (
+                <div className="form-inline-option">
+                  <input type="checkbox" checked={autoCode} onChange={(e) => setAutoCode(e.target.checked)} id="i_auto" />
+                  <label htmlFor="i_auto">Auto</label>
+                </div>
+              )}
+            </div>
+          </div>
+
           <div style={{ display: "grid", gridTemplateColumns: "2fr 1fr", gap: "1rem" }}>
             <div className="form-group">
                 <label className="form-label">Item Name <span className="required-marker">*</span></label>

@@ -29,10 +29,10 @@ export default function MiningList() {
     };
 
     const columns = [
-        { key: "id", label: "Mining ID", render: v => <span className="font-bold">MN-{v}</span> },
+        { key: "mining_code", label: "Mining Code", render: v => <span className="font-bold">{v}</span> },
         { key: "mining_date", label: "Date", render: v => formatDate(v) },
-        { key: "player_id", label: "Player_id", render: v => <span style={{ color: "var(--primary)", fontWeight: 600 }}>Player {v}</span> },
-        { key: "biome_name", label: "Biome", render: v => <span style={{ color: "var(--primary)", fontWeight: 600 }}>{v}</span> },
+        { key: "player_username", label: "Player", render: v => `${v}` },
+        { key: "biome_name", label: "Biome", render: v => `${v}` },
     ];
 
     return (
@@ -50,10 +50,10 @@ export default function MiningList() {
                 title="Mining Trips"
                 fetchData={fetchData}
                 columns={columns}
-                searchPlaceholder="Search by player id..."
+                searchPlaceholder="Search by code, player, or biome..."
                 itemName="minings"
                 basePath="/minings"
-                itemKey="id"
+                itemKey="mining_code"
                 onDelete={handleDelete}
                 refreshTrigger={refreshTrigger}
             />

@@ -24,7 +24,7 @@ export async function createPlayer(req, res) {
 
 export async function updatePlayer(req, res) {
   try {
-    const result = await playersService.updatePlayer(req.params.id, req.body);
+    const result = await playersService.updatePlayer(req.params.code, req.body);
     if (!result) return res.status(404).json({ success: false, error: { message: "Player not found" } });
     res.json({ success: true, data: result });
   } catch (err) {
@@ -35,7 +35,7 @@ export async function updatePlayer(req, res) {
 export async function deletePlayer(req, res) {
   try {
     const force = req.query.force === "true";
-    const result = await playersService.deletePlayer(req.params.id, { force });
+    const result = await playersService.deletePlayer(req.params.code, { force });
     res.json({ success: true, data: result });
   } catch (err) {
     res.status(err.statusCode || 500).json({ success: false, error: { message: err.message } });
@@ -44,7 +44,7 @@ export async function deletePlayer(req, res) {
 
 export async function getPlayer(req, res) {
   try {
-    const player = await playersService.getPlayerById(req.params.id);
+    const player = await playersService.getPlayerById(req.params.code);
     if (!player) return res.status(404).json({ success: false, error: { message: "Player not found" } });
     res.json({ success: true, data: player });
   } catch (err) {

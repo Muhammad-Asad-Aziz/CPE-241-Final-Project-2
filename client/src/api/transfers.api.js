@@ -1,6 +1,5 @@
 import { http } from "./http.js";
 
-// If backend returns success: false, throw the error message so callers can catch.
 function unwrap(res) {
   if (res && res.success === false && res.error) throw new Error(res.error.message);
   return res;
@@ -12,8 +11,8 @@ export async function listTransfers(params = {}) {
   return { data: res.data, ...(res.meta || {}) };
 }
 
-export async function getTransfer(id) {
-  const res = unwrap(await http(`/api/transfers/${encodeURIComponent(id)}`));
+export async function getTransfer(code) {
+  const res = unwrap(await http(`/api/transfers/${encodeURIComponent(code)}`));
   return res.data;
 }
 
@@ -22,12 +21,12 @@ export async function createTransfer(payload) {
   return res.data;
 }
 
-export async function updateTransfer(id, payload) {
-  const res = unwrap(await http(`/api/transfers/${encodeURIComponent(id)}`, { method: "PUT", body: JSON.stringify(payload) }));
+export async function updateTransfer(code, payload) {
+  const res = unwrap(await http(`/api/transfers/${encodeURIComponent(code)}`, { method: "PUT", body: JSON.stringify(payload) }));
   return res.data;
 }
 
-export async function deleteTransfer(id) {
-  const res = unwrap(await http(`/api/transfers/${encodeURIComponent(id)}`, { method: "DELETE" }));
+export async function deleteTransfer(code) {
+  const res = unwrap(await http(`/api/transfers/${encodeURIComponent(code)}`, { method: "DELETE" }));
   return res.data;
 }

@@ -5,8 +5,8 @@ const r = Router();
 
 r.get("/", c.listTransfers);
 r.post("/", c.createTransfer);
-r.get("/:id", c.getTransfer);
-r.put("/:id", c.updateTransfer);
-r.delete("/:id", c.deleteTransfer);
+r.get("/:code", c.getTransfer);
+r.put("/:code", c.updateTransfer);
+r.delete("/:code", c.deleteTransfer);
 
 export default r;
