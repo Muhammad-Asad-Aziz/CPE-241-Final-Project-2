@@ -1,6 +1,5 @@
 import { http } from "./http.js";
 
-// If backend returns success: false, throw the error message so callers can catch.
 function unwrap(res) {
   if (res && res.success === false && res.error) throw new Error(res.error.message);
   return res;
@@ -12,8 +11,8 @@ export async function listRecipes(params = {}) {
   return { data: res.data, ...(res.meta || {}) };
 }
 
-export async function getRecipe(id) {
-  const res = unwrap(await http(`/api/recipes/${encodeURIComponent(id)}`));
+export async function getRecipe(code) {
+  const res = unwrap(await http(`/api/recipes/${encodeURIComponent(code)}`));
   return res.data;
 }
 
@@ -22,12 +21,12 @@ export async function createRecipe(data) {
   return res.data;
 }
 
-export async function updateRecipe(id, data) {
-  const res = unwrap(await http(`/api/recipes/${encodeURIComponent(id)}`, { method: "PUT", body: JSON.stringify(data) }));
+export async function updateRecipe(code, data) {
+  const res = unwrap(await http(`/api/recipes/${encodeURIComponent(code)}`, { method: "PUT", body: JSON.stringify(data) }));
   return res.data;
 }
 
-export async function deleteRecipe(id) {
-  const res = unwrap(await http(`/api/recipes/${encodeURIComponent(id)}`, { method: "DELETE" }));
+export async function deleteRecipe(code) {
+  const res = unwrap(await http(`/api/recipes/${encodeURIComponent(code)}`, { method: "DELETE" }));
   return res.data;
 }

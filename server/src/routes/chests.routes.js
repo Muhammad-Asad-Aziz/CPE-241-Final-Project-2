@@ -5,8 +5,8 @@ const r = Router();
 
 r.get("/", c.listChests);
 r.post("/", c.createChest);
-r.get("/:id", c.getChest);
-r.put("/:id", c.updateChest);
-r.delete("/:id", c.deleteChest);
+r.get("/:code", c.getChest);
+r.put("/:code", c.updateChest);
+r.delete("/:code", c.deleteChest);
 
 export default r;

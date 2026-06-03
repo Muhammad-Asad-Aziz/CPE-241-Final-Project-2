@@ -21,7 +21,7 @@ export default function TradingsPage() {
     const navigate = useNavigate();
     const isEdit = Boolean(id);
 
-    const [formData, setFormData] = useState({ trade_date: "", player_name: "", villager_id: "" });
+    const [formData, setFormData] = useState({ trade_code: "", trade_date: "", player_name: "", villager_id: "" });
     const [villagerLabel, setVillagerLabel] = useState("");
     const [lines, setLines] = useState([emptyLine()]);
     const [allVillagers, setAllVillagers] = useState([]);
@@ -48,7 +48,7 @@ export default function TradingsPage() {
                 const dateVal = data.trade_date
                     ? new Date(data.trade_date).toISOString().slice(0, 16)
                     : "";
-                setFormData({ trade_date: dateVal, player_name: data.player_name, villager_id: data.villager_id });
+                setFormData({ trade_code: data.trade_code || "", trade_date: dateVal, player_name: data.player_name, villager_id: data.villager_id });
                 setVillagerLabel(data.villager_name ? `${data.villager_name} (${data.profession})` : `Villager #${data.villager_id}`);
                 if (data.line_items && data.line_items.length > 0) {
                     setLines(data.line_items.map(li => ({
@@ -92,6 +92,7 @@ export default function TradingsPage() {
         try {
             const payload = {
                 ...formData,
+                trade_code: formData.trade_code || undefined,
                 villager_id: Number(formData.villager_id),
                 line_items: lines.map(l => ({
                     item_given_id: Number(l.item_given_id),
@@ -229,7 +230,7 @@ export default function TradingsPage() {
             {/* Page Header */}
             <div className="page-header">
                 <h3 className="page-title">
-                    {isEdit ? `Edit Trade Session TRD-${id}` : "Record New Villager Trade"}
+                    {isEdit ? `Edit Trade Session ${id}` : "Record New Villager Trade"}
                 </h3>
                 <Link to="/tradings" className="btn btn-outline">← Back to List</Link>
             </div>
@@ -240,9 +241,10 @@ export default function TradingsPage() {
                     <h4 style={{ marginTop: 0 }}>Trade Session Details</h4>
                     <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem" }}>
                         <div className="form-group">
-                            <label className="form-label">Session ID</label>
-                            <input className="form-control" value={isEdit ? `TRD-${id}` : "(Auto-generated)"} readOnly
-                                style={{ background: "var(--bg-body)", color: "var(--text-muted)" }} />
+                            <label className="form-label">Trade Code {!isEdit && <span style={{ fontSize: "0.8rem", color: "#6b7280" }}>(Auto-generated if blank)</span>}</label>
+                            <input name="trade_code" className="form-control" value={formData.trade_code} onChange={handleHeaderChange}
+                                placeholder="e.g. TRD-0016" readOnly={isEdit} disabled={isEdit}
+                                style={isEdit ? { background: "var(--bg-body)", color: "var(--text-muted)", cursor: "not-allowed" } : {}} />
                         </div>
                         <div className="form-group">
                             <label className="form-label">Trade Date <span style={{ color: "red" }}>*</span></label>

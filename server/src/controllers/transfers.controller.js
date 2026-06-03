@@ -15,7 +15,7 @@ export async function listTransfers(req, res) {
 
 export async function getTransfer(req, res) {
   try {
-    const transfer = await transfersService.getTransfer(req.params.id);
+    const transfer = await transfersService.getTransfer(req.params.code);
     if (!transfer) return res.status(404).json({ success: false, error: { message: "Transfer not found" } });
     res.json({ success: true, data: transfer });
   } catch (err) {
@@ -34,7 +34,7 @@ export async function createTransfer(req, res) {
 
 export async function updateTransfer(req, res) {
   try {
-    const result = await transfersService.updateTransfer(req.params.id, req.body);
+    const result = await transfersService.updateTransfer(req.params.code, req.body);
     if (!result) return res.status(404).json({ success: false, error: { message: "Transfer not found" } });
     res.json({ success: true, data: result });
   } catch (err) {
@@ -44,7 +44,7 @@ export async function updateTransfer(req, res) {
 
 export async function deleteTransfer(req, res) {
   try {
-    const result = await transfersService.deleteTransfer(req.params.id);
+    const result = await transfersService.deleteTransfer(req.params.code);
     if (!result) return res.status(404).json({ success: false, error: { message: "Transfer not found" } });
     res.json({ success: true });
   } catch (err) {

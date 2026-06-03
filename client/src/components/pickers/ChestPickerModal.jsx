@@ -37,7 +37,7 @@ export default function ChestPickerModal({ isOpen, onClose, onSelect }) {
           <table className="modern-table">
             <thead>
               <tr>
-                <th>Chest ID</th>
+                <th>Chest Code</th>
                 <th>Dimension</th>
                 <th>Coordinates (X,Y,Z)</th>
                 <th className="text-center">Action</th>
@@ -48,7 +48,7 @@ export default function ChestPickerModal({ isOpen, onClose, onSelect }) {
                data.length === 0 ? <tr><td colSpan={4} style={{ textAlign: "center", padding: 20 }}>No chests found.</td></tr> :
                data.map((row) => (
                 <tr key={row.id}>
-                  <td className="font-bold">Chest #{row.id}</td>
+                  <td className="font-bold">{row.chest_code}</td>
                   <td>{row.dimension}</td>
                   <td className="text-muted">{row.x_coordinates}, {row.y_coordinates}, {row.z_coordinates}</td>
                   <td className="text-center">

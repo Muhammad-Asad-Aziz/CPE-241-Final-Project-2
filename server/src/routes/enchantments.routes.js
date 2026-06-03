@@ -5,8 +5,8 @@ const r = Router();
 
 r.get("/", c.listEnchantments);
 r.post("/", c.createEnchantment);
-r.get("/:id", c.getEnchantment);
-r.put("/:id", c.updateEnchantment);
-r.delete("/:id", c.deleteEnchantment);
+r.get("/:code", c.getEnchantment);
+r.put("/:code", c.updateEnchantment);
+r.delete("/:code", c.deleteEnchantment);
 
 export default r;

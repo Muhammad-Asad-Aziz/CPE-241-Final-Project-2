@@ -30,6 +30,24 @@ export async function getTopCraftedItems(params) {
     return unwrap(res);
 }
 
+export async function getFurnaceLocation(params) {
+    const query = new URLSearchParams(params).toString();
+    const res = await http(`/api/reports/furnace-location?${query}`);
+    return unwrap(res);
+}
+
+export async function getPlayerFuelHistory(params) {
+    const query = new URLSearchParams(params).toString();
+    const res = await http(`/api/reports/player-fuel?${query}`);
+    return unwrap(res);
+}
+
+export async function getFuelAnalysis(params) {
+    const query = new URLSearchParams(params).toString();
+    const res = await http(`/api/reports/fuel-analysis?${query}`);
+    return unwrap(res);
+}
+
 // Maimoona's reports
 export async function getEnchantedTool(params) {
     const query = new URLSearchParams(params).toString();
@@ -98,6 +116,10 @@ export async function getReportData(type, params = {}) {
     if (type === "recipe-requirements") return getRecipeRequirements(params);
     if (type === "top-crafted") return getTopCraftedItems(params);
 
+    if (type === "furnace-location") return getFurnaceLocation(params);
+    if (type === "player-fuel") return getPlayerFuelHistory(params);
+    if (type === "fuel-analysis") return getFuelAnalysis(params);
+    
     if (type === "enchanted-tool") return getEnchantedTool(params);
     if (type === "anvil-history") return getPlayerAnvilHistory(params);
     if (type === "XP-type") return getXPByType(params);
@@ -109,6 +131,7 @@ export async function getReportData(type, params = {}) {
     if (type === "mining-history") return getBiomeMiningHistory(params);
     if (type === "broken-tools") return getBrokenTools(params);
     if (type === "blocks-mined") return getTotalBlocksMined(params);
+    
   // Clean empty params
   const qs = new URLSearchParams();
   for (const [key, value] of Object.entries(params)) {

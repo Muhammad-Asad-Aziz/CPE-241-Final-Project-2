@@ -28,6 +28,7 @@ export default function AnvilPage({ mode: propMode }) {
   const nav = useNavigate();
 
   // Form Header State
+  const [anvilCode, setAnvilCode] = React.useState("");
   const [anvilDate, setAnvilDate] = React.useState(new Date().toISOString().slice(0, 10));
   const [playerId, setPlayerId] = React.useState("");
   const [playerUsername, setPlayerUsername] = React.useState("");
@@ -63,6 +64,7 @@ export default function AnvilPage({ mode: propMode }) {
         setViewData(t); 
 
         if (mode === "edit") {
+          setAnvilCode(t.header.anvil_code || "");
           setAnvilDate(t.header.anvil_date ? new Date(t.header.anvil_date).toISOString().slice(0, 10) : "");
           setPlayerId(t.header.player_id || "");
           setPlayerUsername(t.header.player_username || "");
@@ -202,6 +204,10 @@ export default function AnvilPage({ mode: propMode }) {
     });
   }
 
+  function addLine() {
+    setLines(prev => [...prev, emptyLine()]);
+  }
+
   async function handleSubmit(e) {
     e.preventDefault();
     if (!playerUsername) return toast.error("Player user is required!");
@@ -213,6 +219,7 @@ export default function AnvilPage({ mode: propMode }) {
 
     try {
       const payload = {
+        anvil_code: anvilCode || undefined,
         anvil_date: anvilDate,
         player_username: playerUsername,
         total_xp_cost: Number(totalXpCost),
@@ -241,7 +248,7 @@ export default function AnvilPage({ mode: propMode }) {
       } else {
         await updateAnvil(id, payload);
         toast.success("Anvil transaction updated successfully!");
-        nav(`/anvils/${id}`);
+        nav(`/anvils/${anvilCode || id}`);
       }
     } catch (error) {
       setErr(String(error.message || error));
@@ -272,10 +279,10 @@ export default function AnvilPage({ mode: propMode }) {
     return (
       <div className="invoice-preview">
         <div className="page-header no-print">
-          <h3 className="page-title">Anvil Workorder #ANV-{h.id}</h3>
+          <h3 className="page-title">Anvil Workorder #{h.anvil_code}</h3>
           <div className="flex gap-4">
             <Link to="/anvils" className="btn btn-outline">← Back</Link>
-            <Link to={`/anvils/${h.id}/edit`} className="btn btn-outline">Edit</Link>
+            <Link to={`/anvils/${h.anvil_code}/edit`} className="btn btn-outline">Edit</Link>
             <button onClick={() => window.print()} className="btn btn-primary">Print Record</button>
           </div>
         </div>
@@ -309,7 +316,7 @@ export default function AnvilPage({ mode: propMode }) {
             <div className="text-right">
               <h2 className="mb-4">ANVIL LOG</h2>
               <div><span className="font-bold">Date:</span> {formatDate(h.anvil_date)}</div>
-              <div><span className="font-bold">Record ID:</span> ANV-{h.id}</div>
+              <div><span className="font-bold">Record Code:</span> {h.anvil_code}</div>
               <div style={{ marginTop: "1rem", display: "inline-block", padding: "4px 12px", background: "#ef4444", color: "white", borderRadius: "12px", fontSize: "0.85rem", fontWeight: 600 }}>
                 Cost: {h.total_xp_cost} XP Levels
               </div>
@@ -417,7 +424,7 @@ export default function AnvilPage({ mode: propMode }) {
       }} />
 
       <div className="page-header">
-        <h3 className="page-title">{mode === "create" ? "New Anvil Record" : `Edit Anvil Interaction #ANV-${id}`}</h3>
+        <h3 className="page-title">{mode === "create" ? "New Anvil Record" : `Edit Anvil Interaction ${id}`}</h3>
         <Link to="/anvils" className="btn btn-outline">← Back</Link>
       </div>
 
@@ -429,10 +436,23 @@ export default function AnvilPage({ mode: propMode }) {
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem", marginTop: "1rem" }}>
             
             <div className="form-group" style={{ gridColumn: "1" }}>
+              <label className="form-label">Anvil Code {mode === "create" && <span style={{ fontSize: "0.8rem", color: "#6b7280" }}>(Auto-generated if blank)</span>}</label>
+              <input 
+                type="text" 
+                className="form-control" 
+                value={anvilCode} 
+                onChange={(e) => setAnvilCode(e.target.value)} 
+                placeholder="e.g. ANV-0016" 
+                readOnly={mode !== "create"} 
+                disabled={mode !== "create"} 
+                style={mode !== "create" ? { backgroundColor: "#f3f4f6", cursor: "not-allowed" } : {}}
+              />
+            </div>
+
+            <div className="form-group" style={{ gridColumn: "2" }}>
               <label className="form-label">Date <span className="required-marker">*</span></label>
               <input type="date" className="form-control" value={anvilDate} onChange={(e) => setAnvilDate(e.target.value)} required />
             </div>
-            <div style={{ gridColumn: "2" }}></div>
             
             <div className="form-group" style={{ gridColumn: "1" }}>
               <label className="form-label">Player Username <span className="required-marker">*</span></label>

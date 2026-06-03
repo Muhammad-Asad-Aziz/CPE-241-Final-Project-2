@@ -20,7 +20,7 @@ export default function TradingsList() {
     const [alertModal, setAlertModal] = React.useState({ isOpen: false, message: "" });
     const [refreshTrigger, setRefreshTrigger] = React.useState(0);
 
-    const handleDelete = (id) => setConfirmModal({ isOpen: true, id });
+    const handleDelete = (code) => setConfirmModal({ isOpen: true, id: code });
     const closeConfirm = () => setConfirmModal({ isOpen: false, id: null });
 
     const confirmDelete = async () => {
@@ -38,7 +38,7 @@ export default function TradingsList() {
     };
 
     const columns = [
-        { key: "id", label: "Session ID", render: v => <span className="font-bold">TRD-{v}</span> },
+        { key: "trade_code", label: "Trade Code", render: v => <span className="font-bold">{v}</span> },
         { key: "trade_date", label: "Date", render: v => v ? formatDate(new Date(v)) : "-" },
         { key: "player_name", label: "Player", render: v => <span style={{ color: "var(--primary)", fontWeight: 600 }}>{v}</span> },
         { key: "villager_name", label: "Villager" },
@@ -52,7 +52,7 @@ export default function TradingsList() {
                 onClose={closeConfirm}
                 onConfirm={confirmDelete}
                 title="Delete Trading Session"
-                message="Are you sure you want to delete this trading session? This action cannot be undone."
+                message={`Are you sure you want to delete trading session ${confirmModal.id}? This action cannot be undone.`}
                 confirmText="Delete"
             />
             <AlertModal
@@ -65,10 +65,10 @@ export default function TradingsList() {
                 title="Villager Trades"
                 fetchData={fetchData}
                 columns={columns}
-                searchPlaceholder="Search by player name or ID..."
+                searchPlaceholder="Search by player name or trade code..."
                 itemName="tradings"
                 basePath="/tradings"
-                itemKey="id"
+                itemKey="trade_code"
                 onDelete={handleDelete}
                 refreshTrigger={refreshTrigger}
             />

@@ -12,8 +12,8 @@ export async function listItems(params = {}) {
   return { data: res.data, ...(res.meta || {}) };
 }
 
-export async function getItem(id) {
-  const res = unwrap(await http(`/api/items/${encodeURIComponent(id)}`));
+export async function getItem(code) {
+  const res = unwrap(await http(`/api/items/${encodeURIComponent(code)}`));
   return res.data;
 }
 
@@ -22,13 +22,13 @@ export async function createItem(data) {
   return res.data;
 }
 
-export async function updateItem(id, data) {
-  const res = unwrap(await http(`/api/items/${encodeURIComponent(id)}`, { method: "PUT", body: JSON.stringify(data) }));
+export async function updateItem(code, data) {
+  const res = unwrap(await http(`/api/items/${encodeURIComponent(code)}`, { method: "PUT", body: JSON.stringify(data) }));
   return res.data;
 }
 
-export async function deleteItem(id, force = false) {
-  const url = `/api/items/${encodeURIComponent(id)}` + (force ? "?force=true" : "");
+export async function deleteItem(code, force = false) {
+  const url = `/api/items/${encodeURIComponent(code)}` + (force ? "?force=true" : "");
   const res = unwrap(await http(url, { method: "DELETE" }));
   return res.data;
 }

@@ -5,13 +5,13 @@ export async function listAnvils({
   search = "",
   page = 1,
   limit = 10,
-  sortBy = "id",
+  sortBy = "anvil_code",
   sortDir = "desc",
 } = {}) {
   const offset = (Number(page) - 1) * Number(limit);
 
-  const allowedSort = ["id", "anvil_date", "player_id", "total_xp_cost"];
-  const sortColumn = allowedSort.includes(sortBy) ? sortBy : "id";
+  const allowedSort = ["id", "anvil_code", "anvil_date", "player_id", "total_xp_cost"];
+  const sortColumn = allowedSort.includes(sortBy) ? sortBy : "anvil_code";
   const sortDirection = sortDir === "asc" ? "ASC" : "DESC";
 
   const searchParam = `%${search}%`;
@@ -21,7 +21,7 @@ export async function listAnvils({
       SELECT COUNT(*) as total
       FROM "anvil" a
       LEFT JOIN player p ON p.id = a.player_id
-      WHERE p.username ILIKE $1 OR a.id::text ILIKE $1
+      WHERE p.username ILIKE $1 OR a.anvil_code ILIKE $1
     `,
     [searchParam],
   );
@@ -29,11 +29,11 @@ export async function listAnvils({
 
   const { rows } = await pool.query(
     `
-      SELECT a.id, a.anvil_date, a.total_xp_cost, a.player_xp_before, a.player_xp_after,
+      SELECT a.id, a.anvil_code, a.anvil_date, a.total_xp_cost, a.player_xp_before, a.player_xp_after,
              p.username as player_username
       FROM "anvil" a
       LEFT JOIN player p ON p.id = a.player_id
-      WHERE p.username ILIKE $1 OR a.id::text ILIKE $1
+      WHERE p.username ILIKE $1 OR a.anvil_code ILIKE $1
       ORDER BY ${sortColumn} ${sortDirection} NULLS LAST, a.id DESC
       LIMIT $2 OFFSET $3
     `,
@@ -49,19 +49,22 @@ export async function listAnvils({
   };
 }
 
-export async function getAnvil(id) {
+export async function getAnvil(idOrCode) {
+  const isId = /^\d+$/.test(idOrCode);
   const header = await pool.query(
     `
-      SELECT a.id, a.anvil_date, a.total_xp_cost, a.player_xp_before, a.player_xp_after,
+      SELECT a.id, a.anvil_code, a.anvil_date, a.total_xp_cost, a.player_xp_before, a.player_xp_after,
              p.username as player_username
       FROM "anvil" a
       LEFT JOIN player p ON p.id = a.player_id
-      WHERE a.id = $1
+      WHERE ${isId ? "a.id = $1" : "a.anvil_code = $1"}
     `,
-    [id],
+    [isId ? Number(idOrCode) : idOrCode],
   );
 
   if (header.rowCount === 0) return null;
+
+  const actualId = header.rows[0].id;
 
   const lines = await pool.query(
     `
@@ -77,13 +80,13 @@ export async function getAnvil(id) {
       WHERE li.anvil_id = $1
       ORDER BY li.anvil_line_number ASC
     `,
-    [id],
+    [actualId],
   );
 
   return { header: header.rows[0], line_items: lines.rows };
 }
 
-export async function createAnvil({ anvil_date, player_username, total_xp_cost, player_xp_before, player_xp_after, line_items }) {
+export async function createAnvil({ anvil_code, anvil_date, player_username, total_xp_cost, player_xp_before, player_xp_after, line_items }) {
   const client = await pool.connect();
   try {
     await client.query("begin");
@@ -95,13 +98,24 @@ export async function createAnvil({ anvil_date, player_username, total_xp_cost, 
       player_id = p.rows[0].id;
     }
 
+    let code = anvil_code;
+    if (!code) {
+      const last = await client.query('SELECT anvil_code FROM "anvil" WHERE anvil_code LIKE \'ANV-%\' ORDER BY id DESC LIMIT 1');
+      if (last.rowCount > 0) {
+        const num = parseInt(last.rows[0].anvil_code.replace("ANV-", ""), 10);
+        code = `ANV-${String(num + 1).padStart(4, "0")}`;
+      } else {
+        code = "ANV-0001";
+      }
+    }
+
     const anvilResult = await client.query(
       `
-        INSERT INTO "anvil" (anvil_date, player_id, total_xp_cost, player_xp_before, player_xp_after)
-        VALUES ($1, $2, $3, $4, $5)
-        RETURNING id
+        INSERT INTO "anvil" (anvil_code, anvil_date, player_id, total_xp_cost, player_xp_before, player_xp_after)
+        VALUES ($1, $2, $3, $4, $5, $6)
+        RETURNING id, anvil_code
       `,
-      [anvil_date || new Date(), player_id, total_xp_cost || 0, player_xp_before || 0, player_xp_after || 0],
+      [code, anvil_date || new Date(), player_id, total_xp_cost || 0, player_xp_before || 0, player_xp_after || 0],
     );
 
     const anvil_id = anvilResult.rows[0].id;
@@ -119,7 +133,7 @@ export async function createAnvil({ anvil_date, player_username, total_xp_cost, 
     }
 
     await client.query("commit");
-    return { id: anvil_id };
+    return { id: code }; // Return code instead of numeric ID
   } catch (err) {
     await client.query("rollback");
     throw err;
@@ -128,12 +142,19 @@ export async function createAnvil({ anvil_date, player_username, total_xp_cost, 
   }
 }
 
-export async function deleteAnvil(id) {
+export async function deleteAnvil(idOrCode) {
   const client = await pool.connect();
   try {
     await client.query("begin");
-    await client.query("DELETE FROM anvil_line_item WHERE anvil_id=$1", [id]);
-    await client.query('DELETE FROM "anvil" WHERE id=$1', [id]);
+    const isId = /^\d+$/.test(idOrCode);
+    const lookup = await client.query(`SELECT id FROM "anvil" WHERE ${isId ? "id = $1" : "anvil_code = $1"}`, [isId ? Number(idOrCode) : idOrCode]);
+    if (lookup.rowCount === 0) {
+      throw new Error("Anvil log not found");
+    }
+    const actualId = lookup.rows[0].id;
+
+    await client.query("DELETE FROM anvil_line_item WHERE anvil_id=$1", [actualId]);
+    await client.query('DELETE FROM "anvil" WHERE id=$1', [actualId]);
     await client.query("commit");
     return { ok: true };
   } catch (err) {
@@ -144,10 +165,16 @@ export async function deleteAnvil(id) {
   }
 }
 
-export async function updateAnvil(id, { anvil_date, player_username, total_xp_cost, player_xp_before, player_xp_after, line_items }) {
+export async function updateAnvil(idOrCode, { anvil_code, anvil_date, player_username, total_xp_cost, player_xp_before, player_xp_after, line_items }) {
   const client = await pool.connect();
   try {
     await client.query("begin");
+    const isId = /^\d+$/.test(idOrCode);
+    const lookup = await client.query(`SELECT id FROM "anvil" WHERE ${isId ? "id = $1" : "anvil_code = $1"}`, [isId ? Number(idOrCode) : idOrCode]);
+    if (lookup.rowCount === 0) {
+      throw new Error("Anvil log not found");
+    }
+    const actualId = lookup.rows[0].id;
 
     let player_id = null;
     if (player_username) {
@@ -158,13 +185,13 @@ export async function updateAnvil(id, { anvil_date, player_username, total_xp_co
 
     await client.query(
       `UPDATE "anvil" 
-       SET anvil_date=$1, player_id=$2, total_xp_cost=$3, player_xp_before=$4, player_xp_after=$5 
-       WHERE id=$6`,
-      [anvil_date, player_id, total_xp_cost, player_xp_before, player_xp_after, id],
+       SET anvil_code=$1, anvil_date=$2, player_id=$3, total_xp_cost=$4, player_xp_before=$5, player_xp_after=$6 
+       WHERE id=$7`,
+      [anvil_code || idOrCode, anvil_date, player_id, total_xp_cost, player_xp_before, player_xp_after, actualId],
     );
 
     // Delete old lines, we will re-insert them fresh
-    await client.query("DELETE FROM anvil_line_item WHERE anvil_id=$1", [id]);
+    await client.query("DELETE FROM anvil_line_item WHERE anvil_id=$1", [actualId]);
 
     let lineNum = 1;
     for (const li of line_items) {
@@ -174,7 +201,7 @@ export async function updateAnvil(id, { anvil_date, player_username, total_xp_co
           )
           VALUES ($1, $2, $3, $4, $5, $6, $7)
         `,
-        [id, lineNum++, li.target_tool_id || null, li.current_durability || null, li.sacrifice_item_id || null, li.restored_durability || null, li.enchantment_id || null],
+        [actualId, lineNum++, li.target_tool_id || null, li.current_durability || null, li.sacrifice_item_id || null, li.restored_durability || null, li.enchantment_id || null],
       );
     }
 

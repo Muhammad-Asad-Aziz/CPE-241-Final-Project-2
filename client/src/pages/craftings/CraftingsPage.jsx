@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
+import { toast } from "react-toastify";
 import { getCrafting, createCrafting, updateCrafting, listCraftings } from "../../api/craftings.api.js";
 import { listPlayers } from "../../api/players.api.js";
 import { listItems } from "../../api/items.api.js";
@@ -9,21 +10,17 @@ import PlayerPickerModal from "../../components/pickers/PlayerPickerModal.jsx";
 import ItemPickerModal from "../../components/pickers/ItemPickerModal.jsx";
 
 function emptyLine() {
-    return { 
-        item_id: "", 
-        item_name: "", 
-        required_qty_per_unit: 1, 
-        player_current_stock: 0, 
-        craft_status: "Pending" 
-    };
+    return { item_id: "", item_name: "", required_qty_per_unit: 1, player_current_stock: 0, craft_status: "Pending" };
 }
 
 export default function CraftingsPage() {
-    const { id } = useParams();
+    const { id } = useParams(); // actually crafting_code
     const navigate = useNavigate();
     const isEdit = Boolean(id);
 
+    const [autoCode, setAutoCode] = useState(true);
     const [formData, setFormData] = useState({
+        crafting_code: "",
         crafting_date: "",
         session_id: "",
         player_id: "",
@@ -51,14 +48,18 @@ export default function CraftingsPage() {
                 ]);
                 const playersList = playersRes.data || [];
                 const itemsList = itemsRes.data || [];
-                
                 setAllItems(itemsList);
 
                 if (isEdit) {
                     const data = await getCrafting(id);
-                    
                     const dateVal = data.crafting_date ? new Date(data.crafting_date).toISOString().slice(0, 16) : "";
-                    setFormData({ ...data, crafting_date: dateVal, qty_wanted: data.qty_wanted || 1 });
+                    
+                    setFormData({ 
+                        ...data, 
+                        crafting_code: data.crafting_code,
+                        crafting_date: dateVal, 
+                        qty_wanted: data.qty_wanted || 1 
+                    });
                     
                     const player = playersList.find(p => p.id === data.player_id);
                     setPlayerLabel(player ? player.username : `Player #${data.player_id}`);
@@ -81,28 +82,16 @@ export default function CraftingsPage() {
                         }));
                     }
                 } else {
-
                     const now = new Date();
                     const localDatetime = new Date(now.getTime() - now.getTimezoneOffset() * 60000).toISOString().slice(0, 16);
-                    
-
                     let nextSessionId = 1;
                     try {
                         const craftingsRes = await listCraftings({ sortBy: "session_id", sortDir: "desc", limit: 1 });
                         const latestCrafting = craftingsRes.data && craftingsRes.data.length > 0 ? craftingsRes.data[0] : null;
-                        if (latestCrafting && latestCrafting.session_id) {
-                            nextSessionId = Number(latestCrafting.session_id) + 1;
-                        }
-                    } catch (err) {
-                        console.error("Could not fetch latest session id:", err);
-                    }
+                        if (latestCrafting && latestCrafting.session_id) nextSessionId = Number(latestCrafting.session_id) + 1;
+                    } catch (err) { console.error("Could not fetch latest session id:", err); }
 
-
-                    setFormData(prev => ({ 
-                        ...prev, 
-                        session_id: nextSessionId,
-                        crafting_date: localDatetime
-                    }));
+                    setFormData(prev => ({ ...prev, session_id: nextSessionId, crafting_date: localDatetime }));
                 }
             } catch (err) {
                 alert("Error loading data: " + err.message);
@@ -111,9 +100,7 @@ export default function CraftingsPage() {
         loadData();
     }, [id, isEdit]);
 
-    const handleHeaderChange = (e) => {
-        setFormData({ ...formData, [e.target.name]: e.target.value });
-    };
+    const handleHeaderChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
 
     const updateLine = (index, field, value) => {
         setLines(prev => {
@@ -123,13 +110,10 @@ export default function CraftingsPage() {
         });
     };
 
-    const removeLine = (index) => {
-        setLines(prev => prev.filter((_, i) => i !== index));
-    };
+    const removeLine = (index) => setLines(prev => prev.filter((_, i) => i !== index));
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        
         if (!formData.player_id) return alert("Please select a Player!");
         if (lines.length === 0) return alert("Please add at least one ingredient.");
         for (let i = 0; i < lines.length; i++) {
@@ -139,6 +123,7 @@ export default function CraftingsPage() {
         try {
             const payload = { 
                 ...formData,
+                crafting_code: isEdit ? formData.crafting_code : (autoCode ? "" : formData.crafting_code),
                 target_item_id: formData.target_item_id || null,
                 line_items: lines.map(l => ({
                     item_id: Number(l.item_id),
@@ -150,62 +135,47 @@ export default function CraftingsPage() {
 
             if (isEdit) {
                 await updateCrafting(id, payload);
+                toast.success("Crafting record updated successfully!");
             } else {
                 await createCrafting(payload);
+                toast.success("Crafting record created successfully!");
             }
             navigate("/craftings");
         } catch (error) {
-            alert("Error saving: " + error.message);
+            toast.error("Error saving: " + error.message);
         }
     };
 
     return (
         <div>
             <PlayerPickerModal isOpen={playerModalOpen} onClose={() => setPlayerModalOpen(false)} onSelect={(p) => { setFormData({ ...formData, player_id: p.id }); setPlayerLabel(p.username); setPlayerModalOpen(false); }} />
-            
-            <ItemPickerModal 
-                isOpen={headerItemModalOpen} 
-                onClose={() => setHeaderItemModalOpen(false)} 
-                onSelect={async (item) => { 
+            <ItemPickerModal isOpen={headerItemModalOpen} onClose={() => setHeaderItemModalOpen(false)} onSelect={async (item) => { 
                     setFormData({ ...formData, target_item_id: item.id }); 
                     setItemLabel(item.item_name); 
                     setHeaderItemModalOpen(false); 
-
                     try {
                         const res = await listRecipes({ limit: 1000 });
-                        const allRecipes = res.data || [];
-                        
-                        const recipeItems = allRecipes.filter(r => String(r.target_item_id) === String(item.id));
-                        
+                        const recipeItems = (res.data || []).filter(r => String(r.target_item_id) === String(item.id));
                         if (recipeItems.length > 0) {
                             const newLines = recipeItems.map(recipe => {
                                 const foundItem = allItems.find(i => String(i.id) === String(recipe.ingredient_item_id));
-                                
-                                const actualQty = recipe.amount_needed || recipe.quantity || recipe.qty || recipe.required_qty || recipe.amount || 1;
-
                                 return {
                                     item_id: recipe.ingredient_item_id,
                                     item_name: foundItem ? foundItem.item_name : `Item #${recipe.ingredient_item_id}`, 
-                                    required_qty_per_unit: actualQty,
+                                    required_qty_per_unit: recipe.amount_needed || 1,
                                     player_current_stock: 0,
                                     craft_status: "Pending"
                                 };
                             });
                             setLines(newLines);
-                        } else {
-                            setLines([emptyLine()]);
-                        }
-                    } catch (error) {
-                        console.error("Failed to load recipes:", error);
-                        setLines([emptyLine()]);
-                    }
+                        } else setLines([emptyLine()]);
+                    } catch (error) { setLines([emptyLine()]); }
                 }} 
             />
-            
             <ItemPickerModal isOpen={lineItemModalOpen} onClose={() => setLineItemModalOpen(false)} onSelect={(item) => { updateLine(activeLineIdx, "item_id", item.id); updateLine(activeLineIdx, "item_name", item.item_name); setLineItemModalOpen(false); }} />
 
             <div className="page-header">
-                <h3 className="page-title">{isEdit ? `Edit Crafting #CRF-${id}` : "Record New Crafting"}</h3>
+                <h3 className="page-title">{isEdit ? `Edit Crafting ${id}` : "Record New Crafting"}</h3>
                 <Link to="/craftings" className="btn btn-outline">← Back</Link>
             </div>
 
@@ -213,6 +183,20 @@ export default function CraftingsPage() {
                 <div className="card" style={{ marginBottom: "1rem" }}>
                     <h4>Crafting Details</h4>
                     <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem", marginTop: "1rem" }}>
+                        
+                        <div className="form-group">
+                            <label className="form-label">Crafting Code <span style={{color: "red"}}>*</span></label>
+                            <div className="flex gap-2">
+                                <input className="form-control" name="crafting_code" disabled={isEdit ? true : autoCode} placeholder="e.g. CRA-016" value={formData.crafting_code} onChange={handleHeaderChange} required={!autoCode} />
+                                {!isEdit && (
+                                    <div className="form-inline-option">
+                                        <input type="checkbox" checked={autoCode} onChange={(e) => setAutoCode(e.target.checked)} id="c_auto" />
+                                        <label htmlFor="c_auto">Auto</label>
+                                    </div>
+                                )}
+                            </div>
+                        </div>
+
                         <div className="form-group">
                             <label className="form-label">Crafting Date <span style={{color: "red"}}>*</span></label>
                             <input type="datetime-local" name="crafting_date" className="form-control" value={formData.crafting_date} onChange={handleHeaderChange} required />

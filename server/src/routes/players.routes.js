@@ -5,8 +5,8 @@ const r = Router();
 
 r.get("/", c.listPlayers);
 r.post("/", c.createPlayer);
-r.get("/:id", c.getPlayer);
-r.put("/:id", c.updatePlayer);
-r.delete("/:id", c.deletePlayer);
+r.get("/:code", c.getPlayer);
+r.put("/:code", c.updatePlayer);
+r.delete("/:code", c.deletePlayer);
 
 export default r;

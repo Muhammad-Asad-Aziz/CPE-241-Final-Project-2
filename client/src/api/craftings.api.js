@@ -19,8 +19,8 @@ export async function listCraftings(params = {}) {
     return res; 
 }
 
-export async function getCrafting(id) {
-    const res = await http(`/api/craftings/${id}`);
+export async function getCrafting(code) {
+    const res = await http(`/api/craftings/${code}`);
     return unwrap(res);
 }
 
@@ -32,16 +32,16 @@ export async function createCrafting(payload) {
     return unwrap(res);
 }
 
-export async function updateCrafting(id, payload) {
-    const res = await http(`/api/craftings/${id}`, {
+export async function updateCrafting(code, payload) {
+    const res = await http(`/api/craftings/${code}`, {
         method: "PUT",
         body: JSON.stringify(payload),
     });
     return unwrap(res);
 }
 
-export async function deleteCrafting(id) {
-    const res = await http(`/api/craftings/${id}`, {
+export async function deleteCrafting(code) {
+    const res = await http(`/api/craftings/${code}`, {
         method: "DELETE",
     });
     return unwrap(res);

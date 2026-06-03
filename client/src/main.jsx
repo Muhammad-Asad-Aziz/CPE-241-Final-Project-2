@@ -132,7 +132,12 @@ function Sidebar() {
         {/* Anvil */}
         <NavLink to="/anvils" className={getLinkClass}>
           <svg style={{ marginRight: 10 }} width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+            {/* Base */}
+            <path d="M4 20h16a1 1 0 0 1 1 1v1H3v-1a1 1 0 0 1 1-1z" />
+            {/* Stand/Body */}
+            <path d="M7 20l1-5h8l1 5z" />
+            {/* Top Anvil Horn & Heel */}
+            <path d="M2 9c0 0 5 0 6 2l1.5 2h9.5a2 2 0 0 0 2-2V9H2z" />
           </svg>
           Anvil
         </NavLink>
@@ -381,18 +386,6 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         <Route path="/enchantments/:id" element={<Layout><EnchantmentPage mode="view" /></Layout>} />
         <Route path="/enchantments/:id/edit" element={<Layout><EnchantmentPage mode="edit" /></Layout>} />
 
-        {/* Craftings */}
-        <Route path="/craftings" element={<Layout><CraftingsList /></Layout>} />
-        <Route path="/craftings/new" element={<Layout><CraftingsPage mode="create" /></Layout>} />
-        <Route path="/craftings/:id" element={<Layout><CraftingsPage mode="view" /></Layout>} />
-        <Route path="/craftings/:id/edit" element={<Layout><CraftingsPage mode="edit" /></Layout>} />
-
-        {/* Anvils */}
-        <Route path="/anvils" element={<Layout><AnvilList /></Layout>} />
-        <Route path="/anvils/new" element={<Layout><AnvilPage mode="create" /></Layout>} />
-        <Route path="/anvils/:id" element={<Layout><AnvilPage mode="view" /></Layout>} />
-        <Route path="/anvils/:id/edit" element={<Layout><AnvilPage mode="edit" /></Layout>} />
-
         {/* Reports */}
         <Route path="/reports" element={<Navigate to="/reports/chest-inventory" replace />} />
         <Route path="/reports/chest-inventory" element={<Layout><Reports type="chest-inventory" /></Layout>} />
@@ -403,9 +396,15 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         <Route path="/reports/recipe-requirements" element={<Layout><Reports type="recipe-requirements" /></Layout>} />
         <Route path="/reports/top-crafted" element={<Layout><Reports type="top-crafted" /></Layout>} />
 
+
+        <Route path="/reports/furnace-location" element={<Layout><Reports type="furnace-location" /></Layout>} />
+        <Route path="/reports/player-fuel" element={<Layout><Reports type="player-fuel" /></Layout>} />
+        <Route path="/reports/fuel-analysis" element={<Layout><Reports type="fuel-analysis" /></Layout>} />
+        
         <Route path="/reports/enchanted-tool" element={<Layout><Reports type="enchanted-tool" /></Layout>} />
         <Route path="/reports/anvil-history" element={<Layout><Reports type="anvil-history" /></Layout>} />
         <Route path="/reports/XP-type" element={<Layout><Reports type="XP-type" /></Layout>} />
+
         <Route path="/reports/mining-history" element={<Layout><Reports type="mining-history" /></Layout>} />
         <Route path="/reports/broken-tools" element={<Layout><Reports type="broken-tools" /></Layout>} />
         <Route path="/reports/blocks-mined" element={<Layout><Reports type="blocks-mined" /></Layout>} />
@@ -438,6 +437,12 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         <Route path="/minings/new" element={<Layout><MiningPage mode="create" /></Layout>} />
         <Route path="/minings/:id" element={<Layout><MiningPage mode="view" /></Layout>} />
         <Route path="/minings/:id/edit" element={<Layout><MiningPage mode="edit" /></Layout>} />
+
+        {/* Anvils */}
+        <Route path="/anvils" element={<Layout><AnvilList /></Layout>} />
+        <Route path="/anvils/new" element={<Layout><AnvilPage mode="create" /></Layout>} />
+        <Route path="/anvils/:id" element={<Layout><AnvilPage mode="view" /></Layout>} />
+        <Route path="/anvils/:id/edit" element={<Layout><AnvilPage mode="edit" /></Layout>} />
 
         {/* (GUIDE) #3.9.3 ADD YOUR ROUTES HERE*/}
       </Routes>

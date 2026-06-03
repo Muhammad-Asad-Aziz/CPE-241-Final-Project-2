@@ -5,8 +5,8 @@ const r = Router();
 
 r.get("/", c.listVillagers);
 r.post("/", c.createVillager);
-r.get("/:id", c.getVillager);
-r.put("/:id", c.updateVillager);
-r.delete("/:id", c.deleteVillager);
+r.get("/:code", c.getVillager);
+r.put("/:code", c.updateVillager);
+r.delete("/:code", c.deleteVillager);
 
 export default r;

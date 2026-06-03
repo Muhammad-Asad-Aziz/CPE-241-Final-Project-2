@@ -37,17 +37,19 @@ export default function PlayerPickerModal({ isOpen, onClose, onSelect }) {
           <table className="modern-table">
             <thead>
               <tr>
+                <th>Player Code</th>
                 <th>Username</th>
                 <th className="text-right">Level</th>
                 <th className="text-center">Action</th>
               </tr>
             </thead>
             <tbody>
-              {loading ? <tr><td colSpan={3} style={{ textAlign: "center", padding: 20 }}>Loading...</td></tr> : 
-               data.length === 0 ? <tr><td colSpan={3} style={{ textAlign: "center", padding: 20 }}>No players found.</td></tr> :
+              {loading ? <tr><td colSpan={4} style={{ textAlign: "center", padding: 20 }}>Loading...</td></tr> : 
+               data.length === 0 ? <tr><td colSpan={4} style={{ textAlign: "center", padding: 20 }}>No players found.</td></tr> :
                data.map((row) => (
                 <tr key={row.id}>
-                  <td className="font-bold">{row.username}</td>
+                  <td className="font-bold">{row.player_code}</td>
+                  <td className="font-bold" style={{ color: 'var(--primary)' }}>{row.username}</td>
                   <td className="text-right">{row.current_xp_level}</td>
                   <td className="text-center">
                     <button type="button" className="btn btn-primary btn-sm" onClick={() => { onSelect(row); onClose(); }}>Select</button>
