@@ -8,7 +8,7 @@ import ReportTable from "../../components/ReportTable.jsx";
 const REPORT_CONFIG = {
   "chest-inventory": {
     title: "Chest Inventory",
-    subtitle: "List items stored in a specific chest or view all chests at once.",
+    subtitle: "Simple 1: List items stored in a specific chest or view all chests at once",
     emptyMessage: "No items found.",
     getColumns: () => [
       { key: "chest_code", label: "Chest Code", render: (v) => <span className="font-bold">{v}</span> },
@@ -21,7 +21,7 @@ const REPORT_CONFIG = {
   },
   "daily-transfers": {
     title: "Transfer History Log",
-    subtitle: "Detailed item-by-item log of transfers.",
+    subtitle: "Simple 2: detailed item-by-item log of transfers.",
     emptyMessage: "No transfers occurred in this date range.",
     getColumns: () => [
       { key: "transfer_code", label: "Transfer Code", render: (v) => <span className="font-bold">{v}</span> }, 
@@ -48,7 +48,7 @@ const REPORT_CONFIG = {
 
   "crafting-history": {
     title: "Player Crafting History",
-    subtitle: "Simple: List all crafting sessions made by a specific Player.",
+    subtitle: "Simple 1: List all crafting sessions made by a specific Player.",
     emptyMessage: "No crafting history found for this player.",
     getColumns: () => [
       { key: "Craft_Date", label: "Date", render: (v) => formatDate(v) },
@@ -60,7 +60,7 @@ const REPORT_CONFIG = {
   },
   "recipe-requirements": {
     title: "Recipe Requirements",
-    subtitle: "Simple: Print Recipe requirements for a specific Item Name.",
+    subtitle: "Simple 2: Print Recipe requirements for a specific Item Name.",
     emptyMessage: "No recipe found for this item.",
     getColumns: () => [
       { key: "Target_Item", label: "Target Item", render: (v) => <span className="font-bold">{v}</span> },
@@ -81,7 +81,7 @@ const REPORT_CONFIG = {
 
   "furnace-location": {
     title: "Furnace Location Report",
-    subtitle: "Simple: List all ores smelted in a specific Furnace Location.",
+    subtitle: "Simple 1: List all ores smelted in a specific Furnace Location.",
     emptyMessage: "No smelting records found for this location.",
     getColumns: () => [
       { key: "Job_ID", label: "Job ID", render: (v) => <span className="font-bold">SML-{v}</span> },
@@ -95,7 +95,7 @@ const REPORT_CONFIG = {
   },
   "player-fuel": {
     title: "Player Fuel Consumption",
-    subtitle: "Simple: List fuel consumption history for a specific Player.",
+    subtitle: "Simple 2: List fuel consumption history for a specific Player.",
     emptyMessage: "No fuel history found for this player.",
     getColumns: () => [
       { key: "Date", label: "Date", render: (v) => formatDate(v) },
@@ -116,10 +116,10 @@ const REPORT_CONFIG = {
       { key: "Total_Output_Produced", label: "Total Output Produced", align: "right", style: { color: "var(--primary)", fontWeight: "bold" } }
     ]
   },
-  
+
   "enchanted-tool": {
     title: "Enchanted Tool History",
-    subtitle: "Simple: List all tools modified with a specific enchantment.",
+    subtitle: "Simple 1: List all tools modified with a specific enchantment.",
     emptyMessage: "No tools found with this enchantment.",
     getColumns: () => [
       { key: "date", label: "Interaction Date", render: (v) => formatDate(v) },
@@ -133,7 +133,7 @@ const REPORT_CONFIG = {
   },
   "anvil-history": {
     title: "Player Anvil History",
-    subtitle: "Simple: List all anvil sessions made by a specific player.",
+    subtitle: "Simple 2: List all anvil sessions made by a specific player.",
     emptyMessage: "No anvil history found for this player.",
     getColumns: () => [
       { key: "date", label: "Date", render: (v) => formatDate(v) },
@@ -161,7 +161,7 @@ const REPORT_CONFIG = {
   
   "mining-history": {
     title: "Mining History of each Biome",
-    subtitle: "Simple: Shows the amount of blocks that was mined in each biome.",
+    subtitle: "Simple 1: Shows the amount of blocks that was mined in each biome.",
     emptyMessage: "No mining records found for this biome.",
     getColumns: () => [
       { key: "TRIP ID", label: "Mining Trip ID", render: v => `MN-${v}` },
@@ -176,7 +176,7 @@ const REPORT_CONFIG = {
 
   "broken-tools": {
     title: "Mining Tools That Are No Longer Usable",
-    subtitle: "Simple: Shows mining tools that are broken",
+    subtitle: "Simple 2: Shows mining tools that are broken",
     emptyMessage: "No broken tools found.",
     getColumns: () => [
       { key: "TRIP ID", label: "Mining Trip ID", render: (v) => `MN-${v}` },

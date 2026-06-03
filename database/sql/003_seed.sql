@@ -147,21 +147,21 @@ INSERT INTO crafting (crafting_code, session_id, crafting_date, player_id, targe
 
 -- Maimoona Aziz 67070503473
 -- Populating Anvil 
-INSERT INTO anvil (id, anvil_date, player_id, total_xp_cost, player_xp_before, player_xp_after) VALUES (1, '2024-05-16 11:30:15', 1, 5, 30, 25) ON CONFLICT DO NOTHING;
-INSERT INTO anvil (id, anvil_date, player_id, total_xp_cost, player_xp_before, player_xp_after) VALUES (2, '2024-06-27 15:45:01', 2, 3, 15, 12) ON CONFLICT DO NOTHING;
-INSERT INTO anvil (id, anvil_date, player_id, total_xp_cost, player_xp_before, player_xp_after) VALUES (3, '2024-08-14 20:22:33', 3, 10, 99, 89) ON CONFLICT DO NOTHING;
-INSERT INTO anvil (id, anvil_date, player_id, total_xp_cost, player_xp_before, player_xp_after) VALUES (4, '2024-11-09 03:11:45', 4, 4, 50, 46) ON CONFLICT DO NOTHING;
-INSERT INTO anvil (id, anvil_date, player_id, total_xp_cost, player_xp_before, player_xp_after) VALUES (5, '2025-01-22 11:05:30', 5, 2, 40, 38) ON CONFLICT DO NOTHING;
-INSERT INTO anvil (id, anvil_date, player_id, total_xp_cost, player_xp_before, player_xp_after) VALUES (6, '2025-03-12 17:20:10', 6, 7, 25, 18) ON CONFLICT DO NOTHING;
-INSERT INTO anvil (id, anvil_date, player_id, total_xp_cost, player_xp_before, player_xp_after) VALUES (7, '2025-06-03 12:15:00', 7, 6, 80, 74) ON CONFLICT DO NOTHING;
-INSERT INTO anvil (id, anvil_date, player_id, total_xp_cost, player_xp_before, player_xp_after) VALUES (8, '2025-07-18 10:33:44', 8, 1, 12, 11) ON CONFLICT DO NOTHING;
-INSERT INTO anvil (id, anvil_date, player_id, total_xp_cost, player_xp_before, player_xp_after) VALUES (9, '2025-09-08 21:41:05', 9, 8, 45, 37) ON CONFLICT DO NOTHING;
-INSERT INTO anvil (id, anvil_date, player_id, total_xp_cost, player_xp_before, player_xp_after) VALUES (10, '2025-10-23 14:55:22', 10, 5, 22, 17) ON CONFLICT DO NOTHING;
-INSERT INTO anvil (id, anvil_date, player_id, total_xp_cost, player_xp_before, player_xp_after) VALUES (11, '2025-12-31 09:00:00', 11, 9, 60, 51) ON CONFLICT DO NOTHING;
-INSERT INTO anvil (id, anvil_date, player_id, total_xp_cost, player_xp_before, player_xp_after) VALUES (12, '2026-01-16 19:24:39', 12, 3, 18, 15) ON CONFLICT DO NOTHING;
-INSERT INTO anvil (id, anvil_date, player_id, total_xp_cost, player_xp_before, player_xp_after) VALUES (13, '2026-02-10 16:40:12', 13, 2, 5, 3) ON CONFLICT DO NOTHING;
-INSERT INTO anvil (id, anvil_date, player_id, total_xp_cost, player_xp_before, player_xp_after) VALUES (14, '2026-02-24 22:19:55', 14, 4, 14, 10) ON CONFLICT DO NOTHING;
-INSERT INTO anvil (id, anvil_date, player_id, total_xp_cost, player_xp_before, player_xp_after) VALUES (15, '2026-03-24 13:30:45', 15, 12, 65, 53) ON CONFLICT DO NOTHING;
+INSERT INTO anvil (id, anvil_code, anvil_date, player_id, total_xp_cost, player_xp_before, player_xp_after) VALUES (1, 'ANV-0001', '2024-05-16 11:30:15', 1, 5, 30, 25) ON CONFLICT DO NOTHING;
+INSERT INTO anvil (id, anvil_code, anvil_date, player_id, total_xp_cost, player_xp_before, player_xp_after) VALUES (2, 'ANV-0002', '2024-06-27 15:45:01', 2, 3, 15, 12) ON CONFLICT DO NOTHING;
+INSERT INTO anvil (id, anvil_code, anvil_date, player_id, total_xp_cost, player_xp_before, player_xp_after) VALUES (3, 'ANV-0003', '2024-08-14 20:22:33', 3, 10, 99, 89) ON CONFLICT DO NOTHING;
+INSERT INTO anvil (id, anvil_code, anvil_date, player_id, total_xp_cost, player_xp_before, player_xp_after) VALUES (4, 'ANV-0004', '2024-11-09 03:11:45', 4, 4, 50, 46) ON CONFLICT DO NOTHING;
+INSERT INTO anvil (id, anvil_code, anvil_date, player_id, total_xp_cost, player_xp_before, player_xp_after) VALUES (5, 'ANV-0005', '2025-01-22 11:05:30', 5, 2, 40, 38) ON CONFLICT DO NOTHING;
+INSERT INTO anvil (id, anvil_code, anvil_date, player_id, total_xp_cost, player_xp_before, player_xp_after) VALUES (6, 'ANV-0006', '2025-03-12 17:20:10', 6, 7, 25, 18) ON CONFLICT DO NOTHING;
+INSERT INTO anvil (id, anvil_code, anvil_date, player_id, total_xp_cost, player_xp_before, player_xp_after) VALUES (7, 'ANV-0007', '2025-06-03 12:15:00', 7, 6, 80, 74) ON CONFLICT DO NOTHING;
+INSERT INTO anvil (id, anvil_code, anvil_date, player_id, total_xp_cost, player_xp_before, player_xp_after) VALUES (8, 'ANV-0008', '2025-07-18 10:33:44', 8, 1, 12, 11) ON CONFLICT DO NOTHING;
+INSERT INTO anvil (id, anvil_code, anvil_date, player_id, total_xp_cost, player_xp_before, player_xp_after) VALUES (9, 'ANV-0009', '2025-09-08 21:41:05', 9, 8, 45, 37) ON CONFLICT DO NOTHING;
+INSERT INTO anvil (id, anvil_code, anvil_date, player_id, total_xp_cost, player_xp_before, player_xp_after) VALUES (10, 'ANV-0010', '2025-10-23 14:55:22', 10, 5, 22, 17) ON CONFLICT DO NOTHING;
+INSERT INTO anvil (id, anvil_code, anvil_date, player_id, total_xp_cost, player_xp_before, player_xp_after) VALUES (11, 'ANV-0011', '2025-12-31 09:00:00', 11, 9, 60, 51) ON CONFLICT DO NOTHING;
+INSERT INTO anvil (id, anvil_code, anvil_date, player_id, total_xp_cost, player_xp_before, player_xp_after) VALUES (12, 'ANV-0012', '2026-01-16 19:24:39', 12, 3, 18, 15) ON CONFLICT DO NOTHING;
+INSERT INTO anvil (id, anvil_code, anvil_date, player_id, total_xp_cost, player_xp_before, player_xp_after) VALUES (13, 'ANV-0013', '2026-02-10 16:40:12', 13, 2, 5, 3) ON CONFLICT DO NOTHING;
+INSERT INTO anvil (id, anvil_code, anvil_date, player_id, total_xp_cost, player_xp_before, player_xp_after) VALUES (14, 'ANV-0014', '2026-02-24 22:19:55', 14, 4, 14, 10) ON CONFLICT DO NOTHING;
+INSERT INTO anvil (id, anvil_code, anvil_date, player_id, total_xp_cost, player_xp_before, player_xp_after) VALUES (15, 'ANV-0015', '2026-03-24 13:30:45', 15, 12, 65, 53) ON CONFLICT DO NOTHING;
 
 --Al Xander James Ybanez 67070503450
 -- Populating smelting table

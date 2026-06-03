@@ -122,7 +122,12 @@ function Sidebar() {
         {/* Anvil */}
         <NavLink to="/anvils" className={getLinkClass}>
           <svg style={{ marginRight: 10 }} width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+            {/* Base */}
+            <path d="M4 20h16a1 1 0 0 1 1 1v1H3v-1a1 1 0 0 1 1-1z" />
+            {/* Stand/Body */}
+            <path d="M7 20l1-5h8l1 5z" />
+            {/* Top Anvil Horn & Heel */}
+            <path d="M2 9c0 0 5 0 6 2l1.5 2h9.5a2 2 0 0 0 2-2V9H2z" />
           </svg>
           Anvil
         </NavLink>
