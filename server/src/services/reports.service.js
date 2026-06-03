@@ -158,6 +158,7 @@ export async function getTopCraftedItems({ fromDate, toDate }) {
 
 // Report 1 by Maimoona Aziz: List tools by enchantment.
 export async function getEnchantedTool({enchantmentName}) {
+  const enchant = enchantmentName || null;
   const { rows } = await pool.query(
     `SELECT
       a.id AS "anvil_id",
@@ -172,15 +173,16 @@ export async function getEnchantedTool({enchantmentName}) {
     JOIN anvil_line_item al ON a.id = al.anvil_id
     JOIN item i ON al.target_tool_id = i.id      
     JOIN enchantment e ON al.enchantment_id = e.id 
-    WHERE e.enchantment_name = $1
+    WHERE ($1::text IS NULL OR $1::text = '' OR e.enchantment_name = $1::text)
     ORDER BY a.anvil_date DESC`,
-    [enchantmentName]
+    [enchant]
   );
   return rows
 }
 
 // Report 2 by Maimoona Aziz: List anvil modification history by player username.
 export async function getPlayerAnvilHistory({playerName}) {
+  const pName = playerName || null;
   const { rows } = await pool.query(
     `SELECT
       a.id AS "anvil_id",
@@ -195,15 +197,17 @@ export async function getPlayerAnvilHistory({playerName}) {
     JOIN player p ON a.player_id = p.id  
     JOIN anvil_line_item al ON a.id = al.anvil_id 
     JOIN item i ON al.target_tool_id = i.id      
-    WHERE p.username = $1
+    WHERE ($1::text IS NULL OR $1::text = '' OR p.username = $1::text)
     ORDER BY a.anvil_date DESC`,
-    [playerName]
+    [pName]
   );
   return rows
 }
 
 // Analysis Report 3 by Maimoona Aziz: List tools by date.
 export async function getXPByType({fromDate, toDate}) {
+  const from = fromDate || null;
+  const to = toDate || null;
   const { rows } = await pool.query(
     `SELECT
       i.item_name AS "TOOL TYPE",
@@ -215,10 +219,11 @@ export async function getXPByType({fromDate, toDate}) {
     FROM anvil a
     JOIN anvil_line_item al ON a.id = al.anvil_id
     JOIN item i ON al.target_tool_id = i.id
-    WHERE a.anvil_date BETWEEN $1 AND $2
+    WHERE ($1::timestamp IS NULL OR a.anvil_date >= $1::timestamp)
+      AND ($2::timestamp IS NULL OR a.anvil_date <= $2::timestamp)
     GROUP BY i.item_name
     ORDER BY "TOTAL XP SPENT" DESC`,
-    [fromDate, toDate]
+    [from, to]
   );
   return rows
 }
