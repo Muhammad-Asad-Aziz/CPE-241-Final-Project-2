@@ -153,7 +153,7 @@ export async function getTopCraftedItems({ fromDate, toDate }) {
 }
 
 // Report 1 by Maimoona Aziz: List tools by enchantment.
-export async function getEnchantedTool({enchantmentName}) {
+export async function getEnchantedTool({enchantmentName = ""}) {
   const { rows } = await pool.query(
     `SELECT
       a.id AS "anvil_id",
@@ -176,7 +176,7 @@ export async function getEnchantedTool({enchantmentName}) {
 }
 
 // Report 2 by Maimoona Aziz: List anvil modification history by player username.
-export async function getPlayerAnvilHistory({playerName}) {
+export async function getPlayerAnvilHistory({playerName = ""}) {
   const { rows } = await pool.query(
     `SELECT
       a.id AS "anvil_id",
@@ -200,6 +200,9 @@ export async function getPlayerAnvilHistory({playerName}) {
 
 // Analysis Report 3 by Maimoona Aziz: List tools by date.
 export async function getXPByType({fromDate, toDate}) {
+  const from = fromDate || '2000-01-01';
+  const to = toDate || '2100-12-31';
+
   const { rows } = await pool.query(
     `SELECT
       i.item_name AS "TOOL TYPE",
