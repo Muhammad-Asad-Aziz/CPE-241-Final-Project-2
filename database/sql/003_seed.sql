@@ -200,7 +200,24 @@ INSERT INTO mining (id, mining_code, mining_date, player_id, biome_name) OVERRID
 INSERT INTO mining (id, mining_code, mining_date, player_id, biome_name) OVERRIDING SYSTEM VALUE VALUES (15, 'MIN-015', '2026-03-21 16:05:01', 15, 'Warped Forest') ON CONFLICT DO NOTHING;
 
 -- (GUIDE) #1.2.1 POPULATE SIMPLE FORMS HERE
-
+-- Punyawat Sookarsa (trading_session)
+INSERT INTO trading_session (id, trade_code, trade_date, player_name, villager_id) OVERRIDING SYSTEM VALUE VALUES (1, 'TRD-1', '2024-01-05 10:00:00', 'Steve', 1) ON CONFLICT DO NOTHING;
+INSERT INTO trading_session (id, trade_code, trade_date, player_name, villager_id) OVERRIDING SYSTEM VALUE VALUES (2, 'TRD-2', '2024-01-06 11:00:00', 'Notch', 2) ON CONFLICT DO NOTHING;
+INSERT INTO trading_session (id, trade_code, trade_date, player_name, villager_id) OVERRIDING SYSTEM VALUE VALUES (3, 'TRD-3', '2024-01-07 12:00:00', 'Herobrine', 1) ON CONFLICT DO NOTHING;
+INSERT INTO trading_session (id, trade_code, trade_date, player_name, villager_id) OVERRIDING SYSTEM VALUE VALUES (4, 'TRD-4', '2024-01-08 13:00:00', 'DanTDM', 4) ON CONFLICT DO NOTHING;
+INSERT INTO trading_session (id, trade_code, trade_date, player_name, villager_id) OVERRIDING SYSTEM VALUE VALUES (5, 'TRD-5', '2024-01-09 14:00:00', 'Jeb_', 2) ON CONFLICT DO NOTHING;
+INSERT INTO trading_session (id, trade_code, trade_date, player_name, villager_id) OVERRIDING SYSTEM VALUE VALUES (6, 'TRD-6', '2024-01-10 15:00:00', 'CaptainSparklez', 3) ON CONFLICT DO NOTHING;
+INSERT INTO trading_session (id, trade_code, trade_date, player_name, villager_id) OVERRIDING SYSTEM VALUE VALUES (7, 'TRD-7', '2024-01-11 16:00:00', 'Alex', 1) ON CONFLICT DO NOTHING;
+INSERT INTO trading_session (id, trade_code, trade_date, player_name, villager_id) OVERRIDING SYSTEM VALUE VALUES (8, 'TRD-8', '2024-01-12 17:00:00', 'Steve', 5) ON CONFLICT DO NOTHING;
+INSERT INTO trading_session (id, trade_code, trade_date, player_name, villager_id) OVERRIDING SYSTEM VALUE VALUES (9, 'TRD-9', '2024-01-13 18:00:00', 'Technoblade', 2) ON CONFLICT DO NOTHING;
+INSERT INTO trading_session (id, trade_code, trade_date, player_name, villager_id) OVERRIDING SYSTEM VALUE VALUES (10, 'TRD-10', '2024-01-14 19:00:00', 'Herobrine', 3) ON CONFLICT DO NOTHING;
+INSERT INTO trading_session (id, trade_code, trade_date, player_name, villager_id) OVERRIDING SYSTEM VALUE VALUES (11, 'TRD-11', '2024-01-15 20:00:00', 'Notch', 1) ON CONFLICT DO NOTHING;
+INSERT INTO trading_session (id, trade_code, trade_date, player_name, villager_id) OVERRIDING SYSTEM VALUE VALUES (12, 'TRD-12', '2024-01-16 21:00:00', 'Dream', 6) ON CONFLICT DO NOTHING;
+INSERT INTO trading_session (id, trade_code, trade_date, player_name, villager_id) OVERRIDING SYSTEM VALUE VALUES (13, 'TRD-13', '2024-01-17 22:00:00', 'MumboJumbo', 4) ON CONFLICT DO NOTHING;
+INSERT INTO trading_session (id, trade_code, trade_date, player_name, villager_id) OVERRIDING SYSTEM VALUE VALUES (14, 'TRD-14', '2024-01-18 23:00:00', 'Steve', 1) ON CONFLICT DO NOTHING;
+INSERT INTO trading_session (id, trade_code, trade_date, player_name, villager_id) OVERRIDING SYSTEM VALUE VALUES (15, 'TRD-15', '2024-01-19 10:00:00', 'Alex', 5) ON CONFLICT DO NOTHING;
+INSERT INTO trading_session (id, trade_code, trade_date, player_name, villager_id) OVERRIDING SYSTEM VALUE VALUES (16, 'TRD-16', '2024-01-20 11:00:00', 'Stampy', 6) ON CONFLICT DO NOTHING;
+INSERT INTO trading_session (id, trade_code, trade_date, player_name, villager_id) OVERRIDING SYSTEM VALUE VALUES (17, 'TRD-17', '2026-06-01 12:00:00', 'Sira', 14) ON CONFLICT DO NOTHING;
 
 -- Line Items
 
@@ -479,6 +496,43 @@ INSERT INTO mining_line_item (mining_id, block_mined_id, quantity_mined, tool_us
 INSERT INTO mining_line_item (mining_id, block_mined_id, quantity_mined, tool_used_id, durability_lost, tool_status) VALUES (15, 12, 80, 24, 80, 'Usable') ON CONFLICT DO NOTHING;
 -- (GUIDE) #1.2.2 POPULATE LINE ITEMS HERE
 
+-- Punyawat Sookarsa (trading_line_item)
+-- TRD-1
+INSERT INTO trading_line_item (trading_session_id, line_number, item_given_id, quantity_given, item_received_id, quantity_received, trade_uses_remaining) VALUES (1, 1, 11, 32, 10, 1, 10) ON CONFLICT DO NOTHING;
+INSERT INTO trading_line_item (trading_session_id, line_number, item_given_id, quantity_given, item_received_id, quantity_received, trade_uses_remaining) VALUES (1, 2, 12, 20, 10, 2, 10) ON CONFLICT DO NOTHING;
+-- TRD-2
+INSERT INTO trading_line_item (trading_session_id, line_number, item_given_id, quantity_given, item_received_id, quantity_received, trade_uses_remaining) VALUES (2, 1, 6, 15, 10, 1, 10) ON CONFLICT DO NOTHING;
+-- TRD-3
+INSERT INTO trading_line_item (trading_session_id, line_number, item_given_id, quantity_given, item_received_id, quantity_received, trade_uses_remaining) VALUES (3, 1, 11, 16, 10, 1, 10) ON CONFLICT DO NOTHING;
+-- TRD-4
+INSERT INTO trading_line_item (trading_session_id, line_number, item_given_id, quantity_given, item_received_id, quantity_received, trade_uses_remaining) VALUES (4, 1, 17, 15, 10, 1, 10) ON CONFLICT DO NOTHING;
+-- TRD-5
+INSERT INTO trading_line_item (trading_session_id, line_number, item_given_id, quantity_given, item_received_id, quantity_received, trade_uses_remaining) VALUES (5, 1, 6, 15, 10, 1, 10) ON CONFLICT DO NOTHING;
+-- TRD-6
+INSERT INTO trading_line_item (trading_session_id, line_number, item_given_id, quantity_given, item_received_id, quantity_received, trade_uses_remaining) VALUES (6, 1, 3, 25, 10, 1, 10) ON CONFLICT DO NOTHING;
+-- TRD-7
+INSERT INTO trading_line_item (trading_session_id, line_number, item_given_id, quantity_given, item_received_id, quantity_received, trade_uses_remaining) VALUES (7, 1, 12, 15, 10, 1, 10) ON CONFLICT DO NOTHING;
+-- TRD-8
+INSERT INTO trading_line_item (trading_session_id, line_number, item_given_id, quantity_given, item_received_id, quantity_received, trade_uses_remaining) VALUES (8, 1, 19, 10, 10, 1, 12) ON CONFLICT DO NOTHING;
+-- TRD-9
+INSERT INTO trading_line_item (trading_session_id, line_number, item_given_id, quantity_given, item_received_id, quantity_received, trade_uses_remaining) VALUES (9, 1, 6, 19, 10, 8, 10) ON CONFLICT DO NOTHING;
+-- TRD-10
+INSERT INTO trading_line_item (trading_session_id, line_number, item_given_id, quantity_given, item_received_id, quantity_received, trade_uses_remaining) VALUES (10, 1, 3, 25, 10, 4, 10) ON CONFLICT DO NOTHING;
+-- TRD-11
+INSERT INTO trading_line_item (trading_session_id, line_number, item_given_id, quantity_given, item_received_id, quantity_received, trade_uses_remaining) VALUES (11, 1, 15, 5, 10, 8, 0) ON CONFLICT DO NOTHING;
+-- TRD-12
+INSERT INTO trading_line_item (trading_session_id, line_number, item_given_id, quantity_given, item_received_id, quantity_received, trade_uses_remaining) VALUES (12, 1, 6, 32, 10, 1, 10) ON CONFLICT DO NOTHING;
+-- TRD-13
+INSERT INTO trading_line_item (trading_session_id, line_number, item_given_id, quantity_given, item_received_id, quantity_received, trade_uses_remaining) VALUES (13, 1, 17, 15, 10, 1, 10) ON CONFLICT DO NOTHING;
+-- TRD-14
+INSERT INTO trading_line_item (trading_session_id, line_number, item_given_id, quantity_given, item_received_id, quantity_received, trade_uses_remaining) VALUES (14, 1, 12, 25, 10, 2, 0) ON CONFLICT DO NOTHING;
+-- TRD-15
+INSERT INTO trading_line_item (trading_session_id, line_number, item_given_id, quantity_given, item_received_id, quantity_received, trade_uses_remaining) VALUES (15, 1, 19, 11, 10, 1, 0) ON CONFLICT DO NOTHING;
+-- TRD-16
+INSERT INTO trading_line_item (trading_session_id, line_number, item_given_id, quantity_given, item_received_id, quantity_received, trade_uses_remaining) VALUES (16, 1, 6, 32, 10, 1, 10) ON CONFLICT DO NOTHING;
+-- TRD-17
+INSERT INTO trading_line_item (trading_session_id, line_number, item_given_id, quantity_given, item_received_id, quantity_received, trade_uses_remaining) VALUES (17, 1, 17, 11, 10, 2, 10) ON CONFLICT DO NOTHING;
+
 -- update sequences to max id (crutial when inserting explicit IDs)
 SELECT setval(pg_get_serial_sequence('item', 'id'), coalesce(max(id),0) + 1, false) FROM item;
 SELECT setval(pg_get_serial_sequence('recipe', 'id'), coalesce(max(id),0) + 1, false) FROM recipe;
@@ -501,6 +555,9 @@ SELECT setval(pg_get_serial_sequence('smelting_line_item', 'id'), coalesce(max(i
 
 SELECT setval(pg_get_serial_sequence('mining', 'id'), coalesce(max(id),0) + 1, false) FROM mining;
 SELECT setval(pg_get_serial_sequence('mining_line_item', 'id'), coalesce(max(id),0) + 1, false) FROM mining_line_item;
+
+SELECT setval(pg_get_serial_sequence('trading_session', 'id'), coalesce(max(id),0) + 1, false) FROM trading_session;
+SELECT setval(pg_get_serial_sequence('trading_line_item', 'id'), coalesce(max(id),0) + 1, false) FROM trading_line_item;
 
 -- (GUIDE) #1.2.3 ADD SELECT COMMAND FOR YOUR SIMPLE FORM AND LINE ITEM HERE (just copy and rename)
 -- SELECT setval(pg_get_serial_sequence('TABLE_NAME', 'id'), coalesce(max(id),0) + 1, false) FROM TABLE_NAME;
