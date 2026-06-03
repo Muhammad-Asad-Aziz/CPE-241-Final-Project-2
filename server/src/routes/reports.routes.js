@@ -14,6 +14,9 @@ r.get("/trading-by-villager", c.getTradingsByVillager);
 r.get("/locked-trades", c.getLockedTrades);
 r.get("/trading-volume-profession", c.getTradingVolumeByProfession);
 
+r.get("/enchanted-tool", c.getEnchantedTool);
+r.get("/anvil-history", c.getPlayerAnvilHistory);
+r.get("/XP-type", c.getXPByType);
 r.get("/mining-history", c.getBiomeMiningHistory);
 r.get("/broken-tools", c.getBrokenTools);
 r.get("/blocks-mined", c.getTotalBlocksMined);

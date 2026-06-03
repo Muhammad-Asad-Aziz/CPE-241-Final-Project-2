@@ -153,6 +153,24 @@ INSERT INTO crafting (crafting_date, session_id, player_id, target_item_id, qty_
 INSERT INTO crafting (crafting_date, session_id, player_id, target_item_id, qty_wanted) VALUES ('2026-03-22 20:15:01', 14, 14, null, 14) ON CONFLICT DO NOTHING;
 INSERT INTO crafting (crafting_date, session_id, player_id, target_item_id, qty_wanted) VALUES ('2026-03-22 20:25:01', 15, 15, null, 15) ON CONFLICT DO NOTHING;
 
+-- Maimoona Aziz 67070503473
+-- Populating Anvil 
+INSERT INTO anvil (id, anvil_date, player_id, total_xp_cost, player_xp_before, player_xp_after) VALUES (1, '2024-05-16 11:30:15', 1, 5, 30, 25) ON CONFLICT DO NOTHING;
+INSERT INTO anvil (id, anvil_date, player_id, total_xp_cost, player_xp_before, player_xp_after) VALUES (2, '2024-06-27 15:45:01', 2, 3, 15, 12) ON CONFLICT DO NOTHING;
+INSERT INTO anvil (id, anvil_date, player_id, total_xp_cost, player_xp_before, player_xp_after) VALUES (3, '2024-08-14 20:22:33', 3, 10, 99, 89) ON CONFLICT DO NOTHING;
+INSERT INTO anvil (id, anvil_date, player_id, total_xp_cost, player_xp_before, player_xp_after) VALUES (4, '2024-11-09 03:11:45', 4, 4, 50, 46) ON CONFLICT DO NOTHING;
+INSERT INTO anvil (id, anvil_date, player_id, total_xp_cost, player_xp_before, player_xp_after) VALUES (5, '2025-01-22 11:05:30', 5, 2, 40, 38) ON CONFLICT DO NOTHING;
+INSERT INTO anvil (id, anvil_date, player_id, total_xp_cost, player_xp_before, player_xp_after) VALUES (6, '2025-03-12 17:20:10', 6, 7, 25, 18) ON CONFLICT DO NOTHING;
+INSERT INTO anvil (id, anvil_date, player_id, total_xp_cost, player_xp_before, player_xp_after) VALUES (7, '2025-06-03 12:15:00', 7, 6, 80, 74) ON CONFLICT DO NOTHING;
+INSERT INTO anvil (id, anvil_date, player_id, total_xp_cost, player_xp_before, player_xp_after) VALUES (8, '2025-07-18 10:33:44', 8, 1, 12, 11) ON CONFLICT DO NOTHING;
+INSERT INTO anvil (id, anvil_date, player_id, total_xp_cost, player_xp_before, player_xp_after) VALUES (9, '2025-09-08 21:41:05', 9, 8, 45, 37) ON CONFLICT DO NOTHING;
+INSERT INTO anvil (id, anvil_date, player_id, total_xp_cost, player_xp_before, player_xp_after) VALUES (10, '2025-10-23 14:55:22', 10, 5, 22, 17) ON CONFLICT DO NOTHING;
+INSERT INTO anvil (id, anvil_date, player_id, total_xp_cost, player_xp_before, player_xp_after) VALUES (11, '2025-12-31 09:00:00', 11, 9, 60, 51) ON CONFLICT DO NOTHING;
+INSERT INTO anvil (id, anvil_date, player_id, total_xp_cost, player_xp_before, player_xp_after) VALUES (12, '2026-01-16 19:24:39', 12, 3, 18, 15) ON CONFLICT DO NOTHING;
+INSERT INTO anvil (id, anvil_date, player_id, total_xp_cost, player_xp_before, player_xp_after) VALUES (13, '2026-02-10 16:40:12', 13, 2, 5, 3) ON CONFLICT DO NOTHING;
+INSERT INTO anvil (id, anvil_date, player_id, total_xp_cost, player_xp_before, player_xp_after) VALUES (14, '2026-02-24 22:19:55', 14, 4, 14, 10) ON CONFLICT DO NOTHING;
+INSERT INTO anvil (id, anvil_date, player_id, total_xp_cost, player_xp_before, player_xp_after) VALUES (15, '2026-03-24 13:30:45', 15, 12, 65, 53) ON CONFLICT DO NOTHING;
+
 --Al Xander James Ybanez 67070503450
 -- Populating smelting table
 INSERT INTO smelting (id, smelt_date, player_id, furnace_location_xyz) OVERRIDING SYSTEM VALUE VALUES (1, '2024-05-14 09:10:00', 1, '100,64,250');
@@ -233,6 +251,25 @@ INSERT INTO crafting_line_item (crafting_id, crafting_line_number, session_id, i
 INSERT INTO crafting_line_item (crafting_id, crafting_line_number, session_id, ingredient_id, required_quantity, total_needed) VALUES (14, 1, 14, 10, 2, 3) ON CONFLICT DO NOTHING;
 INSERT INTO crafting_line_item (crafting_id, crafting_line_number, session_id, ingredient_id, required_quantity, total_needed) VALUES (15, 1, 15, 13, 4, 5) ON CONFLICT DO NOTHING;
 
+-- Maimoona Aziz 67070503473
+-- Populating Anvil Line Item
+INSERT INTO anvil_line_item (id, anvil_id, anvil_line_number, target_tool_id, current_durability, sacrifice_item_id, restored_durability, enchantment_id) VALUES (1, 1, 1, 8, 100, 5, 250, NULL) ON CONFLICT DO NOTHING;
+INSERT INTO anvil_line_item (id, anvil_id, anvil_line_number, target_tool_id, current_durability, sacrifice_item_id, restored_durability, enchantment_id) VALUES (2, 2, 1, 9, 500, 7, 1000, NULL) ON CONFLICT DO NOTHING;
+INSERT INTO anvil_line_item (id, anvil_id, anvil_line_number, target_tool_id, current_durability, sacrifice_item_id, restored_durability, enchantment_id) VALUES (3, 3, 1, 8, 200, NULL, 200, 1) ON CONFLICT DO NOTHING;
+INSERT INTO anvil_line_item (id, anvil_id, anvil_line_number, target_tool_id, current_durability, sacrifice_item_id, restored_durability, enchantment_id) VALUES (4, 4, 1, 20, 50, 5, 150, NULL) ON CONFLICT DO NOTHING;
+INSERT INTO anvil_line_item (id, anvil_id, anvil_line_number, target_tool_id, current_durability, sacrifice_item_id, restored_durability, enchantment_id) VALUES (5, 5, 1, 9, 800, NULL, 800, 2) ON CONFLICT DO NOTHING;
+INSERT INTO anvil_line_item (id, anvil_id, anvil_line_number, target_tool_id, current_durability, sacrifice_item_id, restored_durability, enchantment_id) VALUES (6, 6, 1, 8, 150, 5, 300, NULL) ON CONFLICT DO NOTHING;
+INSERT INTO anvil_line_item (id, anvil_id, anvil_line_number, target_tool_id, current_durability, sacrifice_item_id, restored_durability, enchantment_id) VALUES (7, 7, 1, 9, 100, 7, 600, 3) ON CONFLICT DO NOTHING;
+INSERT INTO anvil_line_item (id, anvil_id, anvil_line_number, target_tool_id, current_durability, sacrifice_item_id, restored_durability, enchantment_id) VALUES (8, 8, 1, 20, 20, 5, 120, NULL) ON CONFLICT DO NOTHING;
+INSERT INTO anvil_line_item (id, anvil_id, anvil_line_number, target_tool_id, current_durability, sacrifice_item_id, restored_durability, enchantment_id) VALUES (9, 9, 1, 8, 50, NULL, 50, 4) ON CONFLICT DO NOTHING;
+INSERT INTO anvil_line_item (id, anvil_id, anvil_line_number, target_tool_id, current_durability, sacrifice_item_id, restored_durability, enchantment_id) VALUES (10, 10, 1, 9, 400, 7, 900, NULL) ON CONFLICT DO NOTHING;
+INSERT INTO anvil_line_item (id, anvil_id, anvil_line_number, target_tool_id, current_durability, sacrifice_item_id, restored_durability, enchantment_id) VALUES (11, 11, 1, 20, 10, 5, 110, 5) ON CONFLICT DO NOTHING;
+INSERT INTO anvil_line_item (id, anvil_id, anvil_line_number, target_tool_id, current_durability, sacrifice_item_id, restored_durability, enchantment_id) VALUES (12, 12, 1, 8, 220, 5, 370, NULL) ON CONFLICT DO NOTHING;
+INSERT INTO anvil_line_item (id, anvil_id, anvil_line_number, target_tool_id, current_durability, sacrifice_item_id, restored_durability, enchantment_id) VALUES (13, 13, 1, 24, 700, 7, 1200, 6) ON CONFLICT DO NOTHING;
+INSERT INTO anvil_line_item (id, anvil_id, anvil_line_number, target_tool_id, current_durability, sacrifice_item_id, restored_durability, enchantment_id) VALUES (14, 14, 1, 20, 80, 5, 180, NULL) ON CONFLICT DO NOTHING;
+INSERT INTO anvil_line_item (id, anvil_id, anvil_line_number, target_tool_id, current_durability, sacrifice_item_id, restored_durability, enchantment_id) VALUES (15, 15, 1, 8, 10, 5, 160, 7) ON CONFLICT DO NOTHING;
+
+
 -- Populating table: smelting_line_item
 INSERT INTO smelting_line_item (id, smelting_id, raw_input_item_id, quantity_inserted, fuel_item_id, fuel_consumed, output_item_id, output_quantity) OVERRIDING SYSTEM VALUE VALUES (1, 1, 4, 16, 6, 2, 5, 16);
 INSERT INTO smelting_line_item (id, smelting_id, raw_input_item_id, quantity_inserted, fuel_item_id, fuel_consumed, output_item_id, output_quantity) OVERRIDING SYSTEM VALUE VALUES (2, 2, 12, 32, 6, 4, 13, 32);
@@ -284,6 +321,8 @@ SELECT setval(pg_get_serial_sequence('transfer_line_item', 'id'), coalesce(max(i
 SELECT setval(pg_get_serial_sequence('crafting', 'id'), coalesce(max(id),0) + 1, false) FROM crafting;
 SELECT setval(pg_get_serial_sequence('crafting_line_item', 'id'), coalesce(max(id),0) + 1, false) FROM crafting_line_item;
 
+SELECT setval(pg_get_serial_sequence('anvil', 'id'), coalesce(max(id),0) + 1, false) FROM anvil;
+SELECT setval(pg_get_serial_sequence('anvil_line_item', 'id'), coalesce(max(id),0) + 1, false) FROM anvil_line_item;
 SELECT setval(pg_get_serial_sequence('smelting', 'id'), coalesce(max(id),0) + 1, false) FROM smelting;
 SELECT setval(pg_get_serial_sequence('smelting_line_item', 'id'), coalesce(max(id),0) + 1, false) FROM smelting_line_item;
 

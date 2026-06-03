@@ -30,6 +30,25 @@ export async function getTopCraftedItems(params) {
     return unwrap(res);
 }
 
+// Maimoona's reports
+export async function getEnchantedTool(params) {
+    const query = new URLSearchParams(params).toString();
+    const res = await http(`/api/reports/enchanted-tool?${query}`);
+    return unwrap(res);
+}
+
+export async function getPlayerAnvilHistory(params) {
+    const query = new URLSearchParams(params).toString();
+    const res = await http(`/api/reports/anvil-history?${query}`);
+    return unwrap(res);
+}
+
+export async function getXPByType(params) {
+    const query = new URLSearchParams(params).toString();
+    const res = await http(`/api/reports/XP-type?${query}`);
+    return unwrap(res);
+}
+
 // Punyawat reports
 export async function getTradingsByVillager(params) {
     const query = new URLSearchParams(params).toString();
@@ -49,7 +68,8 @@ export async function getTradingVolumeByProfession(params) {
     return unwrap(res);
 }
 
-// Iris reports
+
+// Iris' Reports
 export async function getBiomeMiningHistory(params) {
     const query = new URLSearchParams(params).toString();
     const res = await http(`/api/reports/mining-history?${query}`);
@@ -77,9 +97,15 @@ export async function getReportData(type, params = {}) {
     if (type === "crafting-history") return getPlayerCraftingHistory(params);
     if (type === "recipe-requirements") return getRecipeRequirements(params);
     if (type === "top-crafted") return getTopCraftedItems(params);
+
+    if (type === "enchanted-tool") return getEnchantedTool(params);
+    if (type === "anvil-history") return getPlayerAnvilHistory(params);
+    if (type === "XP-type") return getXPByType(params);
+
     if (type === "trading-by-villager") return getTradingsByVillager(params);
     if (type === "locked-trades") return getLockedTrades(params);
     if (type === "trading-volume-profession") return getTradingVolumeByProfession(params);
+    
     if (type === "mining-history") return getBiomeMiningHistory(params);
     if (type === "broken-tools") return getBrokenTools(params);
     if (type === "blocks-mined") return getTotalBlocksMined(params);
