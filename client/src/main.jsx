@@ -26,6 +26,8 @@ import CraftingsList from "./pages/craftings/CraftingsList.jsx"; //Supanut
 import CraftingsPage from "./pages/craftings/CraftingsPage.jsx"; //Crafting
 import SmeltingsList from "./pages/smeltings/SmeltingsList.jsx"; //Xander
 import SmeltingsPage from "./pages/smeltings/SmeltingsPage.jsx";//Smelting
+import TradingsList from "./pages/tradings/TradingsList.jsx"; // Punyawat
+import TradingsPage from "./pages/tradings/TradingsPage.jsx"; // Trading
 import MiningList from "./pages/minings/MiningList.jsx"; //Iris
 import MiningPage from "./pages/minings/MiningPage.jsx";//Mining
 // (GUIDE) #3.9.1 ADD YOUR WORK HERE
@@ -111,7 +113,15 @@ function Sidebar() {
           Smelting
         </NavLink>
 
-        {/* Mining (Primary Function) */}
+        {/* Villager Trades - Punyawat */}
+        <NavLink to="/tradings" className={getLinkClass}>
+          <svg style={{ marginRight: 10 }} width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M17 1l4 4-4 4"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><path d="M7 23l-4-4 4-4"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/>
+          </svg>
+          Villager Trades
+        </NavLink>
+
+        {/* Mining - Iris */}
         <NavLink to="/minings" className={getLinkClass}>
           <svg style={{ marginRight: 10 }} width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
@@ -216,7 +226,19 @@ function Sidebar() {
           <NavLink to="/reports/fuel-analysis" className={getSubLinkClass}>
             Fuel Analysis
           </NavLink>
-        
+
+          {/* Punyawat Reports */}
+          <NavLink to="/reports/trading-by-villager" className={getSubLinkClass}>
+            Trades by Villager
+          </NavLink>
+          <NavLink to="/reports/locked-trades" className={getSubLinkClass}>
+            Locked Trades
+          </NavLink>
+          <NavLink to="/reports/trading-volume-profession" className={getSubLinkClass}>
+            Trading Volume
+          </NavLink>
+
+          {/* Iris Reports */}
           <NavLink to="/reports/mining-history" className={getSubLinkClass}>
             Biome Mining History
           </NavLink>
@@ -224,7 +246,7 @@ function Sidebar() {
             Broken Tools
           </NavLink>
           <NavLink to="/reports/blocks-mined" className={getSubLinkClass}>
-            Blocks Mined By Tool 
+            Blocks Mined By Tool
           </NavLink>
           
         </SubMenu>
@@ -399,7 +421,18 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         <Route path="/smeltings/:id" element={<Layout><SmeltingsPage mode="view" /></Layout>} />
         <Route path="/smeltings/:id/edit" element={<Layout><SmeltingsPage mode="edit" /></Layout>} />
 
-        {/* Minings */}
+        {/* Tradings - Punyawat */}
+        <Route path="/tradings" element={<Layout><TradingsList /></Layout>} />
+        <Route path="/tradings/new" element={<Layout><TradingsPage /></Layout>} />
+        <Route path="/tradings/:id" element={<Layout><TradingsPage /></Layout>} />
+        <Route path="/tradings/:id/edit" element={<Layout><TradingsPage /></Layout>} />
+
+        {/* Trading Reports - Punyawat */}
+        <Route path="/reports/trading-by-villager" element={<Layout><Reports type="trading-by-villager" /></Layout>} />
+        <Route path="/reports/locked-trades" element={<Layout><Reports type="locked-trades" /></Layout>} />
+        <Route path="/reports/trading-volume-profession" element={<Layout><Reports type="trading-volume-profession" /></Layout>} />
+
+        {/* Minings - Iris */}
         <Route path="/minings" element={<Layout><MiningList /></Layout>} />
         <Route path="/minings/new" element={<Layout><MiningPage mode="create" /></Layout>} />
         <Route path="/minings/:id" element={<Layout><MiningPage mode="view" /></Layout>} />

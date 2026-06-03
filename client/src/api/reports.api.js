@@ -48,6 +48,7 @@ export async function getFuelAnalysis(params) {
     return unwrap(res);
 }
 
+// Maimoona's reports
 export async function getEnchantedTool(params) {
     const query = new URLSearchParams(params).toString();
     const res = await http(`/api/reports/enchanted-tool?${query}`);
@@ -66,6 +67,27 @@ export async function getXPByType(params) {
     return unwrap(res);
 }
 
+// Punyawat reports
+export async function getTradingsByVillager(params) {
+    const query = new URLSearchParams(params).toString();
+    const res = await http(`/api/reports/trading-by-villager?${query}`);
+    return unwrap(res);
+}
+
+export async function getLockedTrades(params) {
+    const query = new URLSearchParams(params).toString();
+    const res = await http(`/api/reports/locked-trades?${query}`);
+    return unwrap(res);
+}
+
+export async function getTradingVolumeByProfession(params) {
+    const query = new URLSearchParams(params).toString();
+    const res = await http(`/api/reports/trading-volume-profession?${query}`);
+    return unwrap(res);
+}
+
+
+// Iris' Reports
 export async function getBiomeMiningHistory(params) {
     const query = new URLSearchParams(params).toString();
     const res = await http(`/api/reports/mining-history?${query}`);
@@ -82,9 +104,10 @@ export async function getTotalBlocksMined(params) {
     const query = new URLSearchParams(params).toString();
     const res = await http(`/api/reports/blocks-mined?${query}`);
     return unwrap(res);
-} 
-  
+}
+
 // (GUIDE) #3.6 ADD YOUR REPORTS HERE
+
 
 export async function getReportData(type, params = {}) {
   const path = REPORT_ENDPOINTS[type] || REPORT_ENDPOINTS["chest-inventory"];
@@ -100,6 +123,10 @@ export async function getReportData(type, params = {}) {
     if (type === "enchanted-tool") return getEnchantedTool(params);
     if (type === "anvil-history") return getPlayerAnvilHistory(params);
     if (type === "XP-type") return getXPByType(params);
+
+    if (type === "trading-by-villager") return getTradingsByVillager(params);
+    if (type === "locked-trades") return getLockedTrades(params);
+    if (type === "trading-volume-profession") return getTradingVolumeByProfession(params);
     
     if (type === "mining-history") return getBiomeMiningHistory(params);
     if (type === "broken-tools") return getBrokenTools(params);

@@ -486,6 +486,7 @@ SELECT setval(pg_get_serial_sequence('enchantment', 'id'), coalesce(max(id),0) +
 SELECT setval(pg_get_serial_sequence('player', 'id'), coalesce(max(id),0) + 1, false) FROM player;
 SELECT setval(pg_get_serial_sequence('chest', 'id'), coalesce(max(id),0) + 1, false) FROM chest;
 SELECT setval(pg_get_serial_sequence('villager', 'id'), coalesce(max(id),0) + 1, false) FROM villager;
+
 SELECT setval(pg_get_serial_sequence('transfer', 'id'), coalesce(max(id),0) + 1, false) FROM transfer;
 SELECT setval(pg_get_serial_sequence('transfer_line_item', 'id'), coalesce(max(id),0) + 1, false) FROM transfer_line_item;
 
@@ -494,6 +495,7 @@ SELECT setval(pg_get_serial_sequence('crafting_line_item', 'id'), coalesce(max(i
 
 SELECT setval(pg_get_serial_sequence('anvil', 'id'), coalesce(max(id),0) + 1, false) FROM anvil;
 SELECT setval(pg_get_serial_sequence('anvil_line_item', 'id'), coalesce(max(id),0) + 1, false) FROM anvil_line_item;
+
 SELECT setval(pg_get_serial_sequence('smelting', 'id'), coalesce(max(id),0) + 1, false) FROM smelting;
 SELECT setval(pg_get_serial_sequence('smelting_line_item', 'id'), coalesce(max(id),0) + 1, false) FROM smelting_line_item;
 
