@@ -156,7 +156,74 @@ export async function getTopCraftedItems({ fromDate, toDate }) {
     return rows;
 }
 
+// Report 1 by Maimoona Aziz: List tools by enchantment.
+export async function getEnchantedTool({enchantmentName}) {
+  const { rows } = await pool.query(
+    `SELECT
+      a.id AS "anvil_id",
+      a.anvil_date AS "date",
+      p.username AS "player",
+      i.item_name AS "target_tool",
+      e.enchantment_name AS "enchantment",
+      e.max_level AS "max_level",
+      a.total_xp_cost AS "xp_cost"
+    FROM anvil a                     
+    JOIN player p ON a.player_id = p.id 
+    JOIN anvil_line_item al ON a.id = al.anvil_id
+    JOIN item i ON al.target_tool_id = i.id      
+    JOIN enchantment e ON al.enchantment_id = e.id 
+    WHERE e.enchantment_name = $1
+    ORDER BY a.anvil_date DESC`,
+    [enchantmentName]
+  );
+  return rows
+}
+
+// Report 2 by Maimoona Aziz: List anvil modification history by player username.
+export async function getPlayerAnvilHistory({playerName}) {
+  const { rows } = await pool.query(
+    `SELECT
+      a.id AS "anvil_id",
+      a.anvil_date AS "date",
+      p.username AS "player",
+      i.item_name AS "target_tool",
+      al.current_durability AS "curr_durability",
+      al.restored_durability AS "new_durability",
+      a.player_xp_before AS "xp_before",
+      a.player_xp_after AS "xp_after"
+    FROM anvil a                      
+    JOIN player p ON a.player_id = p.id  
+    JOIN anvil_line_item al ON a.id = al.anvil_id 
+    JOIN item i ON al.target_tool_id = i.id      
+    WHERE p.username = $1
+    ORDER BY a.anvil_date DESC`,
+    [playerName]
+  );
+  return rows
+}
+
+// Analysis Report 3 by Maimoona Aziz: List tools by date.
+export async function getXPByType({fromDate, toDate}) {
+  const { rows } = await pool.query(
+    `SELECT
+      i.item_name AS "TOOL TYPE",
+      COUNT(DISTINCT a.id) AS "JOBS",
+      SUM(a.total_xp_cost) AS "TOTAL XP SPENT",
+      ROUND(AVG(a.total_xp_cost), 1) AS "AVG XP/JOB",
+      ROUND(AVG(al.current_durability), 1) AS "AVG DUR BEFORE",
+      ROUND(AVG(al.restored_durability), 1) AS "AVG DUR AFTER"
+    FROM anvil a
+    JOIN anvil_line_item al ON a.id = al.anvil_id
+    JOIN item i ON al.target_tool_id = i.id
+    WHERE a.anvil_date BETWEEN $1 AND $2
+    GROUP BY i.item_name
+    ORDER BY "TOTAL XP SPENT" DESC`,
+    [fromDate, toDate]
+  );
+  return rows
+}
 // Report 1 by Xander: List all ores smelted in a specific Furnace Location: ___ (Proposal)
+
 export async function getFurnaceLocationReport({ location = "" }) {
     const { rows } = await pool.query(
         `SELECT s.id AS "Job_ID", 

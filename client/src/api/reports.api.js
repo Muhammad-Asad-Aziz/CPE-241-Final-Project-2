@@ -45,6 +45,23 @@ export async function getPlayerFuelHistory(params) {
 export async function getFuelAnalysis(params) {
     const query = new URLSearchParams(params).toString();
     const res = await http(`/api/reports/fuel-analysis?${query}`);
+}
+
+export async function getEnchantedTool(params) {
+    const query = new URLSearchParams(params).toString();
+    const res = await http(`/api/reports/enchanted-tool?${query}`);
+    return unwrap(res);
+}
+
+export async function getPlayerAnvilHistory(params) {
+    const query = new URLSearchParams(params).toString();
+    const res = await http(`/api/reports/anvil-history?${query}`);
+    return unwrap(res);
+}
+
+export async function getXPByType(params) {
+    const query = new URLSearchParams(params).toString();
+    const res = await http(`/api/reports/XP-type?${query}`);
     return unwrap(res);
 }
 
@@ -78,6 +95,10 @@ export async function getReportData(type, params = {}) {
     if (type === "furnace-location") return getFurnaceLocation(params);
     if (type === "player-fuel") return getPlayerFuelHistory(params);
     if (type === "fuel-analysis") return getFuelAnalysis(params);
+    
+    if (type === "enchanted-tool") return getEnchantedTool(params);
+    if (type === "anvil-history") return getPlayerAnvilHistory(params);
+    if (type === "XP-type") return getXPByType(params);
     
     if (type === "mining-history") return getBiomeMiningHistory(params);
     if (type === "broken-tools") return getBrokenTools(params);

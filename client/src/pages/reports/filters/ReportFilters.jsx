@@ -4,6 +4,7 @@ import { listPlayers } from "../../../api/players.api.js";
 import { listItems } from "../../../api/items.api.js"; 
 import { listSmeltings } from "../../../api/smeltings.api.js";
 import { listMinings } from "../../../api/minings.api.js";
+import { listEnchantments } from "../../../api/enchantments.api.js"; 
 
 export default function ReportFilters({ type, filters, onChange, onApply }) {
   const [chests, setChests] = React.useState([]);
@@ -11,12 +12,13 @@ export default function ReportFilters({ type, filters, onChange, onApply }) {
   const [items, setItems] = React.useState([]);
   const [smeltings, setSmeltings] = React.useState([]);
   const [minings, setMinings] = React.useState([]);
+  const [enchantments, setEnchantments] = React.useState([]);
 
   React.useEffect(() => {
     if (type === "chest-inventory") {
       listChests({ limit: 1000 }).then(res => setChests(res.data || []));
     }
-    if (type === "crafting-history" || type === "player-fuel") {
+    if (type === "crafting-history" || type === "player-fuel" || type === "anvil-history") {
       listPlayers({ limit: 1000 }).then(res => setPlayers(res.data || []));
     }
     if (type === "recipe-requirements") {
@@ -35,6 +37,9 @@ export default function ReportFilters({ type, filters, onChange, onApply }) {
         else if (res?.data && Array.isArray(res.data)) setMinings(res.data);
         else if (res?.data?.data) setMinings(res.data.data);
       }).catch(err => console.error("Error loading mining history in filters:", err));
+    }
+    if (type === "enchanted-tool") {
+      listEnchantments({ limit: 1000 }).then(res => setEnchantments(res.data || []));
     }
   }, [type]);
 
@@ -172,6 +177,67 @@ export default function ReportFilters({ type, filters, onChange, onApply }) {
       )}
 
       {/* ----------------------------------------- */}
+      {/* ANVIL REPORTS  */}
+      {/* ----------------------------------------- */}
+
+      {/* 1. TOOL BY ENCHANTMENT FILTER (Dropdown) */}
+      {type === "enchanted-tool" && (
+        <div className="form-group" style={{ margin: 0, width: "300px" }}>
+            <label className="form-label">Select Enchantment</label>
+            <select 
+              className="form-control" 
+              value={filters.enchantmentName || ""} 
+              onChange={(e) => onChange({ ...filters, enchantmentName: e.target.value })}
+            >
+              <option value="">-- Choose Enchantment --</option>
+              {enchantments && enchantments.map(e => (
+                <option key={e.id} value={e.enchantment_name}>{e.enchantment_name}</option>
+              ))}
+            </select>
+          </div>
+      )}
+
+      {/* 2. ANVIL HISTORY FILTER (Dropdown) */}
+      {type === "anvil-history" && (
+        <div className="form-group" style={{ margin: 0, width: "300px" }}>
+          <label className="form-label">Select Player</label>
+          <select 
+            className="form-control" 
+            value={filters.playerName || ""} 
+            onChange={(e) => onChange({ ...filters, playerName: e.target.value })}
+          >
+            <option value="">-- Choose Player --</option>
+            {players.map(p => (
+              <option key={p.id} value={p.username}>{p.username}</option>
+            ))}
+          </select>
+        </div>
+      )}
+
+      {/* 3. XP COST BY TOOL TYPE FILTER (date) */}
+      {type === "XP-type" && (
+        <>
+            <div className="form-group" style={{ margin: 0, width: "200px" }}>
+              <label className="form-label">Date From</label>
+              <input 
+                type="date" 
+                className="form-control" 
+                value={filters.fromDate || ""} 
+                onChange={(e) => onChange({ ...filters, fromDate: e.target.value })}
+              />
+            </div>
+            <div className="form-group" style={{ margin: 0, width: "200px" }}>
+              <label className="form-label">Date To</label>
+              <input 
+                type="date" 
+                className="form-control" 
+                value={filters.toDate || ""} 
+                onChange={(e) => onChange({ ...filters, toDate: e.target.value })}
+              />
+            </div>
+          </>
+      )}
+          
       {/* Mining REPORTS  */}
       {/* ----------------------------------------- */}
 

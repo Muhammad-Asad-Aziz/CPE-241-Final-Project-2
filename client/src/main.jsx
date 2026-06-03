@@ -5,6 +5,8 @@ import { BrowserRouter, Routes, Route, NavLink, Navigate } from "react-router-do
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
+import AnvilList from "./pages/anvils/AnvilList.jsx";
+import AnvilPage from "./pages/anvils/AnvilPage.jsx";
 import TransferList from "./pages/transfers/TransferList.jsx";
 import TransferPage from "./pages/transfers/TransferPage.jsx";
 import PlayerList from "./pages/players/PlayerList.jsx";
@@ -20,7 +22,6 @@ import RecipePage from "./pages/recipes/RecipePage.jsx";
 import EnchantmentList from "./pages/enchantments/EnchantmentList.jsx";
 import EnchantmentPage from "./pages/enchantments/EnchantmentPage.jsx";
 import Reports from "./pages/reports/Reports.jsx";
-
 import CraftingsList from "./pages/craftings/CraftingsList.jsx"; //Supanut
 import CraftingsPage from "./pages/craftings/CraftingsPage.jsx"; //Crafting
 import SmeltingsList from "./pages/smeltings/SmeltingsList.jsx"; //Xander
@@ -118,6 +119,14 @@ function Sidebar() {
           Mining
         </NavLink>
 
+        {/* Anvil */}
+        <NavLink to="/anvils" className={getLinkClass}>
+          <svg style={{ marginRight: 10 }} width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+          </svg>
+          Anvil
+        </NavLink>
+
         {/* (GUIDE) #3.9.2 ADD YOUR WORK HERE */}
 
         {/* Players */}
@@ -181,6 +190,16 @@ function Sidebar() {
           </NavLink>
           <NavLink to="/reports/top-crafted"className={getSubLinkClass}>
           Top Crafted Items
+          </NavLink>
+
+          <NavLink to="/reports/enchanted-tool" className={getSubLinkClass}>
+            Enchanted Tool History
+          </NavLink>
+          <NavLink to="/reports/anvil-history" className={getSubLinkClass}>
+          Anvil History
+          </NavLink>
+          <NavLink to="/reports/XP-type"className={getSubLinkClass}>
+          XP Cost by Tool Type
           </NavLink>
 
         <NavLink to="/reports/furnace-location" className={getSubLinkClass}>
@@ -355,6 +374,10 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         <Route path="/reports/player-fuel" element={<Layout><Reports type="player-fuel" /></Layout>} />
         <Route path="/reports/fuel-analysis" element={<Layout><Reports type="fuel-analysis" /></Layout>} />
         
+        <Route path="/reports/enchanted-tool" element={<Layout><Reports type="enchanted-tool" /></Layout>} />
+        <Route path="/reports/anvil-history" element={<Layout><Reports type="anvil-history" /></Layout>} />
+        <Route path="/reports/XP-type" element={<Layout><Reports type="XP-type" /></Layout>} />
+
         <Route path="/reports/mining-history" element={<Layout><Reports type="mining-history" /></Layout>} />
         <Route path="/reports/broken-tools" element={<Layout><Reports type="broken-tools" /></Layout>} />
         <Route path="/reports/blocks-mined" element={<Layout><Reports type="blocks-mined" /></Layout>} />
@@ -376,6 +399,12 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         <Route path="/minings/new" element={<Layout><MiningPage mode="create" /></Layout>} />
         <Route path="/minings/:id" element={<Layout><MiningPage mode="view" /></Layout>} />
         <Route path="/minings/:id/edit" element={<Layout><MiningPage mode="edit" /></Layout>} />
+
+        {/* Anvils */}
+        <Route path="/anvils" element={<Layout><AnvilList /></Layout>} />
+        <Route path="/anvils/new" element={<Layout><AnvilPage mode="create" /></Layout>} />
+        <Route path="/anvils/:id" element={<Layout><AnvilPage mode="view" /></Layout>} />
+        <Route path="/anvils/:id/edit" element={<Layout><AnvilPage mode="edit" /></Layout>} />
 
         {/* (GUIDE) #3.9.3 ADD YOUR ROUTES HERE*/}
       </Routes>

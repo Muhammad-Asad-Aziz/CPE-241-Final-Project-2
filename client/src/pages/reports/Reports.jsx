@@ -117,6 +117,48 @@ const REPORT_CONFIG = {
     ]
   },
   
+  "enchanted-tool": {
+    title: "Enchanted Tool History",
+    subtitle: "Simple: List all tools modified with a specific enchantment.",
+    emptyMessage: "No tools found with this enchantment.",
+    getColumns: () => [
+      { key: "date", label: "Interaction Date", render: (v) => formatDate(v) },
+      { key: "anvil_id", label: "Workorder ID", render: (v) => `ANV-${v}` },
+      { key: "player", label: "Player Username", render: (v) => <span className="font-bold">{v}</span> },
+      { key: "target_tool", label: "Target Tool", render: (v) => <span style={{ color: "var(--primary)", fontWeight: 600 }}>{v}</span> },
+      { key: "enchantment", label: "Applied Enchantment" },
+      { key: "max_level", label: "Max Level", align: "right" },
+      { key: "xp_cost", label: "XP Level Cost", align: "right", style: { color: "#ef4444", fontWeight: "bold" } }
+    ]
+  },
+  "anvil-history": {
+    title: "Player Anvil History",
+    subtitle: "Simple: List all anvil sessions made by a specific player.",
+    emptyMessage: "No anvil history found for this player.",
+    getColumns: () => [
+      { key: "date", label: "Date", render: (v) => formatDate(v) },
+      { key: "anvil_id", label: "Session ID", render: (v) => `ANV-${v}` },
+      { key: "target_tool", label: "Target Item", render: (v) => <span className="font-bold">{v}</span> },
+      { key: "curr_durability", label: "Current Durability", align: "right" },
+      { key: "new_durability", label: "New Durability", align: "right", style: { color: "var(--primary)", fontWeight: "bold" } },
+      { key: "xp_before", label: "XP Before", align: "right" },
+      { key: "xp_after", label: "XP After", align: "right" }
+    ]
+  },
+  "XP-type": {
+    title: "Total XP Cost by Tool Type",
+    subtitle: "Analysis: List XP On Tool Types",
+    emptyMessage: "No tools found for this cost.",
+    getColumns: () => [
+      { key: "TOOL TYPE", label: "Item Name", render: (v) => <span className="font-bold">{v}</span> },
+      { key: "JOBS", label: "Jobs", align: "right" },
+      { key: "TOTAL XP SPENT", label: "Total XP Spent", align: "right", style: { color: "#ef4444", fontWeight: "bold" } },
+      { key: "AVG XP/JOB", label: "Avg XP/Job", align: "right" },
+      { key: "AVG DUR BEFORE", label: "Avg Dur Before", align: "right" },
+      { key: "AVG DUR AFTER", label: "Avg Dur After", align: "right" }
+    ]
+  },
+  
   "mining-history": {
     title: "Mining History of each Biome",
     subtitle: "Simple: Shows the amount of blocks that was mined in each biome.",

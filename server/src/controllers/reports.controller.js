@@ -54,7 +54,6 @@ export async function getTopCraftedItems(req, res) {
     }
 }
 
-
 export async function getFurnaceLocationReport(req, res, next) {
   try {
     const { location } = req.query;
@@ -85,6 +84,33 @@ export async function getFuelAnalysis(req, res, next) {
   }
 }
 
+export async function getEnchantedTool(req, res) {
+    try {
+        const data = await reportsService.getEnchantedTool(req.query);
+        res.json({ success: true, data });
+    } catch (err) {
+        res.status(500).json({ success: false, error: err.message });
+    }
+}
+
+export async function getPlayerAnvilHistory(req, res) {
+    try {
+        const data = await reportsService.getPlayerAnvilHistory(req.query);
+        res.json({ success: true, data });
+    } catch (err) {
+        res.status(500).json({ success: false, error: err.message });
+    }
+}
+
+export async function getXPByType(req, res) {
+    try {
+        const data = await reportsService.getXPByType(req.query);
+        res.json({ success: true, data });
+    } catch (err) {
+        res.status(500).json({ success: false, error: err.message });
+    }
+}
+
 export async function getBiomeMiningHistory(req, res) {
     try {
         const data = await reportsService.getBiomeMiningHistory(req.query);
@@ -111,4 +137,5 @@ export async function getTotalBlocksMined(req, res) {
         res.status(500).json({ success: false, error: err.message });
     }
 }
+
 // (GUIDE) #3.4 ADD YOUR REPORTS HERE

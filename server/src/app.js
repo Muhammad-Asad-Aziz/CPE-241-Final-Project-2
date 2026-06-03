@@ -14,8 +14,8 @@ import chestsRoutes from "./routes/chests.routes.js";
 import villagersRoutes from "./routes/villagers.routes.js";
 import recipesRoutes from "./routes/recipes.routes.js";
 import enchantmentsRoutes from "./routes/enchantments.routes.js";
-
 import craftingsRoutes from "./routes/craftings.routes.js"; //Supanut Crafting here
+import anvilsRoutes from "./routes/anvils.routes.js"; // Maimoona Anvil 
 import smeltingsRoutes from "./routes/smeltings.routes.js"; //Xander smelting
 import miningsRoutes from "./routes/minings.routes.js"; //Iris mining
 // (GUIDE) #2.4.1 ADD YOUR ROUTES HERE
@@ -120,8 +120,8 @@ app.use("/api/chests", chestsRoutes);
 app.use("/api/villagers", villagersRoutes);
 app.use("/api/recipes", recipesRoutes);
 app.use("/api/enchantments", enchantmentsRoutes);
-
 app.use("/api/craftings", craftingsRoutes); //supanut app use
+app.use("/api/anvils", anvilsRoutes); // Maimoona app use
 app.use("/api/smeltings", smeltingsRoutes); //Xander
 app.use("/api/minings", miningsRoutes); //Iris
 // (GUIDE) #2.4.2 ADD YOUR API HERE
